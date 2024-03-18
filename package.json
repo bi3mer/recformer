@@ -1,0 +1,17 @@
+{
+  "name": "scary_dungeon_js",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "bun build src/index.ts --outfile dist/index.js",
+    "watch": "bun build src/index.ts --outfile dist/index.js --watch",
+    "prod": "bun build src/index.ts --outfile dist/index.js --minify"
+  },
+  "author": "Colan F. Biemer",
+  "devDependencies": {},
+  "dependencies": {
+    "clingo-wasm": "^0.1.1",
+    "rot-js": "^2.2.0"
+  }
+}
