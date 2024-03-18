@@ -5,23 +5,24 @@ import { GameScene } from "./gameScene";
 import { KEY_GAME, KEY_MAIN_MENU } from "./sceneKeys";
 
 export class Engine {
-  private uiCanvas: HTMLCanvasElement
-  private uiCtx: CanvasRenderingContext2D
+  private canvas: HTMLCanvasElement
+  private ctx: CanvasRenderingContext2D
 
   private currentScene: Scene
   private sceneManager: SceneManager
 
   constructor() {
-    this.uiCanvas = document.createElement("canvas");
-    this.uiCanvas.setAttribute('id', 'uiCanvas');
-    this.uiCtx = this.uiCanvas.getContext('2d')!;
+    this.canvas = document.createElement("canvas");
+    this.canvas.setAttribute('id', 'canvas');
+    this.canvas.width = 720;
+    this.canvas.height = 480;
 
-    document.getElementById('game')!.appendChild(this.uiCanvas);
+    this.ctx = this.canvas.getContext('2d')!;
+    document.getElementById('game')!.appendChild(this.canvas);
 
     this.sceneManager = new SceneManager();
     this.sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene());
-    this.sceneManager.registerScene(KEY_GAME, new GameScene());
-
+    this.sceneManager.registerScene(KEY_GAME, new GameScene(720, 480, 32, this.ctx));
 
     this.currentScene = this.sceneManager.getScene(KEY_MAIN_MENU)!;
     this.currentScene.onEnter();
@@ -36,6 +37,7 @@ export class Engine {
 
       // run scene
       this.currentScene.update(dt);
+      this.currentScene.render();
 
       // check if the scene has to be changed
       const scene = this.currentScene.changeScene;

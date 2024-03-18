@@ -14,6 +14,10 @@ export class MainMenuScene extends Scene {
     this.changeScene = KEY_GAME;
   }
 
+  render(): void {
+    // pass for now
+  }
+
   protected _onExit(): void {
   }
 }

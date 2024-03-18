@@ -3,6 +3,7 @@ export abstract class Scene {
 
   abstract onEnter(): void
   abstract update(dt: number): void;
+  abstract render(): void;
   protected abstract _onExit(): void;
 
   // It would be better if I could disallow this from being overwritten, but
