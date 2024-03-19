@@ -1,4 +1,5 @@
 
+import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 
 export class Enemy extends GameObject {
@@ -11,7 +12,7 @@ export class Enemy extends GameObject {
 
   }
 
-  render(ctx: CanvasRenderingContext2D): void {
+  render(ctx: CanvasRenderingContext2D, camera: Camera): void {
 
   }
 } 

@@ -1,3 +1,5 @@
+import { Camera } from "./camera";
+
 export abstract class GameObject {
   public x: number
   public y: number
@@ -8,5 +10,5 @@ export abstract class GameObject {
   }
 
   abstract update(dt: number): void;
-  abstract render(ctx: CanvasRenderingContext2D): void;
+  abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
 }

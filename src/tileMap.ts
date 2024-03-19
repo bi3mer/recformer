@@ -33,7 +33,6 @@ export class TileMap {
   }
 
   public isSolidFromWorldCoordinates(x: number, y: number): boolean {
-    console.log(x, Math.floor(x / TILE_SIZE));
     return this.isSolid(
       Math.floor(x / TILE_SIZE),
       Math.floor(y / TILE_SIZE));

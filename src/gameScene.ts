@@ -24,7 +24,7 @@ export class GameScene extends Scene {
   }
 
   onEnter(): void {
-    this.entities.push(new Player(0, 13 * TILE_SIZE, this.tileMap)); // player is always the first entity 
+    this.entities.push(new Player(0, 13, this.tileMap)); // player is always the first entity 
   }
 
   update(dt: number): void {
@@ -36,17 +36,13 @@ export class GameScene extends Scene {
 
   render(): void {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.camera.render(this.entities[0].x, this.tileMap, this.ctx)
-
-    this.ctx.fillStyle = "rgba(255,255,0,1)";
-    this.ctx.beginPath();
-    this.ctx.moveTo(TILE_SIZE, 0);
-    this.ctx.lineTo(TILE_SIZE, SCREEN_HEIGHT);
-    this.ctx.stroke();
+    console.log(this.entities, this.camera);
+    this.camera.update(this.entities[0].x); // Camera is centered on the player
+    this.camera.renderTileMap(this.tileMap, this.ctx)
 
     const size = this.entities.length;
     for (let i = 0; i < size; ++i) {
-      this.entities[i].render(this.ctx);
+      this.entities[i].render(this.ctx, this.camera);
     }
   }
 
