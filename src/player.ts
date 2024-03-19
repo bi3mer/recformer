@@ -1,21 +1,28 @@
 
+import { TILE_SIZE } from "./constants";
 import { GameObject } from "./gameObject";
 import { InputManager, Key } from "./inputManager";
+import { TileMap } from "./tileMap";
 
 const PLAYER_WIDTH = 20;
 const PLAYER_HEIGHT = 30;
 const MAX_MOVE_MOD = 8;
+
 export class Player extends GameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;
 
-  constructor(x: number, y: number) {
+  private tileMap: TileMap;
+
+  constructor(x: number, y: number, tilemap: TileMap) {
     super(x, y);
+
+    this.tileMap = tilemap;
   }
 
   update(dt: number): void {
-
+    // Handle plaayer input
     if (InputManager.isKeyDown(Key.D, Key.RIGHT)) {
       this.movingRight = true;
       this.x += 4;
@@ -26,13 +33,21 @@ export class Player extends GameObject {
       this.movingLeft = true;
       this.x -= 4;
       this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + 1);
-      // this.moveMod = Math.max(-MAX_MOVE_MOD, this.moveMod - 1);
+    }
+
+    if (InputManager.isKeyDown(Key.SPACE)) {
+      this.y -= 4;
     }
 
     if (this.movingLeft && this.movingRight) {
       this.movingLeft = false;
       this.movingRight = false;
       this.moveMod = 0;
+    }
+
+    // Lazy physics
+    if (!this.tileMap.isSolidFromWorldCoordinates(this.x, this.y + TILE_SIZE)) {
+      this.y += 1;
     }
   }
 

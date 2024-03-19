@@ -3,6 +3,7 @@ import { SceneManager } from "./sceneManager";
 import { MainMenuScene } from "./mainMenuScene";
 import { GameScene } from "./gameScene";
 import { KEY_GAME, KEY_MAIN_MENU } from "./sceneKeys";
+import { SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE } from "./constants";
 
 export class Engine {
   private canvas: HTMLCanvasElement
@@ -14,15 +15,16 @@ export class Engine {
   constructor() {
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute('id', 'canvas');
-    this.canvas.width = 720;
-    this.canvas.height = 480;
+    this.canvas.width = SCREEN_WIDTH;
+    this.canvas.height = SCREEN_HEIGHT;
+
 
     this.ctx = this.canvas.getContext('2d')!;
     document.getElementById('game')!.appendChild(this.canvas);
 
     this.sceneManager = new SceneManager();
     this.sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene());
-    this.sceneManager.registerScene(KEY_GAME, new GameScene(720, 480, 32, this.ctx));
+    this.sceneManager.registerScene(KEY_GAME, new GameScene(this.ctx));
 
     this.currentScene = this.sceneManager.getScene(KEY_MAIN_MENU)!;
     this.currentScene.onEnter();

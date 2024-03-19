@@ -1,3 +1,5 @@
+import { TILE_SIZE } from "./constants";
+
 export class TileMap {
   private solids: boolean[];
   public columns: number;
@@ -28,5 +30,12 @@ export class TileMap {
   public isSolid(x: number, y: number): boolean {
     const index = y * this.columns + x;
     return index >= 0 && index < this.solids.length && this.solids[index];
+  }
+
+  public isSolidFromWorldCoordinates(x: number, y: number): boolean {
+    console.log(x, Math.floor(x / TILE_SIZE));
+    return this.isSolid(
+      Math.floor(x / TILE_SIZE),
+      Math.floor(y / TILE_SIZE));
   }
 }
