@@ -36,7 +36,11 @@ export class GameScene extends Scene {
 
   render(): void {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.camera.update(this.entities[0].x); // Camera is centered on the player
+
+    // Update camera view based on the player before rendering
+    this.camera.update(this.entities[0].pos.x);
+
+    // render the tile map and the entitites
     this.camera.renderTileMap(this.tileMap, this.ctx)
 
     const size = this.entities.length;

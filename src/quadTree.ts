@@ -101,8 +101,8 @@ export class QuadTree {
     this.cleanUpTreesFromMovingEntities();
   }
 
-  private moveOutOfBoundsEntities(): Entity[] {
-    let leftTree: Entity[] = [];
+  private moveOutOfBoundsEntities(): GameObject[] {
+    let leftTree: GameObject[] = [];
 
     if (this.occupants === null) {
       // get all entities that aren't in the correct space in the tree
@@ -134,7 +134,6 @@ export class QuadTree {
         --i;
       }
     }
-
 
     return leftTree;
   }
