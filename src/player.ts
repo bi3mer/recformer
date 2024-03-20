@@ -5,7 +5,6 @@ import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
 import { InputManager, Key } from "./inputManager";
 import { Point } from "./point";
-import { QuadTree } from "./quadTree";
 
 const MOVE = 0.1;
 const MAX_MOVE_MOD = 8;
@@ -17,15 +16,12 @@ export class Player extends GameObject {
   private moveMod: number = 0;
   private deltaMove: Point = new Point(0, 0);
 
-  private tempQuadTree: QuadTree;
-
   public isDead: boolean;
   public coinsCollected: number = 0;
 
-  constructor(x: number, y: number, quadTree: QuadTree) {
+  constructor(x: number, y: number) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
 
-    this.tempQuadTree = quadTree;
     this.isDead = false;
   }
 
@@ -58,9 +54,9 @@ export class Player extends GameObject {
       this.moveMod = 0;
     }
 
-    // Lazy physics, the player is going downwards!
-    this.pos.y += MOVE;
-    this.deltaMove.y += MOVE;
+    // Gravity
+    this.pos.y += 2 * dt;
+    this.deltaMove.y += 2 * dt;
 
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
@@ -69,9 +65,8 @@ export class Player extends GameObject {
     }
   }
 
-
-  handleCollision(otherType: number): void {
-    switch (otherType) {
+  handleCollision(other: GameObject): void {
+    switch (other.type) {
       case TYPE_BLOCK: {
         // TODO: this currently stops the player from moving horizontally
         this.pos.x -= this.deltaMove.x;
@@ -88,7 +83,7 @@ export class Player extends GameObject {
         break;
       }
       default: {
-        console.warn(`Player unhandled collision type: ${otherType}.`);
+        console.warn(`Player unhandled collision type: ${other.type}.`);
         break;
       }
     }

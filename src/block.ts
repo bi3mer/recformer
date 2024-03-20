@@ -15,7 +15,7 @@ export class Block extends GameObject {
   }
 
 
-  handleCollision(otherType: number): void {
+  handleCollision(other: GameObject): void {
     // Nothing happens, the block is static
   }
 

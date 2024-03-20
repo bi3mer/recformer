@@ -6,13 +6,11 @@ import { Player } from "./player";
 import { Block } from "./block";
 import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
-import { QuadTree } from "./quadTree";
 import { Point } from "./point";
 import { Coin } from "./coin";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
-  private quadTree: QuadTree;
   private camera: Camera;
   private numCoins: number;
 
@@ -31,13 +29,8 @@ export class GameScene extends Scene {
     this.staticEntities = [];
 
     this.numCoins = 0;
-    this.quadTree = new QuadTree(
-      new Point(-5, 0),
-      new Point(tempLVL[0].length + 5, NUM_ROWS + 5)
-    );
 
-    this.dynamicEntities.push(new Player(2, 12, this.quadTree)); // player is always the first entity 
-    this.quadTree.insert(this.dynamicEntities[0]);
+    this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity 
     const lvl = tempLVL;
     const rows = lvl.length;
     if (rows !== NUM_ROWS) {
@@ -57,27 +50,34 @@ export class GameScene extends Scene {
         if (row[col] === 'X') {
           const b = new Block(col, r);
           this.staticEntities.push(b);
-          this.quadTree.insert(b);
         } else if (row[col] === 'o') {
           const c = new Coin(col, r);
           ++this.numCoins;
           this.dynamicEntities.push(c);
-          this.quadTree.insert(c);
         }
       }
     }
-
-    console.log(this.quadTree);
   }
 
   update(dt: number): void {
-    const size = this.dynamicEntities.length;
-    for (let i = 0; i < size; ++i) {
+    const dynamicSize = this.dynamicEntities.length;
+    let i = 0;
+    for (; i < dynamicSize; ++i) {
       this.dynamicEntities[i].update(dt);
     }
 
-    this.quadTree.update();
-    this.quadTree.physicsUpdate();
+    const staticSize = this.staticEntities.length;
+    let jj: number;
+    for (let i = 0; i < dynamicSize; ++i) {
+      const e = this.dynamicEntities[i];
+      for (jj = i + 1; jj < dynamicSize; ++jj) {
+        e.collision(this.dynamicEntities[jj]);
+      }
+
+      for (jj = 0; jj < staticSize; ++jj) {
+        e.collision(this.staticEntities[jj]);
+      }
+    }
 
     // TODO: handle entity removal, especially for coins
 

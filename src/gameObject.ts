@@ -6,7 +6,7 @@ import { rectangleIntersect } from "./util";
 export abstract class GameObject {
   public pos: Point;
   public size: Point;
-  protected type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
+  public type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
 
   constructor(x: number, y: number, w: number, h: number, type: number) {
     this.pos = new Point(x, y);
@@ -19,10 +19,10 @@ export abstract class GameObject {
 
   collision(other: GameObject): void {
     if (rectangleIntersect(this.pos, this.size, other.pos, other.size)) {
-      this.handleCollision(other.type);
-      other.handleCollision(this.type);
+      this.handleCollision(other);
+      other.handleCollision(this);
     }
   }
 
-  abstract handleCollision(otherType: number): void;
+  abstract handleCollision(other: GameObject): void;
 }

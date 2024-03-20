@@ -14,7 +14,7 @@ export class Enemy extends GameObject {
 
   }
 
-  handleCollision(otherType: number): void {
+  handleCollision(other: GameObject): void {
 
   }
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {

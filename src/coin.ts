@@ -12,8 +12,8 @@ export class Coin extends GameObject {
 
   }
 
-  handleCollision(otherType: number): void {
-    console.log("Coin collision, I need to remove myself!");
+  handleCollision(other: GameObject): void {
+    console.log("Coin collision, I need to remove myself! If it was a player that hit me!");
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
