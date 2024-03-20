@@ -8,12 +8,13 @@ import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 import { QuadTree } from "./quadTree";
 import { Point } from "./point";
+import { Coin } from "./coin";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
   private quadTree: QuadTree;
-  private tileMap: TileMap;
   private camera: Camera;
+  private numCoins: number;
 
   private entities: GameObject[];
 
@@ -26,6 +27,7 @@ export class GameScene extends Scene {
   }
 
   onEnter(): void {
+    this.numCoins = 0;
     this.quadTree = new QuadTree(
       new Point(0, 0),
       new Point(tempLVL[0].length * TILE_SIZE, 15 * TILE_SIZE)
@@ -53,6 +55,11 @@ export class GameScene extends Scene {
           const b = new Block(col, r);
           this.entities.push(b);
           this.quadTree.insert(b);
+        } else if (row[col] === 'o') {
+          const c = new Coin(col, r);
+          ++this.numCoins;
+          this.entities.push(c);
+          this.quadTree.insert(c);
         }
       }
     }
@@ -68,6 +75,13 @@ export class GameScene extends Scene {
 
     this.quadTree.update();
     this.quadTree.physicsUpdate();
+
+    // TODO: handle entity removal, especially for coins
+
+    if ((this.entities[0] as Player).coinsCollected === this.numCoins) {
+      console.log("Player won!");
+      this.changeScene = KEY_MAIN_MENU;
+    }
 
     // if the player is dead, we're done
     if ((this.entities[0] as Player).isDead) {
