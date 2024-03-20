@@ -55,6 +55,7 @@ export class Player extends GameObject {
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.fillStyle = "rgba(150,150,255,1)";
+    console.log(this.x, camera.columnToScreen(this.x));
     ctx.fillRect(camera.columnToScreen(this.x), camera.rowToScreen(this.y), PLAYER_WIDTH, PLAYER_HEIGHT);
 
     return;

@@ -36,7 +36,7 @@ export class GameScene extends Scene {
 
   render(): void {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    console.log(this.entities, this.camera);
+    console.log(this.camera);
     this.camera.update(this.entities[0].x); // Camera is centered on the player
     this.camera.renderTileMap(this.tileMap, this.ctx)
 

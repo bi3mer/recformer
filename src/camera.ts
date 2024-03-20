@@ -1,16 +1,18 @@
 import { SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { TileMap } from "./tileMap"
-import { GameObject } from "./gameObject";
 
 export class Camera {
   private startCol: number = 0;
   private endCol: number = 0;
   private offsetX: number = 0;
+  private colsPerScreen: number = Math.ceil(SCREEN_WIDTH / TILE_SIZE);
+
 
   update(x: number) {
-    this.startCol = Math.max(0, Math.floor(x / TILE_SIZE));
-    this.endCol = this.startCol + Math.ceil(SCREEN_WIDTH / TILE_SIZE);
-    this.offsetX = -x + this.startCol * TILE_SIZE;
+    const halfX = x - this.colsPerScreen / 2;
+    this.startCol = Math.max(0, Math.floor(halfX));
+    this.endCol = this.startCol + this.colsPerScreen;
+    this.offsetX = -halfX * TILE_SIZE + this.startCol * TILE_SIZE;
   }
 
   columnToScreen(col: number): number {
