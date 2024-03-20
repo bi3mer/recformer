@@ -1,4 +1,4 @@
-import { TILE_SIZE } from "./constants";
+import { NUM_ROWS, TILE_SIZE } from "./constants";
 
 export class TileMap {
   private solids: boolean[];
@@ -8,7 +8,7 @@ export class TileMap {
     this.solids = [];
 
     const rows = lvl.length;
-    if (rows !== 15) {
+    if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
       return;
     }

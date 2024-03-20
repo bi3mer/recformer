@@ -1,13 +1,13 @@
 
 import { Camera } from "./camera";
-import { PLAYER_HEIGHT, PLAYER_WIDTH, TILE_SIZE } from "./constants";
+import { NUM_ROWS, PLAYER_HEIGHT, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, PLAYER_WIDTH, TILE_SIZE } from "./constants";
 import { GameObject } from "./gameObject";
 import { InputManager, Key } from "./inputManager";
 import { TileMap } from "./tileMap";
 
 const MOVE = 0.1;
 const MAX_MOVE_MOD = 8;
-const DEATH_HEIGHT = PLAYER_HEIGHT * 0.7;
+const DEATH_HEIGHT = NUM_ROWS + 1;
 
 export class Player extends GameObject {
   private movingRight: boolean = false;
@@ -56,6 +56,7 @@ export class Player extends GameObject {
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
       this.isDead = true;
+      console.log("GAME OVER!", this.pos);
     }
   }
 
@@ -67,9 +68,9 @@ export class Player extends GameObject {
     if (this.movingRight) {
       let region = new Path2D();
       region.moveTo(x, y);
-      region.lineTo(x - this.moveMod, y + PLAYER_HEIGHT);
-      region.lineTo(x + PLAYER_WIDTH - this.moveMod, y + PLAYER_HEIGHT);
-      region.lineTo(x + PLAYER_WIDTH, y);
+      region.lineTo(x - this.moveMod, y + PLAYER_SCREEN_HEIGHT);
+      region.lineTo(x + PLAYER_SCREEN_WIDTH - this.moveMod, y + PLAYER_SCREEN_HEIGHT);
+      region.lineTo(x + PLAYER_SCREEN_WIDTH, y);
       region.closePath();
 
       ctx.fill(region, "evenodd");
@@ -78,15 +79,15 @@ export class Player extends GameObject {
     } else if (this.movingLeft) {
       let region = new Path2D();
       region.moveTo(x, y);
-      region.lineTo(x + this.moveMod, y + PLAYER_HEIGHT);
-      region.lineTo(x + PLAYER_WIDTH + this.moveMod, y + PLAYER_HEIGHT);
-      region.lineTo(x + PLAYER_WIDTH, y);
+      region.lineTo(x + this.moveMod, y + PLAYER_SCREEN_HEIGHT);
+      region.lineTo(x + PLAYER_SCREEN_WIDTH + this.moveMod, y + PLAYER_SCREEN_HEIGHT);
+      region.lineTo(x + PLAYER_SCREEN_WIDTH, y);
       region.closePath();
 
       ctx.fill(region, "evenodd");
       this.movingLeft = false;
     } else {
-      ctx.fillRect(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
+      ctx.fillRect(x, y, PLAYER_SCREEN_WIDTH, PLAYER_SCREEN_HEIGHT);
     }
   }
 } 

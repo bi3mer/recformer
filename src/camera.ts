@@ -1,4 +1,4 @@
-import { SCREEN_WIDTH, TILE_SIZE } from "./constants";
+import { NUM_ROWS, SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { TileMap } from "./tileMap"
 
 export class Camera {
@@ -31,7 +31,7 @@ export class Camera {
     for (let col = this.startCol; col <= this.endCol && col < tileMap.columns; ++col) {
       const x = (col - this.startCol) * TILE_SIZE + this.offsetX;
 
-      for (let row = 0; row < 15; ++row) { // see above comment
+      for (let row = 0; row < NUM_ROWS; ++row) { // see above comment
         if (tileMap.isSolid(col, row)) {
           ctx.strokeRect(x, row * TILE_SIZE, TILE_SIZE, TILE_SIZE);
         }
