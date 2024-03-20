@@ -1,6 +1,6 @@
 import { GameObject } from "./gameObject";
 import { Point } from "./point";
-import { clamp } from "./util";
+import { clamp, errorrectangleIntersect, rectangleIntersect } from "./util";
 
 const MAX_DETPH = 5;
 
@@ -9,6 +9,7 @@ export class QuadTree {
   occupants: null | GameObject[]
   min: Point
   max: Point
+  size: Point
   depth: number
 
   constructor(min: Point, max: Point, depth: number = 0) {
@@ -17,6 +18,7 @@ export class QuadTree {
 
     this.min = min;
     this.max = max;
+    this.size = new Point(max.x - min.x, max.y - min.y);
 
     this.depth = depth;
   }
@@ -195,6 +197,8 @@ export class QuadTree {
         inBounds ||= this.subTrees![i].inBounds(entity);
       }
     }
+    //------------------------------------------ 
+
     this.subTrees![0].insert(entity); // sue me!
     this.subTrees![1].insert(entity);
     this.subTrees![2].insert(entity);
@@ -219,15 +223,7 @@ export class QuadTree {
     this.addToSubTrees(this.occupants![3]);
   }
 
-
   private inBounds(entity: GameObject): boolean {
-    const cx = entity.pos.x;
-    const cy = entity.pos.y;
-    const r = entity.mass;
-
-    const dx = cx - clamp(cx, this.min.x, this.max.x);
-    const dy = cy - clamp(cy, this.min.y, this.max.y);
-
-    return dx * dx + dy * dy <= r * r;
+    return rectangleIntersect(entity.pos, entity.size, this.min, this.size);
   }
 }

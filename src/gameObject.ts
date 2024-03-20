@@ -1,30 +1,28 @@
 import { Camera } from "./camera";
 import { Point } from "./point";
+import { rectangleIntersect } from "./util";
 
 // ALl game objects are rectangles, sue me
 export abstract class GameObject {
   public pos: Point;
   public size: Point;
+  protected type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
 
-  constructor(x: number, y: number, w: number, h: number) {
+  constructor(x: number, y: number, w: number, h: number, type: number) {
     this.pos = new Point(x, y);
     this.size = new Point(w, h);
+    this.type = type;
   }
 
   abstract update(dt: number): void;
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
 
-  collision(other: GameObject): boolean {
-    const ax1 = this.pos.x;
-    const ay1 = this.pos.y;
-    const ax2 = ax1 + this.size.x;
-    const ay2 = ay1 + this.size.y;
-
-    const bx1 = other.pos.x;
-    const by1 = other.pos.y;
-    const bx2 = bx1 + other.size.x;
-    const by2 = by1 + other.size.y;
-
-    return ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1;
+  collision(other: GameObject): void {
+    if (rectangleIntersect(this.pos, this.size, other.pos, other.size)) {
+      this.handleCollision(other.type);
+      other.handleCollision(this.type);
+    }
   }
+
+  abstract handleCollision(otherType: number): void;
 }
