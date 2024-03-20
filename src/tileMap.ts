@@ -4,7 +4,7 @@ export class TileMap {
   private solids: boolean[];
   public columns: number;
 
-  constructor(lvl: string[]) {
+  public readLevel(lvl: string[]) {
     this.solids = [];
 
     const rows = lvl.length;

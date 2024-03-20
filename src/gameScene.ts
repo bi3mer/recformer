@@ -1,11 +1,11 @@
-
 import { tempLVL } from "./level";
 import { Scene } from "./scene";
 import { TileMap } from "./tileMap";
 import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
-import { SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { KEY_MAIN_MENU } from "./sceneKeys";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D
@@ -18,19 +18,25 @@ export class GameScene extends Scene {
     super();
 
     this.ctx = ctx;
-    this.tileMap = new TileMap(tempLVL);
+    this.tileMap = new TileMap();
     this.camera = new Camera();
     this.entities = [];
   }
 
   onEnter(): void {
-    this.entities.push(new Player(0, 13, this.tileMap)); // player is always the first entity 
+    this.tileMap.readLevel(tempLVL);
+    this.entities.push(new Player(2, 13, this.tileMap)); // player is always the first entity 
   }
 
   update(dt: number): void {
     const size = this.entities.length;
     for (let i = 0; i < size; ++i) {
       this.entities[i].update(dt);
+    }
+
+    // if the player is dead, we're done
+    if ((this.entities[0] as Player).isDead) {
+      this.changeScene = KEY_MAIN_MENU;
     }
   }
 
@@ -51,7 +57,5 @@ export class GameScene extends Scene {
 
   protected _onExit(): void {
     this.entities = []; // remove entities
-    // reset camera
-    // reset tile map
   }
 }

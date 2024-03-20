@@ -7,6 +7,7 @@ import { TileMap } from "./tileMap";
 
 const MOVE = 0.1;
 const MAX_MOVE_MOD = 8;
+const DEATH_HEIGHT = PLAYER_HEIGHT * 0.7;
 
 export class Player extends GameObject {
   private movingRight: boolean = false;
@@ -14,11 +15,13 @@ export class Player extends GameObject {
   private moveMod: number = 0;
 
   private tileMap: TileMap;
+  public isDead: boolean;
 
   constructor(x: number, y: number, tilemap: TileMap) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT);
 
     this.tileMap = tilemap;
+    this.isDead = false;
   }
 
   update(dt: number): void {
@@ -48,6 +51,11 @@ export class Player extends GameObject {
     // Lazy physics, the player is going downwards!
     if (!this.tileMap.isSolid(Math.floor(this.pos.x), Math.floor(this.pos.y + 1))) {
       this.pos.y += MOVE;
+    }
+
+    // check if the player has died from falling through the map
+    if (this.pos.y > DEATH_HEIGHT) {
+      this.isDead = true;
     }
   }
 
