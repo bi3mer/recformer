@@ -59,10 +59,8 @@ export class Player extends GameObject {
     }
 
     // Lazy physics, the player is going downwards!
-    if (this.tempQuadTree) {
-      this.pos.y += MOVE;
-      this.deltaMove.y = MOVE;
-    }
+    this.pos.y += MOVE;
+    this.deltaMove.y += MOVE;
 
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {

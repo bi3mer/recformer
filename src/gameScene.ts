@@ -32,8 +32,8 @@ export class GameScene extends Scene {
 
     this.numCoins = 0;
     this.quadTree = new QuadTree(
-      new Point(0, 0),
-      new Point(tempLVL[0].length * TILE_SIZE, 15 * TILE_SIZE)
+      new Point(-5, 0),
+      new Point(tempLVL[0].length + 5, NUM_ROWS + 5)
     );
 
     this.dynamicEntities.push(new Player(2, 12, this.quadTree)); // player is always the first entity 
@@ -82,7 +82,7 @@ export class GameScene extends Scene {
     // TODO: handle entity removal, especially for coins
 
     const player = this.dynamicEntities[0] as Player;
-    if (player.coinsCollected === this.numCoins) {
+    if (player.coinsCollected >= this.numCoins) {
       console.log("Player won!");
       this.changeScene = KEY_MAIN_MENU;
     }
