@@ -64,24 +64,34 @@ export class InputManager {
       case 'Escape':
         return Key.ESCAPE;
       case 'a':
+      case 'A':
         return Key.A;
       case 'e':
+      case 'E':
         return Key.E;
       case 's':
+      case 'S':
         return Key.S;
       case 'd':
+      case 'D':
         return Key.D;
       case 'w':
+      case 'W':
         return Key.W;
       case 'r':
+      case 'R':
         return Key.R;
       case 'q':
+      case 'Q':
         return Key.Q;
       case 'g':
+      case 'G':
         return Key.G;
       case 'h':
+      case 'H':
         return Key.H;
       case 'i':
+      case 'I':
         return Key.I;
       case 'Enter':
         return Key.ENTER;

@@ -27,35 +27,29 @@ export class Player extends GameObject {
   }
 
   update(dt: number): void {
+    this.velocity.zero();
 
     // Handle plaayer input
     if (InputManager.isKeyDown(Key.D, Key.RIGHT)) {
       this.movingRight = true;
-      this.deltaMove.x = MOVE;
+      this.velocity.x = MOVE;
       this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
     }
 
     if (InputManager.isKeyDown(Key.A, Key.LEFT)) {
-      this.movingLeft = true;
-      this.pos.x -= MOVE;
-      this.deltaMove.x = -MOVE;
-      this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
+      if (this.movingRight) {
+        this.movingRight = false;
+        this.velocity.x = 0;
+      } else {
+        this.movingLeft = true;
+        this.velocity.x = -MOVE;
+        this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
+      }
     }
 
     if (InputManager.isKeyDown(Key.SPACE)) {
-      this.pos.y -= MOVE * 3;
-      this.deltaMove.y = -MOVE * 3;
+      this.velocity.y = MOVE * 3;
     }
-
-    if (this.movingLeft && this.movingRight) {
-      this.movingLeft = false;
-      this.movingRight = false;
-      this.moveMod = 0;
-    }
-
-    // Gravity
-    this.pos.y += 2 * dt;
-    this.deltaMove.y += 2 * dt;
 
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
