@@ -60,10 +60,17 @@ export class GameScene extends Scene {
   }
 
   update(dt: number): void {
-    const dynamicSize = this.dynamicEntities.length;
+    let dynamicSize = this.dynamicEntities.length;
     let i = 0;
     for (; i < dynamicSize; ++i) {
-      this.dynamicEntities[i].update(dt);
+      const e = this.dynamicEntities[i];
+      if (e.dead) {
+        this.dynamicEntities.splice(i, 1);
+        --dynamicSize;
+        --i;
+      } else {
+        this.dynamicEntities[i].update(dt);
+      }
     }
 
     const staticSize = this.staticEntities.length;
@@ -79,7 +86,6 @@ export class GameScene extends Scene {
       }
     }
 
-    // TODO: handle entity removal, especially for coins
 
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
@@ -87,8 +93,9 @@ export class GameScene extends Scene {
       this.changeScene = KEY_MAIN_MENU;
     }
 
-    // if the player is dead, we're done
-    if (player.isDead) {
+    // if the player is dead, we're done. Player needs a special case from
+    // the one above
+    if (player.dead) {
       this.changeScene = KEY_MAIN_MENU;
     }
   }

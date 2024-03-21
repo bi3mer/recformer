@@ -16,13 +16,10 @@ export class Player extends GameObject {
   private moveMod: number = 0;
   private deltaMove: Point = new Point(0, 0);
 
-  public isDead: boolean;
   public coinsCollected: number = 0;
 
   constructor(x: number, y: number) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
-
-    this.isDead = false;
   }
 
   update(dt: number): void {
@@ -60,7 +57,7 @@ export class Player extends GameObject {
 
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
-      this.isDead = true;
+      this.dead = true;
       console.log("Player fell...");
     }
   }
@@ -68,7 +65,6 @@ export class Player extends GameObject {
   handleCollision(other: GameObject): void {
     switch (other.type) {
       case TYPE_BLOCK: {
-        // TODO: this currently stops the player from moving horizontally
         this.pos.x -= this.deltaMove.x;
         this.pos.y -= this.deltaMove.y;
         break;

@@ -1,7 +1,7 @@
 import { Camera } from "./camera";
 import { COIN_HEIGHT, COIN_SCREEN_HEIGHT, COIN_SCREEN_WIDTH, COIN_WIDTH } from "./constants";
 import { GameObject } from "./gameObject";
-import { TYPE_COIN } from "./gameObjectTypes";
+import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
 
 export class Coin extends GameObject {
   constructor(x: number, y: number) {
@@ -13,7 +13,9 @@ export class Coin extends GameObject {
   }
 
   handleCollision(other: GameObject): void {
-    console.log("Coin collision, I need to remove myself! If it was a player that hit me!");
+    if (other.type === TYPE_PLAYER) {
+      this.dead = true;
+    }
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {

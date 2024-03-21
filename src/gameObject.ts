@@ -7,6 +7,7 @@ export abstract class GameObject {
   public pos: Point;
   public size: Point;
   public type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
+  public dead: boolean = false;
 
   constructor(x: number, y: number, w: number, h: number, type: number) {
     this.pos = new Point(x, y);
