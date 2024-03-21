@@ -65,28 +65,34 @@ export class Player extends GameObject {
   handleCollision(other: GameObject): void {
     switch (other.type) {
       case TYPE_BLOCK: {
-        const ceilY = Math.ceil(this.pos.y);
-        if (ceilY === other.pos.y) {
-          this.pos.y = other.pos.y - this.size.y;
-          this.velocity.y = 0;
-          this.jumpTime = 0;
-          return;
-        }
+        const center = this.pos.add(this.size.scalarMultiply(0.5));
+        const otherCenter = other.pos.add(other.size.scalarMultiply(0.5));
+        const d = center.subtract(otherCenter);
 
-        const floorY = Math.floor(this.pos.y) - 1;
-        if (floorY === other.pos.y) {
-          this.pos.y = other.pos.y + other.size.y;
-          return;
-        }
+        const averageSize = this.size.add(other.size);
+        averageSize.scalarMultiply(0.5);
 
-        const ceilX = Math.ceil(this.pos.x);
-        if (ceilX === other.pos.x) {
-          this.pos.x = other.pos.x - this.size.x;
-          return;
-        }
+        // This is trying to handle corners. So if the angle is close to 45 
+        // degrees between the two rectangles, that is a corner. I have it as 
+        // less than 55 and more than 40.
+        const theta = Math.abs(Math.atan(d.y / d.x));
+        const isCorner = theta < 0.96 && theta > 0.698;
 
-        // guaranteed to be a collision to the left
-        this.pos.x = other.pos.x + other.size.x;
+        if (!isCorner && Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+          if (d.x < 0) {
+            this.pos.x = other.pos.x - this.size.x;
+          } else if (d.x !== 0) {
+            this.pos.x = other.pos.x + other.size.x;
+          }
+        } else {
+          if (d.y > 0) {
+            this.pos.y = other.pos.y + this.size.y;
+          } else {
+            this.pos.y = other.pos.y - this.size.y;
+            this.velocity.y = 0;
+            this.jumpTime = 0;
+          }
+        }
         break;
       }
       case TYPE_COIN: {
