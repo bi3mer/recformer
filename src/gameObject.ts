@@ -33,6 +33,7 @@ export abstract class GameObject {
 
   physicsUpdate(dt: number): void {
     this.velocity.addInPlace(this.gravity.scalarMultiply(dt));
+    this.velocity.y = Math.min(this.velocity.y, 30); // any faster and the player can fall through the map
     this.pos.addInPlace(this.velocity.scalarMultiply(dt));
   }
 }

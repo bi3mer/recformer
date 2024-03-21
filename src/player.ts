@@ -80,14 +80,18 @@ export class Player extends GameObject {
 
         if (!isCorner && Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
           if (d.x < 0) {
+            console.log('left');
             this.pos.x = other.pos.x - this.size.x;
-          } else if (d.x !== 0) {
+          } else {
+            console.log('right');
             this.pos.x = other.pos.x + other.size.x;
           }
         } else {
           if (d.y > 0) {
+            console.log('top');
             this.pos.y = other.pos.y + this.size.y;
           } else {
+            console.log('bot');
             this.pos.y = other.pos.y - this.size.y;
             this.velocity.y = 0;
             this.jumpTime = 0;
