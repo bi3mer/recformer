@@ -8,6 +8,7 @@ import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Point } from "./point";
 import { Coin } from "./coin";
+import { Enemy } from "./enemy";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -54,6 +55,9 @@ export class GameScene extends Scene {
           const c = new Coin(col, r);
           ++this.numCoins;
           this.dynamicEntities.push(c);
+        } else if (row[col] === 'E') {
+          const e = new Enemy(col, r);
+          this.dynamicEntities.push(e);
         }
       }
     }

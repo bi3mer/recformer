@@ -1,15 +1,12 @@
 
 import { Camera } from "./camera";
-import { NUM_ROWS, PLAYER_HEIGHT, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, PLAYER_WIDTH, TILE_SIZE } from "./constants";
+import { DEATH_HEIGHT, PLAYER_HEIGHT, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, PLAYER_WIDTH } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
 import { InputManager, Key } from "./inputManager";
-import { Point } from "./point";
 
 const MOVE = 6;
-const JUMP = 9;
 const MAX_MOVE_MOD = 8;
-const DEATH_HEIGHT = NUM_ROWS + 1;
 const MAX_JUMP_TIME = 0.4;
 
 export class Player extends GameObject {
