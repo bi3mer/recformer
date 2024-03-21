@@ -6,14 +6,18 @@ import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectType
 import { InputManager, Key } from "./inputManager";
 import { Point } from "./point";
 
-const MOVE = 4;
+const MOVE = 6;
+const JUMP = 9;
 const MAX_MOVE_MOD = 8;
 const DEATH_HEIGHT = NUM_ROWS + 1;
+const MAX_JUMP_TIME = 0.4;
 
 export class Player extends GameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;
+
+  private jumpTime: number = 0;
 
   public coinsCollected: number = 0;
 
@@ -22,7 +26,7 @@ export class Player extends GameObject {
   }
 
   update(dt: number): void {
-    this.velocity.zero();
+    this.velocity.x = 0;
 
     // Handle plaayer input
     if (InputManager.isKeyDown(Key.D, Key.RIGHT)) {
@@ -42,8 +46,13 @@ export class Player extends GameObject {
       }
     }
 
-    if (InputManager.isKeyDown(Key.SPACE)) {
-      this.velocity.y = -MOVE * 3;
+    if (this.jumpTime < MAX_JUMP_TIME && InputManager.isKeyDown(Key.SPACE)) {
+      if (this.jumpTime === 0) {
+        this.velocity.y = -15;
+      } else if (this.jumpTime < 0.2) {
+        this.velocity.y -= 2;
+      }
+      this.jumpTime += dt;
     }
 
     // check if the player has died from falling through the map
@@ -59,12 +68,14 @@ export class Player extends GameObject {
         const ceilY = Math.ceil(this.pos.y);
         if (ceilY === other.pos.y) {
           this.pos.y = other.pos.y - this.size.y;
+          this.velocity.y = 0;
+          this.jumpTime = 0;
           return;
         }
 
         const floorY = Math.floor(this.pos.y) - 1;
         if (floorY === other.pos.y) {
-          this.pos.y = other.pos.y + other.size.y + 1;
+          this.pos.y = other.pos.y + other.size.y;
           return;
         }
 
