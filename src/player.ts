@@ -14,7 +14,11 @@ export class Player extends GameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;
-  private deltaMove: Point = new Point(0, 0);
+
+  private collisionUp: boolean = false;
+  private collisionDown: boolean = false;
+  private collisionRight: boolean = false;
+  private collisionLeft: boolean = false;
 
   public coinsCollected: number = 0;
 
@@ -23,12 +27,10 @@ export class Player extends GameObject {
   }
 
   update(dt: number): void {
-    this.deltaMove.zero();
 
     // Handle plaayer input
     if (InputManager.isKeyDown(Key.D, Key.RIGHT)) {
       this.movingRight = true;
-      this.pos.x += MOVE;
       this.deltaMove.x = MOVE;
       this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
     }
@@ -65,8 +67,32 @@ export class Player extends GameObject {
   handleCollision(other: GameObject): void {
     switch (other.type) {
       case TYPE_BLOCK: {
-        this.pos.x -= this.deltaMove.x;
-        this.pos.y -= this.deltaMove.y;
+        const ceilY = Math.ceil(this.pos.y);
+        if (ceilY === other.pos.y) {
+          // connection to the ground, positive is downwards in this coordinate system.
+          // So stop downwards movement if relevant
+          this.collisionDown = true;
+          this.velocity.y = Math.max(0, this.velocity.y);
+          return;
+        }
+
+        const floorY = Math.floor(this.pos.y);
+        if (floorY === other.pos.y) {
+          this.collisionUp = true;
+          this.velocity.y = Math.min(0, this.velocity.y);
+          return;
+        }
+
+        const ceilX = Math.ceil(this.pos.x);
+        if (ceilX === other.pos.x) {
+          this.collisionRight = true;
+          this.velocity.x = Math.min(0, this.velocity.x);
+          return;
+        }
+
+        // guaranteed to be a collision to the left
+        this.collisionLeft = true;
+        this.velocity.x = Math.max(0, this.velocity.x);
         break;
       }
       case TYPE_COIN: {
@@ -74,7 +100,7 @@ export class Player extends GameObject {
         break;
       }
       case TYPE_ENEMY: {
-        this.isDead = true;
+        this.dead = true;
         console.log("Ran into an enemy! :/");
         break;
       }

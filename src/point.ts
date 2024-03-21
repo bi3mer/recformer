@@ -20,6 +20,11 @@ export class Point {
     return new Point(this.x + other.x, this.y + other.y);
   }
 
+  addInPlace(other: Point): void {
+    this.x += other.x;
+    this.y += other.y;
+  }
+
   subtract(other: Point): Point {
     return new Point(this.x - other.x, this.y - other.y);
   }
@@ -34,7 +39,11 @@ export class Point {
     this.y -= n;
   }
 
-  scalarMultiply(scalar: number): void {
+  scalarMultiply(scalar: number): Point {
+    return new Point(this.x * scalar, this.y * scalar);
+  }
+
+  scalarMultiplyInPlace(scalar: number): void {
     this.x *= scalar;
     this.y *= scalar;
   }

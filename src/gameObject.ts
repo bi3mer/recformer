@@ -9,6 +9,9 @@ export abstract class GameObject {
   public type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
   public dead: boolean = false;
 
+  protected velocity: Point = new Point(0, 0);
+  protected gravity: Point = new Point(0, -0.3);
+
   constructor(x: number, y: number, w: number, h: number, type: number) {
     this.pos = new Point(x, y);
     this.size = new Point(w, h);
@@ -26,4 +29,9 @@ export abstract class GameObject {
   }
 
   abstract handleCollision(other: GameObject): void;
+
+  physicsUpdate(dt: number): void {
+    this.velocity.addInPlace(this.gravity.scalarMultiply(dt));
+    this.pos.addInPlace(this.velocity.scalarMultiply(dt));
+  }
 }

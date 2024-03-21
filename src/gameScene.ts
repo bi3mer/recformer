@@ -60,6 +60,7 @@ export class GameScene extends Scene {
   }
 
   update(dt: number): void {
+    // remove dead entities
     let dynamicSize = this.dynamicEntities.length;
     let i = 0;
     for (; i < dynamicSize; ++i) {
@@ -68,19 +69,22 @@ export class GameScene extends Scene {
         this.dynamicEntities.splice(i, 1);
         --dynamicSize;
         --i;
-      } else {
-        this.dynamicEntities[i].update(dt);
       }
     }
 
     const staticSize = this.staticEntities.length;
     let jj: number;
-    for (let i = 0; i < dynamicSize; ++i) {
+    for (i = 0; i < dynamicSize; ++i) {
       const e = this.dynamicEntities[i];
+
+      // entity updates
+      e.update(dt);
+      e.physicsUpdate(dt);
+
+      // Check for collisions
       for (jj = i + 1; jj < dynamicSize; ++jj) {
         e.collision(this.dynamicEntities[jj]);
       }
-
       for (jj = 0; jj < staticSize; ++jj) {
         e.collision(this.staticEntities[jj]);
       }
