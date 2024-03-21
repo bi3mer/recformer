@@ -6,7 +6,7 @@ import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectType
 import { InputManager, Key } from "./inputManager";
 import { Point } from "./point";
 
-const MOVE = 0.1;
+const MOVE = 4;
 const MAX_MOVE_MOD = 8;
 const DEATH_HEIGHT = NUM_ROWS + 1;
 
@@ -14,11 +14,6 @@ export class Player extends GameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;
-
-  private collisionUp: boolean = false;
-  private collisionDown: boolean = false;
-  private collisionRight: boolean = false;
-  private collisionLeft: boolean = false;
 
   public coinsCollected: number = 0;
 
@@ -48,7 +43,7 @@ export class Player extends GameObject {
     }
 
     if (InputManager.isKeyDown(Key.SPACE)) {
-      this.velocity.y = MOVE * 3;
+      this.velocity.y = -MOVE * 3;
     }
 
     // check if the player has died from falling through the map
@@ -63,30 +58,24 @@ export class Player extends GameObject {
       case TYPE_BLOCK: {
         const ceilY = Math.ceil(this.pos.y);
         if (ceilY === other.pos.y) {
-          // connection to the ground, positive is downwards in this coordinate system.
-          // So stop downwards movement if relevant
-          this.collisionDown = true;
-          this.velocity.y = Math.max(0, this.velocity.y);
+          this.pos.y = other.pos.y - this.size.y;
           return;
         }
 
-        const floorY = Math.floor(this.pos.y);
+        const floorY = Math.floor(this.pos.y) - 1;
         if (floorY === other.pos.y) {
-          this.collisionUp = true;
-          this.velocity.y = Math.min(0, this.velocity.y);
+          this.pos.y = other.pos.y + other.size.y + 1;
           return;
         }
 
         const ceilX = Math.ceil(this.pos.x);
         if (ceilX === other.pos.x) {
-          this.collisionRight = true;
-          this.velocity.x = Math.min(0, this.velocity.x);
+          this.pos.x = other.pos.x - this.size.x;
           return;
         }
 
         // guaranteed to be a collision to the left
-        this.collisionLeft = true;
-        this.velocity.x = Math.max(0, this.velocity.x);
+        this.pos.x = other.pos.x + other.size.x;
         break;
       }
       case TYPE_COIN: {

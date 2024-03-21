@@ -7,6 +7,10 @@ export class Point {
     this.y = y;
   }
 
+  copy(): Point {
+    return new Point(this.x, this.y);
+  }
+
   zero(): void {
     this.x = 0;
     this.y = 0;
@@ -27,6 +31,11 @@ export class Point {
 
   subtract(other: Point): Point {
     return new Point(this.x - other.x, this.y - other.y);
+  }
+
+  subtractInPlace(other: Point): void {
+    this.x -= other.x;
+    this.y -= other.y;
   }
 
   scalarAdd(n: number): void {

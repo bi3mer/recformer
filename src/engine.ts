@@ -34,7 +34,7 @@ export class Engine {
     let previousTimeStamp = 0;
     const gameLoop = (timeStamp: number) => {
       // calculate delta time for the frame
-      const dt = (timeStamp - previousTimeStamp) * 0.001; // ms to s
+      const dt = Math.min(0.05, (timeStamp - previousTimeStamp) / 1000); // ms to s
       previousTimeStamp = timeStamp;
 
       // run scene
