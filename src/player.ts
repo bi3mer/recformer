@@ -23,6 +23,13 @@ export class Player extends GameObject {
   }
 
   update(dt: number): void {
+    // check if the player has died from falling through the map
+    if (this.pos.y > DEATH_HEIGHT) {
+      this.dead = true;
+      console.log("Player fell...");
+      return;
+    }
+
     this.velocity.x = 0;
 
     // Handle plaayer input
@@ -52,10 +59,9 @@ export class Player extends GameObject {
       this.jumpTime += dt;
     }
 
-    // check if the player has died from falling through the map
-    if (this.pos.y > DEATH_HEIGHT) {
-      this.dead = true;
-      console.log("Player fell...");
+    if (InputManager.isKeyDown(Key.SHIFT)) {
+      this.velocity.x *= 2.5;
+      this.velocity.y *= 1.01;
     }
   }
 

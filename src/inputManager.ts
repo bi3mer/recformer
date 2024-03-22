@@ -16,6 +16,7 @@ export enum Key {
   SPACE,
   ESCAPE,
   ENTER,
+  SHIFT,
   INVALID
 }
 
@@ -93,6 +94,8 @@ export class InputManager {
       case 'i':
       case 'I':
         return Key.I;
+      case 'Shift':
+        return Key.SHIFT;
       case 'Enter':
         return Key.ENTER;
       default:
@@ -122,9 +125,5 @@ export class InputManager {
     for (let i = 0; i < InputManager._keys.length; ++i) {
       InputManager._keys[i] = false;
     }
-  }
-
-  static onMouseMove(ev: MouseEvent): void {
-
   }
 }

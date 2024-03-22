@@ -36,3 +36,8 @@ export function rectangleIntersect(a: Point, sizeA: Point, b: Point, sizeB: Poin
 
   return ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1;
 }
+
+export function randomKey(d: { [key: string]: any }): any {
+  const keys = Object.keys(d);
+  return keys[Math.floor(Math.random() * keys.length)];
+} 

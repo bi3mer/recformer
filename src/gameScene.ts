@@ -1,4 +1,4 @@
-import { tempLVL } from "./level";
+import { LEVELS, tempLVL } from "./level";
 import { Scene } from "./scene";
 import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
@@ -9,6 +9,7 @@ import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Point } from "./point";
 import { Coin } from "./coin";
 import { Enemy } from "./enemy";
+import { randomKey } from "./util";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -17,6 +18,7 @@ export class GameScene extends Scene {
 
   private staticEntities: GameObject[];
   private dynamicEntities: GameObject[];
+  private levelKey: string = "0_0";
 
   constructor(ctx: CanvasRenderingContext2D) {
     super();
@@ -30,11 +32,11 @@ export class GameScene extends Scene {
     this.staticEntities = [];
 
     this.numCoins = 0;
+    this.dynamicEntities.push(new Player(-2, 12)); // player is always the first entity 
 
-    this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity 
-    const lvl = tempLVL;
+    const lvl = LEVELS[this.levelKey];
     const rows = lvl.length;
-    if (rows !== NUM_ROWS) {
+    if (rows + 1 !== NUM_ROWS) { // TODO: temp fix
       console.error("Level should have 15 rows!");
       return;
     }
@@ -61,6 +63,14 @@ export class GameScene extends Scene {
         }
       }
     }
+
+    // place one coin at the end of the map that the player has to jump to reach
+    this.staticEntities.push(new Block(-1, rows - 1));
+    this.staticEntities.push(new Block(-2, rows - 1));
+    this.staticEntities.push(new Block(-3, rows - 1));
+    this.staticEntities.push(new Block(-4, rows - 1));
+    this.dynamicEntities.push(new Coin(columns, rows - 4));
+    ++this.numCoins;
   }
 
   update(dt: number): void {
@@ -98,6 +108,8 @@ export class GameScene extends Scene {
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
       console.log("Player won!");
+      this.levelKey = randomKey(LEVELS);
+      console.log(this.levelKey);
       this.changeScene = KEY_MAIN_MENU;
     }
 
