@@ -1,15 +1,34 @@
-import { LEVELS, tempLVL } from "./level";
+import { LEVELS } from "./level";
 import { Scene } from "./scene";
 import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
-import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
+import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
-import { Point } from "./point";
 import { Coin } from "./coin";
 import { Enemy } from "./enemy";
 import { randomKey } from "./util";
+
+
+// A test level that I'm keeping around
+// const tempLVL = [
+//   "-------------------------------------------",
+//   "-------------------------------------------",
+//   "-------------------------------------------",
+//   "-------------------------------------------",
+//   "---X-E-X-----------------------------------",
+//   "---XXXXX----------------------X------------",
+//   "--------------------------o---X------------",
+//   "--------------------------X---X------------",
+//   "X---------------------0-------X------------",
+//   "X--------------------XX-------X------------",
+//   "XXX--------------o------------X----------o-",
+//   "XXX---X---------XXX-----------X------------",
+//   "X----XX-----------------------XX-----X-----",
+//   "X---XXX---------E-------------XXX-E-XX-----",
+//   "XXXXXXX---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+// ];
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;

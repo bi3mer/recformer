@@ -20,7 +20,21 @@ export class Enemy extends GameObject {
 
   handleCollision(other: GameObject): void {
     if (other.type === TYPE_BLOCK) {
-      this.velocity.x *= -1; //Applications 
+      const center = this.pos.add(this.size.scalarMultiply(0.5));
+      const otherCenter = other.pos.add(other.size.scalarMultiply(0.5));
+      const d = center.subtract(otherCenter);
+
+      const averageSize = this.size.add(other.size);
+      averageSize.scalarMultiply(0.5);
+
+      if (Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+        this.velocity.x *= -1;
+        if (d.x < 0) {
+          this.pos.x = other.pos.x - this.size.x;
+        } else {
+          this.pos.x = other.pos.x + other.size.x;
+        }
+      }
     }
   }
 
