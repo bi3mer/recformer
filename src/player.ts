@@ -58,11 +58,6 @@ export class Player extends GameObject {
       }
       this.jumpTime += dt;
     }
-
-    if (InputManager.isKeyDown(Key.SHIFT)) {
-      this.velocity.x *= 2.5;
-      this.velocity.y *= 1.01;
-    }
   }
 
   handleCollision(other: GameObject): void {
