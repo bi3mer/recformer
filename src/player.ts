@@ -15,6 +15,8 @@ export class Player extends GameObject {
   private moveMod: number = 0;
 
   private jumpTime: number = 0;
+  private squash: number = 1;
+  private stretch: number = 1;
 
   public coinsCollected: number = 0;
 
@@ -56,7 +58,13 @@ export class Player extends GameObject {
       } else if (this.jumpTime < 0.2) {
         this.velocity.y -= 2;
       }
+
+      this.squash += 0.01;
+      this.stretch -= 0.01;
       this.jumpTime += dt;
+    } else if (this.squash != this.stretch) {
+      this.squash += 0.01;
+      this.stretch -= 0.01;
     }
   }
 
@@ -74,7 +82,7 @@ export class Player extends GameObject {
         // degrees between the two rectangles, that is a corner. I have it as 
         // less than 55 and more than 40.
         const theta = Math.abs(Math.atan(d.y / d.x));
-        const isCorner = theta < 0.96 && theta > 0.698;
+        const isCorner = theta < 0.96 && theta > 0.698; // radians, comment above is in degrees
 
         if (!isCorner && Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
           if (d.x < 0) {
@@ -89,6 +97,10 @@ export class Player extends GameObject {
             this.pos.y = other.pos.y - this.size.y;
             this.velocity.y = 0;
             this.jumpTime = 0;
+
+            const temp = this.stretch;
+            this.stretch = 1.05;
+            this.squash = 0.95;
           }
         }
         break;
@@ -111,15 +123,19 @@ export class Player extends GameObject {
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.fillStyle = "rgba(150,150,255,1)";
+
     const x = camera.columnToScreen(this.pos.x);
     const y = camera.rowToScreen(this.pos.y);
+
+    const H = PLAYER_SCREEN_HEIGHT * this.squash;
+    const W = PLAYER_SCREEN_WIDTH * this.stretch;
 
     if (this.movingRight) {
       let region = new Path2D();
       region.moveTo(x, y);
-      region.lineTo(x - this.moveMod, y + PLAYER_SCREEN_HEIGHT);
-      region.lineTo(x + PLAYER_SCREEN_WIDTH - this.moveMod, y + PLAYER_SCREEN_HEIGHT);
-      region.lineTo(x + PLAYER_SCREEN_WIDTH, y);
+      region.lineTo(x - this.moveMod, y + H);
+      region.lineTo(x + W - this.moveMod, y + H);
+      region.lineTo(x + W, y);
       region.closePath();
 
       ctx.fill(region, "evenodd");
@@ -128,15 +144,15 @@ export class Player extends GameObject {
     } else if (this.movingLeft) {
       let region = new Path2D();
       region.moveTo(x, y);
-      region.lineTo(x + this.moveMod, y + PLAYER_SCREEN_HEIGHT);
-      region.lineTo(x + PLAYER_SCREEN_WIDTH + this.moveMod, y + PLAYER_SCREEN_HEIGHT);
-      region.lineTo(x + PLAYER_SCREEN_WIDTH, y);
+      region.lineTo(x + this.moveMod, y + H);
+      region.lineTo(x + W + this.moveMod, y + H);
+      region.lineTo(x + W, y);
       region.closePath();
 
       ctx.fill(region, "evenodd");
       this.movingLeft = false;
     } else {
-      ctx.fillRect(x, y, PLAYER_SCREEN_WIDTH, PLAYER_SCREEN_HEIGHT);
+      ctx.fillRect(x, y, W, H);
     }
   }
 } 
