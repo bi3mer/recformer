@@ -4,10 +4,10 @@ import { DEATH_HEIGHT, ENEMY_HEIGHT, ENEMY_SCREEN_HEIGHT, ENEMY_SCREEN_WIDTH, EN
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_ENEMY } from "./gameObjectTypes";
 
-export class Enemy extends GameObject {
+export class HorizontalEnemy extends GameObject {
 
   constructor(x: number, y: number) {
-    super(x, y + 0.1, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
+    super(x + 0.25, y + 0.25, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
     this.velocity.x = 3;
     this.gravity.y = 0;
   }

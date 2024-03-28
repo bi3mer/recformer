@@ -9,26 +9,28 @@ import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Coin } from "./coin";
 import { Enemy } from "./enemy";
 import { randomKey } from "./util";
+import { HorizontalEnemy } from "./horizontalEnemy";
+import { VerticalEnemy } from "./verticalEnemy";
 
 
 // A test level that I'm keeping around
-// const tempLVL = [
-//   "-------------------------------------------",
-//   "-------------------------------------------",
-//   "-------------------------------------------",
-//   "-------------------------------------------",
-//   "---X-E-X-----------------------------------",
-//   "---XXXXX----------------------X------------",
-//   "--------------------------o---X------------",
-//   "--------------------------X---X------------",
-//   "X---------------------0-------X------------",
-//   "X--------------------XX-------X------------",
-//   "XXX--------------o------------X----------o-",
-//   "XXX---X---------XXX-----------X------------",
-//   "X----XX-----------------------XX-----X-----",
-//   "X---XXX---------E-------------XXX-E-XX-----",
-//   "XXXXXXX---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-// ];
+const tempLVL = [
+  "-------------------------------------------",
+  "-------------------------------------------",
+  "-------------------------------------------",
+  "-------------------------------------------",
+  "---X-H-X-----------------------------------",
+  "---XXXXX----------------------X------------",
+  "--------------------------o---X------------",
+  "--------------------------X---X------------",
+  "X---------------------0-------X------------",
+  "X--------------------XX---V---X------------",
+  "XXX--------------o------------X----------o-",
+  "XXX---X---------XXX---V-------X------------",
+  "X----XX----------V----------o-XX-----X-----",
+  "X---XXX---------V-V-----------XXX-HVXX-----",
+  "XXXXXXX---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+];
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -51,11 +53,13 @@ export class GameScene extends Scene {
     this.staticEntities = [];
 
     this.numCoins = 0;
-    this.dynamicEntities.push(new Player(-2, 12)); // player is always the first entity 
+    // this.dynamicEntities.push(new Player(-2, 12)); // player is always the first entity
+    this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    const lvl = LEVELS[this.levelKey];
+    // const lvl = LEVELS[this.levelKey];
+    const lvl = tempLVL;
     const rows = lvl.length;
-    if (rows + 1 !== NUM_ROWS) { // TODO: temp fix
+    if (rows !== NUM_ROWS) { // TODO: temp fix
       console.error("Level should have 15 rows!");
       return;
     }
@@ -70,26 +74,21 @@ export class GameScene extends Scene {
 
       for (let col = 0; col < columns; ++col) {
         if (row[col] === 'X') {
-          const b = new Block(col, r);
-          this.staticEntities.push(b);
+          this.staticEntities.push(new Block(col, r));
         } else if (row[col] === 'o') {
-          const c = new Coin(col, r);
           ++this.numCoins;
-          this.dynamicEntities.push(c);
-        } else if (row[col] === 'E') {
-          const e = new Enemy(col, r);
-          this.dynamicEntities.push(e);
+          this.dynamicEntities.push(new Coin(col, r));
+        } else if (row[col] === 'H') {
+          this.dynamicEntities.push(new HorizontalEnemy(col, r));
+        } else if (row[col] === 'V') {
+          this.dynamicEntities.push(new VerticalEnemy(col, r));
         }
       }
     }
 
     // place one coin at the end of the map that the player has to jump to reach
-    this.staticEntities.push(new Block(-1, rows - 1));
-    this.staticEntities.push(new Block(-2, rows - 1));
-    this.staticEntities.push(new Block(-3, rows - 1));
-    this.staticEntities.push(new Block(-4, rows - 1));
-    this.dynamicEntities.push(new Coin(columns, rows - 4));
-    ++this.numCoins;
+    // this.dynamicEntities.push(new Coin(columns, rows - 4));
+    // ++this.numCoins;
   }
 
   update(dt: number): void {
