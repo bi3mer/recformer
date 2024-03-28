@@ -52,7 +52,7 @@ export class Player extends GameObject {
       }
     }
 
-    if (this.jumpTime < MAX_JUMP_TIME && InputManager.isKeyDown(Key.SPACE)) {
+    if (this.jumpTime < MAX_JUMP_TIME && InputManager.isKeyDown(Key.SPACE, Key.UP)) {
       if (this.jumpTime === 0) {
         this.velocity.y = -15;
       } else if (this.jumpTime < 0.2) {
