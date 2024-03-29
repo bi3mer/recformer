@@ -1,4 +1,3 @@
-import { LEVELS } from "./level";
 import { Scene } from "./scene";
 import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
@@ -10,7 +9,7 @@ import { Coin } from "./coin";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
-import { Graph } from "./GDM-TS"
+import { MDP } from "./levels.ts";
 
 // A test level that I'm keeping around
 const tempLVL = [
@@ -45,6 +44,7 @@ export class GameScene extends Scene {
 
     this.ctx = ctx;
     this.camera = new Camera();
+    console.log(MDP);
   }
 
   onEnter(): void {
