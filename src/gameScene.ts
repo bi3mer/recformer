@@ -7,7 +7,6 @@ import { Block } from "./block";
 import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Coin } from "./coin";
-import { Enemy } from "./enemy";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
@@ -79,7 +78,7 @@ export class GameScene extends Scene {
           ++this.numCoins;
           this.dynamicEntities.push(new Coin(col, r));
         } else if (row[col] === 'H') {
-          this.dynamicEntities.push(new HorizontalEnemy(col, r));
+          this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
         } else if (row[col] === 'V') {
           this.dynamicEntities.push(new VerticalEnemy(col, r));
         }

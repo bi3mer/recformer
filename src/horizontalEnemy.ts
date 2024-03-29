@@ -5,16 +5,18 @@ import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_ENEMY } from "./gameObjectTypes";
 
 export class HorizontalEnemy extends GameObject {
+  private maxColumns: number;
 
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, maxColumns: number) {
     super(x + 0.25, y + 0.25, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
     this.velocity.x = 3;
     this.gravity.y = 0;
+    this.maxColumns = maxColumns;
   }
 
   update(dt: number): void {
-    if (this.pos.y > DEATH_HEIGHT) {
-      this.dead = true;
+    if (this.pos.x < 0 || this.pos.x > this.maxColumns) {
+      this.velocity.x *= -1;
     }
   }
 

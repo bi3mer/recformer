@@ -30,6 +30,11 @@ export class VerticalEnemy extends GameObject {
 
       if (Math.abs(d.x / this.size.x) < Math.abs(d.y / this.size.y)) {
         this.velocity.y *= -1;
+        if (d.y > 0) {
+          this.pos.y = other.pos.y + other.size.y;
+        } else {
+          this.pos.y = other.pos.y - this.size.y;
+        }
       }
     }
   }
