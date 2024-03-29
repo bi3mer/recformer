@@ -10,7 +10,7 @@ import { Coin } from "./coin";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
-
+import { Graph } from "./GDM-TS"
 
 // A test level that I'm keeping around
 const tempLVL = [
