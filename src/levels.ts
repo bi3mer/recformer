@@ -7,17 +7,17 @@ export const MDP = new Graph();
 MDP.addDefaultNode("start", 0, 0, false);
 MDP.addDefaultNode("death", -1, 0, true);
 MDP.addDefaultNode("end", 1, 0, true);
-MDP.addDefaultNode("4-b, 0.5555555555555556, 0, false");
-MDP.addDefaultNode("2-b, 0.3333333333333333, 0, false");
-MDP.addDefaultNode("3-b, 0.4444444444444444, 0, false");
-MDP.addDefaultNode("4-a, 0.5555555555555556, 0, false");
-MDP.addDefaultNode("3-a, 0.4444444444444444, 0, false");
-MDP.addDefaultNode("2-a, 0.3333333333333333, 0, false");
-MDP.addDefaultNode("6-a, 0.7777777777777778, 0, false");
-MDP.addDefaultNode("1-a, 0.2222222222222222, 0, false");
-MDP.addDefaultNode("5-c, 0.6666666666666666, 0, false");
-MDP.addDefaultNode("5-a, 0.6666666666666666, 0, false");
-MDP.addDefaultNode("5-b, 0.6666666666666666, 0, false");
+MDP.addDefaultNode("4-b", 0.5555555555555556, 0, false);
+MDP.addDefaultNode("2-b", 0.3333333333333333, 0, false);
+MDP.addDefaultNode("3-b", 0.4444444444444444, 0, false);
+MDP.addDefaultNode("4-a", 0.5555555555555556, 0, false);
+MDP.addDefaultNode("3-a", 0.4444444444444444, 0, false);
+MDP.addDefaultNode("2-a", 0.3333333333333333, 0, false);
+MDP.addDefaultNode("6-a", 0.7777777777777778, 0, false);
+MDP.addDefaultNode("1-a", 0.2222222222222222, 0, false);
+MDP.addDefaultNode("5-c", 0.6666666666666666, 0, false);
+MDP.addDefaultNode("5-a", 0.6666666666666666, 0, false);
+MDP.addDefaultNode("5-b", 0.6666666666666666, 0, false);
 
 // ========= Edges =========
 MDP.addDefaultEdge("4-b", "5-a", [["5-a", 0.99], ["death", 0.01]]);
@@ -57,7 +57,7 @@ MDP.addDefaultEdge("5-b", "6-a", [["6-a", 0.99], ["death", 0.01]]);
 
 
 // ========= Level Segments =========
-export const idToLevel:{ [key: string]: string[] } = {
+export const idToLevel: { [key: string]: string[] } = {
   "4-b": [
     "--------------------XX",
     "--------------------XX",

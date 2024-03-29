@@ -32,7 +32,7 @@ for file_name in os.listdir("segments"):
 
 max_r += 1
 for id, r in nodes:
-    typescript += f'MDP.addDefaultNode("{id}, {r/max_r}, 0, false");\n'
+    typescript += f'MDP.addDefaultNode("{id}", {r/max_r}, 0, false);\n'
 
 typescript += "\n// ========= Edges =========\n"
 for id in id_to_edges:

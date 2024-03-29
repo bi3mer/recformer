@@ -9,7 +9,7 @@ import { Coin } from "./coin";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
-import { MDP } from "./levels.ts";
+import { MDP, idToLevel } from "./levels.ts";
 
 // A test level that I'm keeping around
 const tempLVL = [
@@ -19,15 +19,15 @@ const tempLVL = [
   "-------------------------------------------",
   "---X-H-X-----------------------------------",
   "---XXXXX----------------------X------------",
-  "--------------------------o---X------------",
-  "--------------------------X---X------------",
-  "X---------------------0-------X------------",
-  "X--------------------XX---V---X------------",
-  "XXX--------------o------------X----------o-",
-  "XXX---X---------XXX---V-------X------------",
-  "X----XX----------V----------o-XX-----X-----",
-  "X---XXX---------V-V-----------XXX-HVXX-----",
-  "XXXXXXX---XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  "-------X------------------o---X------------",
+  "-------X------------------X---X------------",
+  "X------X--------------0-------X------------",
+  "X------X-------------XX---V---X------------",
+  "XXX----X---------o------------X----------o-",
+  "XXX---XX--------XXX---V-------X------------",
+  "X----XXX---------V----------o-XX-----X-----",
+  "X---XXXX--------V-V-----------XXX-HVXX-----",
+  "XXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 ];
 
 export class GameScene extends Scene {
@@ -37,14 +37,12 @@ export class GameScene extends Scene {
 
   private staticEntities: GameObject[];
   private dynamicEntities: GameObject[];
-  private levelKey: string = "0_0";
 
   constructor(ctx: CanvasRenderingContext2D) {
     super();
 
     this.ctx = ctx;
     this.camera = new Camera();
-    console.log(MDP);
   }
 
   onEnter(): void {
@@ -52,13 +50,11 @@ export class GameScene extends Scene {
     this.staticEntities = [];
 
     this.numCoins = 0;
-    // this.dynamicEntities.push(new Player(-2, 12)); // player is always the first entity
     this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    // const lvl = LEVELS[this.levelKey];
     const lvl = tempLVL;
     const rows = lvl.length;
-    if (rows !== NUM_ROWS) { // TODO: temp fix
+    if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
       return;
     }
@@ -84,10 +80,6 @@ export class GameScene extends Scene {
         }
       }
     }
-
-    // place one coin at the end of the map that the player has to jump to reach
-    // this.dynamicEntities.push(new Coin(columns, rows - 4));
-    // ++this.numCoins;
   }
 
   update(dt: number): void {
@@ -125,8 +117,6 @@ export class GameScene extends Scene {
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
       console.log("Player won!");
-      this.levelKey = randomKey(LEVELS);
-      console.log(this.levelKey);
       this.changeScene = KEY_MAIN_MENU;
     }
 
