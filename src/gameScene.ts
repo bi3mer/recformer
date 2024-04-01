@@ -65,8 +65,6 @@ export class GameScene extends Scene {
         }
       }
     }
-
-    this.columnsInLevel = columns;
   }
 
   update(dt: number): void {

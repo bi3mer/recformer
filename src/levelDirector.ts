@@ -8,6 +8,7 @@ export class LevelDirector {
   private keys: string[];
   private columnsPerLevel: number[];
   private lossesInARow: number = 0;
+  private playerWonLastRound: boolean = true;
 
   constructor() {
   }
@@ -55,9 +56,7 @@ export class LevelDirector {
           }
         }
 
-        console.log(`Removing edge ${KEY_START} -> ${hardestNeighbor}...`);
         MDP.removeEdge(KEY_START, hardestNeighbor);
-        console.log(`Count from ${neighborsCount} to ${MDP.getNode(KEY_START).neighbors.length}`);
       }
     }
 
@@ -92,15 +91,23 @@ export class LevelDirector {
         }
       });
     }
+
+    this.playerWonLastRound = playerWon;
   }
 
   public get(levelSegments: number): string[] {
+    const pi = policyIteration(MDP, 0.95, true, true, 20);
     this.columnsPerLevel = [];
-    this.keys = [KEY_START];
+
+    // If player won, don't start from a level that they have definitely 
+    // already played
+    if (this.playerWonLastRound) {
+      this.keys = [pi[KEY_START]];
+    } else {
+      this.keys = [KEY_START];
+    }
 
     // USE MDP to create a policy and generate a new level
-    const pi = policyIteration(MDP, 0.95, true, true, 20);
-
     for (let i = 0; i < levelSegments; ++i) {
       const k = pi[this.keys[i]];
       this.keys.push(k);
