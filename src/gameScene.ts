@@ -3,32 +3,14 @@ import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
-import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { KEY_START, NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Coin } from "./coin";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
 import { MDP, idToLevel } from "./levels.ts";
-
-// A test level that I'm keeping around
-const tempLVL = [
-  "-------------------------------------------",
-  "-------------------------------------------",
-  "-------------------------------------------",
-  "-------------------------------------------",
-  "---X-H-X-----------------------------------",
-  "---XXXXX----------------------X------------",
-  "-------X------------------o---X------------",
-  "-------X------------------X---X------------",
-  "X------X--------------0-------X------------",
-  "X------X-------------XX---V---X------------",
-  "XXX----X---------o------------X----------o-",
-  "XXX---XX--------XXX---V-------X------------",
-  "X----XXX---------V----------o-XX-----X-----",
-  "X---XXXX--------V-V-----------XXX-HVXX-----",
-  "XXXXXXXX--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-];
+import { policyIteration } from "./GDM-TS/index.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -52,7 +34,7 @@ export class GameScene extends Scene {
     this.numCoins = 0;
     this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    const lvl = tempLVL;
+    const lvl = this.generateLevel(3);
     const rows = lvl.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
@@ -148,5 +130,27 @@ export class GameScene extends Scene {
 
   protected _onExit(): void {
 
+  }
+
+  private generateLevel(levelSegments: number): string[] {
+    // USE MDP to generate a new level based on state names
+    const pi = policyIteration(MDP, 0.95, true, true, 20);
+    const keys: string[] = [KEY_START];
+
+    for (let i = 0; i < levelSegments; ++i) {
+      keys.push(pi[keys[i]]);
+    }
+
+    // use generated states to fill in the level
+    const lvl: string[] = Array(NUM_ROWS).fill("");
+    for (let i = 1; i <= levelSegments; ++i) { // skip the start keys
+      const stateLVL = idToLevel[keys[i]];
+
+      for (let r = 0; r < NUM_ROWS; ++r) {
+        lvl[r] += stateLVL[r];
+      }
+    }
+
+    return lvl;
   }
 }

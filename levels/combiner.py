@@ -19,6 +19,10 @@ for file_name in os.listdir("segments"):
     with open(os.path.join("segments", file_name)) as f:
         lvl = [line.strip() for line in f.readlines()]
 
+    if file_name == "end.txt":
+        id_to_lvl["end"] = lvl
+        continue
+
     id, r, edges = file_name.split("_")
     r = float(r)
     max_r = max(max_r, r)
@@ -32,7 +36,7 @@ for file_name in os.listdir("segments"):
 
 max_r += 1
 for id, r in nodes:
-    typescript += f'MDP.addDefaultNode("{id}", {r/max_r}, 0, false);\n'
+    typescript += f'MDP.addDefaultNode("{id}", {-(max_r-r)/max_r}, 0, false);\n'
 
 typescript += "\n// ========= Edges =========\n"
 for id in id_to_edges:
@@ -43,7 +47,6 @@ for id in id_to_edges:
         typescript += f'MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], ["death", 0.01]]);\n'
 
     typescript += "\n"
-
 
 typescript += "\n// ========= Level Segments =========\n"
 TYPE = "{ [key: string]: string[] }"
