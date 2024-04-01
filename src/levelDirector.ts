@@ -7,6 +7,7 @@ import { MDP, idToLevel } from "./levels";
 export class LevelDirector {
   private keys: string[];
   private columnsPerLevel: number[];
+  private lossesInARow: number = 0;
 
   constructor() {
   }
@@ -19,6 +20,8 @@ export class LevelDirector {
       for (let i = 0; i < keysLength; ++i) {
         percentCompleted.push(1);
       }
+
+      this.lossesInARow = 0;
     } else {
       let col = playerColumn;
       for (let i = 0; i < keysLength; ++i) {
@@ -30,6 +33,32 @@ export class LevelDirector {
           break;
         }
       }
+
+      // THis is the adaptive part of of adaptive policy iteration. See my
+      // paper (Level Assembly as a Markov Decision Process) for details.
+      ++this.lossesInARow;
+      for (let i = 0; i < this.lossesInARow; ++i) {
+        const neighbors = MDP.getNode(KEY_START).neighbors;
+        const neighborsCount = neighbors.length;
+
+        if (neighborsCount === 1) {
+          break;
+        }
+
+        let hardestNeighbor = "";
+        let maxReward = -10000;
+        for (let jj = 0; jj < neighborsCount; ++jj) {
+          const r = MDP.getNode(neighbors[jj]).reward;
+          if (r > maxReward) {
+            hardestNeighbor = neighbors[jj];
+            maxReward = r;
+          }
+        }
+
+        console.log(`Removing edge ${KEY_START} -> ${hardestNeighbor}...`);
+        MDP.removeEdge(KEY_START, hardestNeighbor);
+        console.log(`Count from ${neighborsCount} to ${MDP.getNode(KEY_START).neighbors.length}`);
+      }
     }
 
     // Update baed on how the player did
@@ -38,7 +67,6 @@ export class LevelDirector {
       const pc = percentCompleted[i];
       const id = this.keys[i];
       const node = MDP.getNode(id) as CustomNode;
-      console.log(node);
 
       // add edge if the segemnt was completed by the player
       if (pc === 1) {
@@ -55,12 +83,10 @@ export class LevelDirector {
       // update incoming edges life and death probability
       const probLife = node.sumPercentCompleted / node.visitedCount;
       const probDeath = 1 - probLife;
-      console.log(id, probLife, probDeath);
       MDP.mapEdges((e: Edge) => {
         if (e.tgt === id) {
           // There are always two entries. First is ideal target state and the
           // second is death.
-          console.log(e);
           e.probability[0][1] = probLife;
           e.probability[1][1] = probDeath;
         }
@@ -78,7 +104,6 @@ export class LevelDirector {
     for (let i = 0; i < levelSegments; ++i) {
       const k = pi[this.keys[i]];
       this.keys.push(k);
-      console.log(k);
 
       if (k === KEY_END) {
         break;
@@ -92,10 +117,8 @@ export class LevelDirector {
     const lvl: string[] = Array(NUM_ROWS).fill("");
     const length = this.keys.length;
 
-    console.log(this.keys);
     for (let i = 0; i < length; ++i) { // skip the start key
       const stateLVL = idToLevel[this.keys[i]];
-      console.log(this.keys[i], stateLVL);
       this.columnsPerLevel.push(stateLVL[0].length);
 
       for (let r = 0; r < NUM_ROWS; ++r) {
