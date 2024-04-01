@@ -8,7 +8,7 @@ export class LevelDirector {
   private keys: string[];
   private columnsPerLevel: number[];
   private lossesInARow: number = 0;
-  private playerWonLastRound: boolean = true;
+  private playerWonLastRound: boolean = false;
 
   constructor() {
   }
@@ -36,7 +36,7 @@ export class LevelDirector {
       }
 
       // THis is the adaptive part of of adaptive policy iteration. See my
-      // paper (Level Assembly as a Markov Decision Process) for details.
+      // see my ADP paper (Level Assembly as a Markov Decision Process) for details.
       ++this.lossesInARow;
       for (let i = 0; i < this.lossesInARow; ++i) {
         const neighbors = MDP.getNode(KEY_START).neighbors;
@@ -56,7 +56,9 @@ export class LevelDirector {
           }
         }
 
+        console.log('removing edge:', hardestNeighbor);
         MDP.removeEdge(KEY_START, hardestNeighbor);
+        console.log(MDP);
       }
     }
 
