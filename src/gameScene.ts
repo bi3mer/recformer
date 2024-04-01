@@ -3,7 +3,7 @@ import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
-import { KEY_START, NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { KEY_END, KEY_START, NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 import { Coin } from "./coin";
 import { randomKey } from "./util";
@@ -11,11 +11,13 @@ import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
 import { MDP, idToLevel } from "./levels.ts";
 import { policyIteration } from "./GDM-TS/index.ts";
+import { LevelDirector } from "./levelDirector.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
   private camera: Camera;
   private numCoins: number;
+  private levelDirector: LevelDirector;
 
   private staticEntities: GameObject[];
   private dynamicEntities: GameObject[];
@@ -25,6 +27,7 @@ export class GameScene extends Scene {
 
     this.ctx = ctx;
     this.camera = new Camera();
+    this.levelDirector = new LevelDirector();
   }
 
   onEnter(): void {
@@ -34,7 +37,7 @@ export class GameScene extends Scene {
     this.numCoins = 0;
     this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    const lvl = this.generateLevel(3);
+    const lvl = this.levelDirector.get(3);
     const rows = lvl.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
@@ -62,6 +65,8 @@ export class GameScene extends Scene {
         }
       }
     }
+
+    this.columnsInLevel = columns;
   }
 
   update(dt: number): void {
@@ -129,28 +134,7 @@ export class GameScene extends Scene {
   }
 
   protected _onExit(): void {
-
-  }
-
-  private generateLevel(levelSegments: number): string[] {
-    // USE MDP to generate a new level based on state names
-    const pi = policyIteration(MDP, 0.95, true, true, 20);
-    const keys: string[] = [KEY_START];
-
-    for (let i = 0; i < levelSegments; ++i) {
-      keys.push(pi[keys[i]]);
-    }
-
-    // use generated states to fill in the level
-    const lvl: string[] = Array(NUM_ROWS).fill("");
-    for (let i = 1; i <= levelSegments; ++i) { // skip the start keys
-      const stateLVL = idToLevel[keys[i]];
-
-      for (let r = 0; r < NUM_ROWS; ++r) {
-        lvl[r] += stateLVL[r];
-      }
-    }
-
-    return lvl;
+    const player = this.dynamicEntities[0] as Player;
+    this.levelDirector.update(!player.dead, Math.floor(player.maxColumn));
   }
 }

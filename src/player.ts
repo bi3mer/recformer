@@ -19,6 +19,7 @@ export class Player extends GameObject {
   private stretch: number = 1;
 
   public coinsCollected: number = 0;
+  public maxColumn: number = 0;
 
   constructor(x: number, y: number) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
@@ -66,6 +67,8 @@ export class Player extends GameObject {
       this.squash += 0.01;
       this.stretch -= 0.01;
     }
+
+    this.maxColumn = Math.max(this.pos.x, this.maxColumn);
   }
 
   handleCollision(other: GameObject): void {
@@ -98,9 +101,8 @@ export class Player extends GameObject {
             this.velocity.y = 0;
             this.jumpTime = 0;
 
-            const temp = this.stretch;
-            this.stretch = 1.05;
-            this.squash = 0.95;
+            this.stretch = 1.03;
+            this.squash = 0.97;
           }
         }
         break;
