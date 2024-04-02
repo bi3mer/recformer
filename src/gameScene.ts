@@ -53,15 +53,18 @@ export class GameScene extends Scene {
       }
 
       for (let col = 0; col < columns; ++col) {
-        if (row[col] === 'X') {
+        const tile = row[col];
+        if (tile === 'X') {
           this.staticEntities.push(new Block(col, r));
-        } else if (row[col] === 'o') {
+        } else if (tile === 'o') {
           ++this.numCoins;
           this.dynamicEntities.push(new Coin(col, r));
-        } else if (row[col] === 'H') {
+        } else if (tile === 'H') {
           this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
-        } else if (row[col] === 'V') {
+        } else if (tile === 'V') {
           this.dynamicEntities.push(new VerticalEnemy(col, r));
+        } else if (tile !== '-') {
+          console.error(`Unhandled tile type: ${row[col]}`);
         }
       }
     }

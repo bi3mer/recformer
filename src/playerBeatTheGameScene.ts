@@ -16,12 +16,7 @@ export class PlayerBeatTheGameScene extends Scene {
     this.ctx.fillText("You won! Congratulations!", 170, SCREEN_HEIGHT / 2);
   }
 
-  update(dt: number): void {
-
-  }
-
-  render(): void {
-  }
-
+  update(dt: number): void { }
+  render(): void { }
   protected _onExit(): void { }
 } 

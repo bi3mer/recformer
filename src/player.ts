@@ -60,8 +60,8 @@ export class Player extends GameObject {
         this.velocity.y -= 2;
       }
 
-      this.squash += 0.01;
-      this.stretch -= 0.01;
+      this.squash = Math.min(1.03, this.squash + 0.01);
+      this.stretch = Math.max(0.97, this.stretch - 0.01);
       this.jumpTime += dt;
     } else if (this.squash != this.stretch) {
       this.squash += 0.01;
@@ -101,8 +101,8 @@ export class Player extends GameObject {
             this.velocity.y = 0;
             this.jumpTime = 0;
 
-            this.stretch = 1.03;
-            this.squash = 0.97;
+            this.stretch = 1.01;
+            this.squash = 0.99;
           }
         }
         break;

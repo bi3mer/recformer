@@ -24,7 +24,7 @@ export class Engine {
     document.getElementById('game')!.appendChild(this.canvas);
 
     this.sceneManager = new SceneManager();
-    this.sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene());
+    this.sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene(this.ctx));
     this.sceneManager.registerScene(KEY_GAME, new GameScene(this.ctx));
     this.sceneManager.registerScene(KEY_PLAYER_BEAT_THE_GAME, new PlayerBeatTheGameScene(this.ctx));
 
