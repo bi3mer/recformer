@@ -1,5 +1,6 @@
-import { policyIteration } from "./GDM-TS";
+import { policyIteration, valueIteration } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
+import { choice } from "./GDM-TS/src/rand";
 import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "./constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
@@ -37,31 +38,6 @@ export class LevelDirector {
         }
       }
 
-      // THis is the adaptive part of of adaptive policy iteration. See my
-      // see my ADP paper (Level Assembly as a Markov Decision Process) for details.
-      ++this.lossesInARow;
-      for (let i = 0; i < this.lossesInARow; ++i) {
-        const neighbors = MDP.getNode(KEY_START).neighbors;
-        const neighborsCount = neighbors.length;
-
-        if (neighborsCount === 1) {
-          break;
-        }
-
-        let hardestNeighbor = "";
-        let maxReward = -10000;
-        for (let jj = 0; jj < neighborsCount; ++jj) {
-          const r = MDP.getNode(neighbors[jj]).reward;
-          if (r > maxReward) {
-            hardestNeighbor = neighbors[jj];
-            maxReward = r;
-          }
-        }
-
-        console.log('removing edge:', hardestNeighbor);
-        MDP.removeEdge(KEY_START, hardestNeighbor);
-        console.log(MDP);
-      }
     }
 
     // Update baed on how the player did
@@ -96,6 +72,33 @@ export class LevelDirector {
       });
     }
 
+    // This is the adaptive part of of adaptive policy iteration. See my
+    // see my ADP paper (Level Assembly as a Markov Decision Process) for details.
+    if (!playerWon) {
+      ++this.lossesInARow;
+      for (let i = 0; i < this.lossesInARow; ++i) {
+        const neighbors = MDP.getNode(KEY_START).neighbors;
+        const neighborsCount = neighbors.length;
+
+        if (neighborsCount === 1) {
+          break;
+        }
+
+        let hardestNeighbor = "";
+        let maxReward = -10000;
+        for (let jj = 0; jj < neighborsCount; ++jj) {
+          const r = MDP.getNode(neighbors[jj]).reward;
+          if (r > maxReward) {
+            hardestNeighbor = neighbors[jj];
+            maxReward = r;
+          }
+        }
+
+        console.log('removing edge:', hardestNeighbor);
+        MDP.removeEdge(KEY_START, hardestNeighbor);
+      }
+    }
+
     this.playerWonLastRound = playerWon;
   }
 
@@ -106,14 +109,14 @@ export class LevelDirector {
     // If player won, don't start from a level that they have definitely 
     // already played
     if (this.playerWonLastRound) {
-      this.keys = [pi[KEY_START]];
+      this.keys = [choice(pi[KEY_START])];
     } else {
       this.keys = [KEY_START];
     }
 
     // USE MDP to create a policy and generate a new level
     for (let i = 0; i < levelSegments; ++i) {
-      const k = pi[this.keys[i]];
+      const k = choice(pi[this.keys[i]]);
       this.keys.push(k);
 
       if (k === KEY_END) {
