@@ -5,6 +5,8 @@ import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 
 export class LevelDirector {
+  public playerIsOnLastLevel: boolean = false;
+
   private keys: string[];
   private columnsPerLevel: number[];
   private lossesInARow: number = 0;
@@ -121,6 +123,9 @@ export class LevelDirector {
 
     // remove START id from keys since we won't use it after this 
     this.keys.splice(0, 1);
+
+    // Update if the player is on the last level 
+    this.playerIsOnLastLevel = this.keys.includes(KEY_END);
 
     // Populate the level
     const lvl: string[] = Array(NUM_ROWS).fill("");

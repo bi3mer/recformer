@@ -1,5 +1,5 @@
 import { Scene } from "./scene";
-import { KEY_GAME } from "./sceneKeys";
+import { KEY_GAME, KEY_PLAYER_BEAT_THE_GAME } from "./sceneKeys";
 
 export class MainMenuScene extends Scene {
   constructor() {

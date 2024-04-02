@@ -4,7 +4,7 @@ import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
 import { KEY_END, KEY_START, NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { KEY_MAIN_MENU } from "./sceneKeys";
+import { KEY_MAIN_MENU, KEY_PLAYER_BEAT_THE_GAME } from "./sceneKeys";
 import { Coin } from "./coin";
 import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
@@ -101,8 +101,11 @@ export class GameScene extends Scene {
 
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
-      console.log("Player won!");
-      this.changeScene = KEY_MAIN_MENU;
+      if (this.levelDirector.playerIsOnLastLevel) {
+        this.changeScene = KEY_PLAYER_BEAT_THE_GAME;
+      } else {
+        this.changeScene = KEY_MAIN_MENU;
+      }
     }
 
     // if the player is dead, we're done. Player needs a special case from

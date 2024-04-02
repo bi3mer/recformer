@@ -2,8 +2,9 @@ import { Scene } from "./scene";
 import { SceneManager } from "./sceneManager";
 import { MainMenuScene } from "./mainMenuScene";
 import { GameScene } from "./gameScene";
-import { KEY_GAME, KEY_MAIN_MENU } from "./sceneKeys";
+import { KEY_GAME, KEY_MAIN_MENU, KEY_PLAYER_BEAT_THE_GAME } from "./sceneKeys";
 import { SCREEN_WIDTH, SCREEN_HEIGHT, TILE_SIZE } from "./constants";
+import { PlayerBeatTheGameScene } from "./playerBeatTheGameScene";
 
 export class Engine {
   private canvas: HTMLCanvasElement
@@ -25,6 +26,7 @@ export class Engine {
     this.sceneManager = new SceneManager();
     this.sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene());
     this.sceneManager.registerScene(KEY_GAME, new GameScene(this.ctx));
+    this.sceneManager.registerScene(KEY_PLAYER_BEAT_THE_GAME, new PlayerBeatTheGameScene(this.ctx));
 
     this.currentScene = this.sceneManager.getScene(KEY_MAIN_MENU)!;
     this.currentScene.onEnter();
