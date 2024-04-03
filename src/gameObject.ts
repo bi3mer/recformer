@@ -1,5 +1,4 @@
 import { Camera } from "./camera";
-import { TYPE_PLAYER } from "./gameObjectTypes";
 import { Point } from "./point";
 import { rectangleIntersect } from "./util";
 

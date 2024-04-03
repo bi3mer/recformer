@@ -1,5 +1,6 @@
 
 import { Camera } from "./camera";
+import { COLOR_PLAYER } from "./colors";
 import { DEATH_HEIGHT, PLAYER_HEIGHT, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, PLAYER_WIDTH } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
@@ -124,7 +125,7 @@ export class Player extends GameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "rgba(150,150,255,1)";
+    ctx.fillStyle = COLOR_PLAYER;
 
     const x = camera.columnToScreen(this.pos.x);
     const y = camera.rowToScreen(this.pos.y);
