@@ -1,21 +1,24 @@
 import { Scene } from "./scene";
-import { KEY_GAME } from "./sceneKeys";
-import { BLOCK_HEIGHT, BLOCK_SCREEN_HEIGHT, BLOCK_SCREEN_WIDTH, NUM_ROWS, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
+import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
+import { BLOCK_SCREEN_HEIGHT, BLOCK_SCREEN_WIDTH, NUM_ROWS, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH, TILE_SIZE } from "./constants";
 import { InputManager, Key } from "./inputManager";
 import { Point } from "./point";
 import { COLOR_PLAYER } from "./colors";
+import { TransitionScene } from "./transitionScene";
 
 const MAX_COLS = Math.floor(SCREEN_WIDTH / TILE_SIZE) - 1;
 
 export class MainMenuScene extends Scene {
   private ctx: CanvasRenderingContext2D;
+  private transitionScene: TransitionScene;
   private fakePlayerPos: Point;
   private sign: number;
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
     super();
 
     this.ctx = ctx;
+    this.transitionScene = transitionScene;
     this.fakePlayerPos = new Point(10, (NUM_ROWS - 2) * TILE_SIZE);
     this.sign = 1;
   }
@@ -48,7 +51,8 @@ export class MainMenuScene extends Scene {
 
   update(dt: number): void {
     if (InputManager.isKeyDown(Key.SPACE)) {
-      this.changeScene = KEY_GAME;
+      this.transitionScene.targetScene = KEY_GAME;
+      this.changeScene = KEY_TRANSITION;
     }
 
     const x = this.fakePlayerPos.x;

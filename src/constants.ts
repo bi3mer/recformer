@@ -24,7 +24,7 @@ export const ENEMY_SCREEN_HEIGHT = 15;
 export const ENEMY_WIDTH = ENEMY_SCREEN_WIDTH / TILE_SIZE;
 export const ENEMY_HEIGHT = ENEMY_SCREEN_HEIGHT / TILE_SIZE;
 
-// MDP Constants
+// MDP keys
 export const KEY_START = "start";
 export const KEY_END = "end";
 export const KEY_DEATH = "death";

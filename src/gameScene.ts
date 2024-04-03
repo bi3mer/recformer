@@ -3,18 +3,18 @@ import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
-import { KEY_END, KEY_START, NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { KEY_MAIN_MENU, KEY_PLAYER_BEAT_THE_GAME } from "./sceneKeys";
+import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { KEY_MAIN_MENU, KEY_PLAYER_BEAT_THE_GAME, KEY_PLAYER_LOST, KEY_PLAYER_WON, KEY_TRANSITION } from "./sceneKeys";
 import { Coin } from "./coin";
-import { randomKey } from "./util";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
-import { MDP, idToLevel } from "./levels.ts";
-import { policyIteration } from "./GDM-TS/index.ts";
 import { LevelDirector } from "./levelDirector.ts";
+import { TransitionScene } from "./transitionScene.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
+  private transitionScene: TransitionScene;
+
   private camera: Camera;
   private numCoins: number;
   private levelDirector: LevelDirector;
@@ -22,10 +22,11 @@ export class GameScene extends Scene {
   private staticEntities: GameObject[];
   private dynamicEntities: GameObject[];
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
     super();
 
     this.ctx = ctx;
+    this.transitionScene = transitionScene;
     this.camera = new Camera();
     this.levelDirector = new LevelDirector();
   }
@@ -105,16 +106,19 @@ export class GameScene extends Scene {
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
       if (this.levelDirector.playerIsOnLastLevel) {
-        this.changeScene = KEY_PLAYER_BEAT_THE_GAME;
+        this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
+        this.changeScene = KEY_TRANSITION;
       } else {
-        this.changeScene = KEY_MAIN_MENU;
+        this.transitionScene.targetScene = KEY_PLAYER_WON;
+        this.changeScene = KEY_TRANSITION;
       }
     }
 
     // if the player is dead, we're done. Player needs a special case from
     // the one above
     if (player.dead) {
-      this.changeScene = KEY_MAIN_MENU;
+      this.transitionScene.targetScene = KEY_PLAYER_LOST;
+      this.changeScene = KEY_TRANSITION;
     }
   }
 
