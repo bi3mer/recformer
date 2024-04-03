@@ -37,7 +37,7 @@ export class GameScene extends Scene {
     this.numCoins = 0;
     this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    const lvl = this.levelDirector.get(3);
+    const lvl = this.levelDirector.get(2);
     const rows = lvl.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");

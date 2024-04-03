@@ -13,9 +13,9 @@ typescript += 'import { KEY_DEATH, KEY_END, KEY_START } from "./constants";\n'
 typescript += "\n// ========= Nodes =========\n"
 typescript += "export const MDP = new Graph();\n\n"
 
-typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, []));"
-typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, []));\n"
-typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, []));\n\n"
+typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));\n"
+typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));\n"
+typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
 max_r = 0
 for file_name in os.listdir("segments"):
@@ -40,7 +40,8 @@ for file_name in os.listdir("segments"):
 max_r += 1
 for id, r in nodes:
     # typescript += f'MDP.addDefaultNode("{id}", {-(max_r-r)/max_r}, 0, false);\n'
-    node = f'new CustomNode("{id}", {-(max_r-r)/max_r}, 0, false, [])'
+    depth = id.split('-')[0]
+    node = f'new CustomNode("{id}", {-(max_r-r)/max_r}, 0, false, [], {depth})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"

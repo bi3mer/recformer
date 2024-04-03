@@ -6,21 +6,22 @@ import { KEY_DEATH, KEY_END, KEY_START } from "./constants";
 // ========= Nodes =========
 export const MDP = new Graph();
 
-MDP.addNode(new CustomNode(KEY_START, 0, 0, false, []));MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, []));
-MDP.addNode(new CustomNode(KEY_END, 1, 0, true, []));
+MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));
+MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));
+MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));
 
-MDP.addNode(new CustomNode("4-b", -0.5454545454545454, 0, false, []));
-MDP.addNode(new CustomNode("2-b", -0.7272727272727273, 0, false, []));
-MDP.addNode(new CustomNode("3-b", -0.6363636363636364, 0, false, []));
-MDP.addNode(new CustomNode("4-a", -0.5454545454545454, 0, false, []));
-MDP.addNode(new CustomNode("3-a", -0.6363636363636364, 0, false, []));
-MDP.addNode(new CustomNode("2-a", -0.7272727272727273, 0, false, []));
-MDP.addNode(new CustomNode("1-a", -0.8181818181818182, 0, false, []));
-MDP.addNode(new CustomNode("5-c", -0.45454545454545453, 0, false, []));
-MDP.addNode(new CustomNode("5-a", -0.45454545454545453, 0, false, []));
-MDP.addNode(new CustomNode("5-b", -0.45454545454545453, 0, false, []));
-MDP.addNode(new CustomNode("6-a", -0.2727272727272727, 0, false, []));
-MDP.addNode(new CustomNode("7-a", -0.18181818181818182, 0, false, []));
+MDP.addNode(new CustomNode("4-b", -0.5454545454545454, 0, false, [], 4));
+MDP.addNode(new CustomNode("2-b", -0.7272727272727273, 0, false, [], 2));
+MDP.addNode(new CustomNode("3-b", -0.6363636363636364, 0, false, [], 3));
+MDP.addNode(new CustomNode("4-a", -0.5454545454545454, 0, false, [], 4));
+MDP.addNode(new CustomNode("3-a", -0.6363636363636364, 0, false, [], 3));
+MDP.addNode(new CustomNode("2-a", -0.7272727272727273, 0, false, [], 2));
+MDP.addNode(new CustomNode("1-a", -0.8181818181818182, 0, false, [], 1));
+MDP.addNode(new CustomNode("5-c", -0.45454545454545453, 0, false, [], 5));
+MDP.addNode(new CustomNode("5-a", -0.45454545454545453, 0, false, [], 5));
+MDP.addNode(new CustomNode("5-b", -0.45454545454545453, 0, false, [], 5));
+MDP.addNode(new CustomNode("6-a", -0.2727272727272727, 0, false, [], 6));
+MDP.addNode(new CustomNode("7-a", -0.18181818181818182, 0, false, [], 7));
 
 // ========= Edges =========
 MDP.addDefaultEdge("4-b", "5-a", [["5-a", 0.99], [KEY_DEATH, 0.01]]);

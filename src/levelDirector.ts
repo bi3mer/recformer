@@ -74,6 +74,8 @@ export class LevelDirector {
 
     // This is the adaptive part of of adaptive policy iteration. See my
     // see my ADP paper (Level Assembly as a Markov Decision Process) for details.
+    // Note that instead of reward or difficulty, we are concerned with maintaining
+    // the structure of this smaller graph, so we use the depth of the node.
     if (!playerWon) {
       ++this.lossesInARow;
       for (let i = 0; i < this.lossesInARow; ++i) {
@@ -87,16 +89,19 @@ export class LevelDirector {
         let hardestNeighbor = "";
         let maxReward = -10000;
         for (let jj = 0; jj < neighborsCount; ++jj) {
-          const r = MDP.getNode(neighbors[jj]).reward;
-          if (r > maxReward) {
-            hardestNeighbor = neighbors[jj];
-            maxReward = r;
+          const nodeName = neighbors[jj];
+          const d = (MDP.getNode(nodeName) as CustomNode).depth;
+          if (d > maxReward) {
+            hardestNeighbor = nodeName;
+            maxReward = d;
           }
         }
 
-        console.log('removing edge:', hardestNeighbor);
+        console.log('removing edge:', hardestNeighbor, maxReward);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
+
+      console.log('=======================');
     }
 
     this.playerWonLastRound = playerWon;
