@@ -1,6 +1,9 @@
 import json
 import os
 
+with open("graph.json", "r") as f:
+    G = json.load(f)
+
 id_to_edges = {}
 id_to_lvl = {}
 nodes = []
@@ -17,39 +20,29 @@ typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));\n"
 typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));\n"
 typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
-max_r = 0
-for file_name in os.listdir("segments"):
-    with open(os.path.join("segments", file_name)) as f:
-        lvl = [line.strip() for line in f.readlines()]
+# Get max reward
+max_r = -1
+for id in G:
+    max_r = max(max_r, G[id]["reward"])
 
-    if file_name == "end.txt":
-        id_to_lvl["end"] = lvl
+for id in G:
+    with open(os.path.join("segments", f"{id}.txt")) as f:
+        lvl = [line.strip() for line in f.readlines()]
+        id_to_lvl[id] = lvl
+
+    if id == "end":
         continue
 
-    id, r, edges = file_name.split("_")
-    r = float(r)
-    max_r = max(max_r, r)
-
-    edges = edges[:-4].split(",")  # remove .txt from the end and then split by comma
-
-    id_to_lvl[id] = lvl
-    id_to_edges[id] = edges
-
-    nodes.append((id, r))
-
-max_r += 1
-for id, r in nodes:
-    # typescript += f'MDP.addDefaultNode("{id}", {-(max_r-r)/max_r}, 0, false);\n'
-    depth = id.split('-')[0]
-    node = f'new CustomNode("{id}", {-(max_r-r)/max_r}, 0, false, [], {depth})'
+    depth = id.split("-")[0]
+    node = f'new CustomNode("{id}", {-(max_r-G[id]["reward"])/max_r}, 0, false, [], {depth})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
-for id in id_to_edges:
+for id in G:
     if id[0] == "1":
         typescript += f'MDP.addDefaultEdge(KEY_START, "{id}", [["{id}", 0.99], [KEY_DEATH, 0.01]])\n'
 
-    for tgt in id_to_edges[id]:
+    for tgt in G[id]["neighbors"]:
         typescript += f'MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]]);\n'
 
     typescript += "\n"

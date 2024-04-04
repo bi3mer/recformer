@@ -1,111 +1,85 @@
 {
-    "1-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 1,
-        "neighbors": [
-            "2-a",
-            "2-b"
-        ]
-    },
-    "2-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 1.5,
-        "neighbors": [
-            "3-b"
-        ]
-    },
-    "2-b": {
-        "x": 0,
-        "y": 0,
-        "reward": 1.5,
-        "neighbors": [
-            "3-a"
-        ]
-    },
-    "3-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 2,
-        "neighbors": [
-            "4-a",
-            "4-b"
-        ]
-    },
-    "3-b": {
-        "x": 0,
-        "y": 0,
-        "reward": 2,
-        "neighbors": [
-            "4-a",
-            "4-b"
-        ]
-    },
-    "4-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 3.5,
-        "neighbors": [
-            "5-a",
-            "5-b",
-            "5-c"
-        ]
-    },
-    "4-b": {
-        "x": 0,
-        "y": 0,
-        "reward": 3.5,
-        "neighbors": [
-            "5-a",
-            "5-b",
-            "5-c"
-        ]
-    },
-    "5-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 4,
-        "neighbors": [
-            "6-a"
-        ]
-    },
-    "5-b": {
-        "x": 0,
-        "y": 0,
-        "reward": 4,
-        "neighbors": [
-            "6-a"
-        ]
-    },
-    "5-c": {
-        "x": 0,
-        "y": 0,
-        "reward": 4,
-        "neighbors": [
-            "6-a"
-        ]
-    },
-    "6-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 4.5,
-        "neighbors": [
-            "7-a"
-        ]
-    },
-    "7-a": {
-        "x": 0,
-        "y": 0,
-        "reward": 5,
-        "neighbors": [
-            "end"
-        ]
-    },
-    "end": {
-        "x": 0,
-        "y": 0,
-        "reward": 1,
-        "neighbors": []
-    }
+  "1-a": {
+    "reward": 1,
+    "neighbors": [
+      "2-a",
+      "2-b"
+    ]
+  },
+  "2-a": {
+    "reward": 1.5,
+    "neighbors": [
+      "3-b"
+    ]
+  },
+  "2-b": {
+    "reward": 1.5,
+    "neighbors": [
+      "3-a"
+    ]
+  },
+  "3-a": {
+    "reward": 2,
+    "neighbors": [
+      "4-a",
+      "4-b"
+    ]
+  },
+  "3-b": {
+    "reward": 2,
+    "neighbors": [
+      "4-a",
+      "4-b"
+    ]
+  },
+  "4-a": {
+    "reward": 3.5,
+    "neighbors": [
+      "5-a",
+      "5-b",
+      "5-c"
+    ]
+  },
+  "4-b": {
+    "reward": 3.5,
+    "neighbors": [
+      "5-a",
+      "5-b",
+      "5-c"
+    ]
+  },
+  "5-a": {
+    "reward": 4,
+    "neighbors": [
+      "6-a"
+    ]
+  },
+  "5-b": {
+    "reward": 4,
+    "neighbors": [
+      "6-a"
+    ]
+  },
+  "5-c": {
+    "reward": 4,
+    "neighbors": [
+      "6-a"
+    ]
+  },
+  "6-a": {
+    "reward": 4.5,
+    "neighbors": [
+      "7-a"
+    ]
+  },
+  "7-a": {
+    "reward": 5,
+    "neighbors": [
+      "end"
+    ]
+  },
+  "end": {
+    "reward": 1,
+    "neighbors": []
+  }
 }
