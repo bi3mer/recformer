@@ -1,6 +1,7 @@
 import tkinter as tk
 import json
 import os
+from tkinter.font import nametofont
 
 NODE_WIDTH = 100
 NODE_HEIGHT = 60
@@ -9,6 +10,7 @@ NODE_HEIGHT = 60
 class Editor:
     def __init__(self, root):
         root.protocol("WM_DELETE_WINDOW", self.on_exit)
+        root.createcommand("::tk::mac::Quit", self.on_exit)
 
         self.root = root
         self.root.title("Level Graph Editor")
@@ -16,7 +18,7 @@ class Editor:
         self.canvas = tk.Canvas(self.root, width=1800, height=980, bg="gray28")
         self.canvas.pack(fill="both", expand=1)
 
-        self.canvas.bind_all("<B3-Motion>", self.on_canvas_motion)
+        # self.canvas.bind_all("<B3-Motion>", self.on_canvas_motion)
 
         self.nodes = {}
         self.edges = []
@@ -116,11 +118,72 @@ class Editor:
             "incoming_lines": [],
         }
 
+        # move nodes around
         self.canvas.tag_bind(
             rect,
             "<B1-Motion>",
             lambda event: self.on_drag(event, id),
         )
+
+        # create edges between nodes
+        self.canvas.tag_bind(rect, "<ButtonPress-2>", lambda e: self.start_drag(id, e))
+        self.canvas.tag_bind(rect, "<B2-Motion>", lambda e: self.dragging(id, e))
+        self.canvas.tag_bind(rect, "<ButtonRelease-2>", lambda e: self.end_drag(id, e))
+
+    def start_drag(self, id, event):
+        N = self.g[id]
+        self.drag_id = id
+        self.drag_line = self.canvas.create_line(
+            N["x"] + NODE_WIDTH,
+            N["y"] + NODE_HEIGHT / 2,
+            event.x,
+            event.y,
+            width=2,
+            fill="yellow",
+            arrow=tk.LAST,
+        )
+
+    def dragging(self, id, event):
+        coords = self.canvas.coords(self.drag_line)
+        self.canvas.coords(self.drag_line, coords[0], coords[1], event.x, event.y)
+
+    def end_drag(self, id, event):
+        coords = self.canvas.coords(self.drag_line)
+        overlapping = self.canvas.find_overlapping(
+            coords[2], coords[3], coords[2] + 10, coords[3] + 10
+        )
+
+        if len(overlapping) == 2:
+            # found connection
+            tgt_node_tkid = (
+                overlapping[0] if overlapping[0] != self.drag_line else overlapping[1]
+            )
+
+            tgt_id = "1-a"
+            for n in self.g:
+                if self.nodes[n]["rect"] == tgt_node_tkid:
+                    tgt_id = n
+                    break
+
+            # Set position of the line
+            tgt_ng = self.g[tgt_id]
+            self.canvas.coords(
+                self.drag_line,
+                coords[0],
+                coords[1],
+                tgt_ng["x"],
+                tgt_ng["y"] + NODE_HEIGHT / 2,
+            )
+
+            # add to internal data structuresi
+            self.g[self.drag_id]["neighbors"].append(tgt_id)
+
+            tgt_nn = self.nodes[tgt_id]
+            tgt_nn["incoming_lines"].append(self.drag_id)
+            self.nodes[self.drag_id]["outgoing_lines"].append(tgt_id)
+        else:
+            # no connection found
+            self.canvas.delete(self.drag_line)
 
     def on_reward_change(self, id, val):
         try:
@@ -157,8 +220,11 @@ class Editor:
             )
 
     def on_exit(self):
+        print("saving graph before exiting :D")
         with open("graph.json", "w") as f:
             json.dump(self.g, f, indent=2)
+
+        exit(0)
 
 
 if __name__ == "__main__":
