@@ -1,5 +1,6 @@
-import json
 import tkinter as tk
+import json
+import os
 
 NODE_WIDTH = 100
 NODE_HEIGHT = 60
@@ -21,6 +22,17 @@ class Editor:
         with open("graph.json", "r") as f:
             self.g = json.load(f)
 
+            # check segments directory for any new segments and add anode
+            for filename in os.listdir("segments"):
+                id = filename[:-4]  # remove .txt from end
+                if id not in self.g:
+                    self.g[id] = {
+                        "reward": 1000,
+                        "neighbors": [],
+                        "x": 0,
+                        "y": 0,
+                    }
+
             # nodes
             for id in self.g:
                 self.add_node(id)
@@ -40,6 +52,7 @@ class Editor:
                         _nodeNeighbor["x"],
                         _nodeNeighbor["y"] + NODE_HEIGHT / 2,
                         fill="yellow",
+                        arrow=tk.LAST,
                     )
 
                     self.nodes[id]["outgoing_lines"].append(line)
@@ -103,7 +116,7 @@ class Editor:
         for neighbor in self.nodes[id]["outgoing_lines"]:
             coords = self.canvas.coords(neighbor)
             self.canvas.coords(
-                neighbor, x1 + NODE_WIDTH, y1 + NODE_WIDTH / 2, coords[2], coords[3]
+                neighbor, x1 + NODE_WIDTH, y1 + NODE_HEIGHT / 2, coords[2], coords[3]
             )
 
     def on_exit(self):
