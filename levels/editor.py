@@ -74,6 +74,10 @@ class Editor:
 
         reward_var = tk.DoubleVar()
         reward_var.set(N["reward"])  # Initial width of the rectangle
+        reward_var.trace_add(
+            "write",
+            lambda var, index, mode: self.on_reward_change(id, reward_var.get()),
+        )
         r = tk.Entry(frame, textvariable=reward_var, width=3)
         r.pack()
 
@@ -90,6 +94,12 @@ class Editor:
             "<B1-Motion>",
             lambda event: self.on_drag(event, id),
         )
+
+    def on_reward_change(self, id, val):
+        try:
+            self.g[id]["reward"] = float(val)
+        except:
+            print(f"Invalid value: {val}")
 
     def on_canvas_motion(self, event):
         pass
