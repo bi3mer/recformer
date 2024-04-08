@@ -19,6 +19,7 @@ class Editor:
         self.canvas.bind_all("<B3-Motion>", self.on_canvas_motion)
 
         self.nodes = {}
+        self.edges = []
         with open("graph.json", "r") as f:
             self.g = json.load(f)
 
@@ -39,24 +40,50 @@ class Editor:
 
             # create edges
             for id in self.g:
-                N = self.g[id]
-                x = N["x"]
-                y = N["y"]
+                self.add_edge_for_node(id)
 
-                for neighbor in self.g[id]["neighbors"]:
-                    _nodeNeighbor = self.g[neighbor]
+    def add_edge_for_node(self, id):
+        N = self.g[id]
+        x = N["x"]
+        y = N["y"]
 
-                    line = self.canvas.create_line(
-                        x + NODE_WIDTH,
-                        y + NODE_HEIGHT / 2,
-                        _nodeNeighbor["x"],
-                        _nodeNeighbor["y"] + NODE_HEIGHT / 2,
-                        fill="yellow",
-                        arrow=tk.LAST,
-                    )
+        for neighbor in self.g[id]["neighbors"]:
+            _nodeNeighbor = self.g[neighbor]
 
-                    self.nodes[id]["outgoing_lines"].append(line)
-                    self.nodes[neighbor]["incoming_lines"].append(line)
+            line = self.canvas.create_line(
+                x + NODE_WIDTH,
+                y + NODE_HEIGHT / 2,
+                _nodeNeighbor["x"],
+                _nodeNeighbor["y"] + NODE_HEIGHT / 2,
+                width=2,
+                fill="yellow",
+                arrow=tk.LAST,
+            )
+
+            self.canvas.tag_bind(
+                line, "<Button-2>", lambda event: self.remove_edge_event(line)
+            )
+
+            self.nodes[id]["outgoing_lines"].append(line)
+            self.nodes[neighbor]["incoming_lines"].append(line)
+            self.edges.append(line)
+
+    def remove_edge_event(self, line_id):
+        # remove from the graphics
+        self.edges.remove(line_id)
+        self.canvas.delete(line_id)
+
+        # remove from nodes
+        for n in self.nodes:
+            N = self.nodes[n]
+            if line_id in N["outgoing_lines"]:
+                # remove from both the graph and the nodes internal represenation
+                index = N["outgoing_lines"].index(line_id)
+                N["outgoing_lines"].remove(line_id)
+                self.g[n]["neighbors"].pop(index)
+
+            if line_id in N["incoming_lines"]:
+                N["incoming_lines"].remove(line_id)
 
     def add_node(self, id):
         N = self.g[id]
@@ -76,7 +103,7 @@ class Editor:
         reward_var.set(N["reward"])  # Initial width of the rectangle
         reward_var.trace_add(
             "write",
-            lambda var, index, mode: self.on_reward_change(id, reward_var.get()),
+            lambda _var, _index, _mode: self.on_reward_change(id, reward_var.get()),
         )
         r = tk.Entry(frame, textvariable=reward_var, width=3)
         r.pack()
