@@ -1,10 +1,13 @@
+from collections import namedtuple
+
 import tkinter as tk
 import json
 import os
-from tkinter.font import nametofont
 
 NODE_WIDTH = 100
 NODE_HEIGHT = 60
+
+Node = namedtuple("Node", ["rect", "frame"])
 
 
 class Editor:
@@ -15,13 +18,13 @@ class Editor:
         self.root = root
         self.root.title("Level Graph Editor")
 
-        self.canvas = tk.Canvas(self.root, width=1800, height=980, bg="gray28")
+        self.canvas = tk.Canvas(self.root, width=1800, height=980, bg="gray20")
         self.canvas.pack(fill="both", expand=1)
 
         # self.canvas.bind_all("<B3-Motion>", self.on_canvas_motion)
 
+        self.id_to_tk = {}
         self.nodes = {}
-        self.edges = []
         with open("graph.json", "r") as f:
             self.g = json.load(f)
 
@@ -49,7 +52,7 @@ class Editor:
         x = N["x"]
         y = N["y"]
 
-        for neighbor in self.g[id]["neighbors"]:
+        def make_edge(neighbor):
             _nodeNeighbor = self.g[neighbor]
 
             line = self.canvas.create_line(
@@ -68,11 +71,12 @@ class Editor:
 
             self.nodes[id]["outgoing_lines"].append(line)
             self.nodes[neighbor]["incoming_lines"].append(line)
-            self.edges.append(line)
+
+        for neighbor in self.g[id]["neighbors"]:
+            make_edge(neighbor)
 
     def remove_edge_event(self, line_id):
         # remove from the graphics
-        self.edges.remove(line_id)
         self.canvas.delete(line_id)
 
         # remove from nodes
@@ -92,7 +96,7 @@ class Editor:
         x = N["x"]
         y = N["y"]
         rect = self.canvas.create_rectangle(
-            x, y, x + NODE_WIDTH, y + NODE_HEIGHT, fill="gray88"
+            x, y, x + NODE_WIDTH, y + NODE_HEIGHT, fill="gray66"
         )
 
         frame = tk.Frame(self.root)
@@ -109,6 +113,8 @@ class Editor:
         )
         r = tk.Entry(frame, textvariable=reward_var, width=3)
         r.pack()
+
+        self.id_to_tk[id] = Node(rect, frame)
 
         self.nodes[id] = {
             "rect": rect,
@@ -166,21 +172,24 @@ class Editor:
                     break
 
             # Set position of the line
-            tgt_ng = self.g[tgt_id]
-            self.canvas.coords(
-                self.drag_line,
-                coords[0],
-                coords[1],
-                tgt_ng["x"],
-                tgt_ng["y"] + NODE_HEIGHT / 2,
-            )
+            if tgt_id == id or tgt_id in self.g[id]["neighbors"]:
+                self.canvas.delete(self.drag_line)
+            else:
+                tgt_ng = self.g[tgt_id]
+                self.canvas.coords(
+                    self.drag_line,
+                    coords[0],
+                    coords[1],
+                    tgt_ng["x"],
+                    tgt_ng["y"] + NODE_HEIGHT / 2,
+                )
 
-            # add to internal data structuresi
-            self.g[self.drag_id]["neighbors"].append(tgt_id)
+                # add to internal data structuresi
+                self.g[self.drag_id]["neighbors"].append(tgt_id)
 
-            tgt_nn = self.nodes[tgt_id]
-            tgt_nn["incoming_lines"].append(self.drag_id)
-            self.nodes[self.drag_id]["outgoing_lines"].append(tgt_id)
+                tgt_nn = self.nodes[tgt_id]
+                tgt_nn["incoming_lines"].append(self.drag_id)
+                self.nodes[self.drag_id]["outgoing_lines"].append(tgt_id)
         else:
             # no connection found
             self.canvas.delete(self.drag_line)
