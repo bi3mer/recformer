@@ -4,12 +4,13 @@ import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
 import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { KEY_MAIN_MENU, KEY_PLAYER_BEAT_THE_GAME, KEY_PLAYER_LOST, KEY_PLAYER_WON, KEY_TRANSITION } from "./sceneKeys";
+import { KEY_PLAYER_BEAT_THE_GAME, KEY_PLAYER_LOST, KEY_PLAYER_WON, KEY_TRANSITION } from "./sceneKeys";
 import { Coin } from "./coin";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
 import { LevelDirector } from "./levelDirector.ts";
 import { TransitionScene } from "./transitionScene.ts";
+import { LaserBlock } from "./laserBlock.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -57,6 +58,8 @@ export class GameScene extends Scene {
         const tile = row[col];
         if (tile === 'X') {
           this.staticEntities.push(new Block(col, r));
+        } else if (tile === '^') {
+          this.dynamicEntities.push(new LaserBlock(col, r, true));
         } else if (tile === 'o') {
           ++this.numCoins;
           this.dynamicEntities.push(new Coin(col, r));
@@ -84,25 +87,25 @@ export class GameScene extends Scene {
       }
     }
 
+    // Update and check for collisions
     const staticSize = this.staticEntities.length;
     let jj: number;
     for (i = 0; i < dynamicSize; ++i) {
       const e = this.dynamicEntities[i];
 
-      // entity updates
       e.update(dt);
       e.physicsUpdate(dt);
 
-      // Check for collisions
       for (jj = i + 1; jj < dynamicSize; ++jj) {
         e.collision(this.dynamicEntities[jj]);
       }
+
       for (jj = 0; jj < staticSize; ++jj) {
         e.collision(this.staticEntities[jj]);
       }
     }
 
-
+    // Change scenes if necessary
     const player = this.dynamicEntities[0] as Player;
     if (player.coinsCollected >= this.numCoins) {
       if (this.levelDirector.playerIsOnLastLevel) {
@@ -114,8 +117,8 @@ export class GameScene extends Scene {
       }
     }
 
-    // if the player is dead, we're done. Player needs a special case from
-    // the one above
+    // Slight chance the player collects a coin when hit by the enemy, 
+    // so just give them the benefit of the doubt
     if (player.dead) {
       this.transitionScene.targetScene = KEY_PLAYER_LOST;
       this.changeScene = KEY_TRANSITION;

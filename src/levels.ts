@@ -28,8 +28,10 @@ MDP.addNode(new CustomNode("6-b", -0.1, 0, false, [], 6));
 MDP.addDefaultEdge(KEY_START, "1-a", [["1-a", 0.99], [KEY_DEATH, 0.01]])
 MDP.addDefaultEdge("1-a", "2-a", [["2-a", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("1-a", "2-b", [["2-b", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("1-a", "3-b", [["3-b", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("2-a", "3-b", [["3-b", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("2-a", "3-a", [["3-a", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("2-b", "3-a", [["3-a", 0.99], [KEY_DEATH, 0.01]]);
 
@@ -45,13 +47,12 @@ MDP.addDefaultEdge("4-a", "5-c", [["5-c", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("4-b", "5-a", [["5-a", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("4-b", "5-b", [["5-b", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("4-b", "5-c", [["5-c", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("5-a", "6-a", [["6-a", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("5-a", "6-b", [["6-b", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("5-b", "6-a", [["6-a", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("5-b", "6-b", [["6-b", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("5-b", "6-a", [["6-a", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("5-c", "6-a", [["6-a", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("5-c", "6-b", [["6-b", 0.99], [KEY_DEATH, 0.01]]);
@@ -70,7 +71,7 @@ export const idToLevel:{ [key: string]: string[] } = {
     "----------------------",
     "----------------------",
     "----------------------",
-    "----------------------",
+    "-----------------X----",
     "----------------------",
     "----------------------",
     "----------------------",
@@ -81,7 +82,7 @@ export const idToLevel:{ [key: string]: string[] } = {
     "----------------------",
     "--------------X-------",
     "-----o-----o--X------o",
-    "XXXXXXXXXXXXXXXXXXXXXX"
+    "XXXXXXXXXXXXXXXXX^XXXX"
   ],
   "2-a": [
     "----------------------",

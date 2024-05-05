@@ -1,6 +1,6 @@
 
 import { Camera } from "./camera";
-import { BLOCK_HEIGHT, BLOCK_SCREEN_HEIGHT, BLOCK_SCREEN_WIDTH, BLOCK_WIDTH, TILE_SIZE } from "./constants";
+import { BLOCK_HEIGHT, BLOCK_SCREEN_HEIGHT, BLOCK_SCREEN_WIDTH, BLOCK_WIDTH } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 
