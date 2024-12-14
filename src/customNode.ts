@@ -20,6 +20,7 @@ export class CustomNode extends Node {
   }
 
   public updateReward(): void {
+    // TODO: why is this multiply
     this.reward = this.designerReward * this.visitedCount;
   }
 }

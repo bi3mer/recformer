@@ -4,13 +4,20 @@ import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
 import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { KEY_PLAYER_BEAT_THE_GAME, KEY_PLAYER_LOST, KEY_PLAYER_WON, KEY_TRANSITION } from "./sceneKeys";
+import {
+  KEY_PLAYER_BEAT_THE_GAME,
+  KEY_PLAYER_LOST,
+  KEY_PLAYER_WON,
+  KEY_TRANSITION,
+} from "./sceneKeys";
 import { Coin } from "./coin";
 import { HorizontalEnemy } from "./horizontalEnemy";
 import { VerticalEnemy } from "./verticalEnemy";
 import { LevelDirector } from "./levelDirector.ts";
 import { TransitionScene } from "./transitionScene.ts";
 import { LaserBlock } from "./laserBlock.ts";
+import { Laser } from "./laser.ts";
+import { Point } from "./point.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -50,24 +57,34 @@ export class GameScene extends Scene {
     for (let r = 0; r < rows; ++r) {
       const row = lvl[r];
       if (columns !== row.length) {
-        console.error(`Every row in the level should have the same number of columns! (${columns} !== ${row.length}).`);
+        console.error(
+          `Every row in the level should have the same number of columns! (${columns} !== ${row.length}).`,
+        );
         return;
       }
 
       for (let col = 0; col < columns; ++col) {
         const tile = row[col];
-        if (tile === 'X') {
+        if (tile === "X") {
           this.staticEntities.push(new Block(col, r));
-        } else if (tile === '^') {
-          this.dynamicEntities.push(new LaserBlock(col, r, true));
-        } else if (tile === 'o') {
+        } else if (tile === "^") {
+          this.dynamicEntities.push(
+            new LaserBlock(col, r, true, () => {
+              const foundObject = this.raycastUp(new Point(col, r));
+              const height =
+                foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
+
+              this.dynamicEntities.push(new Laser(col, r - 1, true, height));
+            }),
+          );
+        } else if (tile === "o") {
           ++this.numCoins;
           this.dynamicEntities.push(new Coin(col, r));
-        } else if (tile === 'H') {
+        } else if (tile === "H") {
           this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
-        } else if (tile === 'V') {
+        } else if (tile === "V") {
           this.dynamicEntities.push(new VerticalEnemy(col, r));
-        } else if (tile !== '-') {
+        } else if (tile !== "-") {
           console.error(`Unhandled tile type: ${row[col]}`);
         }
       }
@@ -75,25 +92,24 @@ export class GameScene extends Scene {
   }
 
   update(dt: number): void {
-    // remove dead entities
-    let dynamicSize = this.dynamicEntities.length;
-    let i = 0;
-    for (; i < dynamicSize; ++i) {
-      const e = this.dynamicEntities[i];
-      if (e.dead) {
-        this.dynamicEntities.splice(i, 1);
-        --dynamicSize;
-        --i;
-      }
-    }
-
     // Update and check for collisions
+    let dynamicSize = this.dynamicEntities.length;
     const staticSize = this.staticEntities.length;
     let jj: number;
-    for (i = 0; i < dynamicSize; ++i) {
+    let i = 0;
+
+    for (; i < dynamicSize; ++i) {
       const e = this.dynamicEntities[i];
 
       e.update(dt);
+
+      // Check if entity died
+      if (e.dead) {
+        this.dynamicEntities.splice(i, 1);
+        --i;
+        --dynamicSize;
+      }
+
       e.physicsUpdate(dt);
 
       for (jj = i + 1; jj < dynamicSize; ++jj) {
@@ -117,7 +133,7 @@ export class GameScene extends Scene {
       }
     }
 
-    // Slight chance the player collects a coin when hit by the enemy, 
+    // Slight chance the player collects a coin when hit by the enemy,
     // so just give them the benefit of the doubt
     if (player.dead) {
       this.transitionScene.targetScene = KEY_PLAYER_LOST;
@@ -147,5 +163,23 @@ export class GameScene extends Scene {
   protected _onExit(): void {
     const player = this.dynamicEntities[0] as Player;
     this.levelDirector.update(!player.dead, Math.floor(player.maxColumn));
+  }
+
+  // TODO: generalize if required
+  private raycastUp(start: Point): GameObject | null {
+    const size = this.staticEntities.length;
+    let i: number;
+    while (start.y >= 0) {
+      for (i = 0; i < size; ++i) {
+        const e = this.staticEntities[i];
+        if (start.equals(e.pos)) {
+          return e;
+        }
+      }
+
+      --start.y;
+    }
+
+    return null;
   }
 }

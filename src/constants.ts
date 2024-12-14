@@ -24,6 +24,12 @@ export const ENEMY_SCREEN_HEIGHT = 15;
 export const ENEMY_WIDTH = ENEMY_SCREEN_WIDTH / TILE_SIZE;
 export const ENEMY_HEIGHT = ENEMY_SCREEN_HEIGHT / TILE_SIZE;
 
+// Laser config
+export const LASER_WIDTH = BLOCK_WIDTH / 8.0;
+export const LASER_SCREEN_WIDTH = BLOCK_SCREEN_WIDTH / 8.0;
+export const LASER_LIFE_TIME = 0.6;
+export const LASER_CHARGE_TIME = 2.0;
+
 // MDP keys
 export const KEY_START = "start";
 export const KEY_END = "end";

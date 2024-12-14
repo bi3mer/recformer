@@ -1,5 +1,10 @@
 import { Camera } from "./camera";
-import { COIN_HEIGHT, COIN_SCREEN_HEIGHT, COIN_SCREEN_WIDTH, COIN_WIDTH } from "./constants";
+import {
+  COIN_HEIGHT,
+  COIN_SCREEN_HEIGHT,
+  COIN_SCREEN_WIDTH,
+  COIN_WIDTH,
+} from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
 
@@ -32,12 +37,12 @@ export class Coin extends GameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = 'yellow';
+    ctx.fillStyle = "yellow";
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
       COIN_SCREEN_WIDTH,
-      COIN_SCREEN_HEIGHT
+      COIN_SCREEN_HEIGHT,
     );
   }
-} 
+}
