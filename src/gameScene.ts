@@ -74,7 +74,10 @@ export class GameScene extends Scene {
               const height =
                 foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
 
-              this.dynamicEntities.push(new Laser(col, r - 1, true, height));
+              // this.dynamicEntities.push(new Laser(col, r - 1, true, height));
+              this.dynamicEntities.push(
+                new Laser(col, r - height, true, height),
+              );
             }),
           );
         } else if (tile === "o") {

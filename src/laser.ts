@@ -43,9 +43,9 @@ export class Laser extends GameObject {
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
-      camera.rowToScreen(this.pos.y + 1),
+      camera.rowToScreen(this.pos.y),
       LASER_SCREEN_WIDTH,
-      -this.size.y * TILE_SIZE,
+      this.size.y * TILE_SIZE,
     );
   }
 }
