@@ -111,6 +111,11 @@ export class GameScene extends Scene {
 
       // Check if entity died
       if (e.dead) {
+        if (i == 0) {
+          // the player died, we're done
+          break;
+        }
+
         this.dynamicEntities.splice(i, 1);
         --i;
         --dynamicSize;
