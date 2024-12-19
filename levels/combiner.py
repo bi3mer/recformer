@@ -22,10 +22,10 @@ typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
 # Get max reward
 max_r = -1
-for id in G:
-    max_r = max(max_r, G[id]["reward"])
+for id in G['graph']:
+    max_r = max(max_r, G['graph'][id]["reward"])
 
-for id in G:
+for id in G['graph']:
     with open(os.path.join("segments", f"{id}.txt")) as f:
         lvl = [line.strip() for line in f.readlines()]
         id_to_lvl[id] = lvl
@@ -34,15 +34,15 @@ for id in G:
         continue
 
     depth = id.split("-")[0]
-    node = f'new CustomNode("{id}", {-(max_r-G[id]["reward"])/max_r}, 0, false, [], {depth})'
+    node = f'new CustomNode("{id}", {-(max_r-G["graph"][id]["reward"])/max_r}, 0, false, [], {depth})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
-for id in G:
+for id in G['graph']:
     if id[0] == "1":
         typescript += f'MDP.addDefaultEdge(KEY_START, "{id}", [["{id}", 0.99], [KEY_DEATH, 0.01]])\n'
 
-    for tgt in G[id]["neighbors"]:
+    for tgt in G['graph'][id]["neighbors"]:
         typescript += f'MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]]);\n'
 
     typescript += "\n"

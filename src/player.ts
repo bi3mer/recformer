@@ -1,9 +1,20 @@
-
 import { Camera } from "./camera";
 import { COLOR_PLAYER } from "./colors";
-import { DEATH_HEIGHT, PLAYER_HEIGHT, PLAYER_SCREEN_HEIGHT, PLAYER_SCREEN_WIDTH, PLAYER_WIDTH } from "./constants";
+import {
+  DEATH_HEIGHT,
+  PLAYER_HEIGHT,
+  PLAYER_SCREEN_HEIGHT,
+  PLAYER_SCREEN_WIDTH,
+  PLAYER_WIDTH,
+} from "./constants";
 import { GameObject } from "./gameObject";
-import { TYPE_BLOCK, TYPE_COIN, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
+import {
+  TYPE_JUMP_RESET,
+  TYPE_BLOCK,
+  TYPE_COIN,
+  TYPE_ENEMY,
+  TYPE_PLAYER,
+} from "./gameObjectTypes";
 import { InputManager, Key } from "./inputManager";
 
 const MOVE = 6;
@@ -54,7 +65,10 @@ export class Player extends GameObject {
       }
     }
 
-    if (this.jumpTime < MAX_JUMP_TIME && InputManager.isKeyDown(Key.SPACE, Key.UP)) {
+    if (
+      this.jumpTime < MAX_JUMP_TIME &&
+      InputManager.isKeyDown(Key.SPACE, Key.UP)
+    ) {
       if (this.jumpTime === 0) {
         this.velocity.y = -15;
       } else if (this.jumpTime < 0.2) {
@@ -82,13 +96,16 @@ export class Player extends GameObject {
         const averageSize = this.size.add(other.size);
         averageSize.scalarMultiply(0.5);
 
-        // This is trying to handle corners. So if the angle is close to 45 
-        // degrees between the two rectangles, that is a corner. I have it as 
+        // This is trying to handle corners. So if the angle is close to 45
+        // degrees between the two rectangles, that is a corner. I have it as
         // less than 55 and more than 40.
         const theta = Math.abs(Math.atan(d.y / d.x));
         const isCorner = theta < 0.96 && theta > 0.698; // radians, comment above is in degrees
 
-        if (!isCorner && Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+        if (
+          !isCorner &&
+          Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)
+        ) {
           if (d.x < 0) {
             this.pos.x = other.pos.x - this.size.x;
           } else {
@@ -115,6 +132,10 @@ export class Player extends GameObject {
       case TYPE_ENEMY: {
         this.dead = true;
         console.log("Ran into an enemy! :/");
+        break;
+      }
+      case TYPE_JUMP_RESET: {
+        this.jumpTime = 0;
         break;
       }
       default: {
@@ -158,4 +179,4 @@ export class Player extends GameObject {
       ctx.fillRect(x, y, W, H);
     }
   }
-} 
+}

@@ -18,6 +18,7 @@ import { TransitionScene } from "./transitionScene.ts";
 import { LaserBlock } from "./laserBlock.ts";
 import { Laser } from "./laser.ts";
 import { Point } from "./point.ts";
+import { BlueBlock } from "./blueBlock.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -83,6 +84,8 @@ export class GameScene extends Scene {
         } else if (tile === "o") {
           ++this.numCoins;
           this.dynamicEntities.push(new Coin(col, r));
+        } else if (tile == "b") {
+          this.dynamicEntities.push(new BlueBlock(col, r));
         } else if (tile === "H") {
           this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
         } else if (tile === "V") {

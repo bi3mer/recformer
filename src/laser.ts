@@ -1,8 +1,5 @@
 import { Camera } from "./camera";
 import {
-  BLOCK_HEIGHT,
-  BLOCK_SCREEN_HEIGHT,
-  BLOCK_SCREEN_WIDTH,
   BLOCK_WIDTH,
   LASER_LIFE_TIME,
   LASER_SCREEN_WIDTH,
@@ -41,6 +38,7 @@ export class Laser extends GameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
+    ctx.fillStyle = "red";
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
