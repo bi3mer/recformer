@@ -71,7 +71,7 @@ export class GameScene extends Scene {
         } else if (tile === "^") {
           this.dynamicEntities.push(
             new LaserBlock(col, r, true, () => {
-              const foundObject = this.raycastUp(new Point(col, r));
+              const foundObject = this.raycast(new Point(col, r));
               const height =
                 foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
 
@@ -176,10 +176,13 @@ export class GameScene extends Scene {
     this.levelDirector.update(!player.dead, Math.floor(player.maxColumn));
   }
 
-  // TODO: generalize if required
-  private raycastUp(start: Point): GameObject | null {
+  // TODO: generalize if required. Rght now it raycasts up, but you could pass
+  // a direction vector or enum type. Also, it only runs for static entities
+  // and that should probably be made clear from the name
+  private raycast(start: Point): GameObject | null {
     const size = this.staticEntities.length;
     let i: number;
+
     while (start.y >= 0) {
       for (i = 0; i < size; ++i) {
         const e = this.staticEntities[i];
