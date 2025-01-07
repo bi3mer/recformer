@@ -1,6 +1,11 @@
-
 import { Camera } from "./camera";
-import { DEATH_HEIGHT, ENEMY_HEIGHT, ENEMY_SCREEN_HEIGHT, ENEMY_SCREEN_WIDTH, ENEMY_WIDTH } from "./constants";
+import {
+  DEATH_HEIGHT,
+  ENEMY_HEIGHT,
+  ENEMY_SCREEN_HEIGHT,
+  ENEMY_SCREEN_WIDTH,
+  ENEMY_WIDTH,
+} from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_ENEMY } from "./gameObjectTypes";
 
@@ -37,16 +42,18 @@ export class HorizontalEnemy extends GameObject {
           this.pos.x = other.pos.x + other.size.x;
         }
       }
+    } else if (other.type == TYPE_ENEMY) {
+      this.dead = true;
     }
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = 'red';
+    ctx.fillStyle = "red";
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
       ENEMY_SCREEN_WIDTH,
-      ENEMY_SCREEN_HEIGHT
+      ENEMY_SCREEN_HEIGHT,
     );
   }
-} 
+}

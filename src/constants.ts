@@ -24,11 +24,20 @@ export const ENEMY_SCREEN_HEIGHT = 15;
 export const ENEMY_WIDTH = ENEMY_SCREEN_WIDTH / TILE_SIZE;
 export const ENEMY_HEIGHT = ENEMY_SCREEN_HEIGHT / TILE_SIZE;
 
+export const LEVEL_SEGMENTS_PER_LEVEL = 3;
+
 // Laser config
 export const LASER_WIDTH = BLOCK_WIDTH / 8.0;
 export const LASER_SCREEN_WIDTH = BLOCK_SCREEN_WIDTH / 8.0;
 export const LASER_LIFE_TIME = 0.6;
 export const LASER_CHARGE_TIME = 2.0;
+
+// Turret config
+export const TURRET_LOAD_TIME = 2.5;
+export const TURRET_SQUARED_RANGE = 120.0;
+
+// Bullet config
+export const BULLET_SPEED = 10.0;
 
 // MDP keys
 export const KEY_START = "start";

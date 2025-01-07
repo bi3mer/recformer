@@ -20,6 +20,7 @@ export abstract class GameObject {
 
   abstract update(dt: number): void;
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
+  abstract handleCollision(other: GameObject): void;
 
   collision(other: GameObject): void {
     if (rectangleIntersect(this.pos, this.size, other.pos, other.size)) {
@@ -27,8 +28,6 @@ export abstract class GameObject {
       other.handleCollision(this);
     }
   }
-
-  abstract handleCollision(other: GameObject): void;
 
   physicsUpdate(dt: number): void {
     this.velocity.addInPlace(this.gravity.scalarMultiply(dt));

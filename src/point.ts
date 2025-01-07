@@ -1,6 +1,6 @@
 export class Point {
-  x: number
-  y: number
+  x: number;
+  y: number;
 
   constructor(x: number, y: number) {
     this.x = x;
@@ -58,10 +58,20 @@ export class Point {
   }
 
   dot(other: Point): number {
-    return this.x * other.x + this.y + other.y;
+    return this.x * other.x + this.y * other.y;
   }
 
   magnitude(): number {
     return Math.sqrt(this.x * this.x + this.y * this.y);
+  }
+
+  normalize(): void {
+    const M = this.magnitude();
+    this.x /= M;
+    this.y /= M;
+  }
+
+  squareDistance(other: Point): number {
+    return Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2);
   }
 }

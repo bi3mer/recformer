@@ -13,8 +13,7 @@ export class LevelDirector {
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
 
-  constructor() {
-  }
+  constructor() {}
 
   public update(playerWon: boolean, playerColumn: number): void {
     // Map out how far the player made it in the level
@@ -37,7 +36,6 @@ export class LevelDirector {
           break;
         }
       }
-
     }
 
     // Update baed on how the player did
@@ -50,7 +48,10 @@ export class LevelDirector {
       // add edge if the segemnt was completed by the player
       if (pc === 1) {
         if (!MDP.hasEdge(KEY_START, id)) {
-          MDP.addDefaultEdge(KEY_START, id, [[id, 1], [KEY_DEATH, 0.0]]);
+          MDP.addDefaultEdge(KEY_START, id, [
+            [id, 1],
+            [KEY_DEATH, 0.0],
+          ]);
         }
       }
 
@@ -97,11 +98,9 @@ export class LevelDirector {
           }
         }
 
-        console.log('removing edge:', hardestNeighbor, maxReward);
+        console.log("removing edge:", hardestNeighbor, maxReward);
         MDP.removeEdge(KEY_START, hardestNeighbor);
       }
-
-      console.log('=======================');
     }
 
     this.playerWonLastRound = playerWon;
@@ -111,7 +110,7 @@ export class LevelDirector {
     const pi = policyIteration(MDP, 0.95, true, true, 20);
     this.columnsPerLevel = [];
 
-    // If player won, don't start from a level that they have definitely 
+    // If player won, don't start from a level that they have definitely
     // already played
     if (this.playerWonLastRound) {
       this.keys = [choice(pi[KEY_START])];
@@ -129,17 +128,18 @@ export class LevelDirector {
       }
     }
 
-    // remove START id from keys since we won't use it after this 
+    // remove START id from keys since we won't use it after this
     this.keys.splice(0, 1);
 
-    // Update if the player is on the last level 
+    // Update if the player is on the last level
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);
 
     // Populate the level
     const lvl: string[] = Array(NUM_ROWS).fill("");
     const length = this.keys.length;
 
-    for (let i = 0; i < length; ++i) { // skip the start key
+    for (let i = 0; i < length; ++i) {
+      // skip the start key
       const stateLVL = idToLevel[this.keys[i]];
       this.columnsPerLevel.push(stateLVL[0].length);
 

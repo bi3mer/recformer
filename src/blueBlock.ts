@@ -36,6 +36,9 @@ export class BlueBlock extends GameObject {
     if (other.type === TYPE_PLAYER) {
       const temp = this.pos.y;
       this.pos.y = 100; // place off the screen
+
+      // This is bad, but serviceable so long as nothing more
+      // complicated occurs with blue blocks in later development
       setTimeout(() => {
         this.pos.y = temp;
       }, goneFor);

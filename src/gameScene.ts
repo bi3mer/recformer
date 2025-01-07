@@ -3,7 +3,12 @@ import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
 import { Player } from "./player";
 import { Block } from "./block";
-import { NUM_ROWS, SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import {
+  LEVEL_SEGMENTS_PER_LEVEL,
+  NUM_ROWS,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH,
+} from "./constants";
 import {
   KEY_PLAYER_BEAT_THE_GAME,
   KEY_PLAYER_LOST,
@@ -19,6 +24,8 @@ import { LaserBlock } from "./laserBlock.ts";
 import { Laser } from "./laser.ts";
 import { Point } from "./point.ts";
 import { BlueBlock } from "./blueBlock.ts";
+import { Turret } from "./Turret.ts";
+import { Bullet } from "./bullet.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -47,7 +54,7 @@ export class GameScene extends Scene {
     this.numCoins = 0;
     this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
 
-    const lvl = this.levelDirector.get(2);
+    const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
     const rows = lvl.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
@@ -78,6 +85,14 @@ export class GameScene extends Scene {
               // this.dynamicEntities.push(new Laser(col, r - 1, true, height));
               this.dynamicEntities.push(
                 new Laser(col, r - height, true, height),
+              );
+            }),
+          );
+        } else if (tile === "T") {
+          this.dynamicEntities.push(
+            new Turret(col, r, this.dynamicEntities[0] as Player, () => {
+              this.dynamicEntities.push(
+                new Bullet(col, r, this.dynamicEntities[0].pos), // player always at 0
               );
             }),
           );

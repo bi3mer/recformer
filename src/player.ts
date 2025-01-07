@@ -41,7 +41,6 @@ export class Player extends GameObject {
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
       this.dead = true;
-      console.log("Player fell...");
       return;
     }
 
