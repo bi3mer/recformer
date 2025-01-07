@@ -90,11 +90,16 @@ export class GameScene extends Scene {
           );
         } else if (tile === "T") {
           this.dynamicEntities.push(
-            new Turret(col, r, this.dynamicEntities[0] as Player, () => {
-              this.dynamicEntities.push(
-                new Bullet(col, r, this.dynamicEntities[0].pos), // player always at 0
-              );
-            }),
+            new Turret(
+              col,
+              r,
+              this.dynamicEntities[0] as Player,
+              (bulletCol: number, bulletRow: number) => {
+                this.dynamicEntities.push(
+                  new Bullet(bulletCol, bulletRow, this.dynamicEntities[0].pos),
+                );
+              },
+            ),
           );
         } else if (tile === "o") {
           ++this.numCoins;
@@ -192,8 +197,8 @@ export class GameScene extends Scene {
   }
 
   // TODO: generalize if required. Rght now it raycasts up, but you could pass
-  // a direction vector or enum type. Also, it only runs for static entities
-  // and that should probably be made clear from the name
+  // a direction vector. Also, it only runs for static entities and that should
+  // probably be made clear from the name
   private raycast(start: Point): GameObject | null {
     const size = this.staticEntities.length;
     let i: number;

@@ -4,6 +4,7 @@ import {
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
   BLOCK_WIDTH,
+  BULLET_WIDTH,
   TURRET_LOAD_TIME,
   TURRET_SQUARED_RANGE,
 } from "./constants";
@@ -14,12 +15,17 @@ import { Point } from "./point";
 
 export class Turret extends GameObject {
   private player: Player;
-  private spawnBullet: () => void;
+  private spawnBullet: (bulletCol: number, bulletRow: number) => void;
   private color: string;
   private time: number = 0;
   private state = 0; // 0 -> player not in range, 1 -> loading, 1 -> Fire bullet
 
-  constructor(x: number, y: number, player: Player, spawnBullet: () => void) {
+  constructor(
+    x: number,
+    y: number,
+    player: Player,
+    spawnBullet: (bulletCol: number, bulletRow: number) => void,
+  ) {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
 
     this.player = player;
@@ -29,8 +35,6 @@ export class Turret extends GameObject {
   }
 
   update(dt: number): void {
-    this.time += dt;
-
     switch (this.state) {
       case 0: {
         // Idle state until the player is in range
@@ -42,6 +46,8 @@ export class Turret extends GameObject {
       }
       case 1: {
         // Turret is setting up to fire
+        this.time += dt;
+
         if (this.time >= TURRET_LOAD_TIME) {
           this.time = 0;
           this.state = 2;
@@ -52,7 +58,16 @@ export class Turret extends GameObject {
         // Turret fired
         this.state = 0;
         this.color = "yellow";
-        this.spawnBullet();
+
+        // spawn bullet at tip of the turret's barrel
+        const angle = this.pos.angle(this.player.pos);
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+
+        this.spawnBullet(
+          this.pos.x + (BULLET_WIDTH + BLOCK_WIDTH) * cos,
+          this.pos.y + (BULLET_WIDTH + BLOCK_WIDTH) * sin,
+        );
         break;
       }
       default: {
@@ -70,33 +85,27 @@ export class Turret extends GameObject {
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.strokeStyle = this.color;
 
-    // draw turret base
     const X = camera.columnToScreen(this.pos.x);
     const Y = camera.rowToScreen(this.pos.y);
-    const H = BLOCK_SCREEN_HEIGHT / 2;
-    ctx.strokeRect(X, Y, BLOCK_SCREEN_WIDTH, H);
+    const R = BLOCK_SCREEN_WIDTH / 2;
+    const RR = 2 * R;
+    const T = new Point(X + R, Y);
 
-    // draw turret head, which always looks towards the player
-    const playerX = camera.columnToScreen(this.player.pos.x);
-    const topLeftX = X + BLOCK_SCREEN_WIDTH / 2.7;
-    const topLeftY = Y + BLOCK_SCREEN_WIDTH / 2;
-    const topRightX = topLeftX + BLOCK_SCREEN_WIDTH / 4;
-    const topRightY = topLeftY + BLOCK_HEIGHT / 2;
-
-    const botRightX = Math.max(
-      X,
-      Math.min(X + BLOCK_SCREEN_WIDTH, topRightX + (playerX - topLeftX)),
-    );
-    const botRightY = topRightY + H;
-    const botLeftX = botRightX - BLOCK_SCREEN_WIDTH / 4;
-    const botLeftY = topRightY + H;
-
+    // Draw turret base
     ctx.beginPath();
-    ctx.moveTo(topLeftX, topLeftY);
-    ctx.lineTo(topRightX, topRightY);
-    ctx.lineTo(botRightX, botRightY);
-    ctx.lineTo(botLeftX, botLeftY);
-    ctx.lineTo(topLeftX, topLeftY);
+    ctx.arc(T.x, T.y, R, 0, Math.PI);
     ctx.stroke();
+
+    // Draw turret
+    const angle = this.pos.angle(this.player.pos);
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(T.x + R * cos, T.y + R * sin);
+    ctx.lineTo(T.x + RR * cos, T.y + RR * sin);
+    ctx.stroke();
+    ctx.lineWidth = 1;
   }
 }

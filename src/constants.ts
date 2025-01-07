@@ -34,10 +34,14 @@ export const LASER_CHARGE_TIME = 2.0;
 
 // Turret config
 export const TURRET_LOAD_TIME = 2.5;
-export const TURRET_SQUARED_RANGE = 120.0;
+export const TURRET_SQUARED_RANGE = 150.0;
 
 // Bullet config
 export const BULLET_SPEED = 10.0;
+export const BULLET_SCREEN_WIDTH = 10;
+export const BULLET_SCREEN_HEIGHT = 10;
+export const BULLET_WIDTH = COIN_SCREEN_WIDTH / TILE_SIZE;
+export const BULLET_HEIGHT = COIN_SCREEN_HEIGHT / TILE_SIZE;
 
 // MDP keys
 export const KEY_START = "start";

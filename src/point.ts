@@ -72,6 +72,12 @@ export class Point {
   }
 
   squareDistance(other: Point): number {
-    return Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2);
+    const x = this.x - other.x;
+    const y = this.y - other.y;
+    return x * x + y * y;
+  }
+
+  angle(other: Point): number {
+    return Math.atan2(other.y - this.y, other.x - this.x);
   }
 }

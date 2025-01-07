@@ -1,18 +1,18 @@
 import { Camera } from "./camera";
-import {
-  BULLET_SPEED,
-  COIN_HEIGHT,
-  COIN_SCREEN_HEIGHT,
-  COIN_SCREEN_WIDTH,
-  COIN_WIDTH,
-} from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_ENEMY } from "./gameObjectTypes";
 import { Point } from "./point";
+import {
+  BULLET_HEIGHT,
+  BULLET_SPEED,
+  BULLET_WIDTH,
+  BULLET_SCREEN_WIDTH,
+  BULLET_SCREEN_HEIGHT,
+} from "./constants";
 
 export class Bullet extends GameObject {
   constructor(x: number, y: number, target: Point) {
-    super(x, y + 1.25, COIN_WIDTH, COIN_HEIGHT, TYPE_ENEMY);
+    super(x, y, BULLET_WIDTH, BULLET_HEIGHT, TYPE_ENEMY);
     this.gravity.y = 0;
 
     this.velocity = target.subtract(this.pos);
@@ -31,8 +31,8 @@ export class Bullet extends GameObject {
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
-      COIN_SCREEN_WIDTH,
-      COIN_SCREEN_HEIGHT,
+      BULLET_SCREEN_WIDTH,
+      BULLET_SCREEN_HEIGHT,
     );
   }
 }
