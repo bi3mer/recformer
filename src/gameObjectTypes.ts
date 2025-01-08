@@ -3,3 +3,4 @@ export const TYPE_BLOCK = 1;
 export const TYPE_COIN = 2;
 export const TYPE_ENEMY = 3;
 export const TYPE_JUMP_RESET = 4;
+export const TYPE_BULLET = 5;

@@ -14,6 +14,7 @@ import {
   TYPE_COIN,
   TYPE_ENEMY,
   TYPE_PLAYER,
+  TYPE_BULLET,
 } from "./gameObjectTypes";
 import { InputManager, Key } from "./inputManager";
 
@@ -130,6 +131,7 @@ export class Player extends GameObject {
         ++this.coinsCollected;
         break;
       }
+      case TYPE_BULLET:
       case TYPE_ENEMY: {
         this.dead = true;
         break;

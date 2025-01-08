@@ -1,13 +1,12 @@
 import { Camera } from "./camera";
 import {
-  DEATH_HEIGHT,
   ENEMY_HEIGHT,
   ENEMY_SCREEN_HEIGHT,
   ENEMY_SCREEN_WIDTH,
   ENEMY_WIDTH,
 } from "./constants";
 import { GameObject } from "./gameObject";
-import { TYPE_BLOCK, TYPE_ENEMY } from "./gameObjectTypes";
+import { TYPE_BLOCK, TYPE_ENEMY, TYPE_BULLET } from "./gameObjectTypes";
 
 export class HorizontalEnemy extends GameObject {
   private maxColumns: number;
@@ -42,7 +41,7 @@ export class HorizontalEnemy extends GameObject {
           this.pos.x = other.pos.x + other.size.x;
         }
       }
-    } else if (other.type == TYPE_ENEMY) {
+    } else if (other.type === TYPE_BULLET) {
       this.dead = true;
     }
   }
