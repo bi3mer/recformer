@@ -8,8 +8,9 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class VerticalEnemy extends GameObject {
+export class VerticalEnemy extends RectangleGameObject {
   constructor(x: number, y: number) {
     super(x, y + 0.1, ENEMY_HEIGHT, ENEMY_WIDTH, TYPE_ENEMY);
     this.velocity.y = 3;

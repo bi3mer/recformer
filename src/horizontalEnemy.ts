@@ -7,8 +7,9 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_ENEMY, TYPE_BULLET } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class HorizontalEnemy extends GameObject {
+export class HorizontalEnemy extends RectangleGameObject {
   private maxColumns: number;
 
   constructor(x: number, y: number, maxColumns: number) {

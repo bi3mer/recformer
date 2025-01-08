@@ -1,7 +1,6 @@
 import { Camera } from "./camera";
 import {
   BLOCK_HEIGHT,
-  BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
   BLOCK_WIDTH,
   BULLET_WIDTH,
@@ -12,8 +11,9 @@ import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 import { Player } from "./player";
 import { Point } from "./point";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class Turret extends GameObject {
+export class Turret extends RectangleGameObject {
   private player: Player;
   private spawnBullet: (bulletCol: number, bulletRow: number) => void;
   private color: string;

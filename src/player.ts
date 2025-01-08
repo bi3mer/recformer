@@ -17,12 +17,13 @@ import {
   TYPE_BULLET,
 } from "./gameObjectTypes";
 import { InputManager, Key } from "./inputManager";
+import { RectangleGameObject } from "./rectangleGameObject";
 
 const MOVE = 6;
 const MAX_MOVE_MOD = 8;
 const MAX_JUMP_TIME = 0.4;
 
-export class Player extends GameObject {
+export class Player extends RectangleGameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;

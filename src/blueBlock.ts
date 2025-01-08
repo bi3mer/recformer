@@ -7,10 +7,11 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_PLAYER, TYPE_JUMP_RESET } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
 const goneFor = 2000; // if captured, go away for `goneFor` milliseconds.
 
-export class BlueBlock extends GameObject {
+export class BlueBlock extends RectangleGameObject {
   minY: number;
   maxY: number;
   yMod: number;

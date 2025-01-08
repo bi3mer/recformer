@@ -7,8 +7,9 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class Coin extends GameObject {
+export class Coin extends RectangleGameObject {
   minY: number;
   maxY: number;
   yMod: number;

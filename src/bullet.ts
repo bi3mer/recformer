@@ -1,6 +1,6 @@
 import { Camera } from "./camera";
 import { GameObject } from "./gameObject";
-import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { TYPE_BULLET } from "./gameObjectTypes";
 import { Point } from "./point";
 import {
   BULLET_HEIGHT,
@@ -9,8 +9,9 @@ import {
   BULLET_SCREEN_WIDTH,
   BULLET_SCREEN_HEIGHT,
 } from "./constants";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class Bullet extends GameObject {
+export class Bullet extends RectangleGameObject {
   constructor(x: number, y: number, target: Point) {
     super(x, y, BULLET_WIDTH, BULLET_HEIGHT, TYPE_BULLET);
     this.gravity.y = 0;
