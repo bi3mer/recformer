@@ -61,6 +61,10 @@ export class Point {
     return this.x * other.x + this.y * other.y;
   }
 
+  squareComponents(): number {
+    return this.x * this.x + this.y * this.y;
+  }
+
   magnitude(): number {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }

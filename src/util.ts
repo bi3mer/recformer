@@ -24,18 +24,17 @@ export function clamp(num: number, min: number, max: number): number {
 }
 
 export function rectangleIntersectCircle(
-  recStart: Point,
-  recEnd: Point,
+  rec: Point,
+  dimensions: Point,
   circle: Point,
-  circleR: number,
+  radius: number,
 ): boolean {
-  const closestX = clamp(circle.x, recStart.x, recEnd.x);
-  const closestY = clamp(circle.y, recStart.y, recEnd.y);
-
-  const distX = circle.x - closestX;
-  const distY = circle.y - closestY;
-
-  return distX * distX + distY * distY < circleR * circleR;
+  const closest = new Point(
+    clamp(circle.x, rec.x, rec.x + dimensions.x),
+    clamp(circle.y, rec.y, rec.y + dimensions.y),
+  );
+  const dist = circle.subtract(closest);
+  return dist.squareComponents() < radius * radius;
 }
 
 export function rectangleIntersect(

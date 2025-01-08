@@ -26,6 +26,7 @@ import { Point } from "./point.ts";
 import { BlueBlock } from "./blueBlock.ts";
 import { Turret } from "./Turret.ts";
 import { Bullet } from "./bullet.ts";
+import { CircleEnemy } from "./CircleEnemy.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -110,6 +111,8 @@ export class GameScene extends Scene {
           this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
         } else if (tile === "V") {
           this.dynamicEntities.push(new VerticalEnemy(col, r));
+        } else if (tile === "C") {
+          this.dynamicEntities.push(new CircleEnemy(col, r));
         } else if (tile !== "-") {
           console.error(`Unhandled tile type: ${row[col]}`);
         }

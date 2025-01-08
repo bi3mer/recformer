@@ -1,58 +1,47 @@
 import { Camera } from "./camera";
+import { CircleGameObject } from "./circleGameObject";
 import {
-  ENEMY_HEIGHT,
-  ENEMY_SCREEN_HEIGHT,
-  ENEMY_SCREEN_WIDTH,
-  ENEMY_WIDTH,
+  CIRCLE_MOVE_RADIUS,
+  CIRCLE_RADIUS,
+  CIRCLE_SCREEN_RADIUS,
+  TWO_PI,
 } from "./constants";
 import { GameObject } from "./gameObject";
-import { TYPE_BLOCK, TYPE_ENEMY } from "./gameObjectTypes";
+import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { Point } from "./point";
 
-export class CircleEnemy extends GameObject {
-  private maxColumns: number;
+export class CircleEnemy extends CircleGameObject {
+  angle: number = 0;
+  start: Point;
 
-  constructor(x: number, y: number, maxColumns: number) {
-    super(x + 0.25, y + 0.25, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
-    this.velocity.x = 3;
+  constructor(x: number, y: number) {
+    super(x, y, CIRCLE_RADIUS, TYPE_ENEMY);
+    this.start = new Point(x, y);
     this.gravity.y = 0;
-    this.maxColumns = maxColumns;
   }
 
   update(dt: number): void {
-    if (this.pos.x < 0 || this.pos.x > this.maxColumns) {
-      this.velocity.x *= -1;
-    }
+    this.angle += dt;
+    this.velocity.x = 2 * CIRCLE_MOVE_RADIUS * Math.cos(this.angle);
+    this.velocity.y = CIRCLE_MOVE_RADIUS * Math.sin(this.angle);
   }
 
   handleCollision(other: GameObject): void {
-    if (other.type === TYPE_BLOCK) {
-      const center = this.pos.add(this.size.scalarMultiply(0.5));
-      const otherCenter = other.pos.add(other.size.scalarMultiply(0.5));
-      const d = center.subtract(otherCenter);
-
-      const averageSize = this.size.add(other.size);
-      averageSize.scalarMultiply(0.5);
-
-      if (Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
-        this.velocity.x *= -1;
-        if (d.x < 0) {
-          this.pos.x = other.pos.x - this.size.x;
-        } else {
-          this.pos.x = other.pos.x + other.size.x;
-        }
-      }
-    } else if (other.type == TYPE_ENEMY) {
+    if (other.type === TYPE_BULLET) {
       this.dead = true;
     }
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.fillStyle = "red";
-    ctx.fillRect(
+    ctx.beginPath();
+    ctx.arc(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
-      ENEMY_SCREEN_WIDTH,
-      ENEMY_SCREEN_HEIGHT,
+      CIRCLE_SCREEN_RADIUS,
+      0,
+      TWO_PI,
     );
+    ctx.fill();
   }
 }
