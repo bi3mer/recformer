@@ -1,5 +1,6 @@
 import { Camera } from "./camera";
 import { CircleGameObject } from "./circleGameObject";
+import { COLOR_STILETTO } from "./colorPalette";
 import {
   CIRCLE_MOVE_RADIUS,
   CIRCLE_RADIUS,
@@ -33,7 +34,8 @@ export class CircleEnemy extends CircleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "red";
+    // COLOR_STILETTO
+    ctx.fillStyle = COLOR_STILETTO;
     ctx.beginPath();
     ctx.arc(
       camera.columnToScreen(this.pos.x),

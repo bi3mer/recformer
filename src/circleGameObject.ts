@@ -19,9 +19,6 @@ export abstract class CircleGameObject extends GameObject {
 
   collision(other: GameObject): void {
     if (other instanceof RectangleGameObject) {
-      console.log(
-        rectangleIntersectCircle(other.pos, other.size, this.pos, this.r),
-      );
       if (rectangleIntersectCircle(other.pos, other.size, this.pos, this.r)) {
         this.handleCollision(other);
         other.handleCollision(this);
