@@ -74,6 +74,8 @@ export class Player extends GameObject {
         this.velocity.y -= 2;
       }
 
+      this.velocity.y = Math.max(-20, this.velocity.y);
+
       this.squash = Math.min(1.03, this.squash + 0.01);
       this.stretch = Math.max(0.97, this.stretch - 0.01);
       this.jumpTime += dt;
@@ -130,11 +132,11 @@ export class Player extends GameObject {
       }
       case TYPE_ENEMY: {
         this.dead = true;
-        console.log("Ran into an enemy! :/");
         break;
       }
       case TYPE_JUMP_RESET: {
         this.jumpTime = 0;
+        this.velocity.y = Math.min(this.velocity.y, 0);
         break;
       }
       default: {
