@@ -1,5 +1,11 @@
 import { Camera } from "./camera";
 import {
+  COLOR_DARK_PURPLE,
+  COLOR_ORANGE,
+  COLOR_WHITE,
+  COLOR_YELLOW,
+} from "./colorPalette";
+import {
   BLOCK_HEIGHT,
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
@@ -9,8 +15,9 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class LaserBlock extends GameObject {
+export class LaserBlock extends RectangleGameObject {
   private spawnLaser: () => void;
   private vertical: boolean;
   private color: string;
@@ -22,7 +29,7 @@ export class LaserBlock extends GameObject {
 
     this.spawnLaser = spawnLaser;
     this.vertical = vertical;
-    this.color = "yellow";
+    this.color = COLOR_YELLOW;
     this.gravity.y = 0;
   }
 
@@ -34,7 +41,7 @@ export class LaserBlock extends GameObject {
         if (this.time >= LASER_LIFE_TIME) {
           this.time = 0;
           this.state = 1;
-          this.color = "yellow";
+          this.color = COLOR_YELLOW;
         }
         break;
       }
@@ -43,7 +50,7 @@ export class LaserBlock extends GameObject {
         if (this.time >= LASER_CHARGE_TIME) {
           this.time = 0;
           this.state = 0;
-          this.color = "red";
+          this.color = COLOR_ORANGE;
           this.spawnLaser();
         }
         break;
@@ -73,7 +80,7 @@ export class LaserBlock extends GameObject {
     ctx.lineTo(x, botY);
     ctx.stroke();
 
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = COLOR_WHITE;
     ctx.beginPath();
     ctx.moveTo(x, topY);
     ctx.lineTo(x + BLOCK_SCREEN_WIDTH, topY);

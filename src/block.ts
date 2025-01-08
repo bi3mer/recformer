@@ -1,4 +1,5 @@
 import { Camera } from "./camera";
+import { COLOR_WHITE } from "./colorPalette";
 import {
   BLOCK_HEIGHT,
   BLOCK_SCREEN_HEIGHT,
@@ -21,7 +22,7 @@ export class Block extends RectangleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.strokeStyle = "white";
+    ctx.strokeStyle = COLOR_WHITE;
     ctx.strokeRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),

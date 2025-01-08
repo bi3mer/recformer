@@ -1,4 +1,5 @@
 import { Camera } from "./camera";
+import { COLOR_ORANGE } from "./colorPalette";
 import {
   BLOCK_WIDTH,
   LASER_LIFE_TIME,
@@ -8,8 +9,9 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_ENEMY } from "./gameObjectTypes";
+import { RectangleGameObject } from "./rectangleGameObject";
 
-export class Laser extends GameObject {
+export class Laser extends RectangleGameObject {
   private vertical: boolean;
   private time: number = 0;
 
@@ -38,7 +40,7 @@ export class Laser extends GameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "red";
+    ctx.fillStyle = COLOR_ORANGE;
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),

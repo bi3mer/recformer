@@ -9,6 +9,7 @@ import {
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";
+import { COLOR_ORANGE } from "./colorPalette";
 
 export class VerticalEnemy extends RectangleGameObject {
   constructor(x: number, y: number) {
@@ -47,7 +48,7 @@ export class VerticalEnemy extends RectangleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "red";
+    ctx.fillStyle = COLOR_ORANGE;
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),

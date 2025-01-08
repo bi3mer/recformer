@@ -12,6 +12,7 @@ import { TYPE_BLOCK } from "./gameObjectTypes";
 import { Player } from "./player";
 import { Point } from "./point";
 import { RectangleGameObject } from "./rectangleGameObject";
+import { COLOR_ORANGE, COLOR_YELLOW } from "./colorPalette";
 
 export class Turret extends RectangleGameObject {
   private player: Player;
@@ -30,7 +31,7 @@ export class Turret extends RectangleGameObject {
 
     this.player = player;
     this.spawnBullet = spawnBullet;
-    this.color = "yellow";
+    this.color = COLOR_YELLOW;
     this.gravity.y = 0;
   }
 
@@ -39,7 +40,7 @@ export class Turret extends RectangleGameObject {
       case 0: {
         // Idle state until the player is in range
         if (this.pos.squareDistance(this.player.pos) <= TURRET_SQUARED_RANGE) {
-          this.color = "red";
+          this.color = COLOR_ORANGE;
           this.state = 1;
         }
         break;
@@ -57,7 +58,7 @@ export class Turret extends RectangleGameObject {
       case 2: {
         // Turret fired
         this.state = 0;
-        this.color = "yellow";
+        this.color = COLOR_YELLOW;
 
         // spawn bullet at tip of the turret's barrel
         const angle = this.pos.angle(this.player.pos);
@@ -92,6 +93,7 @@ export class Turret extends RectangleGameObject {
     const T = new Point(X + R, Y);
 
     // Draw turret base
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(T.x, T.y, R, 0, Math.PI);
     ctx.stroke();

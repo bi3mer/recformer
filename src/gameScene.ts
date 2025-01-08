@@ -27,6 +27,7 @@ import { BlueBlock } from "./blueBlock.ts";
 import { Turret } from "./Turret.ts";
 import { Bullet } from "./bullet.ts";
 import { CircleEnemy } from "./CircleEnemy.ts";
+import { COLOR_BACKGROUND } from "./colorPalette.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -176,7 +177,8 @@ export class GameScene extends Scene {
   }
 
   render(): void {
-    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.ctx.fillStyle = COLOR_BACKGROUND;
+    this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     // Update camera view based on the player before rendering
     this.camera.update(this.dynamicEntities[0].pos.x);

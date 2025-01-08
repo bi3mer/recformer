@@ -1,4 +1,5 @@
 import { Camera } from "./camera";
+import { COLOR_YELLOW } from "./colorPalette";
 import {
   COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
@@ -38,7 +39,7 @@ export class Coin extends RectangleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "yellow";
+    ctx.fillStyle = COLOR_YELLOW;
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),

@@ -8,6 +8,7 @@ import {
 import { GameObject } from "./gameObject";
 import { TYPE_PLAYER, TYPE_JUMP_RESET } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";
+import { COLOR_LIGHT_BLUE } from "./colorPalette";
 
 const goneFor = 2000; // if captured, go away for `goneFor` milliseconds.
 
@@ -47,7 +48,7 @@ export class BlueBlock extends RectangleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = "#05D5FA";
+    ctx.fillStyle = COLOR_LIGHT_BLUE;
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),

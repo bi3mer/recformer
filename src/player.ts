@@ -1,5 +1,5 @@
 import { Camera } from "./camera";
-import { COLOR_PLAYER } from "./colors";
+import { COLOR_LIGHT_PURPLE, COLOR_PURPLE } from "./colorPalette";
 import {
   DEATH_HEIGHT,
   PLAYER_HEIGHT,
@@ -150,7 +150,7 @@ export class Player extends RectangleGameObject {
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    ctx.fillStyle = COLOR_PLAYER;
+    ctx.fillStyle = COLOR_LIGHT_PURPLE;
 
     const x = camera.columnToScreen(this.pos.x);
     const y = camera.rowToScreen(this.pos.y);

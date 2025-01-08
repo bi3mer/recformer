@@ -165,7 +165,7 @@ export const idToLevel: { [key: string]: string[] } = {
     "--------o-XX----",
     "------o-XXXX----",
     "------XXXXXX----",
-    "XXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXX^XXX",
   ],
   "2-a": [
     "----------------------",
