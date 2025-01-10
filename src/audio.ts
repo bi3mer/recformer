@@ -14,7 +14,6 @@ export function audioLoad(callback: () => void): void {
     let audioLoaded = true;
     for (let i = 0; i < sounds.length; ++i) {
       if (!sounds[i].readyState) {
-        console.log("here");
         audioLoaded = false;
         break;
       }
