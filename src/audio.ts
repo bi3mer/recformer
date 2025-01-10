@@ -1,4 +1,3 @@
-import { choice } from "./GDM-TS/src/rand";
 import { randomInt } from "./util";
 
 const sounds: HTMLAudioElement[] = [];
@@ -15,6 +14,7 @@ export function audioLoad(callback: () => void): void {
     let audioLoaded = true;
     for (let i = 0; i < sounds.length; ++i) {
       if (!sounds[i].readyState) {
+        console.log("here");
         audioLoaded = false;
         break;
       }
@@ -33,13 +33,13 @@ export function audioLoad(callback: () => void): void {
 
 export function audioPlayCoin() {
   const coinIndex = randomInt(0, 4);
-  this.sounds[coinIndex].currentTime = 0.1;
-  this.sounds[coinIndex].play();
+  sounds[coinIndex].currentTime = 0.15;
+  sounds[coinIndex].play();
 }
 
 export function audioPlayLaser() {
-  this.sounds[5].currentTime = 0;
-  this.sounds[5].play();
+  sounds[5].currentTime = 0;
+  sounds[5].play();
 }
 
 export function audioPlayTurretFire() {}
