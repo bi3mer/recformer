@@ -1,3 +1,4 @@
+import { audioPlayLaser } from "./audio";
 import { Camera } from "./camera";
 import { COLOR_ORANGE } from "./colorPalette";
 import {
@@ -29,6 +30,7 @@ export class Laser extends RectangleGameObject {
   }
 
   update(dt: number): void {
+    audioPlayLaser();
     this.time += dt;
     if (this.time >= LASER_LIFE_TIME) {
       this.dead = true;

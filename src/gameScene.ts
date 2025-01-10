@@ -79,7 +79,7 @@ export class GameScene extends Scene {
           this.staticEntities.push(new Block(col, r));
         } else if (tile === "^") {
           this.dynamicEntities.push(
-            new LaserBlock(col, r, true, () => {
+            new LaserBlock(col, r, true, this.dynamicEntities[0].pos, () => {
               const foundObject = this.raycast(new Point(col, r));
               const height =
                 foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
@@ -177,8 +177,8 @@ export class GameScene extends Scene {
   }
 
   render(): void {
-    this.ctx.fillStyle = COLOR_BACKGROUND;
-    this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    // this.ctx.fillStyle = COLOR_BACKGROUND;
+    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     // Update camera view based on the player before rendering
     this.camera.update(this.dynamicEntities[0].pos.x);

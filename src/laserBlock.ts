@@ -15,18 +15,27 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
+import { Point } from "./point";
 import { RectangleGameObject } from "./rectangleGameObject";
 
 export class LaserBlock extends RectangleGameObject {
   private spawnLaser: () => void;
   private vertical: boolean;
   private color: string;
+  private playerPos: Point;
   private time: number = 0;
   private state = 0; // 0 -> laser, 1 -> charging
 
-  constructor(x: number, y: number, vertical: boolean, spawnLaser: () => void) {
+  constructor(
+    x: number,
+    y: number,
+    vertical: boolean,
+    playerPos: Point,
+    spawnLaser: () => void,
+  ) {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
 
+    this.playerPos = playerPos;
     this.spawnLaser = spawnLaser;
     this.vertical = vertical;
     this.color = COLOR_YELLOW;
@@ -34,6 +43,10 @@ export class LaserBlock extends RectangleGameObject {
   }
 
   update(dt: number): void {
+    if (this.pos.squareDistance(this.playerPos) > 150) {
+      this.state = 0;
+    }
+
     this.time += dt;
     switch (this.state) {
       case 0: {

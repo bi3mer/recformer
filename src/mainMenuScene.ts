@@ -39,8 +39,7 @@ export class MainMenuScene extends Scene {
   }
 
   onEnter(): void {
-    this.ctx.fillStyle = COLOR_BACKGROUND;
-    this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 
     this.ctx.fillStyle = COLOR_YELLOW;
     this.ctx.font = "48px Arial";
@@ -82,7 +81,7 @@ export class MainMenuScene extends Scene {
     const y = (NUM_ROWS - 2) * TILE_SIZE;
 
     this.ctx.fillStyle = COLOR_BACKGROUND;
-    this.ctx.fillRect(
+    this.ctx.clearRect(
       0,
       this.fakePlayerPos.y,
       SCREEN_WIDTH,
@@ -92,5 +91,6 @@ export class MainMenuScene extends Scene {
     this.ctx.fillStyle = COLOR_LIGHT_PURPLE;
     this.ctx.fillRect(x, y, PLAYER_SCREEN_WIDTH, PLAYER_SCREEN_HEIGHT);
   }
+
   protected _onExit(): void {}
 }

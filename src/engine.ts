@@ -24,13 +24,15 @@ export class Engine {
   private sceneManager: SceneManager;
 
   constructor() {
+    // create 2d canvas
     this.canvas = document.createElement("canvas");
     this.canvas.setAttribute("id", "canvas");
     this.canvas.width = SCREEN_WIDTH;
     this.canvas.height = SCREEN_HEIGHT;
-
     this.ctx = this.canvas.getContext("2d")!;
+
     document.getElementById("game")!.appendChild(this.canvas);
+
     const transitionScene = new TransitionScene(this.ctx);
 
     this.sceneManager = new SceneManager();

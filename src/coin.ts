@@ -1,3 +1,4 @@
+import { audioPlayCoin } from "./audio";
 import { Camera } from "./camera";
 import { COLOR_YELLOW } from "./colorPalette";
 import {
@@ -34,6 +35,7 @@ export class Coin extends RectangleGameObject {
 
   handleCollision(other: GameObject): void {
     if (other.type === TYPE_PLAYER) {
+      audioPlayCoin();
       this.dead = true;
     }
   }
