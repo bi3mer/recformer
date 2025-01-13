@@ -1,5 +1,6 @@
 import { randomInt } from "./util";
 
+const IS_BROWSER = typeof window !== "undefined";
 const sounds: HTMLAudioElement[] = [];
 
 export function audioLoad(callback: () => void): void {
@@ -30,15 +31,19 @@ export function audioLoad(callback: () => void): void {
   waitForAudioToLoad();
 }
 
-export function audioPlayCoin() {
-  const coinIndex = randomInt(0, 4);
-  sounds[coinIndex].currentTime = 0.15;
-  sounds[coinIndex].play();
+export function audioCoin() {
+  if (IS_BROWSER) {
+    const coinIndex = randomInt(0, 4);
+    sounds[coinIndex].currentTime = 0.15;
+    sounds[coinIndex].play();
+  }
 }
 
-export function audioPlayLaser() {
-  sounds[5].currentTime = 0;
-  sounds[5].play();
+export function audioLaser() {
+  if (IS_BROWSER) {
+    sounds[5].currentTime = 0;
+    sounds[5].play();
+  }
 }
 
-export function audioPlayTurretFire() {}
+export function audioTurretFire() {}

@@ -27,6 +27,8 @@ const server = Bun.listen({
 
         socket.write(encoder.encode(JSON.stringify(L) + "EOF"));
       } else if (request.substring(0, 6) === "assess") {
+        const lvl = JSON.parse(request.substring(6, request.length));
+        console.log(lvl);
         console.log("assess not yet implemented...");
       } else {
         console.log(`Unhandled request type: ${request}`);
