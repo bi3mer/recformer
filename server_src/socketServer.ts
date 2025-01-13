@@ -16,7 +16,6 @@ const server = Bun.listen({
       } else if (request === "levels") {
         console.log("sending levels.");
 
-        // @TODO: this will fail for new MDP format
         const L: string[][] = [];
         for (const l of Object.keys(MDP.nodes)) {
           const level = idToLevel[l];
@@ -28,8 +27,14 @@ const server = Bun.listen({
         socket.write(encoder.encode(JSON.stringify(L) + "EOF"));
       } else if (request.substring(0, 6) === "assess") {
         const lvl = JSON.parse(request.substring(6, request.length));
-        console.log(lvl);
-        console.log("assess not yet implemented...");
+
+        const result = {
+          completability: 1.0,
+          linearity: Math.random(),
+          leniency: Math.random(),
+        };
+
+        socket.write(encoder.encode(JSON.stringify(result)));
       } else {
         console.log(`Unhandled request type: ${request}`);
       }
