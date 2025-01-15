@@ -1,23 +1,23 @@
-import { CircleEnemy } from "./CircleEnemy";
-import { Turret } from "./Turret";
-import { Block } from "./block";
-import { BlueBlock } from "./blueBlock";
-import { Bullet } from "./bullet";
+import { CircleEnemy } from "./GameObjects/CircleEnemy";
+import { Turret } from "./GameObjects/Turret";
+import { Block } from "./GameObjects/block";
+import { BlueBlock } from "./GameObjects/blueBlock";
+import { Bullet } from "./GameObjects/bullet";
 import { Camera } from "./camera";
-import { Coin } from "./coin";
+import { Coin } from "./GameObjects/coin";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
   GAME_STATE_WON,
   NUM_ROWS,
 } from "./constants";
-import { GameObject } from "./gameObject";
-import { HorizontalEnemy } from "./horizontalEnemy";
-import { LaserBlock } from "./laserBlock";
-import { Laser } from "./laser";
+import { GameObject } from "./GameObjects/gameObject";
+import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
+import { LaserBlock } from "./GameObjects/laserBlock";
+import { Laser } from "./GameObjects/laser";
 import { Point } from "./point";
-import { VerticalEnemy } from "./verticalEnemy";
-import { Protaganist } from "./protaganist";
+import { VerticalEnemy } from "./GameObjects/verticalEnemy";
+import { Protaganist } from "./GameObjects/protaganist";
 
 export class GameModel {
   private staticEntities: GameObject[] = [];
@@ -50,7 +50,7 @@ export class GameModel {
           this.staticEntities.push(new Block(col, r));
         } else if (tile === "^") {
           this.dynamicEntities.push(
-            new LaserBlock(col, r, true, this.dynamicEntities[0].pos, () => {
+            new LaserBlock(col, r, this.dynamicEntities[0].pos, () => {
               const foundObject = this.raycast(new Point(col, r));
               const height =
                 foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;

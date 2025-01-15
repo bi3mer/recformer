@@ -1,11 +1,11 @@
-import { Camera } from "./camera";
-import { COLOR_WHITE } from "./colorPalette";
+import { Camera } from "../camera";
+import { COLOR_WHITE } from "../colorPalette";
 import {
   BLOCK_HEIGHT,
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
   BLOCK_WIDTH,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";

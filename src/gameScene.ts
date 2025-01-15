@@ -1,6 +1,6 @@
 import { Scene } from "./scene";
 import { Camera } from "./camera";
-import { Protaganist } from "./protaganist.ts";
+import { Protaganist } from "./GameObjects/protaganist.ts";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,

@@ -1,27 +1,28 @@
-import { Camera } from "./camera";
+import { Camera } from "../camera";
 import {
   ENEMY_HEIGHT,
   ENEMY_SCREEN_HEIGHT,
   ENEMY_SCREEN_WIDTH,
   ENEMY_WIDTH,
-  NUM_ROWS,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
-import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { TYPE_BLOCK, TYPE_ENEMY, TYPE_BULLET } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";
-import { COLOR_ORANGE } from "./colorPalette";
+import { COLOR_ORANGE } from "../colorPalette";
 
-export class VerticalEnemy extends RectangleGameObject {
-  constructor(x: number, y: number) {
-    super(x, y + 0.1, ENEMY_HEIGHT, ENEMY_WIDTH, TYPE_ENEMY);
-    this.velocity.y = 3;
+export class HorizontalEnemy extends RectangleGameObject {
+  private maxColumns: number;
+
+  constructor(x: number, y: number, maxColumns: number) {
+    super(x + 0.25, y + 0.25, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
+    this.velocity.x = 3;
     this.gravity.y = 0;
-    this.pos.x += 0.25;
+    this.maxColumns = maxColumns;
   }
 
   update(dt: number): void {
-    if (this.pos.y < 0 || this.pos.y >= NUM_ROWS) {
-      this.velocity.y *= -1;
+    if (this.pos.x < 0 || this.pos.x > this.maxColumns) {
+      this.velocity.x *= -1;
     }
   }
 
@@ -34,12 +35,12 @@ export class VerticalEnemy extends RectangleGameObject {
       const averageSize = this.size.add(other.size);
       averageSize.scalarMultiply(0.5);
 
-      if (Math.abs(d.x / this.size.x) < Math.abs(d.y / this.size.y)) {
-        this.velocity.y *= -1;
-        if (d.y > 0) {
-          this.pos.y = other.pos.y + other.size.y;
+      if (Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+        this.velocity.x *= -1;
+        if (d.x < 0) {
+          this.pos.x = other.pos.x - this.size.x;
         } else {
-          this.pos.y = other.pos.y - this.size.y;
+          this.pos.x = other.pos.x + other.size.x;
         }
       }
     } else if (other.type === TYPE_BULLET) {
@@ -52,8 +53,8 @@ export class VerticalEnemy extends RectangleGameObject {
     ctx.fillRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
-      ENEMY_SCREEN_HEIGHT,
       ENEMY_SCREEN_WIDTH,
+      ENEMY_SCREEN_HEIGHT,
     );
   }
 }

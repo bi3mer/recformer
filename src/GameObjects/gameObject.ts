@@ -1,5 +1,5 @@
-import { Camera } from "./camera";
-import { Point } from "./point";
+import { Camera } from "../camera";
+import { Point } from "../point";
 
 // ALl game objects are rectangles, sue me
 export abstract class GameObject {

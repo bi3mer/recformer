@@ -1,12 +1,12 @@
-import { Camera } from "./camera";
-import { COLOR_LIGHT_PURPLE } from "./colorPalette";
+import { Camera } from "../camera";
+import { COLOR_LIGHT_PURPLE } from "../colorPalette";
 import {
   DEATH_HEIGHT,
   PLAYER_HEIGHT,
   PLAYER_SCREEN_HEIGHT,
   PLAYER_SCREEN_WIDTH,
   PLAYER_WIDTH,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
 import {
   TYPE_JUMP_RESET,
@@ -16,7 +16,7 @@ import {
   TYPE_PLAYER,
   TYPE_BULLET,
 } from "./gameObjectTypes";
-import { InputManager, Key } from "./inputManager";
+import { InputManager, Key } from "../inputManager";
 import { RectangleGameObject } from "./rectangleGameObject";
 
 const MOVE = 6;

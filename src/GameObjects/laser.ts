@@ -1,13 +1,13 @@
-import { audioLaser } from "./audio";
-import { Camera } from "./camera";
-import { COLOR_ORANGE } from "./colorPalette";
+import { audioLaser } from "../audio";
+import { Camera } from "../camera";
+import { COLOR_ORANGE } from "../colorPalette";
 import {
   BLOCK_WIDTH,
   LASER_LIFE_TIME,
   LASER_SCREEN_WIDTH,
   LASER_WIDTH,
   TILE_SIZE,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
 import { TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";

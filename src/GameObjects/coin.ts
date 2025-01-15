@@ -1,13 +1,12 @@
-import { audioCoin } from "./audio";
-
-import { Camera } from "./camera";
-import { COLOR_YELLOW } from "./colorPalette";
+import { audioCoin } from "../audio";
+import { Camera } from "../camera";
+import { COLOR_YELLOW } from "../colorPalette";
 import {
   COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
   COIN_SCREEN_WIDTH,
   COIN_WIDTH,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
 import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";

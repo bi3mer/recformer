@@ -1,14 +1,14 @@
-import { Camera } from "./camera";
+import { Camera } from "../camera";
 import {
   COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
   COIN_SCREEN_WIDTH,
   COIN_WIDTH,
-} from "./constants";
+} from "../constants";
 import { GameObject } from "./gameObject";
 import { TYPE_PLAYER, TYPE_JUMP_RESET } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";
-import { COLOR_LIGHT_BLUE } from "./colorPalette";
+import { COLOR_LIGHT_BLUE } from "../colorPalette";
 
 const OFF_SCREEN_POS_Y = 1000;
 const TIME_OFF_SCREEN = 2; // seconds

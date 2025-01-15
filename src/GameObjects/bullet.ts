@@ -1,16 +1,16 @@
-import { Camera } from "./camera";
+import { Camera } from "../camera";
 import { GameObject } from "./gameObject";
 import { TYPE_BULLET } from "./gameObjectTypes";
-import { Point } from "./point";
+import { Point } from "../point";
 import {
   BULLET_HEIGHT,
   BULLET_SPEED,
   BULLET_WIDTH,
   BULLET_SCREEN_WIDTH,
   BULLET_SCREEN_HEIGHT,
-} from "./constants";
+} from "../constants";
 import { RectangleGameObject } from "./rectangleGameObject";
-import { COLOR_ORANGE } from "./colorPalette";
+import { COLOR_ORANGE } from "../colorPalette";
 
 export class Bullet extends RectangleGameObject {
   constructor(x: number, y: number, target: Point) {
