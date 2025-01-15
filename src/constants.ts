@@ -6,6 +6,11 @@ export const DEATH_HEIGHT = NUM_ROWS + 2;
 export const LEVEL_SEGMENTS_PER_LEVEL = 3;
 export const TWO_PI = 2 * Math.PI;
 
+// Game States
+export const GAME_STATE_PLAYING = 0;
+export const GAME_STATE_LOST = 1;
+export const GAME_STATE_WON = 2;
+
 // Player
 export const PLAYER_SCREEN_WIDTH = 20;
 export const PLAYER_SCREEN_HEIGHT = 30;

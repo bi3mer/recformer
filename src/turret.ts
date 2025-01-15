@@ -9,13 +9,12 @@ import {
 } from "./constants";
 import { GameObject } from "./gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Player } from "./player";
 import { Point } from "./point";
 import { RectangleGameObject } from "./rectangleGameObject";
 import { COLOR_ORANGE, COLOR_YELLOW } from "./colorPalette";
 
 export class Turret extends RectangleGameObject {
-  private player: Player;
+  private playerPos: Point;
   private spawnBullet: (bulletCol: number, bulletRow: number) => void;
   private color: string;
   private time: number = 0;
@@ -24,12 +23,12 @@ export class Turret extends RectangleGameObject {
   constructor(
     x: number,
     y: number,
-    player: Player,
+    playerPos: Point,
     spawnBullet: (bulletCol: number, bulletRow: number) => void,
   ) {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
 
-    this.player = player;
+    this.playerPos = playerPos;
     this.spawnBullet = spawnBullet;
     this.color = COLOR_YELLOW;
     this.gravity.y = 0;
@@ -39,7 +38,7 @@ export class Turret extends RectangleGameObject {
     switch (this.state) {
       case 0: {
         // Idle state until the player is in range
-        if (this.pos.squareDistance(this.player.pos) <= TURRET_SQUARED_RANGE) {
+        if (this.pos.squareDistance(this.playerPos) <= TURRET_SQUARED_RANGE) {
           this.color = COLOR_ORANGE;
           this.state = 1;
         }
@@ -61,7 +60,7 @@ export class Turret extends RectangleGameObject {
         this.color = COLOR_YELLOW;
 
         // spawn bullet at tip of the turret's barrel
-        const angle = this.pos.angle(this.player.pos);
+        const angle = this.pos.angle(this.playerPos);
         const cos = Math.cos(angle);
         const sin = Math.sin(angle);
 
@@ -99,7 +98,7 @@ export class Turret extends RectangleGameObject {
     ctx.stroke();
 
     // Draw turret
-    const angle = this.pos.angle(this.player.pos);
+    const angle = this.pos.angle(this.playerPos);
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
 

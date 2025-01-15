@@ -1,5 +1,5 @@
 import { Camera } from "./camera";
-import { COLOR_LIGHT_PURPLE, COLOR_PURPLE } from "./colorPalette";
+import { COLOR_LIGHT_PURPLE } from "./colorPalette";
 import {
   DEATH_HEIGHT,
   PLAYER_HEIGHT,
@@ -23,7 +23,7 @@ const MOVE = 6;
 const MAX_MOVE_MOD = 8;
 const MAX_JUMP_TIME = 0.4;
 
-export class Player extends RectangleGameObject {
+export class Protaganist extends RectangleGameObject {
   private movingRight: boolean = false;
   private movingLeft: boolean = false;
   private moveMod: number = 0;
@@ -35,6 +35,7 @@ export class Player extends RectangleGameObject {
   public coinsCollected: number = 0;
   public maxColumn: number = 0;
 
+  // @TODO: take in an agent
   constructor(x: number, y: number) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
   }

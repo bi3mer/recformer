@@ -13,10 +13,9 @@ import { TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "./rectangleGameObject";
 
 export class Laser extends RectangleGameObject {
-  private vertical: boolean;
   private time: number = 0;
 
-  constructor(x: number, y: number, vertical: boolean, extension: number) {
+  constructor(x: number, y: number, extension: number) {
     super(
       x + (BLOCK_WIDTH - LASER_WIDTH) / 2,
       y,
@@ -25,7 +24,6 @@ export class Laser extends RectangleGameObject {
       TYPE_ENEMY,
     );
 
-    this.vertical = vertical; // TODO: not supported... yet
     this.gravity.y = 0;
   }
 

@@ -1,11 +1,11 @@
 import { Scene } from "./scene";
 import { Camera } from "./camera";
-import { GameObject } from "./gameObject";
-import { Player } from "./player";
-import { Block } from "./block";
+import { Protaganist } from "./protaganist.ts";
 import {
+  GAME_STATE_LOST,
+  GAME_STATE_PLAYING,
+  GAME_STATE_WON,
   LEVEL_SEGMENTS_PER_LEVEL,
-  NUM_ROWS,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
 } from "./constants";
@@ -15,30 +15,17 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
-import { Coin } from "./coin";
-import { HorizontalEnemy } from "./horizontalEnemy";
-import { VerticalEnemy } from "./verticalEnemy";
 import { LevelDirector } from "./levelDirector.ts";
 import { TransitionScene } from "./transitionScene.ts";
-import { LaserBlock } from "./laserBlock.ts";
-import { Laser } from "./laser.ts";
-import { Point } from "./point.ts";
-import { BlueBlock } from "./blueBlock.ts";
-import { Turret } from "./Turret.ts";
-import { Bullet } from "./bullet.ts";
-import { CircleEnemy } from "./CircleEnemy.ts";
-import { COLOR_BACKGROUND } from "./colorPalette.ts";
+import { GameModel } from "./gameModel.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
   private transitionScene: TransitionScene;
 
+  private game: GameModel;
   private camera: Camera;
-  private numCoins: number;
   private levelDirector: LevelDirector;
-
-  private staticEntities: GameObject[];
-  private dynamicEntities: GameObject[];
 
   constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
     super();
@@ -50,175 +37,49 @@ export class GameScene extends Scene {
   }
 
   onEnter(): void {
-    this.dynamicEntities = [];
-    this.staticEntities = [];
-
-    this.numCoins = 0;
-    this.dynamicEntities.push(new Player(2, 12)); // player is always the first entity
-
     const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
-    const rows = lvl.length;
-    if (rows !== NUM_ROWS) {
-      console.error("Level should have 15 rows!");
-      return;
-    }
-
-    const columns = lvl[0].length;
-    for (let r = 0; r < rows; ++r) {
-      const row = lvl[r];
-      if (columns !== row.length) {
-        console.error(
-          `Every row in the level should have the same number of columns! (${columns} !== ${row.length}).`,
-        );
-        return;
-      }
-
-      for (let col = 0; col < columns; ++col) {
-        const tile = row[col];
-        if (tile === "X") {
-          this.staticEntities.push(new Block(col, r));
-        } else if (tile === "^") {
-          this.dynamicEntities.push(
-            new LaserBlock(col, r, true, this.dynamicEntities[0].pos, () => {
-              const foundObject = this.raycast(new Point(col, r));
-              const height =
-                foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
-
-              // this.dynamicEntities.push(new Laser(col, r - 1, true, height));
-              this.dynamicEntities.push(
-                new Laser(col, r - height, true, height),
-              );
-            }),
-          );
-        } else if (tile === "T") {
-          this.dynamicEntities.push(
-            new Turret(
-              col,
-              r,
-              this.dynamicEntities[0] as Player,
-              (bulletCol: number, bulletRow: number) => {
-                this.dynamicEntities.push(
-                  new Bullet(bulletCol, bulletRow, this.dynamicEntities[0].pos),
-                );
-              },
-            ),
-          );
-        } else if (tile === "o") {
-          ++this.numCoins;
-          this.dynamicEntities.push(new Coin(col, r));
-        } else if (tile == "b") {
-          this.dynamicEntities.push(new BlueBlock(col, r));
-        } else if (tile === "H") {
-          this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
-        } else if (tile === "V") {
-          this.dynamicEntities.push(new VerticalEnemy(col, r));
-        } else if (tile === "C") {
-          this.dynamicEntities.push(new CircleEnemy(col, r));
-        } else if (tile !== "-") {
-          console.error(`Unhandled tile type: ${row[col]}`);
-        }
-      }
-    }
+    this.game = new GameModel(lvl);
   }
 
   update(dt: number): void {
-    // Update and check for collisions
-    let dynamicSize = this.dynamicEntities.length;
-    const staticSize = this.staticEntities.length;
-    let jj: number;
-    let i = 0;
-
-    for (; i < dynamicSize; ++i) {
-      const e = this.dynamicEntities[i];
-
-      e.update(dt);
-
-      // Check if entity died
-      if (e.dead) {
-        if (i == 0) {
-          // the player died, we're done
-          break;
-        }
-
-        this.dynamicEntities.splice(i, 1);
-        --i;
-        --dynamicSize;
-      }
-
-      e.physicsUpdate(dt);
-
-      for (jj = i + 1; jj < dynamicSize; ++jj) {
-        e.collision(this.dynamicEntities[jj]);
-      }
-
-      for (jj = 0; jj < staticSize; ++jj) {
-        e.collision(this.staticEntities[jj]);
-      }
-    }
+    this.game.update(dt);
 
     // Change scenes if necessary
-    const player = this.dynamicEntities[0] as Player;
-    if (player.coinsCollected >= this.numCoins) {
-      if (this.levelDirector.playerIsOnLastLevel) {
-        this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
+    const state = this.game.state();
+    switch (state) {
+      case GAME_STATE_PLAYING:
+        break;
+      case GAME_STATE_LOST: {
+        this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
-      } else {
-        this.transitionScene.targetScene = KEY_PLAYER_WON;
-        this.changeScene = KEY_TRANSITION;
+        break;
       }
-    }
+      case GAME_STATE_WON: {
+        if (this.levelDirector.playerIsOnLastLevel) {
+          this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
+        } else {
+          this.transitionScene.targetScene = KEY_PLAYER_WON;
+        }
 
-    // Slight chance the player collects a coin when hit by the enemy,
-    // so just give them the benefit of the doubt
-    if (player.dead) {
-      this.transitionScene.targetScene = KEY_PLAYER_LOST;
-      this.changeScene = KEY_TRANSITION;
+        this.changeScene = KEY_TRANSITION;
+        break;
+      }
+      default: {
+        console.error(`Unhandled game state type: ${state}`);
+        break;
+      }
     }
   }
 
   render(): void {
-    // this.ctx.fillStyle = COLOR_BACKGROUND;
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-    // Update camera view based on the player before rendering
-    this.camera.update(this.dynamicEntities[0].pos.x);
-
-    // render entitites
-    let size = this.staticEntities.length;
-    let i = 0;
-    for (; i < size; ++i) {
-      this.staticEntities[i].render(this.ctx, this.camera);
-    }
-
-    size = this.dynamicEntities.length;
-    for (i = 0; i < size; ++i) {
-      this.dynamicEntities[i].render(this.ctx, this.camera);
-    }
+    this.game.render(this.ctx, this.camera);
   }
 
   protected _onExit(): void {
-    const player = this.dynamicEntities[0] as Player;
-    this.levelDirector.update(!player.dead, Math.floor(player.maxColumn));
-  }
-
-  // TODO: generalize if required. Rght now it raycasts up, but you could pass
-  // a direction vector. Also, it only runs for static entities and that should
-  // probably be made clear from the name
-  private raycast(start: Point): GameObject | null {
-    const size = this.staticEntities.length;
-    let i: number;
-
-    while (start.y >= 0) {
-      for (i = 0; i < size; ++i) {
-        const e = this.staticEntities[i];
-        if (start.equals(e.pos)) {
-          return e;
-        }
-      }
-
-      --start.y;
-    }
-
-    return null;
+    this.levelDirector.update(
+      this.transitionScene.targetScene === KEY_PLAYER_WON,
+      Math.floor(this.game.protaganist().maxColumn),
+    );
   }
 }
