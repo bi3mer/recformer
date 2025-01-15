@@ -1,5 +1,5 @@
-import { COLOR_WHITE } from "./colorPalette";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { COLOR_WHITE } from "../colorPalette";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
 import { Scene } from "./scene";
 
 export class PlayerBeatTheGameScene extends Scene {

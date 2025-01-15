@@ -1,6 +1,8 @@
 import { Scene } from "./scene";
-import { Camera } from "./camera";
-import { Protaganist } from "./GameObjects/protaganist.ts";
+import { Camera } from "../camera";
+import { LevelDirector } from "../levelDirector.ts";
+import { TransitionScene } from "./transitionScene.ts";
+import { GameModel } from "../gameModel.ts";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
@@ -8,16 +10,13 @@ import {
   LEVEL_SEGMENTS_PER_LEVEL,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-} from "./constants";
+} from "../constants";
 import {
   KEY_PLAYER_BEAT_THE_GAME,
   KEY_PLAYER_LOST,
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
-import { LevelDirector } from "./levelDirector.ts";
-import { TransitionScene } from "./transitionScene.ts";
-import { GameModel } from "./gameModel.ts";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;

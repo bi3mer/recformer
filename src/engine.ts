@@ -1,7 +1,11 @@
-import { Scene } from "./scene";
-import { SceneManager } from "./sceneManager";
-import { MainMenuScene } from "./mainMenuScene";
-import { GameScene } from "./gameScene";
+import { Scene } from "./Scenes/scene";
+import { SceneManager } from "./Scenes/sceneManager";
+import { MainMenuScene } from "./Scenes/mainMenuScene";
+import { GameScene } from "./Scenes/gameScene";
+import { PlayerBeatTheGameScene } from "./Scenes/playerBeatTheGameScene";
+import { TransitionScene } from "./Scenes/transitionScene";
+import { PlayerBeatLevelScene } from "./Scenes/playerBeatLevelScene";
+import { PlayerLostLevelScene } from "./Scenes/playerLostLevelScene";
 import {
   KEY_GAME,
   KEY_MAIN_MENU,
@@ -9,12 +13,8 @@ import {
   KEY_PLAYER_LOST,
   KEY_PLAYER_WON,
   KEY_TRANSITION,
-} from "./sceneKeys";
+} from "./Scenes/sceneKeys";
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./constants";
-import { PlayerBeatTheGameScene } from "./playerBeatTheGameScene";
-import { TransitionScene } from "./transitionScene";
-import { PlayerBeatLevelScene } from "./playerBeatLevelScene";
-import { PlayerLostLevelScene } from "./playerLostLevelScene";
 
 export class Engine {
   private canvas: HTMLCanvasElement;

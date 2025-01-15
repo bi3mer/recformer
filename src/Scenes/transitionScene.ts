@@ -1,5 +1,4 @@
-
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
 import { Scene } from "./scene";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 
@@ -15,7 +14,7 @@ export class TransitionScene extends Scene {
     this.ctx = ctx;
   }
 
-  onEnter(): void { }
+  onEnter(): void {}
 
   update(dt: number): void {
     this.timer += dt;
@@ -28,12 +27,7 @@ export class TransitionScene extends Scene {
   render(): void {
     const t = this.timer / 0.5;
     this.ctx.fillStyle = `rgba(0,0,0, ${t})`;
-    this.ctx.fillRect(
-      0,
-      0,
-      SCREEN_WIDTH,
-      SCREEN_HEIGHT
-    );
+    this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
   }
 
   protected _onExit(): void {

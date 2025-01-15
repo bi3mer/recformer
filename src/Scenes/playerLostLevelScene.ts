@@ -1,11 +1,10 @@
-import { COLOR_BACKGROUND, COLOR_YELLOW } from "./colorPalette";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./constants";
-import { InputManager, Key } from "./inputManager";
+import { InputManager, Key } from "../inputManager";
 import { Scene } from "./scene";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
+import { COLOR_ORANGE } from "../colorPalette";
 
-export class PlayerBeatLevelScene extends Scene {
+export class PlayerLostLevelScene extends Scene {
   private ctx: CanvasRenderingContext2D;
   private transitionScene: TransitionScene;
 
@@ -18,12 +17,12 @@ export class PlayerBeatLevelScene extends Scene {
 
   onEnter(): void {
     InputManager.clear();
-    this.ctx.fillStyle = COLOR_YELLOW;
+    this.ctx.fillStyle = COLOR_ORANGE;
     this.ctx.font = "48px Arial";
-    this.ctx.fillText("YOU WON", 250, 200);
+    this.ctx.fillText("YOU LOST", 243, 200);
 
     this.ctx.font = "30px Arial";
-    this.ctx.fillText("Press 'space' to keep going.", 180, 400);
+    this.ctx.fillText("Press 'space' to try again.", 195, 400);
   }
 
   update(dt: number): void {

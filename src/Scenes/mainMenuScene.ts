@@ -1,5 +1,8 @@
 import { Scene } from "./scene";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
+import { InputManager, Key } from "../inputManager";
+import { Point } from "../point";
+import { TransitionScene } from "./transitionScene";
 import {
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
@@ -9,17 +12,12 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   TILE_SIZE,
-} from "./constants";
-import { InputManager, Key } from "./inputManager";
-import { Point } from "./point";
-import { TransitionScene } from "./transitionScene";
+} from "../constants";
 import {
   COLOR_BACKGROUND,
   COLOR_LIGHT_PURPLE,
-  COLOR_PURPLE,
-  COLOR_WHITE,
   COLOR_YELLOW,
-} from "./colorPalette";
+} from "../colorPalette";
 
 const MAX_COLS = Math.floor(SCREEN_WIDTH / TILE_SIZE) - 1;
 
