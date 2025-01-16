@@ -2,7 +2,7 @@ import { audioLoad } from "./core/audio";
 import { InputManager } from "./core/inputManager";
 import { SceneManager } from "./core/sceneManager";
 
-import { PlayerBeatTheGameScene } from "./scenes/playerBeatTheGameScene";
+import { PlayerBeatTheGameScene } from "./Scenes/playerBeatTheGameScene";
 import { PlayerBeatLevelScene } from "./Scenes/playerBeatLevelScene";
 import { PlayerLostLevelScene } from "./Scenes/playerLostLevelScene";
 import { TransitionScene } from "./Scenes/transitionScene";
@@ -39,7 +39,7 @@ window.addEventListener("load", () => {
 
     sceneManager.registerScene(
       K.KEY_GAME,
-      new GameScene(ctx, transitionScene, AGENT_PLAYER),
+      new GameScene(ctx, transitionScene, AGENT_A_STAR),
     );
 
     sceneManager.registerScene(

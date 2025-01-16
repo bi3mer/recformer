@@ -1,5 +1,8 @@
 import { CONFIG } from "./config";
-import { MDP, idToLevel } from "../src/levels";
+import { MDP, idToLevel } from "../src/LevelGeneration/levels";
+import { AGENT_RANDOM } from "../src/Agents/agentType";
+import { GameModel } from "../src/gameModel";
+import { GAME_STATE_PLAYING } from "../src/core/constants";
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
@@ -26,10 +29,25 @@ const server = Bun.listen({
 
         socket.write(encoder.encode(JSON.stringify(L) + "EOF"));
       } else if (request.substring(0, 6) === "assess") {
-        const lvl = JSON.parse(request.substring(6, request.length));
+        // get level
+        let lvl = JSON.parse(request.substring(6, request.length));
+
+        // update level with padding
+        lvl[0] = `XX${lvl[0]}XX`;
+        lvl[1] = `o-${lvl[1]}--`;
+        for (let rowIndex = 2; rowIndex < 15; ++rowIndex) {
+          // there can only be 15
+          lvl[rowIndex] = `--${lvl[rowIndex]}--`;
+        }
+
+        // run game
+        const game = new GameModel(lvl, AGENT_RANDOM);
+        while (game.state() == GAME_STATE_PLAYING) {
+          game.update(0.05);
+        }
 
         const result = {
-          completability: 1.0,
+          completability: game.fitness(),
           linearity: Math.random(),
           leniency: Math.random(),
         };
