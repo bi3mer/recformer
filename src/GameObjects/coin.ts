@@ -1,15 +1,15 @@
-import { audioCoin } from "../audio";
-import { Camera } from "../camera";
+import { audioCoin } from "../core/audio";
+import { Camera } from "../core/camera";
 import { COLOR_YELLOW } from "../colorPalette";
 import {
   COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
   COIN_SCREEN_WIDTH,
   COIN_WIDTH,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 
 export class Coin extends RectangleGameObject {
   minY: number;

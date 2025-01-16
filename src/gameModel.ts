@@ -3,19 +3,19 @@ import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
 import { BlueBlock } from "./GameObjects/blueBlock";
 import { Bullet } from "./GameObjects/bullet";
-import { Camera } from "./camera";
+import { Camera } from "./core/camera";
 import { Coin } from "./GameObjects/coin";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
   GAME_STATE_WON,
   NUM_ROWS,
-} from "./constants";
-import { GameObject } from "./GameObjects/gameObject";
+} from "./core/constants";
+import { GameObject } from "./core/gameObject";
 import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
 import { LaserBlock } from "./GameObjects/laserBlock";
 import { Laser } from "./GameObjects/laser";
-import { Point } from "./point";
+import { Point } from "./core/point";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
 import { Protaganist } from "./GameObjects/protaganist";
 

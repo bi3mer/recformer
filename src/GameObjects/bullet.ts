@@ -1,15 +1,15 @@
-import { Camera } from "../camera";
-import { GameObject } from "./gameObject";
+import { Camera } from "../core/camera";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BULLET } from "./gameObjectTypes";
-import { Point } from "../point";
+import { Point } from "../core/point";
 import {
   BULLET_HEIGHT,
   BULLET_SPEED,
   BULLET_WIDTH,
   BULLET_SCREEN_WIDTH,
   BULLET_SCREEN_HEIGHT,
-} from "../constants";
-import { RectangleGameObject } from "./rectangleGameObject";
+} from "../core/constants";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
 
 export class Bullet extends RectangleGameObject {

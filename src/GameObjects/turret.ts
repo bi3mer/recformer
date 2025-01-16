@@ -1,4 +1,4 @@
-import { Camera } from "../camera";
+import { Camera } from "../core/camera";
 import {
   BLOCK_HEIGHT,
   BLOCK_SCREEN_WIDTH,
@@ -6,11 +6,11 @@ import {
   BULLET_WIDTH,
   TURRET_LOAD_TIME,
   TURRET_SQUARED_RANGE,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Point } from "../point";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { Point } from "../core/point";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE, COLOR_YELLOW } from "../colorPalette";
 
 export class Turret extends RectangleGameObject {

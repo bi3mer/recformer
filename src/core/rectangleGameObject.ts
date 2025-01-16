@@ -1,7 +1,7 @@
-import { Camera } from "../camera";
-import { Point } from "../point";
+import { rectangleIntersect, rectangleIntersectCircle } from "../core/util";
+import { Camera } from "../core/camera";
+import { Point } from "../core/point";
 import { GameObject } from "./gameObject";
-import { rectangleIntersect, rectangleIntersectCircle } from "../util";
 import { CircleGameObject } from "./circleGameObject";
 
 // ALl game objects are rectangles, sue me

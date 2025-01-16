@@ -1,6 +1,6 @@
 import { COLOR_YELLOW } from "../colorPalette";
-import { InputManager, Key } from "../inputManager";
-import { Scene } from "./scene";
+import { InputManager, Key } from "../core/inputManager";
+import { Scene } from "../core/scene";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
 

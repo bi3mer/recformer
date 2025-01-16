@@ -1,4 +1,4 @@
-import { Camera } from "../camera";
+import { Camera } from "../core/camera";
 import { COLOR_ORANGE, COLOR_WHITE, COLOR_YELLOW } from "../colorPalette";
 import {
   BLOCK_HEIGHT,
@@ -7,11 +7,11 @@ import {
   BLOCK_WIDTH,
   LASER_CHARGE_TIME,
   LASER_LIFE_TIME,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Point } from "../point";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { Point } from "../core/point";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 
 export class LaserBlock extends RectangleGameObject {
   private spawnLaser: () => void;

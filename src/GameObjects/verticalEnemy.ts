@@ -1,14 +1,14 @@
-import { Camera } from "../camera";
+import { Camera } from "../core/camera";
 import {
   ENEMY_HEIGHT,
   ENEMY_SCREEN_HEIGHT,
   ENEMY_SCREEN_WIDTH,
   ENEMY_WIDTH,
   NUM_ROWS,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
 
 export class VerticalEnemy extends RectangleGameObject {

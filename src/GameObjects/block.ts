@@ -1,14 +1,14 @@
-import { Camera } from "../camera";
+import { Camera } from "../core/camera";
 import { COLOR_WHITE } from "../colorPalette";
 import {
   BLOCK_HEIGHT,
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
   BLOCK_WIDTH,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 
 export class Block extends RectangleGameObject {
   constructor(x: number, y: number) {

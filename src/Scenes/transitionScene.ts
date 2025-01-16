@@ -1,5 +1,5 @@
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
-import { Scene } from "./scene";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../core/constants";
+import { Scene } from "../Core/scene";
 import { KEY_MAIN_MENU } from "./sceneKeys";
 
 export class TransitionScene extends Scene {

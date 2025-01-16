@@ -1,5 +1,5 @@
-import { Scene } from "./scene";
-import { Camera } from "../camera";
+import { Scene } from "../Core/scene";
+import { Camera } from "../Core/camera";
 import { LevelDirector } from "../LevelGeneration/levelDirector";
 import { TransitionScene } from "./transitionScene";
 import { GameModel } from "../gameModel";
@@ -10,7 +10,7 @@ import {
   LEVEL_SEGMENTS_PER_LEVEL,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-} from "../constants";
+} from "../core/constants";
 import {
   KEY_PLAYER_BEAT_THE_GAME,
   KEY_PLAYER_LOST,

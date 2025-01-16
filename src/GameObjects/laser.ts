@@ -1,5 +1,5 @@
-import { audioLaser } from "../audio";
-import { Camera } from "../camera";
+import { audioLaser } from "../core/audio";
+import { Camera } from "../core/camera";
 import { COLOR_ORANGE } from "../colorPalette";
 import {
   BLOCK_WIDTH,
@@ -7,10 +7,10 @@ import {
   LASER_SCREEN_WIDTH,
   LASER_WIDTH,
   TILE_SIZE,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_ENEMY } from "./gameObjectTypes";
-import { RectangleGameObject } from "./rectangleGameObject";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 
 export class Laser extends RectangleGameObject {
   private time: number = 0;

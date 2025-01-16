@@ -1,6 +1,6 @@
 import { COLOR_WHITE } from "../colorPalette";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../constants";
-import { Scene } from "./scene";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../core/constants";
+import { Scene } from "../core/scene";
 
 export class PlayerBeatTheGameScene extends Scene {
   private ctx: CanvasRenderingContext2D;

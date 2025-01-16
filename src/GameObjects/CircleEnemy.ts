@@ -1,15 +1,15 @@
-import { Camera } from "../camera";
-import { CircleGameObject } from "./circleGameObject";
+import { Camera } from "../core/camera";
+import { CircleGameObject } from "../core/circleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
 import {
   CIRCLE_MOVE_RADIUS,
   CIRCLE_RADIUS,
   CIRCLE_SCREEN_RADIUS,
   TWO_PI,
-} from "../constants";
-import { GameObject } from "./gameObject";
+} from "../core/constants";
+import { GameObject } from "../core/gameObject";
 import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
-import { Point } from "../point";
+import { Point } from "../core/point";
 
 export class CircleEnemy extends CircleGameObject {
   angle: number = 0;

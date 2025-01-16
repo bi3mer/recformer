@@ -1,7 +1,7 @@
 import { policyIteration, valueIteration } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
-import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../constants";
+import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
 

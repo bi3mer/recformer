@@ -1,7 +1,7 @@
-import { Scene } from "./scene";
+import { Scene } from "../core/scene";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
-import { InputManager, Key } from "../inputManager";
-import { Point } from "../point";
+import { InputManager, Key } from "../core/inputManager";
+import { Point } from "../core/point";
 import { TransitionScene } from "./transitionScene";
 import {
   BLOCK_SCREEN_HEIGHT,
@@ -12,7 +12,7 @@ import {
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   TILE_SIZE,
-} from "../constants";
+} from "../core/constants";
 import {
   COLOR_BACKGROUND,
   COLOR_LIGHT_PURPLE,
