@@ -1,8 +1,8 @@
 import { Scene } from "./scene";
 import { Camera } from "../camera";
-import { LevelDirector } from "../levelDirector.ts";
-import { TransitionScene } from "./transitionScene.ts";
-import { GameModel } from "../gameModel.ts";
+import { LevelDirector } from "../LevelGeneration/levelDirector";
+import { TransitionScene } from "./transitionScene";
+import { GameModel } from "../gameModel";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
