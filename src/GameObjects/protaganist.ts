@@ -16,7 +16,6 @@ import {
   TYPE_PLAYER,
   TYPE_BULLET,
 } from "./gameObjectTypes";
-import { InputManager, Key } from "../core/inputManager";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { Agent } from "../Agents/agent";
 
@@ -54,7 +53,7 @@ export class Protaganist extends RectangleGameObject {
     this.velocity.x = 0;
 
     // Handle agent input
-    this.agent.update();
+    this.agent.update(dt);
     if (this.agent.movingRight) {
       this.movingRight = true;
       this.velocity.x = MOVE;

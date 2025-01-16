@@ -17,7 +17,6 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
-import { Agent } from "../Agents/agent";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;

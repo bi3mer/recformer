@@ -1,18 +1,23 @@
-import { InputManager, Key } from "../core/inputManager";
+import { randomBool } from "../core/util";
 import { Agent } from "./agent";
 
 export class RandomAgent extends Agent {
   movingRight: boolean = false;
   movingLeft: boolean = false;
   jumping: boolean = false;
+  time: number = 0;
 
   name(): string {
     return "random";
   }
 
-  update() {
-    this.movingRight = InputManager.isKeyDown(Key.D, Key.RIGHT);
-    this.movingLeft = InputManager.isKeyDown(Key.A, Key.LEFT);
-    this.jumping = InputManager.isKeyDown(Key.SPACE, Key.UP);
+  update(dt: number) {
+    this.time += dt;
+    if (this.time > 0.2) {
+      this.time = 0;
+      this.movingRight = randomBool();
+      this.movingLeft = randomBool();
+      this.jumping = randomBool();
+    }
   }
 }

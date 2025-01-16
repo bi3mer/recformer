@@ -17,6 +17,10 @@ export function randomSign(): number {
   return Math.sign(Math.random() - 0.5);
 }
 
+export function randomBool(): boolean {
+  return Math.random() < 0.5;
+}
+
 // Clamp num between min and max. This function does not check to see if min
 // is less than max.
 export function clamp(num: number, min: number, max: number): number {

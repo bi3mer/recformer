@@ -7,5 +7,5 @@ export abstract class Agent {
   jumping: boolean = false;
 
   abstract name(): string;
-  abstract update(): void;
+  abstract update(dt: number): void;
 }
