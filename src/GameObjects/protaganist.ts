@@ -18,6 +18,7 @@ import {
 } from "./gameObjectTypes";
 import { InputManager, Key } from "../core/inputManager";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { Agent } from "../Agents/agent";
 
 const MOVE = 6;
 const MAX_MOVE_MOD = 8;
@@ -35,9 +36,12 @@ export class Protaganist extends RectangleGameObject {
   public coinsCollected: number = 0;
   public maxColumn: number = 0;
 
+  private agent: Agent;
+
   // @TODO: take in an agent
-  constructor(x: number, y: number) {
+  constructor(x: number, y: number, agent: Agent) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
+    this.agent = agent;
   }
 
   update(dt: number): void {
@@ -49,14 +53,15 @@ export class Protaganist extends RectangleGameObject {
 
     this.velocity.x = 0;
 
-    // Handle plaayer input
-    if (InputManager.isKeyDown(Key.D, Key.RIGHT)) {
+    // Handle agent input
+    this.agent.update();
+    if (this.agent.movingRight) {
       this.movingRight = true;
       this.velocity.x = MOVE;
       this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
     }
 
-    if (InputManager.isKeyDown(Key.A, Key.LEFT)) {
+    if (this.agent.movingLeft) {
       if (this.movingRight) {
         this.movingRight = false;
         this.velocity.x = 0;
@@ -67,10 +72,7 @@ export class Protaganist extends RectangleGameObject {
       }
     }
 
-    if (
-      this.jumpTime < MAX_JUMP_TIME &&
-      InputManager.isKeyDown(Key.SPACE, Key.UP)
-    ) {
+    if (this.jumpTime < MAX_JUMP_TIME && this.agent.jumping) {
       if (this.jumpTime === 0) {
         this.velocity.y = -15;
       } else if (this.jumpTime < 0.2) {

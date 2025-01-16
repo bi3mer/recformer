@@ -2,11 +2,10 @@ import { GameModel } from "../gameModel";
 
 export abstract class Agent {
   model: GameModel;
-
-  Agent(model: GameModel) {
-    this.model = model;
-  }
+  movingRight: boolean = false;
+  movingLeft: boolean = false;
+  jumping: boolean = false;
 
   abstract name(): string;
-  abstract action(): string;
+  abstract update(): void;
 }

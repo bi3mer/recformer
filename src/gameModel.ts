@@ -18,6 +18,8 @@ import { Laser } from "./GameObjects/laser";
 import { Point } from "./core/point";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
 import { Protaganist } from "./GameObjects/protaganist";
+import { Agent } from "./Agents/agent";
+import { typeToAgent } from "./Agents/agentType";
 
 export class GameModel {
   private staticEntities: GameObject[] = [];
@@ -25,14 +27,16 @@ export class GameModel {
   private numCoins: number = 0;
 
   // @TODO: need to pass in player or agent
-  constructor(level: string[]) {
+  constructor(level: string[], agentType: number) {
     const rows = level.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
       return;
     }
 
-    this.dynamicEntities.push(new Protaganist(2, 12)); // player is always the first entity
+    this.dynamicEntities.push(
+      new Protaganist(2, 12, typeToAgent(agentType, this)),
+    ); // player is always the first entity
 
     const columns = level[0].length;
     for (let r = 0; r < rows; ++r) {

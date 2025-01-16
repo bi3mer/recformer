@@ -11,6 +11,7 @@ import { GameScene } from "./Scenes/gameScene";
 import * as K from "./Scenes/sceneKeys";
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./core/constants";
+import { AGENT_PLAYER, AGENT_RANDOM, AGENT_A_STAR } from "./Agents/agentType";
 
 window.addEventListener("load", () => {
   audioLoad(() => {
@@ -36,7 +37,10 @@ window.addEventListener("load", () => {
       new MainMenuScene(ctx, transitionScene),
     );
 
-    sceneManager.registerScene(K.KEY_GAME, new GameScene(ctx, transitionScene));
+    sceneManager.registerScene(
+      K.KEY_GAME,
+      new GameScene(ctx, transitionScene, AGENT_PLAYER),
+    );
 
     sceneManager.registerScene(
       K.KEY_PLAYER_BEAT_THE_GAME,

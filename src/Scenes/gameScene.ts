@@ -1,5 +1,5 @@
-import { Scene } from "../Core/scene";
-import { Camera } from "../Core/camera";
+import { Scene } from "../core/scene";
+import { Camera } from "../core/camera";
 import { LevelDirector } from "../LevelGeneration/levelDirector";
 import { TransitionScene } from "./transitionScene";
 import { GameModel } from "../gameModel";
@@ -17,19 +17,26 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
+import { Agent } from "../Agents/agent";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
   private transitionScene: TransitionScene;
 
+  private agentType: number;
   private game: GameModel;
   private camera: Camera;
   private levelDirector: LevelDirector;
 
-  constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    transitionScene: TransitionScene,
+    agentType: number,
+  ) {
     super();
 
     this.ctx = ctx;
+    this.agentType = agentType;
     this.transitionScene = transitionScene;
     this.camera = new Camera();
     this.levelDirector = new LevelDirector();
@@ -37,7 +44,7 @@ export class GameScene extends Scene {
 
   onEnter(): void {
     const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
-    this.game = new GameModel(lvl);
+    this.game = new GameModel(lvl, this.agentType);
   }
 
   update(dt: number): void {
