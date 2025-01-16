@@ -1,4 +1,4 @@
-import { Point } from "./point";
+import { Point } from "../DataStructures/point";
 
 export function lerp(a: number, b: number, percent: number) {
   return (1 - percent) * a + percent * b;

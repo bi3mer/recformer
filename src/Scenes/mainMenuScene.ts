@@ -1,7 +1,7 @@
 import { Scene } from "../core/scene";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { InputManager, Key } from "../core/inputManager";
-import { Point } from "../core/point";
+import { Point } from "../DataStructures/point";
 import { TransitionScene } from "./transitionScene";
 import {
   BLOCK_SCREEN_HEIGHT,

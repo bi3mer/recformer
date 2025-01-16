@@ -1,6 +1,6 @@
 import { rectangleIntersect, rectangleIntersectCircle } from "../core/util";
 import { Camera } from "../core/camera";
-import { Point } from "../core/point";
+import { Point } from "../DataStructures/point";
 import { GameObject } from "./gameObject";
 import { CircleGameObject } from "./circleGameObject";
 

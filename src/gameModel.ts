@@ -15,7 +15,7 @@ import { GameObject } from "./core/gameObject";
 import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
 import { LaserBlock } from "./GameObjects/laserBlock";
 import { Laser } from "./GameObjects/laser";
-import { Point } from "./core/point";
+import { Point } from "./DataStructures/point";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
 import { Protaganist } from "./GameObjects/protaganist";
 import { typeToAgent } from "./Agents/agentType";
@@ -23,10 +23,9 @@ import { typeToAgent } from "./Agents/agentType";
 export class GameModel {
   staticEntities: GameObject[] = [];
   dynamicEntities: GameObject[] = [];
-  numCoins: number = 0;
+  coins: Point[] = [];
   numColumns: number;
 
-  // @TODO: need to pass in player or agent
   constructor(level: string[], agentType: number) {
     const rows = level.length;
     if (rows !== NUM_ROWS) {
@@ -78,7 +77,7 @@ export class GameModel {
             ),
           );
         } else if (tile === "o") {
-          ++this.numCoins;
+          this.coins.push(new Point(col, r));
           this.dynamicEntities.push(new Coin(col, r));
         } else if (tile == "b") {
           this.dynamicEntities.push(new BlueBlock(col, r));
@@ -153,7 +152,7 @@ export class GameModel {
 
     // Slight chance the player collects a coin when hit by the enemy,
     // so we give them the benefit of the doubt
-    if (player.coinsCollected >= this.numCoins) return GAME_STATE_WON;
+    if (player.coinsCollected >= this.coins.length) return GAME_STATE_WON;
     if (player.dead) return GAME_STATE_LOST;
     return GAME_STATE_PLAYING;
   }
@@ -164,7 +163,7 @@ export class GameModel {
 
   public fitness(): number {
     const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
-    return protaganist.coinsCollected / this.numCoins;
+    return protaganist.coinsCollected / this.coins.length;
 
     // @NOTE: The code below also has how far the player reached in the level
     //         as part of the fitness calculation. I don't know how I feel

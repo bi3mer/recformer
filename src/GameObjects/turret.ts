@@ -9,7 +9,7 @@ import {
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Point } from "../core/point";
+import { Point } from "../DataStructures/point";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE, COLOR_YELLOW } from "../colorPalette";
 
