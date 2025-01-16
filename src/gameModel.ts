@@ -18,13 +18,13 @@ import { Laser } from "./GameObjects/laser";
 import { Point } from "./core/point";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
 import { Protaganist } from "./GameObjects/protaganist";
-import { Agent } from "./Agents/agent";
 import { typeToAgent } from "./Agents/agentType";
 
 export class GameModel {
-  private staticEntities: GameObject[] = [];
-  private dynamicEntities: GameObject[] = [];
-  private numCoins: number = 0;
+  staticEntities: GameObject[] = [];
+  dynamicEntities: GameObject[] = [];
+  numCoins: number = 0;
+  numColumns: number;
 
   // @TODO: need to pass in player or agent
   constructor(level: string[], agentType: number) {
@@ -39,6 +39,7 @@ export class GameModel {
     ); // player is always the first entity
 
     const columns = level[0].length;
+    this.numColumns = columns;
     for (let r = 0; r < rows; ++r) {
       const row = level[r];
       if (columns !== row.length) {
@@ -159,6 +160,23 @@ export class GameModel {
 
   public protaganist(): Protaganist {
     return this.dynamicEntities[0] as Protaganist;
+  }
+
+  public fitness(): number {
+    const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
+    return protaganist.coinsCollected / this.numCoins;
+
+    // @NOTE: The code below also has how far the player reached in the level
+    //         as part of the fitness calculation. I don't know how I feel
+    //         about it, though. For now, I am going with just coins.
+    // const won: number = Number(this.state() == GAME_STATE_WON); // apparent 1 + true is slow in js, idk why
+    // const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
+    // const col = won ? this.numColumns : protaganist.maxColumn;
+
+    // return (
+    //   (protaganist.coinsCollected + col + won) /
+    //   (this.numCoins + this.numColumns + 1)
+    // );
   }
 
   // TODO: generalize if required. Rght now it raycasts up, but you could pass

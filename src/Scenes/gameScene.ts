@@ -17,6 +17,7 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
+import { Protaganist } from "../GameObjects/protaganist";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -82,9 +83,12 @@ export class GameScene extends Scene {
   }
 
   protected _onExit(): void {
+    const fitness = this.game.fitness();
+    console.log(`Fitness: ${fitness}`);
+
     this.levelDirector.update(
       this.transitionScene.targetScene === KEY_PLAYER_WON,
-      Math.floor(this.game.protaganist().maxColumn),
+      fitness,
     );
   }
 }
