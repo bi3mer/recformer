@@ -17,7 +17,6 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
-import { Protaganist } from "../GameObjects/protaganist";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;

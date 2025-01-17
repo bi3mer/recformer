@@ -12,13 +12,34 @@ import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { Point } from "../DataStructures/point";
 
 export class CircleEnemy extends CircleGameObject {
-  angle: number = 0;
+  angle: number;
   start: Point;
 
-  constructor(x: number, y: number) {
+  constructor(
+    x: number,
+    y: number,
+    angle: number,
+    startPos: Point,
+    velocity: Point,
+  ) {
     super(x, y, CIRCLE_RADIUS, TYPE_ENEMY);
-    this.start = new Point(x, y);
-    this.gravity.y = 0;
+    this.angle = angle;
+    this.start = startPos;
+    this.velocity = velocity;
+  }
+
+  static defaultConstructor(x: number, y: number) {
+    return new CircleEnemy(x, y, 0, new Point(x, y), new Point(0, 0));
+  }
+
+  clone(): GameObject {
+    return new CircleEnemy(
+      this.pos.x,
+      this.pos.y,
+      this.angle,
+      this.start, // this will never change, so we can avoid a clone
+      this.velocity.clone(),
+    );
   }
 
   update(dt: number): void {

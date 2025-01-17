@@ -7,7 +7,7 @@ export class Point {
     this.y = y;
   }
 
-  copy(): Point {
+  clone(): Point {
     return new Point(this.x, this.y);
   }
 

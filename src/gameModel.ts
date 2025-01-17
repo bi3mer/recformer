@@ -75,7 +75,11 @@ export class GameModel {
               this.dynamicEntities[0].pos,
               (bulletCol: number, bulletRow: number) => {
                 this.dynamicEntities.push(
-                  new Bullet(bulletCol, bulletRow, this.dynamicEntities[0].pos),
+                  Bullet.defaultConstructor(
+                    bulletCol,
+                    bulletRow,
+                    this.dynamicEntities[0].pos,
+                  ),
                 );
               },
             ),
