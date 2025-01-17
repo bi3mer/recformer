@@ -26,7 +26,11 @@ export class GameModel {
   coins: Point[] = [];
   numColumns: number;
 
-  constructor(level: string[], agentType: number) {
+  constructor(level: string[] | null, agentType: number) {
+    if (level === null) {
+      return;
+    }
+
     const rows = level.length;
     if (rows !== NUM_ROWS) {
       console.error("Level should have 15 rows!");
@@ -80,7 +84,7 @@ export class GameModel {
           this.coins.push(new Point(col, r));
           this.dynamicEntities.push(new Coin(col, r));
         } else if (tile == "b") {
-          this.dynamicEntities.push(new BlueBlock(col, r));
+          this.dynamicEntities.push(BlueBlock.defaultConstructor(col, r));
         } else if (tile === "H") {
           this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
         } else if (tile === "V") {
@@ -92,6 +96,23 @@ export class GameModel {
         }
       }
     }
+  }
+
+  clone(): GameModel {
+    const clone = new GameModel(null, 0);
+    const dLength = this.dynamicEntities.length;
+    let i = 0;
+
+    for (; i < dLength; ++i) {
+      clone.dynamicEntities.push(this.dynamicEntities[i].clone());
+    }
+
+    const sLength = this.staticEntities.length;
+    for (i = 0; i < sLength; ++i) {
+      clone.staticEntities.push(this.dynamicEntities[i].clone());
+    }
+
+    return clone;
   }
 
   update(dt: number): void {

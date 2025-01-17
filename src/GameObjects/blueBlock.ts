@@ -19,15 +19,39 @@ export class BlueBlock extends RectangleGameObject {
   yMod: number;
   timeGone: number;
 
-  constructor(x: number, y: number) {
-    super(x + 0.25, y + 0.25, COIN_WIDTH, COIN_HEIGHT, TYPE_JUMP_RESET);
+  constructor(
+    x: number,
+    y: number,
+    yMod: number,
+    minY: number,
+    maxY: number,
+    velocityY: number,
+    timeGone: number,
+  ) {
+    super(x, y, COIN_WIDTH, COIN_HEIGHT, TYPE_JUMP_RESET);
     this.gravity.y = 0;
-    this.yMod = Math.random() * 0.5;
-    this.maxY = y + 0.3;
-    this.minY = y + 0.15;
-    this.pos.y = this.minY;
-    this.velocity.y = this.yMod;
-    this.timeGone = 0;
+    this.yMod = yMod;
+    this.minY = minY;
+    this.maxY = maxY;
+    this.velocity.y = velocityY;
+    this.timeGone = timeGone;
+  }
+
+  static defaultConstructor(x: number, y: number): BlueBlock {
+    const yMod = Math.random() * 0.5;
+    return new BlueBlock(x + 0.25, y + 0.25, yMod, y + 0.15, y + 0.3, yMod, 0);
+  }
+
+  clone(): GameObject {
+    return new BlueBlock(
+      this.pos.x,
+      this.pos.y,
+      this.yMod,
+      this.minY,
+      this.maxY,
+      this.velocity.y,
+      this.timeGone,
+    );
   }
 
   update(dt: number): void {

@@ -22,6 +22,10 @@ export class Bullet extends RectangleGameObject {
     this.velocity.scalarMultiplyInPlace(BULLET_SPEED);
   }
 
+  clone(): GameObject {
+    throw new Error("Method not implemented.");
+  }
+
   update(dt: number): void {}
 
   handleCollision(other: GameObject): void {

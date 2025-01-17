@@ -15,6 +15,10 @@ export class Block extends RectangleGameObject {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
   }
 
+  clone(): Block {
+    return new Block(this.pos.x, this.pos.y);
+  }
+
   update(dt: number): void {}
 
   handleCollision(other: GameObject): void {

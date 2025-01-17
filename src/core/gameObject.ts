@@ -15,6 +15,8 @@ export abstract class GameObject {
     this.type = type;
   }
 
+  abstract clone(): GameObject;
+
   abstract update(dt: number): void;
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
   abstract handleCollision(other: GameObject): void;
