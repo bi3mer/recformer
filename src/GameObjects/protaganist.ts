@@ -24,23 +24,58 @@ const MAX_MOVE_MOD = 8;
 const MAX_JUMP_TIME = 0.4;
 
 export class Protaganist extends RectangleGameObject {
-  private movingRight: boolean = false;
-  private movingLeft: boolean = false;
-  private moveMod: number = 0;
+  private movingRight: boolean;
+  private movingLeft: boolean;
+  private moveMod: number;
 
-  private jumpTime: number = 0;
-  private squash: number = 1;
-  private stretch: number = 1;
+  private jumpTime: number;
+  private squash: number;
+  private stretch: number;
 
-  public coinsCollected: number = 0;
-  public maxColumn: number = 0;
+  public coinsCollected: number;
+  public maxColumn: number;
 
   private agent: Agent;
 
-  // @TODO: take in an agent
-  constructor(x: number, y: number, agent: Agent) {
+  constructor(
+    x: number,
+    y: number,
+    agent: Agent,
+    movingRight: boolean = false,
+    movingLeft: boolean = false,
+    moveMod: number = 0,
+    jumpTime: number = 0,
+    squash: number = 1,
+    stretch: number = 1,
+    coinsCollected: number = 0,
+    maxColumn: number = 0,
+  ) {
     super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
     this.agent = agent;
+    this.movingRight = movingRight;
+    this.movingLeft = movingLeft;
+    this.moveMod = moveMod;
+    this.jumpTime = jumpTime;
+    this.squash = squash;
+    this.stretch = stretch;
+    this.coinsCollected = coinsCollected;
+    this.maxColumn = maxColumn;
+  }
+
+  clone(): GameObject {
+    return new Protaganist(
+      this.pos.x,
+      this.pos.y,
+      this.agent,
+      this.movingRight,
+      this.movingLeft,
+      this.moveMod,
+      this.jumpTime,
+      this.squash,
+      this.stretch,
+      this.coinsCollected,
+      this.maxColumn,
+    );
   }
 
   update(dt: number): void {

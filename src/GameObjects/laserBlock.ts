@@ -10,7 +10,7 @@ import {
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Point } from "../core/point";
+import { Point } from "../DataStructures/point";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 
 export class LaserBlock extends RectangleGameObject {
@@ -20,13 +20,36 @@ export class LaserBlock extends RectangleGameObject {
   private time: number = 0;
   private state = 0; // 0 -> laser, 1 -> charging
 
-  constructor(x: number, y: number, playerPos: Point, spawnLaser: () => void) {
+  constructor(
+    x: number,
+    y: number,
+    playerPos: Point,
+    spawnLaser: () => void,
+    state: number = 0,
+    time: number = 0,
+  ) {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
 
     this.playerPos = playerPos;
     this.spawnLaser = spawnLaser;
     this.color = COLOR_YELLOW;
     this.gravity.y = 0;
+    this.state = state;
+    this.time = time;
+  }
+
+  // A more complete version would also pass the color, but clone is used in a
+  // context where the game state is not rendered, so we don't care about the
+  // color.
+  clone(): GameObject {
+    return new LaserBlock(
+      this.pos.x,
+      this.pos.y,
+      this.playerPos,
+      this.spawnLaser,
+      this.state,
+      this.time,
+    );
   }
 
   update(dt: number): void {

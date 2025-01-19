@@ -63,8 +63,9 @@ export class GameModel {
               const height =
                 foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
 
-              // this.dynamicEntities.push(new Laser(col, r - 1, true, height));
-              this.dynamicEntities.push(new Laser(col, r - height, height));
+              this.dynamicEntities.push(
+                Laser.defaultConstructor(col, r - height, height),
+              );
             }),
           );
         } else if (tile === "T") {
@@ -86,15 +87,17 @@ export class GameModel {
           );
         } else if (tile === "o") {
           this.coins.push(new Point(col, r));
-          this.dynamicEntities.push(new Coin(col, r));
+          this.dynamicEntities.push(Coin.defaultConstructor(col, r));
         } else if (tile == "b") {
           this.dynamicEntities.push(BlueBlock.defaultConstructor(col, r));
         } else if (tile === "H") {
-          this.dynamicEntities.push(new HorizontalEnemy(col, r, columns));
+          this.dynamicEntities.push(
+            HorizontalEnemy.defaultConstructor(col, r, columns),
+          );
         } else if (tile === "V") {
-          this.dynamicEntities.push(new VerticalEnemy(col, r));
+          this.dynamicEntities.push(VerticalEnemy.defaultConstructor(col, r));
         } else if (tile === "C") {
-          this.dynamicEntities.push(new CircleEnemy(col, r));
+          this.dynamicEntities.push(CircleEnemy.defaultConstructor(col, r));
         } else if (tile !== "-") {
           console.error(`Unhandled tile type: ${row[col]}`);
         }
@@ -113,8 +116,10 @@ export class GameModel {
 
     const sLength = this.staticEntities.length;
     for (i = 0; i < sLength; ++i) {
-      clone.staticEntities.push(this.dynamicEntities[i].clone());
+      clone.staticEntities.push(this.staticEntities[i].clone());
     }
+
+    clone.coins = this.coins;
 
     return clone;
   }

@@ -17,6 +17,10 @@ export function randomSign(): number {
   return Math.sign(Math.random() - 0.5);
 }
 
+export function boolToSign(val: boolean): number {
+  return val * 2 - 1;
+}
+
 export function randomBool(): boolean {
   return Math.random() < 0.5;
 }

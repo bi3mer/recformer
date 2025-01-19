@@ -10,19 +10,25 @@ import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
+import { boolToSign } from "../core/util";
 
 export class VerticalEnemy extends RectangleGameObject {
-  constructor(x: number, y: number) {
-    super(x, y + 0.1, ENEMY_HEIGHT, ENEMY_WIDTH, TYPE_ENEMY);
-    this.velocity.y = 3;
+  constructor(x: number, y: number, velocityY: number) {
+    super(x, y, ENEMY_HEIGHT, ENEMY_WIDTH, TYPE_ENEMY);
+    this.velocity.y = velocityY;
     this.gravity.y = 0;
-    this.pos.x += 0.25;
+  }
+
+  static defaultConstructor(x: number, y: number): VerticalEnemy {
+    return new VerticalEnemy(x + 0.25, y + 0.1, 3);
+  }
+
+  clone(): GameObject {
+    return new VerticalEnemy(this.pos.x, this.pos.y, this.velocity.y);
   }
 
   update(dt: number): void {
-    if (this.pos.y < 0 || this.pos.y >= NUM_ROWS) {
-      this.velocity.y *= -1;
-    }
+    this.velocity.y *= boolToSign(this.pos.y > 0 && this.pos.y <= NUM_ROWS);
   }
 
   handleCollision(other: GameObject): void {

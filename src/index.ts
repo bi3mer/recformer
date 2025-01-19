@@ -39,7 +39,7 @@ window.addEventListener("load", () => {
 
     sceneManager.registerScene(
       K.KEY_GAME,
-      new GameScene(ctx, transitionScene, AGENT_A_STAR),
+      new GameScene(ctx, transitionScene, AGENT_PLAYER),
     );
 
     sceneManager.registerScene(

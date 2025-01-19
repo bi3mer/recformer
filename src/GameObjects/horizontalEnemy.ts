@@ -9,21 +9,39 @@ import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK, TYPE_ENEMY, TYPE_BULLET } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
+import { boolToSign } from "../core/util";
 
 export class HorizontalEnemy extends RectangleGameObject {
   private maxColumns: number;
 
-  constructor(x: number, y: number, maxColumns: number) {
-    super(x + 0.25, y + 0.25, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
-    this.velocity.x = 3;
-    this.gravity.y = 0;
+  constructor(x: number, y: number, maxColumns: number, velocityX: number) {
+    super(x, y, ENEMY_WIDTH, ENEMY_HEIGHT, TYPE_ENEMY);
     this.maxColumns = maxColumns;
+    this.velocity.x = velocityX;
+    this.gravity.y = 0;
+  }
+
+  static defaultConstructor(
+    x: number,
+    y: number,
+    maxColumns: number,
+  ): HorizontalEnemy {
+    return new HorizontalEnemy(x + 0.25, y + 0.25, maxColumns, 3);
+  }
+
+  clone(): GameObject {
+    return new HorizontalEnemy(
+      this.pos.x,
+      this.pos.y,
+      this.maxColumns,
+      this.velocity.x,
+    );
   }
 
   update(dt: number): void {
-    if (this.pos.x < 0 || this.pos.x > this.maxColumns) {
-      this.velocity.x *= -1;
-    }
+    this.velocity.x *= boolToSign(
+      this.pos.x >= 0 && this.pos.x <= this.maxColumns,
+    );
   }
 
   handleCollision(other: GameObject): void {

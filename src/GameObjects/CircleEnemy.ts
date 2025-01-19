@@ -23,6 +23,7 @@ export class CircleEnemy extends CircleGameObject {
     velocity: Point,
   ) {
     super(x, y, CIRCLE_RADIUS, TYPE_ENEMY);
+    this.gravity.y = 0;
     this.angle = angle;
     this.start = startPos;
     this.velocity = velocity;
@@ -49,13 +50,10 @@ export class CircleEnemy extends CircleGameObject {
   }
 
   handleCollision(other: GameObject): void {
-    if (other.type === TYPE_BULLET) {
-      this.dead = true;
-    }
+    this.dead = other.type === TYPE_BULLET;
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
-    // COLOR_STILETTO
     ctx.fillStyle = COLOR_ORANGE;
     ctx.beginPath();
     ctx.arc(

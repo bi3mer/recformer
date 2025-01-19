@@ -44,6 +44,7 @@ export class GameScene extends Scene {
   onEnter(): void {
     const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
     this.game = new GameModel(lvl, this.agentType);
+    // this.game = this.game.clone();
   }
 
   update(dt: number): void {

@@ -16,13 +16,43 @@ export class Coin extends RectangleGameObject {
   maxY: number;
   yMod: number;
 
-  constructor(x: number, y: number) {
-    super(x + 0.25, y + 0.25, COIN_WIDTH, COIN_HEIGHT, TYPE_COIN);
+  constructor(
+    x: number,
+    y: number,
+    yMod: number,
+    maxY: number,
+    minY: number,
+    velocityY: number,
+  ) {
+    super(x, y, COIN_WIDTH, COIN_HEIGHT, TYPE_COIN);
     this.gravity.y = 0;
-    this.yMod = Math.random() * 0.5;
-    this.maxY = y + 0.3;
-    this.minY = y + 0.15;
-    this.velocity.y = this.yMod;
+    this.yMod = yMod;
+    this.maxY = maxY;
+    this.minY = minY;
+    this.velocity.y = velocityY;
+  }
+
+  static defaultConstructor(x: number, y: number): Coin {
+    const yMod = Math.random() * 0.5;
+    return new Coin(
+      x + 0.25,
+      y + 0.25,
+      Math.random() * 0.5,
+      y + 0.3,
+      y + 0.15,
+      yMod,
+    );
+  }
+
+  clone(): GameObject {
+    return new Coin(
+      this.pos.x,
+      this.pos.y,
+      this.yMod,
+      this.maxY,
+      this.minY,
+      this.velocity.y,
+    );
   }
 
   update(dt: number): void {

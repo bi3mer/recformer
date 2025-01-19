@@ -17,14 +17,16 @@ export class Turret extends RectangleGameObject {
   private playerPos: Point;
   private spawnBullet: (bulletCol: number, bulletRow: number) => void;
   private color: string;
-  private time: number = 0;
-  private state = 0; // 0 -> player not in range, 1 -> loading, 1 -> Fire bullet
+  private time: number;
+  private state: number; // 0 -> player not in range, 1 -> loading, 1 -> Fire bullet
 
   constructor(
     x: number,
     y: number,
     playerPos: Point,
     spawnBullet: (bulletCol: number, bulletRow: number) => void,
+    time: number = 0,
+    state: number = 0,
   ) {
     super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
 
@@ -32,6 +34,19 @@ export class Turret extends RectangleGameObject {
     this.spawnBullet = spawnBullet;
     this.color = COLOR_YELLOW;
     this.gravity.y = 0;
+    this.time = time;
+    this.state = state;
+  }
+
+  clone(): GameObject {
+    return new Turret(
+      this.pos.x,
+      this.pos.y,
+      this.playerPos,
+      this.spawnBullet,
+      this.time,
+      this.state,
+    );
   }
 
   update(dt: number): void {
