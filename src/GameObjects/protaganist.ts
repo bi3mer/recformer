@@ -1,23 +1,23 @@
-import { Camera } from "../core/camera";
+import { Agent } from "../Agents/agent";
+import { Point } from "../DataStructures/point";
 import { COLOR_LIGHT_PURPLE } from "../colorPalette";
+import { Camera } from "../core/camera";
 import {
   DEATH_HEIGHT,
-  PLAYER_HEIGHT,
   PLAYER_SCREEN_HEIGHT,
   PLAYER_SCREEN_WIDTH,
-  PLAYER_WIDTH,
+  PLAYER_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
+import { RectangleGameObject } from "../core/rectangleGameObject";
 import {
-  TYPE_JUMP_RESET,
   TYPE_BLOCK,
+  TYPE_BULLET,
   TYPE_COIN,
   TYPE_ENEMY,
+  TYPE_JUMP_RESET,
   TYPE_PLAYER,
-  TYPE_BULLET,
 } from "./gameObjectTypes";
-import { RectangleGameObject } from "../core/rectangleGameObject";
-import { Agent } from "../Agents/agent";
 
 const MOVE = 6;
 const MAX_MOVE_MOD = 8;
@@ -38,8 +38,7 @@ export class Protaganist extends RectangleGameObject {
   private agent: Agent;
 
   constructor(
-    x: number,
-    y: number,
+    pos: Point,
     agent: Agent,
     movingRight: boolean = false,
     movingLeft: boolean = false,
@@ -50,7 +49,7 @@ export class Protaganist extends RectangleGameObject {
     coinsCollected: number = 0,
     maxColumn: number = 0,
   ) {
-    super(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, TYPE_PLAYER);
+    super(pos, PLAYER_SIZE, TYPE_PLAYER);
     this.agent = agent;
     this.movingRight = movingRight;
     this.movingLeft = movingLeft;
@@ -64,8 +63,7 @@ export class Protaganist extends RectangleGameObject {
 
   clone(): GameObject {
     return new Protaganist(
-      this.pos.x,
-      this.pos.y,
+      this.pos.clone(),
       this.agent,
       this.movingRight,
       this.movingLeft,

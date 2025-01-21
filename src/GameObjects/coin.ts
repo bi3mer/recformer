@@ -1,15 +1,19 @@
+import {
+  Point,
+  pointAddScalarInPlace,
+  pointClone,
+} from "../DataStructures/point";
+import { COLOR_YELLOW } from "../colorPalette";
 import { audioCoin } from "../core/audio";
 import { Camera } from "../core/camera";
-import { COLOR_YELLOW } from "../colorPalette";
 import {
-  COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
   COIN_SCREEN_WIDTH,
-  COIN_WIDTH,
+  COIN_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { TYPE_COIN, TYPE_PLAYER } from "./gameObjectTypes";
 
 export class Coin extends RectangleGameObject {
   minY: number;
@@ -17,14 +21,13 @@ export class Coin extends RectangleGameObject {
   yMod: number;
 
   constructor(
-    x: number,
-    y: number,
+    pos: Point,
     yMod: number,
     maxY: number,
     minY: number,
     velocityY: number,
   ) {
-    super(x, y, COIN_WIDTH, COIN_HEIGHT, TYPE_COIN);
+    super(pos, COIN_SIZE, TYPE_COIN);
     this.gravity.y = 0;
     this.yMod = yMod;
     this.maxY = maxY;
@@ -32,22 +35,15 @@ export class Coin extends RectangleGameObject {
     this.velocity.y = velocityY;
   }
 
-  static defaultConstructor(x: number, y: number): Coin {
+  static defaultConstructor(pos: Point): Coin {
     const yMod = Math.random() * 0.5;
-    return new Coin(
-      x + 0.25,
-      y + 0.25,
-      Math.random() * 0.5,
-      y + 0.3,
-      y + 0.15,
-      yMod,
-    );
+    pointAddScalarInPlace(pos, 0.25);
+    return new Coin(pos, Math.random() * 0.5, pos.y + 0.3, pos.y + 0.15, yMod);
   }
 
   clone(): GameObject {
     return new Coin(
-      this.pos.x,
-      this.pos.y,
+      pointClone(this.pos),
       this.yMod,
       this.maxY,
       this.minY,

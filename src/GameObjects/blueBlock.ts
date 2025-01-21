@@ -1,14 +1,14 @@
 import { Camera } from "../core/camera";
 import {
-  COIN_HEIGHT,
   COIN_SCREEN_HEIGHT,
   COIN_SCREEN_WIDTH,
-  COIN_WIDTH,
+  COIN_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { TYPE_PLAYER, TYPE_JUMP_RESET } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_LIGHT_BLUE } from "../colorPalette";
+import { Point } from "../DataStructures/point";
 
 const OFF_SCREEN_POS_Y = 1000;
 const TIME_OFF_SCREEN = 2; // seconds
@@ -20,15 +20,14 @@ export class BlueBlock extends RectangleGameObject {
   timeGone: number;
 
   constructor(
-    x: number,
-    y: number,
+    pos: Point,
     yMod: number,
     minY: number,
     maxY: number,
     velocityY: number,
     timeGone: number,
   ) {
-    super(x, y, COIN_WIDTH, COIN_HEIGHT, TYPE_JUMP_RESET);
+    super(pos, COIN_SIZE, TYPE_JUMP_RESET);
     this.gravity.y = 0;
     this.yMod = yMod;
     this.minY = minY;
@@ -44,8 +43,7 @@ export class BlueBlock extends RectangleGameObject {
 
   clone(): GameObject {
     return new BlueBlock(
-      this.pos.x,
-      this.pos.y,
+      this.pos.clone(),
       this.yMod,
       this.minY,
       this.maxY,

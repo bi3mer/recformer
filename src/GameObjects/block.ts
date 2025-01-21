@@ -1,29 +1,26 @@
 import { Camera } from "../core/camera";
 import { COLOR_WHITE } from "../colorPalette";
 import {
-  BLOCK_HEIGHT,
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
-  BLOCK_WIDTH,
+  BLOCK_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { Point } from "../DataStructures/point";
 
 export class Block extends RectangleGameObject {
-  constructor(x: number, y: number) {
-    super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
+  constructor(pos: Point) {
+    super(pos, BLOCK_SIZE, TYPE_BLOCK);
   }
 
   clone(): Block {
-    return new Block(this.pos.x, this.pos.y);
+    return new Block(this.pos.clone());
   }
 
   update(dt: number): void {}
-
-  handleCollision(other: GameObject): void {
-    // Nothing happens, the block is static
-  }
+  handleCollision(other: GameObject): void {}
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
     ctx.strokeStyle = COLOR_WHITE;

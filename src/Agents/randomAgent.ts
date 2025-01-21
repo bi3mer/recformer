@@ -2,9 +2,6 @@ import { randomBool } from "../core/util";
 import { Agent } from "./agent";
 
 export class RandomAgent extends Agent {
-  movingRight: boolean = false;
-  movingLeft: boolean = false;
-  jumping: boolean = false;
   time: number = 0;
 
   name(): string {

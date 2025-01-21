@@ -1,10 +1,17 @@
+import { typeToAgent } from "./Agents/agentType";
+import { Point } from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
 import { BlueBlock } from "./GameObjects/blueBlock";
 import { Bullet } from "./GameObjects/bullet";
-import { Camera } from "./core/camera";
 import { Coin } from "./GameObjects/coin";
+import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
+import { Laser } from "./GameObjects/laser";
+import { LaserBlock } from "./GameObjects/laserBlock";
+import { Protaganist } from "./GameObjects/protaganist";
+import { VerticalEnemy } from "./GameObjects/verticalEnemy";
+import { Camera } from "./core/camera";
 import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
@@ -12,13 +19,6 @@ import {
   NUM_ROWS,
 } from "./core/constants";
 import { GameObject } from "./core/gameObject";
-import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
-import { LaserBlock } from "./GameObjects/laserBlock";
-import { Laser } from "./GameObjects/laser";
-import { Point } from "./DataStructures/point";
-import { VerticalEnemy } from "./GameObjects/verticalEnemy";
-import { Protaganist } from "./GameObjects/protaganist";
-import { typeToAgent } from "./Agents/agentType";
 
 export class GameModel {
   staticEntities: GameObject[] = [];
@@ -38,7 +38,7 @@ export class GameModel {
     }
 
     this.dynamicEntities.push(
-      new Protaganist(2, 12, typeToAgent(agentType, this)),
+      new Protaganist(new Point(2, 12), typeToAgent(agentType, this)),
     ); // player is always the first entity
 
     const columns = level[0].length;
@@ -55,7 +55,7 @@ export class GameModel {
       for (let col = 0; col < columns; ++col) {
         const tile = row[col];
         if (tile === "X") {
-          this.staticEntities.push(new Block(col, r));
+          this.staticEntities.push(new Block(this, new Point(col, r)));
         } else if (tile === "^") {
           this.dynamicEntities.push(
             new LaserBlock(col, r, this.dynamicEntities[0].pos, () => {
@@ -87,7 +87,7 @@ export class GameModel {
           );
         } else if (tile === "o") {
           this.coins.push(new Point(col, r));
-          this.dynamicEntities.push(Coin.defaultConstructor(col, r));
+          this.dynamicEntities.push(Coin.defaultConstructor(new Point(col, r)));
         } else if (tile == "b") {
           this.dynamicEntities.push(BlueBlock.defaultConstructor(col, r));
         } else if (tile === "H") {
@@ -111,12 +111,12 @@ export class GameModel {
     let i = 0;
 
     for (; i < dLength; ++i) {
-      clone.dynamicEntities.push(this.dynamicEntities[i].clone());
+      clone.dynamicEntities.push(this.dynamicEntities[i].clone(this));
     }
 
     const sLength = this.staticEntities.length;
     for (i = 0; i < sLength; ++i) {
-      clone.staticEntities.push(this.staticEntities[i].clone());
+      clone.staticEntities.push(this.staticEntities[i].clone(this));
     }
 
     clone.coins = this.coins;
@@ -124,6 +124,10 @@ export class GameModel {
     return clone;
   }
 
+  // @NOTE: this method is pretty bad in the sense that I am using an 0(n^2)
+  //        collision detection approach. It could be much better, but...
+  //        well, I am lazy and the frame rate is unaffected. If I have time,
+  //        I'll come back to this. I may have to for the A* agent.
   update(dt: number): void {
     // Update and check for collisions
     let dynamicSize = this.dynamicEntities.length;
@@ -164,7 +168,7 @@ export class GameModel {
     // Update camera view based on the player before rendering
     camera.update(this.dynamicEntities[0].pos.x);
 
-    // render entitites
+    // render static and dynamic entitites
     let size = this.staticEntities.length;
     let i = 0;
     for (; i < size; ++i) {
@@ -191,7 +195,7 @@ export class GameModel {
     return this.dynamicEntities[0] as Protaganist;
   }
 
-  public fitness(): number {
+  fitness(): number {
     const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
     return protaganist.coinsCollected / this.coins.length;
 
@@ -208,10 +212,8 @@ export class GameModel {
     // );
   }
 
-  // TODO: generalize if required. Rght now it raycasts up, but you could pass
-  // a direction vector. Also, it only runs for static entities and that should
-  // probably be made clear from the name
-  private raycast(start: Point): GameObject | null {
+  raycast(start: Point, dir: Point): GameObject | null {
+    const p = start.add(dir);
     const size = this.staticEntities.length;
     let i: number;
 
@@ -223,7 +225,7 @@ export class GameModel {
         }
       }
 
-      --start.y;
+      p.addInPlace(dir);
     }
 
     return null;

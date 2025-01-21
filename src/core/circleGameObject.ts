@@ -3,13 +3,13 @@ import { Camera } from "../core/camera";
 import { Point } from "../DataStructures/point";
 import { GameObject } from "./gameObject";
 import { RectangleGameObject } from "./rectangleGameObject";
+import { GameModel } from "../gameModel";
 
-// ALl game objects are rectangles, sue me
 export abstract class CircleGameObject extends GameObject {
   public r: number;
 
-  constructor(x: number, y: number, radius: number, type: number) {
-    super(new Point(x, y), type);
+  constructor(gameModel: GameModel, pos: Point, radius: number, type: number) {
+    super(gameModel, pos, type);
     this.r = radius;
   }
 

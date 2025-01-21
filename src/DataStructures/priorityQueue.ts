@@ -24,7 +24,6 @@ export class PriorityQueue<T> {
       }
     }
 
-    console.log(low, "for value", object);
     this.queue.splice(low, 0, [priority, object]);
   }
 

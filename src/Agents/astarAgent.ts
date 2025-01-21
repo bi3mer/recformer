@@ -4,28 +4,6 @@ import { Point } from "../core/point";
 import { GameModel } from "../gameModel";
 import { Agent } from "./agent";
 
-class Action {
-  moveRight: boolean;
-  moveLeft: boolean;
-  jump: boolean;
-
-  constructor(moveRight: boolean, moveLeft: boolean, jump: boolean) {
-    this.moveRight = moveRight;
-    this.moveLeft = moveLeft;
-    this.jump = jump;
-  }
-}
-
-const ACTIONS: Action[] = [
-  new Action(false, false, false),
-  new Action(true, false, false),
-  new Action(false, true, false),
-  new Action(false, false, true),
-  new Action(true, false, true),
-  new Action(false, true, false),
-];
-const NUM_ACTIONS = ACTIONS.length;
-
 class Node {
   depth: number;
   model: GameModel;

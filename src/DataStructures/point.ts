@@ -6,82 +6,82 @@ export class Point {
     this.x = x;
     this.y = y;
   }
+}
 
-  clone(): Point {
-    return new Point(this.x, this.y);
-  }
+export function pointClone(p: Point): Point {
+  return new Point(p.x, p.y);
+}
 
-  zero(): void {
-    this.x = 0;
-    this.y = 0;
-  }
+export function pointZeroOut(p: Point): void {
+  p.x = 0;
+  p.y = 0;
+}
 
-  equals(other: Point): boolean {
-    return this.x == other.x && this.y == other.y;
-  }
+export function pointEquals(p1: Point, p2: Point): boolean {
+  return p1.x == p2.x && p1.y == p2.y;
+}
 
-  add(other: Point): Point {
-    return new Point(this.x + other.x, this.y + other.y);
-  }
+export function pointAdd(p1: Point, p2: Point): Point {
+  return new Point(p1.x + p2.x, p1.y + p2.y);
+}
 
-  addInPlace(other: Point): void {
-    this.x += other.x;
-    this.y += other.y;
-  }
+export function pointAddInPlace(p1: Point, p2: Point): void {
+  p1.x += p2.x;
+  p1.y += p2.y;
+}
 
-  subtract(other: Point): Point {
-    return new Point(this.x - other.x, this.y - other.y);
-  }
+export function pointSubtract(p1: Point, p2: Point): Point {
+  return new Point(p1.x - p2.x, p1.y - p2.y);
+}
 
-  subtractInPlace(other: Point): void {
-    this.x -= other.x;
-    this.y -= other.y;
-  }
+export function pointSubtractInPlace(p1: Point, p2: Point): void {
+  p1.x -= p2.x;
+  p1.y -= p2.y;
+}
 
-  scalarAdd(n: number): void {
-    this.x += n;
-    this.y += n;
-  }
+export function pointAddScalarInPlace(p: Point, n: number): void {
+  p.x += n;
+  p.y += n;
+}
 
-  scalarSubtract(n: number): void {
-    this.x -= n;
-    this.y -= n;
-  }
+export function pointSubtractScalarInPlace(p: Point, n: number): void {
+  p.x -= n;
+  p.y -= n;
+}
 
-  scalarMultiply(scalar: number): Point {
-    return new Point(this.x * scalar, this.y * scalar);
-  }
+export function pointMultiplyScalar(p: Point, scalar: number): Point {
+  return new Point(p.x * scalar, p.y * scalar);
+}
 
-  scalarMultiplyInPlace(scalar: number): void {
-    this.x *= scalar;
-    this.y *= scalar;
-  }
+export function pointMultiplyScalarInPlace(p: Point, scalar: number): void {
+  p.x *= scalar;
+  p.y *= scalar;
+}
 
-  dot(other: Point): number {
-    return this.x * other.x + this.y * other.y;
-  }
+export function pointDotProduct(p1: Point, p2: Point): number {
+  return p1.x * p2.x + p1.y * p2.y;
+}
 
-  squareComponents(): number {
-    return this.x * this.x + this.y * this.y;
-  }
+export function pointSquareComponents(p: Point): number {
+  return p.x * p.x + p.y * p.y;
+}
 
-  magnitude(): number {
-    return Math.sqrt(this.x * this.x + this.y * this.y);
-  }
+export function pointMagnitude(p: Point): number {
+  return Math.sqrt(p.x * p.x + p.y * p.y);
+}
 
-  normalize(): void {
-    const M = this.magnitude();
-    this.x /= M;
-    this.y /= M;
-  }
+export function pointNormalizeInPlace(p: Point): void {
+  const M = pointMagnitude(p);
+  p.x /= M;
+  p.y /= M;
+}
 
-  squareDistance(other: Point): number {
-    const x = this.x - other.x;
-    const y = this.y - other.y;
-    return x * x + y * y;
-  }
+export function pointSquareDistance(p1: Point, p2: Point): number {
+  const x = p1.x - p2.x;
+  const y = p1.y - p2.y;
+  return x * x + y * y;
+}
 
-  angle(other: Point): number {
-    return Math.atan2(other.y - this.y, other.x - this.x);
-  }
+export function pointAngle(p1: Point, p2: Point): number {
+  return Math.atan2(p2.y - p1.y, p2.x - p1.x);
 }

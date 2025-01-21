@@ -10,31 +10,41 @@ import {
 import { GameObject } from "../core/gameObject";
 import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { Point } from "../DataStructures/point";
+import { GameModel } from "../gameModel";
 
 export class CircleEnemy extends CircleGameObject {
   angle: number;
   start: Point;
 
   constructor(
+    gameModel: GameModel,
     x: number,
     y: number,
     angle: number,
     startPos: Point,
     velocity: Point,
   ) {
-    super(x, y, CIRCLE_RADIUS, TYPE_ENEMY);
+    super(gameModel, x, y, CIRCLE_RADIUS, TYPE_ENEMY);
     this.gravity.y = 0;
     this.angle = angle;
     this.start = startPos;
     this.velocity = velocity;
   }
 
-  static defaultConstructor(x: number, y: number) {
-    return new CircleEnemy(x, y, 0, new Point(x, y), new Point(0, 0));
+  static defaultConstructor(gameModel: GameModel, x: number, y: number) {
+    return new CircleEnemy(
+      gameModel,
+      x,
+      y,
+      0,
+      new Point(x, y),
+      new Point(0, 0),
+    );
   }
 
-  clone(): GameObject {
+  clone(gameModel: GameModel): GameObject {
     return new CircleEnemy(
+      gameModel,
       this.pos.x,
       this.pos.y,
       this.angle,

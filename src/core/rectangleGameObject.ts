@@ -4,13 +4,12 @@ import { Point } from "../DataStructures/point";
 import { GameObject } from "./gameObject";
 import { CircleGameObject } from "./circleGameObject";
 
-// ALl game objects are rectangles, sue me
 export abstract class RectangleGameObject extends GameObject {
   public size: Point;
 
-  constructor(x: number, y: number, w: number, h: number, type: number) {
-    super(new Point(x, y), type);
-    this.size = new Point(w, h);
+  constructor(pos: Point, size: Point, type: number) {
+    super(pos, type);
+    this.size = size;
   }
 
   abstract update(dt: number): void;

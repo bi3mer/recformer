@@ -1,3 +1,5 @@
+import { Point } from "../DataStructures/point";
+
 export const SCREEN_WIDTH = 720;
 export const SCREEN_HEIGHT = 480;
 export const TILE_SIZE = 32;
@@ -16,18 +18,21 @@ export const PLAYER_SCREEN_WIDTH = 20;
 export const PLAYER_SCREEN_HEIGHT = 30;
 export const PLAYER_WIDTH = PLAYER_SCREEN_WIDTH / TILE_SIZE;
 export const PLAYER_HEIGHT = PLAYER_SCREEN_HEIGHT / TILE_SIZE;
+export const PLAYER_SIZE = new Point(PLAYER_WIDTH, PLAYER_HEIGHT);
 
 // Block
 export const BLOCK_SCREEN_WIDTH = 31;
 export const BLOCK_SCREEN_HEIGHT = 31;
 export const BLOCK_WIDTH = BLOCK_SCREEN_WIDTH / TILE_SIZE;
 export const BLOCK_HEIGHT = BLOCK_SCREEN_HEIGHT / TILE_SIZE;
+export const BLOCK_SIZE = new Point(BLOCK_WIDTH, BLOCK_HEIGHT);
 
 // Coin
 export const COIN_SCREEN_WIDTH = 16;
 export const COIN_SCREEN_HEIGHT = 16;
 export const COIN_WIDTH = COIN_SCREEN_WIDTH / TILE_SIZE;
 export const COIN_HEIGHT = COIN_SCREEN_HEIGHT / TILE_SIZE;
+export const COIN_SIZE = new Point(COIN_WIDTH, COIN_HEIGHT);
 
 // Vertical and Horizontal Enemies
 export const ENEMY_SCREEN_WIDTH = 25;
