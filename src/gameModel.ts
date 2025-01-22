@@ -3,6 +3,7 @@ import {
   Point,
   pointAdd,
   pointAddInPlace,
+  pointClone,
   pointEquals,
 } from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
@@ -64,20 +65,7 @@ export class GameModel {
         } else if (tile === "^") {
           this.dynamicEntities.push(new LaserBlock(new Point(col, r)));
         } else if (tile === "T") {
-          this.dynamicEntities.push(
-            new Turret(
-              new Point(col, r),
-              this.dynamicEntities[0].pos,
-              (bulletCol: number, bulletRow: number) => {
-                this.dynamicEntities.push(
-                  Bullet.defaultConstructor(
-                    new Point(bulletCol, bulletRow),
-                    this.dynamicEntities[0].pos,
-                  ),
-                );
-              },
-            ),
-          );
+          this.dynamicEntities.push(new Turret(new Point(col, r)));
         } else if (tile === "o") {
           this.coins.push(new Point(col, r));
           this.dynamicEntities.push(Coin.defaultConstructor(new Point(col, r)));
@@ -103,6 +91,12 @@ export class GameModel {
       }
     }
 
+    // assign game variable for all the objects we just made
+    let i = 0;
+    for (; i < this.staticEntities.length; ++i) {
+      this.staticEntities[i].game = this;
+    }
+
     for (let i = 0; i < this.dynamicEntities.length; ++i) {
       this.dynamicEntities[i].game = this;
     }
@@ -114,12 +108,16 @@ export class GameModel {
     let i = 0;
 
     for (; i < dLength; ++i) {
-      clone.dynamicEntities.push(this.dynamicEntities[i].clone());
+      const de = this.dynamicEntities[i].clone();
+      de.game = clone;
+      this.dynamicEntities.push(de);
     }
 
     const sLength = this.staticEntities.length;
     for (i = 0; i < sLength; ++i) {
-      clone.staticEntities.push(this.staticEntities[i].clone());
+      const se = this.staticEntities[i].clone();
+      se.game = clone;
+      clone.staticEntities.push(se);
     }
 
     clone.coins = this.coins;
@@ -215,20 +213,21 @@ export class GameModel {
     // );
   }
 
-  raycast(start: Point, dir: Point): GameObject | null {
-    const p = pointAdd(start, dir);
+  raycastUp(start: Point): GameObject | null {
+    const p = pointClone(start);
+    p.y -= 1;
     const size = this.staticEntities.length;
     let i: number;
 
-    while (start.y >= 0) {
+    while (p.y >= 0) {
       for (i = 0; i < size; ++i) {
         const e = this.staticEntities[i];
-        if (pointEquals(start, e.pos)) {
+        if (pointEquals(p, e.pos)) {
           return e;
         }
       }
 
-      pointAddInPlace(p, dir);
+      p.y -= 1;
     }
 
     return null;

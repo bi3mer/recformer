@@ -18,25 +18,17 @@ import {
 } from "../DataStructures/point";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE, COLOR_YELLOW } from "../colorPalette";
+import { Bullet } from "./bullet";
 
 export class Turret extends RectangleGameObject {
-  private playerPos: Point;
-  private spawnBullet: (bulletCol: number, bulletRow: number) => void;
-  private color: string;
-  private time: number;
-  private state: number; // 0 -> player not in range, 1 -> loading, 1 -> Fire bullet
+  playerPos: Point;
+  color: string;
+  time: number;
+  state: number; // 0 -> player not in range, 1 -> loading, 1 -> Fire bullet
 
-  constructor(
-    pos: Point,
-    playerPos: Point,
-    spawnBullet: (bulletCol: number, bulletRow: number) => void,
-    time: number = 0,
-    state: number = 0,
-  ) {
+  constructor(pos: Point, time: number = 0, state: number = 0) {
     super(pos, BLOCK_SIZE, TYPE_BLOCK);
 
-    this.playerPos = playerPos;
-    this.spawnBullet = spawnBullet;
     this.color = COLOR_YELLOW;
     this.gravity.y = 0;
     this.time = time;
@@ -44,14 +36,7 @@ export class Turret extends RectangleGameObject {
   }
 
   clone(): GameObject {
-    console.warn("Turret connection to player position broken on clone");
-    return new Turret(
-      pointClone(this.pos),
-      this.playerPos,
-      this.spawnBullet,
-      this.time,
-      this.state,
-    );
+    return new Turret(pointClone(this.pos), this.time, this.state);
   }
 
   update(dt: number): void {
@@ -59,7 +44,8 @@ export class Turret extends RectangleGameObject {
       case 0: {
         // Idle state until the player is in range
         if (
-          pointSquareDistance(this.pos, this.playerPos) <= TURRET_SQUARED_RANGE
+          pointSquareDistance(this.pos, this.game.protaganist().pos) <=
+          TURRET_SQUARED_RANGE
         ) {
           this.color = COLOR_ORANGE;
           this.state = 1;
@@ -82,14 +68,19 @@ export class Turret extends RectangleGameObject {
         this.color = COLOR_YELLOW;
 
         // spawn bullet at tip of the turret's barrel
-        const angle = pointAngle(this.pos, this.playerPos);
+        const playerPos = this.game.protaganist().pos;
+        const angle = pointAngle(this.pos, playerPos);
         const cos = Math.cos(angle);
         const sin = Math.sin(angle);
 
-        console.warn("turret spawn bullet should be passing a point");
-        this.spawnBullet(
-          this.pos.x + (BULLET_WIDTH + BLOCK_WIDTH) * cos,
-          this.pos.y + (BULLET_WIDTH + BLOCK_WIDTH) * sin,
+        this.game.dynamicEntities.push(
+          Bullet.defaultConstructor(
+            new Point(
+              this.pos.x + (BULLET_WIDTH + BLOCK_WIDTH) * cos,
+              this.pos.y + (BULLET_WIDTH + BLOCK_WIDTH) * sin,
+            ),
+            playerPos,
+          ),
         );
         break;
       }
@@ -121,7 +112,7 @@ export class Turret extends RectangleGameObject {
     ctx.stroke();
 
     // Draw turret
-    const angle = pointAngle(this.pos, this.playerPos);
+    const angle = pointAngle(this.pos, this.game.protaganist().pos);
     const cos = Math.cos(angle);
     const sin = Math.sin(angle);
 

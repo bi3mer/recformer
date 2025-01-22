@@ -11,11 +11,13 @@ import {
   BLOCK_SIZE,
   LASER_CHARGE_TIME,
   LASER_LIFE_TIME,
+  NUM_ROWS,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { GameModel } from "../gameModel";
 import { TYPE_BLOCK } from "./gameObjectTypes";
+import { Laser } from "./laser";
 
 export class LaserBlock extends RectangleGameObject {
   private color: string;
@@ -61,20 +63,18 @@ export class LaserBlock extends RectangleGameObject {
           this.state = 0;
           this.color = COLOR_ORANGE;
 
-          console.error("Need to spawn the laser!");
-          // this.dynamicEntities[0].pos,
-          // () => {
-          //   const foundObject = this.raycast(
-          //     new Point(col, r),
-          //     new Point(0, -1),
-          //   );
-          //   const height =
-          //     foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
+          const foundObject = this.game.raycastUp(this.pos);
+          const height =
+            foundObject === null
+              ? NUM_ROWS
+              : this.pos.y - foundObject.pos.y - 1;
 
-          //   this.dynamicEntities.push(
-          //     Laser.defaultConstructor(new Point(col, r - height), height),
-          //   );
-          // },
+          this.game.dynamicEntities.push(
+            Laser.defaultConstructor(
+              new Point(this.pos.x, this.pos.y - height),
+              height,
+            ),
+          );
         }
         break;
       }
