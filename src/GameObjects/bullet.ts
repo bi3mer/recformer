@@ -9,9 +9,7 @@ import {
   pointSubtract,
 } from "../DataStructures/point";
 import {
-  BULLET_HEIGHT,
   BULLET_SPEED,
-  BULLET_WIDTH,
   BULLET_SCREEN_WIDTH,
   BULLET_SCREEN_HEIGHT,
   BULLET_SIZE,

@@ -1,8 +1,9 @@
 import { rectangleIntersect, rectangleIntersectCircle } from "../core/util";
 import { Camera } from "../core/camera";
-import { Point, pointAdd, pointMultiplyScalar, pointSubtract } from "../DataStructures/point";
+import { Point } from "../DataStructures/point";
 import { GameObject } from "./gameObject";
 import { CircleGameObject } from "./circleGameObject";
+import { GameModel } from "../gameModel";
 
 export abstract class RectangleGameObject extends GameObject {
   public size: Point;
@@ -28,25 +29,5 @@ export abstract class RectangleGameObject extends GameObject {
         other.handleCollision(this);
       }
     }
-  }
-  
-  rectangleCollisionResolution(other: RectangleGameObject): void { 
-    const d = pointSubtract(
-      pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)),
-      pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)),
-    );
-
-    const averageSize = pointAdd(this.size, other.size);
-    pointMultiplyScalar(averageSize, 0.5);
-
-    if (Math.abs(d.x / this.size.x) < Math.abs(d.y / this.size.y)) {
-      this.velocity.y *= -1;
-      if (d.y > 0) {
-        this.pos.y = other.pos.y + other.size.y;
-      } else {
-        this.pos.y = other.pos.y - this.size.y;
-      }
-    }
-    
   }
 }

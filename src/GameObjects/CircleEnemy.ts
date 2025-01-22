@@ -10,7 +10,6 @@ import {
 import { GameObject } from "../core/gameObject";
 import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { Point, pointClone } from "../DataStructures/point";
-import { GameModel } from "../gameModel";
 
 export class CircleEnemy extends CircleGameObject {
   angle: number;

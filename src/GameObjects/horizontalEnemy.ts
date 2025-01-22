@@ -49,7 +49,22 @@ export class HorizontalEnemy extends RectangleGameObject {
 
   handleCollision(other: GameObject): void {
     if (other.type === TYPE_BLOCK) {
-      this.rectangleCollisionResolution(other as RectangleGameObject);
+      const d = pointSubtract(
+        pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)),
+        pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)),
+      );
+
+      const averageSize = pointAdd(this.size, other.size);
+      pointMultiplyScalar(averageSize, 0.5);
+
+      if (Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+        this.velocity.x *= -1;
+        if (d.x < 0) {
+          this.pos.x = other.pos.x - this.size.x;
+        } else {
+          this.pos.x = other.pos.x + other.size.x;
+        }
+      }
     } else if (other.type === TYPE_BULLET) {
       this.dead = true;
     }

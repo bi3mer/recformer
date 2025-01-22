@@ -12,6 +12,7 @@ import * as K from "./Scenes/sceneKeys";
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./core/constants";
 import { AGENT_PLAYER, AGENT_RANDOM, AGENT_A_STAR } from "./Agents/agentType";
+import { clamp } from "./core/util";
 
 window.addEventListener("load", () => {
   audioLoad(() => {
@@ -68,7 +69,7 @@ window.addEventListener("load", () => {
       previousTimeStamp = timeStamp;
 
       // run scene
-      currentScene.update(dt);
+      currentScene.update(clamp(dt, 0.01, 0.2));
       currentScene.render();
 
       // check if the scene has to be changed

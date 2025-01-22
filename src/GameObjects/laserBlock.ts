@@ -14,26 +14,17 @@ import {
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { GameModel } from "../gameModel";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 
 export class LaserBlock extends RectangleGameObject {
-  private spawnLaser: () => void;
   private color: string;
-  private playerPos: Point;
   private time: number = 0;
   private state = 0; // 0 -> laser, 1 -> charging
 
-  constructor(
-    pos: Point,
-    playerPos: Point,
-    spawnLaser: () => void,
-    state: number = 0,
-    time: number = 0,
-  ) {
+  constructor(pos: Point, state: number = 0, time: number = 0) {
     super(pos, BLOCK_SIZE, TYPE_BLOCK);
 
-    this.playerPos = playerPos;
-    this.spawnLaser = spawnLaser;
     this.color = COLOR_YELLOW;
     this.gravity.y = 0;
     this.state = state;
@@ -44,18 +35,11 @@ export class LaserBlock extends RectangleGameObject {
   // context where the game state is not rendered, so we don't care about the
   // color.
   clone(): GameObject {
-    console.warn("Laser block clone lost player");
-    return new LaserBlock(
-      pointClone(this.pos),
-      this.playerPos,
-      this.spawnLaser,
-      this.state,
-      this.time,
-    );
+    return new LaserBlock(pointClone(this.pos), this.state, this.time);
   }
 
   update(dt: number): void {
-    if (pointSquareDistance(this.pos, this.playerPos) > 150) {
+    if (pointSquareDistance(this.pos, this.game.protaganist().pos) > 150) {
       this.state = 0;
     }
 
@@ -76,7 +60,21 @@ export class LaserBlock extends RectangleGameObject {
           this.time = 0;
           this.state = 0;
           this.color = COLOR_ORANGE;
-          this.spawnLaser();
+
+          console.error("Need to spawn the laser!");
+          // this.dynamicEntities[0].pos,
+          // () => {
+          //   const foundObject = this.raycast(
+          //     new Point(col, r),
+          //     new Point(0, -1),
+          //   );
+          //   const height =
+          //     foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
+
+          //   this.dynamicEntities.push(
+          //     Laser.defaultConstructor(new Point(col, r - height), height),
+          //   );
+          // },
         }
         break;
       }

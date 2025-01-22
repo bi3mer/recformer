@@ -62,35 +62,16 @@ export class GameModel {
         if (tile === "X") {
           this.staticEntities.push(new Block(new Point(col, r)));
         } else if (tile === "^") {
-          this.dynamicEntities.push(
-            new LaserBlock(
-              new Point(col, r),
-              this.dynamicEntities[0].pos,
-              () => {
-                const foundObject = this.raycast(
-                  new Point(col, r),
-                  new Point(0, -1),
-                );
-                const height =
-                  foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
-
-                this.dynamicEntities.push(
-                  Laser.defaultConstructor(col, r - height, height),
-                );
-              },
-            ),
-          );
+          this.dynamicEntities.push(new LaserBlock(new Point(col, r)));
         } else if (tile === "T") {
           this.dynamicEntities.push(
             new Turret(
-              col,
-              r,
+              new Point(col, r),
               this.dynamicEntities[0].pos,
               (bulletCol: number, bulletRow: number) => {
                 this.dynamicEntities.push(
                   Bullet.defaultConstructor(
-                    bulletCol,
-                    bulletRow,
+                    new Point(bulletCol, bulletRow),
                     this.dynamicEntities[0].pos,
                   ),
                 );
@@ -120,6 +101,10 @@ export class GameModel {
           console.error(`Unhandled tile type: ${row[col]}`);
         }
       }
+    }
+
+    for (let i = 0; i < this.dynamicEntities.length; ++i) {
+      this.dynamicEntities[i].game = this;
     }
   }
 

@@ -10,7 +10,6 @@ export class TransitionScene extends Scene {
 
   constructor(ctx: CanvasRenderingContext2D) {
     super();
-
     this.ctx = ctx;
   }
 
@@ -19,7 +18,7 @@ export class TransitionScene extends Scene {
   update(dt: number): void {
     this.timer += dt;
 
-    if (this.timer > 0.6) {
+    if (this.timer > 0.5) {
       this.changeScene = this.targetScene;
     }
   }

@@ -2,6 +2,7 @@ import { Agent } from "../Agents/agent";
 import {
   Point,
   pointAdd,
+  pointClone,
   pointMultiplyScalar,
   pointSubtract,
 } from "../DataStructures/point";
@@ -68,7 +69,7 @@ export class Protaganist extends RectangleGameObject {
 
   clone(): GameObject {
     return new Protaganist(
-      this.pos.clone(),
+      pointClone(this.pos),
       this.agent,
       this.movingRight,
       this.movingLeft,
@@ -132,12 +133,13 @@ export class Protaganist extends RectangleGameObject {
   handleCollision(other: GameObject): void {
     switch (other.type) {
       case TYPE_BLOCK: {
+        const block = other as RectangleGameObject;
         const d = pointSubtract(
           pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)),
-          pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)),
+          pointAdd(block.pos, pointMultiplyScalar(block.size, 0.5)),
         );
 
-        const averageSize = pointAdd(this.size, other.size);
+        const averageSize = pointAdd(this.size, block.size);
         pointMultiplyScalar(averageSize, 0.5);
 
         // This is trying to handle corners. So if the angle is close to 45
@@ -151,15 +153,15 @@ export class Protaganist extends RectangleGameObject {
           Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)
         ) {
           if (d.x < 0) {
-            this.pos.x = other.pos.x - this.size.x;
+            this.pos.x = block.pos.x - this.size.x;
           } else {
-            this.pos.x = other.pos.x + other.size.x;
+            this.pos.x = block.pos.x + block.size.x;
           }
         } else {
           if (d.y > 0) {
-            this.pos.y = other.pos.y + other.size.y;
+            this.pos.y = block.pos.y + block.size.y;
           } else {
-            this.pos.y = other.pos.y - this.size.y;
+            this.pos.y = block.pos.y - this.size.y;
             this.velocity.y = 0;
             this.jumpTime = 0;
 

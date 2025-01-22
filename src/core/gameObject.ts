@@ -4,8 +4,11 @@ import {
   pointAddInPlace,
   pointMultiplyScalar,
 } from "../DataStructures/point";
+import { GameModel } from "../gameModel";
 
 export abstract class GameObject {
+  game: GameModel;
+
   pos: Point;
   type: number; // gameObjectTypes, I'd use and enum, but enums are bad in TypeSCript for some reason.
   dead: boolean = false;
@@ -23,7 +26,7 @@ export abstract class GameObject {
   abstract update(dt: number): void;
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
   abstract handleCollision(other: GameObject): void;
-  abstract collision(other: GameObject);
+  abstract collision(other: GameObject): void;
 
   physicsUpdate(dt: number): void {
     pointAddInPlace(this.velocity, pointMultiplyScalar(this.gravity, dt));

@@ -8,7 +8,12 @@ import { GameObject } from "../core/gameObject";
 import { TYPE_PLAYER, TYPE_JUMP_RESET } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_LIGHT_BLUE } from "../colorPalette";
-import { Point } from "../DataStructures/point";
+import {
+  Point,
+  pointAddScalarInPlace,
+  pointClone,
+} from "../DataStructures/point";
+import { GameModel } from "../gameModel";
 
 const OFF_SCREEN_POS_Y = 1000;
 const TIME_OFF_SCREEN = 2; // seconds
@@ -36,14 +41,15 @@ export class BlueBlock extends RectangleGameObject {
     this.timeGone = timeGone;
   }
 
-  static defaultConstructor(x: number, y: number): BlueBlock {
+  static defaultConstructor(pos: Point): BlueBlock {
     const yMod = Math.random() * 0.5;
-    return new BlueBlock(x + 0.25, y + 0.25, yMod, y + 0.15, y + 0.3, yMod, 0);
+    pointAddScalarInPlace(pos, 0.25);
+    return new BlueBlock(pos, yMod, pos.y + 0.15, pos.y + 0.3, yMod, 0);
   }
 
   clone(): GameObject {
     return new BlueBlock(
-      this.pos.clone(),
+      pointClone(this.pos),
       this.yMod,
       this.minY,
       this.maxY,

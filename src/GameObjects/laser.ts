@@ -1,6 +1,7 @@
+import { Point } from "../DataStructures/point";
+import { COLOR_ORANGE } from "../colorPalette";
 import { audioLaser } from "../core/audio";
 import { Camera } from "../core/camera";
-import { COLOR_ORANGE } from "../colorPalette";
 import {
   BLOCK_WIDTH,
   LASER_LIFE_TIME,
@@ -9,25 +10,27 @@ import {
   TILE_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { TYPE_ENEMY } from "./gameObjectTypes";
 
 export class Laser extends RectangleGameObject {
   private time: number;
 
-  constructor(x: number, y: number, height: number, time: number) {
-    super(x, y, LASER_WIDTH, height, TYPE_ENEMY);
+  constructor(pos: Point, size: Point, time: number) {
+    super(pos, size, TYPE_ENEMY);
 
     this.gravity.y = 0;
     this.time = time;
   }
 
-  static defaultConstructor(x: number, y: number, height: number): Laser {
-    return new Laser(x + (BLOCK_WIDTH - LASER_WIDTH) / 2, y, height, 0);
+  static defaultConstructor(pos: Point, height: number): Laser {
+    pos.x += (BLOCK_WIDTH - LASER_WIDTH) / 2; // shift towards middle of the block
+    return new Laser(pos, new Point(LASER_WIDTH, height), 0);
   }
 
   clone(): GameObject {
-    return new Laser(this.pos.x, this.pos.y, this.size.y, this.time);
+    // Lasers do not move so we don't need to clone the position
+    return new Laser(this.pos, this.size, this.time);
   }
 
   update(dt: number): void {

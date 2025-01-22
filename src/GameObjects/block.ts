@@ -9,6 +9,7 @@ import { GameObject } from "../core/gameObject";
 import { TYPE_BLOCK } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { Point } from "../DataStructures/point";
+import { GameModel } from "../gameModel";
 
 export class Block extends RectangleGameObject {
   constructor(pos: Point) {
@@ -16,7 +17,8 @@ export class Block extends RectangleGameObject {
   }
 
   clone(): Block {
-    return new Block(this.pos.clone());
+    // blocks don't move so we don't need to clone the position
+    return new Block(this.pos);
   }
 
   update(dt: number): void {}
