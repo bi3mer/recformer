@@ -1,15 +1,14 @@
-import { rectangleIntersectCircle } from "../core/util";
-import { Camera } from "../core/camera";
 import { Point } from "../DataStructures/point";
+import { Camera } from "../core/camera";
+import { rectangleIntersectCircle } from "../core/util";
 import { GameObject } from "./gameObject";
 import { RectangleGameObject } from "./rectangleGameObject";
-import { GameModel } from "../gameModel";
 
 export abstract class CircleGameObject extends GameObject {
   public r: number;
 
-  constructor(gameModel: GameModel, pos: Point, radius: number, type: number) {
-    super(gameModel, pos, type);
+  constructor(pos: Point, radius: number, type: number) {
+    super(pos, type);
     this.r = radius;
   }
 

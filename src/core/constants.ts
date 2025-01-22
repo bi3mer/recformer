@@ -39,6 +39,8 @@ export const ENEMY_SCREEN_WIDTH = 25;
 export const ENEMY_SCREEN_HEIGHT = 15;
 export const ENEMY_WIDTH = ENEMY_SCREEN_WIDTH / TILE_SIZE;
 export const ENEMY_HEIGHT = ENEMY_SCREEN_HEIGHT / TILE_SIZE;
+export const HORIZONTAL_ENEMY_SIZE = new Point(ENEMY_WIDTH, ENEMY_HEIGHT);
+export const VERTICAL_ENEMY_SIZE = new Point(ENEMY_HEIGHT, ENEMY_WIDTH);
 
 // Circle Enemy
 export const CIRCLE_SCREEN_RADIUS = 10.0;
@@ -61,6 +63,7 @@ export const BULLET_SCREEN_WIDTH = 10;
 export const BULLET_SCREEN_HEIGHT = 10;
 export const BULLET_WIDTH = COIN_SCREEN_WIDTH / TILE_SIZE;
 export const BULLET_HEIGHT = COIN_SCREEN_HEIGHT / TILE_SIZE;
+export const BULLET_SIZE = new Point(BULLET_WIDTH, BULLET_HEIGHT);
 
 // MDP keys
 export const KEY_START = "start";

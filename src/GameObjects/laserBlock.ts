@@ -1,17 +1,20 @@
-import { Camera } from "../core/camera";
-import { COLOR_ORANGE, COLOR_WHITE, COLOR_YELLOW } from "../colorPalette";
 import {
-  BLOCK_HEIGHT,
+  Point,
+  pointClone,
+  pointSquareDistance,
+} from "../DataStructures/point";
+import { COLOR_ORANGE, COLOR_WHITE, COLOR_YELLOW } from "../colorPalette";
+import { Camera } from "../core/camera";
+import {
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
-  BLOCK_WIDTH,
+  BLOCK_SIZE,
   LASER_CHARGE_TIME,
   LASER_LIFE_TIME,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_BLOCK } from "./gameObjectTypes";
-import { Point } from "../DataStructures/point";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { TYPE_BLOCK } from "./gameObjectTypes";
 
 export class LaserBlock extends RectangleGameObject {
   private spawnLaser: () => void;
@@ -21,14 +24,13 @@ export class LaserBlock extends RectangleGameObject {
   private state = 0; // 0 -> laser, 1 -> charging
 
   constructor(
-    x: number,
-    y: number,
+    pos: Point,
     playerPos: Point,
     spawnLaser: () => void,
     state: number = 0,
     time: number = 0,
   ) {
-    super(x, y, BLOCK_WIDTH, BLOCK_HEIGHT, TYPE_BLOCK);
+    super(pos, BLOCK_SIZE, TYPE_BLOCK);
 
     this.playerPos = playerPos;
     this.spawnLaser = spawnLaser;
@@ -42,9 +44,9 @@ export class LaserBlock extends RectangleGameObject {
   // context where the game state is not rendered, so we don't care about the
   // color.
   clone(): GameObject {
+    console.warn("Laser block clone lost player");
     return new LaserBlock(
-      this.pos.x,
-      this.pos.y,
+      pointClone(this.pos),
       this.playerPos,
       this.spawnLaser,
       this.state,
@@ -53,7 +55,7 @@ export class LaserBlock extends RectangleGameObject {
   }
 
   update(dt: number): void {
-    if (this.pos.squareDistance(this.playerPos) > 150) {
+    if (pointSquareDistance(this.pos, this.playerPos) > 150) {
       this.state = 0;
     }
 

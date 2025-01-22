@@ -1,30 +1,38 @@
+import {
+  Point,
+  pointAdd,
+  pointClone,
+  pointMultiplyScalar,
+  pointSubtract,
+} from "../DataStructures/point";
+import { COLOR_ORANGE } from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
-  ENEMY_HEIGHT,
   ENEMY_SCREEN_HEIGHT,
   ENEMY_SCREEN_WIDTH,
-  ENEMY_WIDTH,
   NUM_ROWS,
+  VERTICAL_ENEMY_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
-import { COLOR_ORANGE } from "../colorPalette";
 import { boolToSign } from "../core/util";
+import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
 
 export class VerticalEnemy extends RectangleGameObject {
-  constructor(x: number, y: number, velocityY: number) {
-    super(x, y, ENEMY_HEIGHT, ENEMY_WIDTH, TYPE_ENEMY);
+  constructor(pos: Point, velocityY: number) {
+    super(pos, VERTICAL_ENEMY_SIZE, TYPE_ENEMY);
     this.velocity.y = velocityY;
     this.gravity.y = 0;
   }
 
-  static defaultConstructor(x: number, y: number): VerticalEnemy {
-    return new VerticalEnemy(x + 0.25, y + 0.1, 3);
+  static defaultConstructor(pos: Point): VerticalEnemy {
+    pos.x += 0.25;
+    pos.y += 0.1;
+    return new VerticalEnemy(pos, 3);
   }
 
   clone(): GameObject {
-    return new VerticalEnemy(this.pos.x, this.pos.y, this.velocity.y);
+    return new VerticalEnemy(pointClone(this.pos), this.velocity.y);
   }
 
   update(dt: number): void {
@@ -33,21 +41,7 @@ export class VerticalEnemy extends RectangleGameObject {
 
   handleCollision(other: GameObject): void {
     if (other.type === TYPE_BLOCK) {
-      const center = this.pos.add(this.size.scalarMultiply(0.5));
-      const otherCenter = other.pos.add(other.size.scalarMultiply(0.5));
-      const d = center.subtract(otherCenter);
-
-      const averageSize = this.size.add(other.size);
-      averageSize.scalarMultiply(0.5);
-
-      if (Math.abs(d.x / this.size.x) < Math.abs(d.y / this.size.y)) {
-        this.velocity.y *= -1;
-        if (d.y > 0) {
-          this.pos.y = other.pos.y + other.size.y;
-        } else {
-          this.pos.y = other.pos.y - this.size.y;
-        }
-      }
+      this.rectangleCollisionResolution(other as RectangleGameObject);
     } else if (other.type === TYPE_BULLET) {
       this.dead = true;
     }

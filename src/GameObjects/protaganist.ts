@@ -1,5 +1,10 @@
 import { Agent } from "../Agents/agent";
-import { Point } from "../DataStructures/point";
+import {
+  Point,
+  pointAdd,
+  pointMultiplyScalar,
+  pointSubtract,
+} from "../DataStructures/point";
 import { COLOR_LIGHT_PURPLE } from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
@@ -127,12 +132,13 @@ export class Protaganist extends RectangleGameObject {
   handleCollision(other: GameObject): void {
     switch (other.type) {
       case TYPE_BLOCK: {
-        const center = this.pos.add(this.size.scalarMultiply(0.5));
-        const otherCenter = other.pos.add(other.size.scalarMultiply(0.5));
-        const d = center.subtract(otherCenter);
+        const d = pointSubtract(
+          pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)),
+          pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)),
+        );
 
-        const averageSize = this.size.add(other.size);
-        averageSize.scalarMultiply(0.5);
+        const averageSize = pointAdd(this.size, other.size);
+        pointMultiplyScalar(averageSize, 0.5);
 
         // This is trying to handle corners. So if the angle is close to 45
         // degrees between the two rectangles, that is a corner. I have it as
@@ -161,6 +167,7 @@ export class Protaganist extends RectangleGameObject {
             this.squash = 0.99;
           }
         }
+
         break;
       }
       case TYPE_COIN: {

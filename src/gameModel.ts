@@ -1,5 +1,10 @@
 import { typeToAgent } from "./Agents/agentType";
-import { Point } from "./DataStructures/point";
+import {
+  Point,
+  pointAdd,
+  pointAddInPlace,
+  pointEquals,
+} from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
@@ -55,18 +60,25 @@ export class GameModel {
       for (let col = 0; col < columns; ++col) {
         const tile = row[col];
         if (tile === "X") {
-          this.staticEntities.push(new Block(this, new Point(col, r)));
+          this.staticEntities.push(new Block(new Point(col, r)));
         } else if (tile === "^") {
           this.dynamicEntities.push(
-            new LaserBlock(col, r, this.dynamicEntities[0].pos, () => {
-              const foundObject = this.raycast(new Point(col, r));
-              const height =
-                foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
+            new LaserBlock(
+              new Point(col, r),
+              this.dynamicEntities[0].pos,
+              () => {
+                const foundObject = this.raycast(
+                  new Point(col, r),
+                  new Point(0, -1),
+                );
+                const height =
+                  foundObject === null ? NUM_ROWS : r - foundObject.pos.y - 1;
 
-              this.dynamicEntities.push(
-                Laser.defaultConstructor(col, r - height, height),
-              );
-            }),
+                this.dynamicEntities.push(
+                  Laser.defaultConstructor(col, r - height, height),
+                );
+              },
+            ),
           );
         } else if (tile === "T") {
           this.dynamicEntities.push(
@@ -89,15 +101,21 @@ export class GameModel {
           this.coins.push(new Point(col, r));
           this.dynamicEntities.push(Coin.defaultConstructor(new Point(col, r)));
         } else if (tile == "b") {
-          this.dynamicEntities.push(BlueBlock.defaultConstructor(col, r));
+          this.dynamicEntities.push(
+            BlueBlock.defaultConstructor(new Point(col, r)),
+          );
         } else if (tile === "H") {
           this.dynamicEntities.push(
-            HorizontalEnemy.defaultConstructor(col, r, columns),
+            HorizontalEnemy.defaultConstructor(new Point(col, r), columns),
           );
         } else if (tile === "V") {
-          this.dynamicEntities.push(VerticalEnemy.defaultConstructor(col, r));
+          this.dynamicEntities.push(
+            VerticalEnemy.defaultConstructor(new Point(col, r)),
+          );
         } else if (tile === "C") {
-          this.dynamicEntities.push(CircleEnemy.defaultConstructor(col, r));
+          this.dynamicEntities.push(
+            CircleEnemy.defaultConstructor(new Point(col, r)),
+          );
         } else if (tile !== "-") {
           console.error(`Unhandled tile type: ${row[col]}`);
         }
@@ -111,12 +129,12 @@ export class GameModel {
     let i = 0;
 
     for (; i < dLength; ++i) {
-      clone.dynamicEntities.push(this.dynamicEntities[i].clone(this));
+      clone.dynamicEntities.push(this.dynamicEntities[i].clone());
     }
 
     const sLength = this.staticEntities.length;
     for (i = 0; i < sLength; ++i) {
-      clone.staticEntities.push(this.staticEntities[i].clone(this));
+      clone.staticEntities.push(this.staticEntities[i].clone());
     }
 
     clone.coins = this.coins;
@@ -197,7 +215,7 @@ export class GameModel {
 
   fitness(): number {
     const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
-    return protaganist.coinsCollected / this.coins.length;
+    return 1 - protaganist.coinsCollected / this.coins.length;
 
     // @NOTE: The code below also has how far the player reached in the level
     //         as part of the fitness calculation. I don't know how I feel
@@ -213,19 +231,19 @@ export class GameModel {
   }
 
   raycast(start: Point, dir: Point): GameObject | null {
-    const p = start.add(dir);
+    const p = pointAdd(start, dir);
     const size = this.staticEntities.length;
     let i: number;
 
     while (start.y >= 0) {
       for (i = 0; i < size; ++i) {
         const e = this.staticEntities[i];
-        if (start.equals(e.pos)) {
+        if (pointEquals(start, e.pos)) {
           return e;
         }
       }
 
-      p.addInPlace(dir);
+      pointAddInPlace(p, dir);
     }
 
     return null;

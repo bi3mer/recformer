@@ -1,4 +1,8 @@
-import { Point } from "../DataStructures/point";
+import {
+  Point,
+  pointSquareComponents,
+  pointSubtract,
+} from "../DataStructures/point";
 
 export function lerp(a: number, b: number, percent: number) {
   return (1 - percent) * a + percent * b;
@@ -37,12 +41,18 @@ export function rectangleIntersectCircle(
   circle: Point,
   radius: number,
 ): boolean {
-  const closest = new Point(
-    clamp(circle.x, rec.x, rec.x + dimensions.x),
-    clamp(circle.y, rec.y, rec.y + dimensions.y),
+  return (
+    pointSquareComponents(
+      pointSubtract(
+        circle,
+        new Point(
+          clamp(circle.x, rec.x, rec.x + dimensions.x),
+          clamp(circle.y, rec.y, rec.y + dimensions.y),
+        ),
+      ),
+    ) <
+    radius * radius
   );
-  const dist = circle.subtract(closest);
-  return dist.squareComponents() < radius * radius;
 }
 
 export function rectangleIntersect(
