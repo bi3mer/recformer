@@ -18,7 +18,7 @@ export function typeToAgent(type: number, model: GameModel): Agent {
     case AGENT_RANDOM:
       return new RandomAgent();
     case AGENT_A_STAR:
-      return new DeterministicAgent(astar(model));
+      return new EmptyAgent();
     case AGENT_PLAYER:
       return new Player();
     case AGENT_EMPTY:

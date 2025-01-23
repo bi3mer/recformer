@@ -1,8 +1,7 @@
-import { typeToAgent } from "./Agents/agentType";
+import { AGENT_A_STAR, typeToAgent } from "./Agents/agentType";
+import { DeterministicAgent } from "./Agents/deterministicAgent";
 import {
   Point,
-  pointAdd,
-  pointAddInPlace,
   pointClone,
   pointEquals,
   pointStr,
@@ -11,13 +10,12 @@ import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
 import { BlueBlock } from "./GameObjects/blueBlock";
-import { Bullet } from "./GameObjects/bullet";
 import { Coin } from "./GameObjects/coin";
 import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
-import { Laser } from "./GameObjects/laser";
 import { LaserBlock } from "./GameObjects/laserBlock";
 import { Protaganist } from "./GameObjects/protaganist";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
+import { astar } from "./aStar";
 import { Camera } from "./core/camera";
 import {
   GAME_STATE_LOST,
@@ -102,8 +100,15 @@ export class GameModel {
     for (let i = 0; i < this.dynamicEntities.length; ++i) {
       this.dynamicEntities[i].game = this;
     }
+
+    // if the agent is an A* agent, it needs to solve the gameA
+    if (agentType === AGENT_A_STAR) {
+      const path = astar(this);
+      this.protaganist().agent = new DeterministicAgent(path);
+    }
   }
 
+  // @NOTE: The static entities don't need to be updated, so they aren't cloned
   clone(): GameModel {
     const clone = new GameModel(null, 0);
     const dLength = this.dynamicEntities.length;
@@ -115,34 +120,38 @@ export class GameModel {
       clone.dynamicEntities.push(de);
     }
 
-    const sLength = this.staticEntities.length;
-    for (i = 0; i < sLength; ++i) {
-      const se = this.staticEntities[i].clone();
-      se.game = clone;
-      clone.staticEntities.push(se);
-    }
+    clone.staticEntities = this.staticEntities;
+    // const sLength = this.staticEntities.length;
+    // for (i = 0; i < sLength; ++i) {
+    //   const se = this.staticEntities[i].clone();
+    //   se.game = clone;
+    //   clone.staticEntities.push(se);
+    // }
 
     clone.coins = this.coins;
 
     return clone;
   }
 
-  // NOTE: This is an imperfect hash for a lot of reasons. One of them is that I
-  //       am not including static entities in the hash. This is because the context
-  //       that I am using this function is for A*, and the static entities are
-  //       always the same, so they aren't important. If we were going to use this to
-  //       check if a whole state was the same, though, this would not work because the
-  //       static entities could be different.
+  // @NOTE: This is an imperfect hash for a lot of reasons. One of them is that I
+  //        am not including static entities in the hash. This is because the context
+  //        that I am using this function is for A*, and the static entities are
+  //        always the same, so they aren't important. If we were going to use this to
+  //        check if a whole state was the same, though, this would not work because the
+  //        static entities could be different.
+  // @NOTE: Not currently a hash, it's a string
   hash(): string {
     let state = "";
     const size = this.dynamicEntities.length;
     for (let i = 0; i < size; ++i) {
       state += pointStr(this.dynamicEntities[i].pos);
     }
-    return sha256(state);
+
+    return state;
+    // return sha256(state);
   }
 
-  // @NOTE: this method is pretty bad in the sense that I am using an 0(n^2)
+  // @NOTE: This method is pretty bad in the sense that I am using an 0(n^2)
   //        collision detection approach. It could be much better, but...
   //        well, I am lazy and the frame rate is unaffected. If I have time,
   //        I'll come back to this. I may have to for the A* agent.

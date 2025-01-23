@@ -30,18 +30,18 @@ const MAX_MOVE_MOD = 8;
 const MAX_JUMP_TIME = 0.4;
 
 export class Protaganist extends RectangleGameObject {
-  private movingRight: boolean;
-  private movingLeft: boolean;
-  private moveMod: number;
+  movingRight: boolean; // @TODO: remove
+  movingLeft: boolean; // @TODO: remove
+  moveMod: number;
 
-  private jumpTime: number;
-  private squash: number;
-  private stretch: number;
+  jumpTime: number;
+  squash: number;
+  stretch: number;
 
-  public coinsCollected: number;
-  public maxColumn: number;
+  coinsCollected: number;
+  maxColumn: number;
 
-  private agent: Agent;
+  agent: Agent;
 
   constructor(
     pos: Point,

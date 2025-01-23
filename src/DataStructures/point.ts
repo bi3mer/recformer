@@ -82,6 +82,10 @@ export function pointSquareDistance(p1: Point, p2: Point): number {
   return x * x + y * y;
 }
 
+export function pointEuclideanDistance(p1: Point, p2: Point): number {
+  return Math.sqrt(pointSquareDistance(p1, p2));
+}
+
 export function pointAngle(p1: Point, p2: Point): number {
   return Math.atan2(p2.y - p1.y, p2.x - p1.x);
 }
