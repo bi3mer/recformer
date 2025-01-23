@@ -5,9 +5,10 @@ import {
   pointStr,
 } from "./DataStructures/point";
 import { PriorityQueue } from "./DataStructures/priorityQueue";
+import { GameObject } from "./core/gameObject";
 import { GameModel } from "./gameModel";
 
-export const ASTAR_FRAME_TIME = 0.02;
+export const ASTAR_FRAME_TIME = 0.01;
 
 class Node {
   depth: number;
@@ -30,7 +31,7 @@ class Node {
 
 function astarSearch(
   model: GameModel,
-  target: Point,
+  target: number,
 ): [GameModel | undefined, Action[]] {
   // set up search
   const seen = new Set<string>();
@@ -46,18 +47,6 @@ function astarSearch(
   while (nodes.length() > 0) {
     const curNode = nodes.pop();
     console.log(`depth: ${curNode.depth}, #actions: ${nodes.length()}`);
-    const playerPos = curNode.model.protaganist().pos;
-
-    // check if we have reached the target
-    if (
-      playerPos.x >= target.x &&
-      playerPos.x <= target.x + 1 &&
-      playerPos.y >= target.y &&
-      playerPos.y <= target.y + 1
-    ) {
-      node = curNode;
-      break;
-    }
 
     const newDepth = curNode.depth + 1;
     for (actionIndex = 0; actionIndex < NUM_ACTIONS; ++actionIndex) {
@@ -72,6 +61,14 @@ function astarSearch(
         continue;
       }
 
+      // check if we have reached the target
+      if (nextState.coins[target].dead) {
+        node = curNode;
+        nodes.length = 0;
+        throw new Error("done!");
+        break;
+      }
+
       // check if we have seen this state before
       const hash = nextState.hash();
       if (seen.has(hash)) {
@@ -84,7 +81,11 @@ function astarSearch(
       // and then make a new node and insert it into the priority queue
       const newNode = new Node(newDepth, nextState, A, curNode);
       nodes.insert(
-        newDepth + pointEuclideanDistance(nextState.protaganist().pos, target),
+        newDepth +
+          pointEuclideanDistance(
+            nextState.protaganist().pos,
+            nextState.coins[target].pos,
+          ),
         newNode,
       );
     }
@@ -114,11 +115,15 @@ export function astar(model: GameModel): Action[] {
   let i = 0;
   const size = model.coins.length;
   for (; i < size; ++i) {
-    const [nextModel, nextActions] = astarSearch(curModel, curModel.coins[i]);
+    if (curModel.coins[i].dead) {
+      continue;
+    }
+
+    const [nextModel, nextActions] = astarSearch(curModel, i);
 
     if (nextModel === undefined) {
       console.error(
-        `Pathing failed for coin at (${pointStr(curModel.coins[i])})`,
+        `Pathing failed for coin at (${pointStr(curModel.coins[i].pos)})`,
       );
       return [];
     }

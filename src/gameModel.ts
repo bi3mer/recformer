@@ -29,7 +29,7 @@ import { sha256 } from "./crypto";
 export class GameModel {
   staticEntities: GameObject[] = [];
   dynamicEntities: GameObject[] = [];
-  coins: Point[] = [];
+  coins: Coin[] = [];
   numColumns: number;
 
   constructor(level: string[] | null, agentType: number) {
@@ -67,8 +67,9 @@ export class GameModel {
         } else if (tile === "T") {
           this.dynamicEntities.push(new Turret(new Point(col, r)));
         } else if (tile === "o") {
-          this.coins.push(new Point(col, r));
-          this.dynamicEntities.push(Coin.defaultConstructor(new Point(col, r)));
+          const c = Coin.defaultConstructor(new Point(col, r));
+          this.dynamicEntities.push(c);
+          this.coins.push(c);
         } else if (tile == "b") {
           this.dynamicEntities.push(
             BlueBlock.defaultConstructor(new Point(col, r)),
