@@ -1,11 +1,11 @@
 import { RandomAgent } from "./randomAgent";
-import { AStarAgent } from "./astarAgent";
 import { Player } from "./player";
 
 import { Agent } from "./agent";
 import { GameModel } from "../gameModel";
 import { EmptyAgent } from "./emptyAgent";
 import { DeterministicAgent } from "./deterministicAgent";
+import { astar } from "../aStar";
 
 export const AGENT_RANDOM = 0;
 export const AGENT_A_STAR = 1;
@@ -18,7 +18,7 @@ export function typeToAgent(type: number, model: GameModel): Agent {
     case AGENT_RANDOM:
       return new RandomAgent();
     case AGENT_A_STAR:
-      return new AStarAgent(model);
+      return new DeterministicAgent(astar(model));
     case AGENT_PLAYER:
       return new Player();
     case AGENT_EMPTY:

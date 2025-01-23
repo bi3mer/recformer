@@ -85,3 +85,7 @@ export function pointSquareDistance(p1: Point, p2: Point): number {
 export function pointAngle(p1: Point, p2: Point): number {
   return Math.atan2(p2.y - p1.y, p2.x - p1.x);
 }
+
+export function pointStr(p: Point): string {
+  return `${p.x},${p.y}`;
+}

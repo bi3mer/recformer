@@ -5,6 +5,7 @@ import {
   pointAddInPlace,
   pointClone,
   pointEquals,
+  pointStr,
 } from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
@@ -25,6 +26,7 @@ import {
   NUM_ROWS,
 } from "./core/constants";
 import { GameObject } from "./core/gameObject";
+import { sha256 } from "./crypto";
 
 export class GameModel {
   staticEntities: GameObject[] = [];
@@ -110,7 +112,7 @@ export class GameModel {
     for (; i < dLength; ++i) {
       const de = this.dynamicEntities[i].clone();
       de.game = clone;
-      this.dynamicEntities.push(de);
+      clone.dynamicEntities.push(de);
     }
 
     const sLength = this.staticEntities.length;
@@ -123,6 +125,21 @@ export class GameModel {
     clone.coins = this.coins;
 
     return clone;
+  }
+
+  // NOTE: This is an imperfect hash for a lot of reasons. One of them is that I
+  //       am not including static entities in the hash. This is because the context
+  //       that I am using this function is for A*, and the static entities are
+  //       always the same, so they aren't important. If we were going to use this to
+  //       check if a whole state was the same, though, this would not work because the
+  //       static entities could be different.
+  hash(): string {
+    let state = "";
+    const size = this.dynamicEntities.length;
+    for (let i = 0; i < size; ++i) {
+      state += pointStr(this.dynamicEntities[i].pos);
+    }
+    return sha256(state);
   }
 
   // @NOTE: this method is pretty bad in the sense that I am using an 0(n^2)
