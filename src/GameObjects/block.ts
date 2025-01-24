@@ -25,6 +25,7 @@ export class Block extends RectangleGameObject {
   handleCollision(other: GameObject): void {}
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {
+    ctx.lineWidth = 1.3;
     ctx.strokeStyle = COLOR_WHITE;
     ctx.strokeRect(
       camera.columnToScreen(this.pos.x),

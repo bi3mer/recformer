@@ -1,7 +1,12 @@
 import { AGENT_RANDOM } from "../Agents/agentType";
 import { idToLevel } from "../LevelGeneration/levels";
 import { ASTAR_FRAME_TIME } from "../aStar";
-import { COLOR_YELLOW } from "../colorPalette";
+import {
+  COLOR_BACKGROUND,
+  COLOR_LIGHT_BLUE,
+  COLOR_LIGHT_ORANGE,
+  COLOR_YELLOW,
+} from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
   GAME_STATE_PLAYING,
@@ -54,11 +59,14 @@ export class MainMenuScene extends Scene {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     this.game.render(this.ctx, this.camera);
 
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(240, 60, 240, 47);
+    this.ctx.fillRect(210, 234, 295, 39);
+
     this.ctx.fillStyle = COLOR_YELLOW;
     this.ctx.font = "48px Arial";
     this.ctx.fillText("Recformer", 247, 100);
 
-    this.ctx.fillStyle = COLOR_YELLOW;
     this.ctx.font = "30px Arial";
     this.ctx.fillText("Press 'space' to start", 220, SCREEN_HEIGHT * 0.55);
   }

@@ -5,10 +5,9 @@ import {
   pointStr,
 } from "./DataStructures/point";
 import { PriorityQueue } from "./DataStructures/priorityQueue";
-import { GameObject } from "./core/gameObject";
 import { GameModel } from "./gameModel";
 
-export const ASTAR_FRAME_TIME = 0.016;
+export const ASTAR_FRAME_TIME = 0.032;
 
 class Node {
   depth: number;
@@ -59,23 +58,23 @@ function astarSearch(
       nextState.protaganist().agent.set(A);
       nextState.update(ASTAR_FRAME_TIME);
 
-      // Skip if the player died
-      if (nextState.protaganist().dead) {
-        continue;
-      }
-
       // check if we have reached the target
       console.log(nextState.coins[target].dead);
       if (nextState.coins[target].dead) {
         node = curNode;
         nodes.length = 0;
-        throw new Error("done!");
         break;
+      }
+
+      // Skip if the player died
+      if (nextState.protaganist().dead) {
+        continue;
       }
 
       // check if we have seen this state before
       const hash = nextState.hash();
       if (seen.has(hash)) {
+        console.log("clash!", hash);
         continue; // if we have seen it, skip it
       }
 
