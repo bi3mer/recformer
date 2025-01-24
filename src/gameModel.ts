@@ -119,6 +119,10 @@ export class GameModel {
       const de = this.dynamicEntities[i].clone();
       de.game = clone;
       clone.dynamicEntities.push(de);
+
+      if (de instanceof Coin) {
+        clone.coins.push(de);
+      }
     }
 
     clone.staticEntities = this.staticEntities;
@@ -128,8 +132,6 @@ export class GameModel {
     //   se.game = clone;
     //   clone.staticEntities.push(se);
     // }
-
-    clone.coins = this.coins;
 
     return clone;
   }
