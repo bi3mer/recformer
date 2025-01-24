@@ -8,7 +8,7 @@ import { PriorityQueue } from "./DataStructures/priorityQueue";
 import { GameObject } from "./core/gameObject";
 import { GameModel } from "./gameModel";
 
-export const ASTAR_FRAME_TIME = 0.01;
+export const ASTAR_FRAME_TIME = 0.016;
 
 class Node {
   depth: number;
@@ -49,6 +49,9 @@ function astarSearch(
     console.log(`depth: ${curNode.depth}, #actions: ${nodes.length()}`);
 
     const newDepth = curNode.depth + 1;
+    if (newDepth > 20) {
+      continue;
+    }
     for (actionIndex = 0; actionIndex < NUM_ACTIONS; ++actionIndex) {
       // create a new state with an action
       const A = ACTIONS[actionIndex];
@@ -62,6 +65,7 @@ function astarSearch(
       }
 
       // check if we have reached the target
+      console.log(nextState.coins[target].dead);
       if (nextState.coins[target].dead) {
         node = curNode;
         nodes.length = 0;

@@ -156,38 +156,41 @@ export class GameModel {
   //        collision detection approach. It could be much better, but...
   //        well, I am lazy and the frame rate is unaffected. If I have time,
   //        I'll come back to this. I may have to for the A* agent.
-  update(dt: number): void {
-    // Update and check for collisions
-    let dynamicSize = this.dynamicEntities.length;
-    const staticSize = this.staticEntities.length;
-    let jj: number;
-    let i = 0;
+  update(dt: number, divisor: number = 1): void {
+    dt = dt / divisor;
+    for (let j = 0; j < divisor; ++j) {
+      // Update and check for collisions
+      let dynamicSize = this.dynamicEntities.length;
+      const staticSize = this.staticEntities.length;
+      let jj: number;
+      let i = 0;
 
-    for (; i < dynamicSize; ++i) {
-      const e = this.dynamicEntities[i];
+      for (; i < dynamicSize; ++i) {
+        const e = this.dynamicEntities[i];
 
-      e.update(dt);
+        e.update(dt);
 
-      // Check if entity died
-      if (e.dead) {
-        if (i == 0) {
-          // the player died, we're done
-          break;
+        // Check if entity died
+        if (e.dead) {
+          if (i == 0) {
+            // the player died, we're done
+            break;
+          }
+
+          this.dynamicEntities.splice(i, 1);
+          --i;
+          --dynamicSize;
         }
 
-        this.dynamicEntities.splice(i, 1);
-        --i;
-        --dynamicSize;
-      }
+        e.physicsUpdate(dt);
 
-      e.physicsUpdate(dt);
+        for (jj = i + 1; jj < dynamicSize; ++jj) {
+          e.collision(this.dynamicEntities[jj]);
+        }
 
-      for (jj = i + 1; jj < dynamicSize; ++jj) {
-        e.collision(this.dynamicEntities[jj]);
-      }
-
-      for (jj = 0; jj < staticSize; ++jj) {
-        e.collision(this.staticEntities[jj]);
+        for (jj = 0; jj < staticSize; ++jj) {
+          e.collision(this.staticEntities[jj]);
+        }
       }
     }
   }

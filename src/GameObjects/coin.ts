@@ -37,7 +37,8 @@ export class Coin extends RectangleGameObject {
 
   static defaultConstructor(pos: Point): Coin {
     const yMod = Math.random() * 0.5;
-    pointAddScalarInPlace(pos, 0.25);
+    pos.x += 0.25;
+    pos.y -= 0.25;
     return new Coin(pos, Math.random() * 0.5, pos.y + 0.3, pos.y + 0.15, yMod);
   }
 
