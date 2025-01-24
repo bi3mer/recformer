@@ -48,9 +48,6 @@ function astarSearch(
     console.log(`depth: ${curNode.depth}, #actions: ${nodes.length()}`);
 
     const newDepth = curNode.depth + 1;
-    if (newDepth > 20) {
-      continue;
-    }
     for (actionIndex = 0; actionIndex < NUM_ACTIONS; ++actionIndex) {
       // create a new state with an action
       const A = ACTIONS[actionIndex];
@@ -62,7 +59,7 @@ function astarSearch(
       console.log(nextState.coins[target].dead);
       if (nextState.coins[target].dead) {
         node = curNode;
-        nodes.length = 0;
+        nodes.queue.length = 0;
         break;
       }
 
@@ -74,7 +71,6 @@ function astarSearch(
       // check if we have seen this state before
       const hash = nextState.hash();
       if (seen.has(hash)) {
-        console.log("clash!", hash);
         continue; // if we have seen it, skip it
       }
 
@@ -107,6 +103,8 @@ function astarSearch(
     actions.push(node!.action);
     node = node!.pastNode;
   }
+
+  actions.push(node!.action);
 
   // actions are returned with first action last
   return [endModel, actions];

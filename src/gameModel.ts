@@ -24,7 +24,6 @@ import {
   NUM_ROWS,
 } from "./core/constants";
 import { GameObject } from "./core/gameObject";
-import { sha256 } from "./crypto";
 
 export class GameModel {
   staticEntities: GameObject[] = [];
