@@ -228,6 +228,7 @@ export class GameModel {
 
   fitness(): number {
     const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
+    console.log(protaganist.coinsCollected, this.coins.length);
     return 1 - protaganist.coinsCollected / this.coins.length;
 
     // @NOTE: The code below also has how far the player reached in the level

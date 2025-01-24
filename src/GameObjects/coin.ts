@@ -26,6 +26,7 @@ export class Coin extends RectangleGameObject {
     maxY: number,
     minY: number,
     velocityY: number,
+    dead: boolean = false,
   ) {
     super(pos, COIN_SIZE, TYPE_COIN);
     this.gravity.y = 0;
@@ -33,6 +34,11 @@ export class Coin extends RectangleGameObject {
     this.maxY = maxY;
     this.minY = minY;
     this.velocity.y = velocityY;
+
+    // coins are the only game object where a reference to them is kept even
+    // after they have been removed from the game scene, since this is
+    // relevan to the A* search
+    this.dead = dead;
   }
 
   static defaultConstructor(pos: Point): Coin {
@@ -49,6 +55,7 @@ export class Coin extends RectangleGameObject {
       this.maxY,
       this.minY,
       this.velocity.y,
+      this.dead,
     );
   }
 
