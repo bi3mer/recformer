@@ -57,8 +57,7 @@ export class Protaganist extends RectangleGameObject {
     maxColumn: number = 0,
   ) {
     super(pos, PLAYER_SIZE, TYPE_PLAYER);
-    this.velocity.x = velocity.x;
-    this.velocity.y = velocity.y;
+    this.velocity = velocity;
 
     this.agent = agent;
     this.movingRight = movingRight;

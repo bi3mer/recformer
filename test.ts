@@ -26,26 +26,10 @@ audioLoad(() => {
     "----------------------",
     "----------------------",
     "----------------------",
-    "----------------------",
-    "----o-------o---------",
+    "------------o---------",
+    "--------o-------------",
     "XXXXXXXXXXXXXXX-------",
   ];
-
-  // let gm = new GameModel(lvl, AGENT_EMPTY);
-  // gm.protaganist().agent.set(new Action(true, false, false));
-  // let temp = gm.clone();
-  // // let temp = gm;
-
-  // console.log("size:", gm.dynamicEntities.length === temp.dynamicEntities.length);
-
-  // for (let i = 0; i < 44; ++i) {
-  //   temp = temp.clone();
-  //   temp.update(0.032);
-  //   console.log(temp.coins[0].dead);
-  // }
-
-  // console.log(`state:   ${temp.state()}`);
-  // console.log(`fitness: ${temp.fitness()}`);
 
   let gm = new GameModel(lvl, AGENT_A_STAR);
   // let gm = new GameModel(idToLevel["2-a"], AGENT_A_STAR);

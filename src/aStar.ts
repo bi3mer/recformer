@@ -4,6 +4,8 @@ import { PriorityQueue } from "./DataStructures/priorityQueue";
 import { GameModel } from "./gameModel";
 
 export const ASTAR_FRAME_TIME = 0.064;
+// export const ASTAR_FRAME_TIME = 0.04166;
+// export const ASTAR_FRAME_TIME = 0.0333;
 
 class Node {
   depth: number;
@@ -26,7 +28,7 @@ class Node {
 
 function astarSearch(
   model: GameModel,
-  target: number,
+  target: number = 0,
 ): [GameModel | undefined, Action[]] {
   // set up search
   const seen = new Set<string>();
@@ -35,7 +37,7 @@ function astarSearch(
   const nodes = new PriorityQueue<Node>();
   nodes.insert(0, new Node(0, model, ACTIONS[0]));
 
-  let node: Node | undefined = undefined;
+  let endNode: Node | undefined = undefined;
   let actionIndex = 0;
 
   // Start search for target
@@ -57,7 +59,7 @@ function astarSearch(
       // console.log(pointStr(nextState.protaganist().pos));
       if (nextState.coins[target].dead) {
         console.log("found coin!");
-        node = new Node(newDepth, nextState, A, curNode);
+        endNode = new Node(newDepth, nextState, A, curNode);
         nodes.queue.length = 0;
         break;
       }
@@ -78,7 +80,7 @@ function astarSearch(
 
       // and then make a new node and insert it into the priority queue
       const newNode = new Node(newDepth, nextState, A, curNode);
-      nodes.insert(newDepth, newNode);
+      // nodes.insert(newDepth, newNode); // BFS
       nodes.insert(
         newDepth +
           pointEuclideanDistance(
@@ -90,21 +92,21 @@ function astarSearch(
     }
   }
 
-  if (node === undefined) {
+  if (endNode === undefined) {
     console.error("A* Error: Could not find target.");
     return [undefined, []];
   }
 
   // reconstruct the path and return
-  const endModel = node.model;
+  const endModel = endNode.model;
   const actions: Action[] = [];
 
-  while (node!.depth > 0) {
-    actions.push(node!.action);
-    node = node!.pastNode;
+  while (endNode!.depth > 0) {
+    actions.push(endNode!.action);
+    endNode = endNode!.pastNode;
   }
 
-  actions.push(node!.action);
+  actions.push(endNode!.action);
 
   // actions are returned with first action last
   return [endModel, actions];
@@ -113,17 +115,16 @@ function astarSearch(
 export function astar(model: GameModel): Action[] {
   let curModel = model.clone();
   let actions: Action[] = [];
-  let i = 0;
-  const size = model.coins.length;
-  for (; i < size; ++i) {
+  const numCoins = model.coins.length;
+  while (curModel.protaganist().coinsCollected < numCoins) {
     // the next coin will always be at index 0 because it is removed when it
     // dies ans the clone method for game model updates the coins array
     // accordingly
-    const [nextModel, nextActions] = astarSearch(curModel, 0);
+    const [nextModel, nextActions] = astarSearch(curModel);
 
     if (nextModel === undefined) {
       console.error(
-        `Pathing failed for coin at (${pointStr(curModel.coins[i].pos)})`,
+        `Pathing failed for coin at (${pointStr(curModel.coins[0].pos)})`,
       );
       return [];
     }

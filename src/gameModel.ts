@@ -105,6 +105,11 @@ export class GameModel {
 
     // if the agent is an A* agent, it needs to solve the gameA
     if (agentType === AGENT_A_STAR) {
+      // order of coins is relevant for A* agent
+      this.coins.sort((a, b) => {
+        return a.pos.x - b.pos.x;
+      });
+
       const path = astar(this);
       this.protaganist().agent = new DeterministicAgent(path);
     }
@@ -116,6 +121,7 @@ export class GameModel {
     const dLength = this.dynamicEntities.length;
     let i = 0;
 
+    // clone dynamic entities
     for (; i < dLength; ++i) {
       const de = this.dynamicEntities[i].clone();
       de.game = clone;
@@ -126,13 +132,13 @@ export class GameModel {
       }
     }
 
+    // order coins
+    this.coins.sort((a, b) => {
+      return a.pos.x - b.pos.x;
+    });
+
+    // static entities never change, so we don't need to clone them
     clone.staticEntities = this.staticEntities;
-    // const sLength = this.staticEntities.length;
-    // for (i = 0; i < sLength; ++i) {
-    //   const se = this.staticEntities[i].clone();
-    //   se.game = clone;
-    //   clone.staticEntities.push(se);
-    // }
 
     return clone;
   }
