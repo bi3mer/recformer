@@ -45,6 +45,7 @@ export class Protaganist extends RectangleGameObject {
 
   constructor(
     pos: Point,
+    velocity: Point,
     agent: Agent,
     movingRight: boolean = false,
     movingLeft: boolean = false,
@@ -56,6 +57,9 @@ export class Protaganist extends RectangleGameObject {
     maxColumn: number = 0,
   ) {
     super(pos, PLAYER_SIZE, TYPE_PLAYER);
+    this.velocity.x = velocity.x;
+    this.velocity.y = velocity.y;
+
     this.agent = agent;
     this.movingRight = movingRight;
     this.movingLeft = movingLeft;
@@ -70,6 +74,7 @@ export class Protaganist extends RectangleGameObject {
   clone(): GameObject {
     return new Protaganist(
       pointClone(this.pos),
+      pointClone(this.velocity),
       this.agent,
       this.movingRight,
       this.movingLeft,

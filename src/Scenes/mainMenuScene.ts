@@ -1,4 +1,4 @@
-import { AGENT_RANDOM } from "../Agents/agentType";
+import { AGENT_RANDOM, AGENT_A_STAR } from "../Agents/agentType";
 import { idToLevel } from "../LevelGeneration/levels";
 import { ASTAR_FRAME_TIME } from "../aStar";
 import {
@@ -37,8 +37,8 @@ export class MainMenuScene extends Scene {
   onEnter(): void {
     const temp = randomKey(idToLevel);
     console.log(idToLevel[temp]);
-    this.game = new GameModel(idToLevel[temp], AGENT_RANDOM);
-    // this.game = new GameModel(idToLevel[randomKey(idToLevel)], AGENT_RANDOM);
+    // this.game = new GameModel(idToLevel[temp], AGENT_A_STAR);
+    this.game = new GameModel(idToLevel[randomKey(idToLevel)], AGENT_RANDOM);
   }
 
   update(dt: number): void {

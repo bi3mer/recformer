@@ -1,4 +1,4 @@
-import { AGENT_A_STAR, typeToAgent } from "./Agents/agentType";
+import { AGENT_A_STAR, AGENT_EMPTY, typeToAgent } from "./Agents/agentType";
 import { DeterministicAgent } from "./Agents/deterministicAgent";
 import {
   Point,
@@ -29,7 +29,6 @@ export class GameModel {
   staticEntities: GameObject[] = [];
   dynamicEntities: GameObject[] = [];
   coins: Coin[] = [];
-  numColumns: number;
 
   constructor(level: string[] | null, agentType: number) {
     if (level === null) {
@@ -43,11 +42,14 @@ export class GameModel {
     }
 
     this.dynamicEntities.push(
-      new Protaganist(new Point(2, 12), typeToAgent(agentType, this)),
+      new Protaganist(
+        new Point(2, 12),
+        new Point(0, 0),
+        typeToAgent(agentType, this),
+      ),
     ); // player is always the first entity
 
     const columns = level[0].length;
-    this.numColumns = columns;
     for (let r = 0; r < rows; ++r) {
       const row = level[r];
       if (columns !== row.length) {
@@ -110,7 +112,7 @@ export class GameModel {
 
   // @NOTE: The static entities don't need to be updated, so they aren't cloned
   clone(): GameModel {
-    const clone = new GameModel(null, 0);
+    const clone = new GameModel(null, AGENT_EMPTY);
     const dLength = this.dynamicEntities.length;
     let i = 0;
 
@@ -229,20 +231,7 @@ export class GameModel {
 
   fitness(): number {
     const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
-    console.log(protaganist.coinsCollected, this.coins.length);
     return 1 - protaganist.coinsCollected / this.coins.length;
-
-    // @NOTE: The code below also has how far the player reached in the level
-    //         as part of the fitness calculation. I don't know how I feel
-    //         about it, though. For now, I am going with just coins.
-    // const won: number = Number(this.state() == GAME_STATE_WON); // apparent 1 + true is slow in js, idk why
-    // const protaganist: Protaganist = this.dynamicEntities[0] as Protaganist;
-    // const col = won ? this.numColumns : protaganist.maxColumn;
-
-    // return (
-    //   (protaganist.coinsCollected + col + won) /
-    //   (this.numCoins + this.numColumns + 1)
-    // );
   }
 
   raycastUp(start: Point): GameObject | null {

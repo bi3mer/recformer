@@ -83,9 +83,6 @@ export function pointSquareDistance(p1: Point, p2: Point): number {
 }
 
 export function pointEuclideanDistance(p1: Point, p2: Point): number {
-  console.log(
-    `(${pointStr(p1)}) -> ${pointStr(p2)} = ${Math.sqrt(pointSquareDistance(p1, p2))}`,
-  );
   return Math.sqrt(pointSquareDistance(p1, p2));
 }
 
@@ -94,5 +91,5 @@ export function pointAngle(p1: Point, p2: Point): number {
 }
 
 export function pointStr(p: Point): string {
-  return `${p.x},${p.y}`;
+  return `${p.x.toFixed(3)},${p.y.toFixed(3)}`;
 }

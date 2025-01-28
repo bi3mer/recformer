@@ -4,31 +4,35 @@ const IS_BROWSER = typeof window !== "undefined";
 const sounds: HTMLAudioElement[] = [];
 
 export function audioLoad(callback: () => void): void {
-  sounds.push(new Audio("audio/coin_1.wav"));
-  sounds.push(new Audio("audio/coin_2.wav"));
-  sounds.push(new Audio("audio/coin_3.wav"));
-  sounds.push(new Audio("audio/coin_4.wav"));
-  sounds.push(new Audio("audio/coin_5.wav"));
-  sounds.push(new Audio("audio/laser.wav"));
+  if (IS_BROWSER) {
+    sounds.push(new Audio("audio/coin_1.wav"));
+    sounds.push(new Audio("audio/coin_2.wav"));
+    sounds.push(new Audio("audio/coin_3.wav"));
+    sounds.push(new Audio("audio/coin_4.wav"));
+    sounds.push(new Audio("audio/coin_5.wav"));
+    sounds.push(new Audio("audio/laser.wav"));
 
-  const waitForAudioToLoad = () => {
-    let audioLoaded = true;
-    for (let i = 0; i < sounds.length; ++i) {
-      if (!sounds[i].readyState) {
-        audioLoaded = false;
-        break;
+    const waitForAudioToLoad = () => {
+      let audioLoaded = true;
+      for (let i = 0; i < sounds.length; ++i) {
+        if (!sounds[i].readyState) {
+          audioLoaded = false;
+          break;
+        }
       }
-    }
 
-    if (audioLoaded) {
-      sounds[5].volume = 0.4;
-      callback();
-    } else {
-      setTimeout(waitForAudioToLoad, 100);
-    }
-  };
+      if (audioLoaded) {
+        sounds[5].volume = 0.4;
+        callback();
+      } else {
+        setTimeout(waitForAudioToLoad, 100);
+      }
+    };
 
-  waitForAudioToLoad();
+    waitForAudioToLoad();
+  } else {
+    callback();
+  }
 }
 
 export function audioCoin() {

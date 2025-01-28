@@ -1,15 +1,14 @@
-import { Camera } from "../core/camera";
+import { Point } from "../DataStructures/point";
 import { COLOR_WHITE } from "../colorPalette";
+import { Camera } from "../core/camera";
 import {
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
   BLOCK_SIZE,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_BLOCK } from "./gameObjectTypes";
 import { RectangleGameObject } from "../core/rectangleGameObject";
-import { Point } from "../DataStructures/point";
-import { GameModel } from "../gameModel";
+import { TYPE_BLOCK } from "./gameObjectTypes";
 
 export class Block extends RectangleGameObject {
   constructor(pos: Point) {
@@ -18,7 +17,7 @@ export class Block extends RectangleGameObject {
 
   clone(): Block {
     // blocks don't move so we don't need to clone the position
-    return new Block(this.pos);
+    throw new Error("Block.clone should not have been called!");
   }
 
   update(dt: number): void {}

@@ -14,7 +14,7 @@ export const ACTIONS: Action[] = [
   // new Action(false, false, false),
   new Action(true, false, false),
   // new Action(false, true, false),
-  // new Action(false, false, true),
+  new Action(false, false, true),
   // new Action(true, false, true),
   // new Action(false, true, true),
 ];

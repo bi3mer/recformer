@@ -1,13 +1,9 @@
 import { ACTIONS, Action, NUM_ACTIONS } from "./Agents/action";
-import {
-  Point,
-  pointEuclideanDistance,
-  pointStr,
-} from "./DataStructures/point";
+import { pointEuclideanDistance, pointStr } from "./DataStructures/point";
 import { PriorityQueue } from "./DataStructures/priorityQueue";
 import { GameModel } from "./gameModel";
 
-export const ASTAR_FRAME_TIME = 0.032;
+export const ASTAR_FRAME_TIME = 0.064;
 
 class Node {
   depth: number;
@@ -45,7 +41,9 @@ function astarSearch(
   // Start search for target
   while (nodes.length() > 0) {
     const curNode = nodes.pop();
-    console.log(`depth: ${curNode.depth}, #actions: ${nodes.length()}`);
+    console.log(
+      `depth: ${curNode.depth}, pos: ${pointStr(curNode.model.protaganist().pos)}, ${pointStr(curNode.model.protaganist().velocity)} #actions: ${nodes.length()}`,
+    );
 
     const newDepth = curNode.depth + 1;
     for (actionIndex = 0; actionIndex < NUM_ACTIONS; ++actionIndex) {
@@ -56,9 +54,10 @@ function astarSearch(
       nextState.update(ASTAR_FRAME_TIME);
 
       // check if we have reached the target
-      console.log(nextState.coins[target].dead);
+      // console.log(pointStr(nextState.protaganist().pos));
       if (nextState.coins[target].dead) {
-        node = curNode;
+        console.log("found coin!");
+        node = new Node(newDepth, nextState, A, curNode);
         nodes.queue.length = 0;
         break;
       }
@@ -79,6 +78,7 @@ function astarSearch(
 
       // and then make a new node and insert it into the priority queue
       const newNode = new Node(newDepth, nextState, A, curNode);
+      nodes.insert(newDepth, newNode);
       nodes.insert(
         newDepth +
           pointEuclideanDistance(
@@ -112,15 +112,14 @@ function astarSearch(
 
 export function astar(model: GameModel): Action[] {
   let curModel = model.clone();
-  const actions: Action[] = [];
+  let actions: Action[] = [];
   let i = 0;
   const size = model.coins.length;
   for (; i < size; ++i) {
-    if (curModel.coins[i].dead) {
-      continue;
-    }
-
-    const [nextModel, nextActions] = astarSearch(curModel, i);
+    // the next coin will always be at index 0 because it is removed when it
+    // dies ans the clone method for game model updates the coins array
+    // accordingly
+    const [nextModel, nextActions] = astarSearch(curModel, 0);
 
     if (nextModel === undefined) {
       console.error(
@@ -130,11 +129,10 @@ export function astar(model: GameModel): Action[] {
     }
 
     curModel = nextModel;
-    const actionsSize = nextActions.length;
-    for (let jj = 0; jj < actionsSize; ++jj) {
-      actions.push(nextActions[jj]);
-    }
+    actions = nextActions.concat(actions);
   }
+
+  console.log("end position:", curModel.protaganist().pos);
 
   return actions;
 }
