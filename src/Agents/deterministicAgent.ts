@@ -24,8 +24,8 @@ export class DeterministicAgent extends Agent {
       this.jumping = a.jump;
     } else {
       console.error("Ran out of actions :/");
-      this.movingLeft = true;
-      this.jumping = true;
+      // this.movingLeft = true;
+      // this.jumping = true;
     }
   }
 }

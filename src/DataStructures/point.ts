@@ -91,5 +91,5 @@ export function pointAngle(p1: Point, p2: Point): number {
 }
 
 export function pointStr(p: Point): string {
-  return `${p.x.toFixed(3)},${p.y.toFixed(3)}`;
+  return `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
 }

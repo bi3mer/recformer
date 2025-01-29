@@ -123,7 +123,12 @@ export class GameModel {
 
     // clone dynamic entities
     for (; i < dLength; ++i) {
-      const de = this.dynamicEntities[i].clone();
+      const currentEntity = this.dynamicEntities[i];
+      if (currentEntity.dead) {
+        continue;
+      }
+
+      const de = currentEntity.clone();
       de.game = clone;
       clone.dynamicEntities.push(de);
 
@@ -133,7 +138,7 @@ export class GameModel {
     }
 
     // order coins
-    this.coins.sort((a, b) => {
+    clone.coins.sort((a, b) => {
       return a.pos.x - b.pos.x;
     });
 
@@ -151,14 +156,17 @@ export class GameModel {
   //        static entities could be different.
   // @NOTE: Not currently a hash, it's a string
   hash(): string {
-    let state = "";
-    const size = this.dynamicEntities.length;
-    for (let i = 0; i < size; ++i) {
-      state += pointStr(this.dynamicEntities[i].pos);
-    }
+    // let state = "";
+    // const size = this.dynamicEntities.length;
+    // for (let i = 0; i < size; ++i) {
+    //   state += pointStr(this.dynamicEntities[i].pos);
+    // }
 
-    return state;
-    // return sha256(state);
+    return (
+      pointStr(this.dynamicEntities[0].pos) +
+      "," +
+      pointStr(this.dynamicEntities[0].velocity)
+    );
   }
 
   // @NOTE: This method is pretty bad in the sense that I am using an 0(n^2)

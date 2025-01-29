@@ -42,10 +42,8 @@ export class Coin extends RectangleGameObject {
   }
 
   static defaultConstructor(pos: Point): Coin {
-    const yMod = Math.random() * 0.5;
     pos.x += 0.25;
-    pos.y -= 0.25;
-    return new Coin(pos, Math.random() * 0.5, pos.y + 0.3, pos.y + 0.15, yMod);
+    return new Coin(pos, 0.1, pos.y + 0.3, pos.y + 0.15, 0.1);
   }
 
   clone(): GameObject {

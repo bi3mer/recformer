@@ -4,8 +4,10 @@ import { PriorityQueue } from "./DataStructures/priorityQueue";
 import { GameModel } from "./gameModel";
 
 export const ASTAR_FRAME_TIME = 0.064;
-// export const ASTAR_FRAME_TIME = 0.04166;
+// export const ASTAR_FRAME_TIME = 0.0498;
 // export const ASTAR_FRAME_TIME = 0.0333;
+// export const ASTAR_FRAME_TIME = 0.0166;
+export const ASTAR_UPDATES_PER_FRAME = 3;
 
 class Node {
   depth: number;
@@ -53,7 +55,7 @@ function astarSearch(
       const A = ACTIONS[actionIndex];
       const nextState = curNode.model.clone();
       nextState.protaganist().agent.set(A);
-      nextState.update(ASTAR_FRAME_TIME);
+      nextState.update(ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME);
 
       // check if we have reached the target
       // console.log(pointStr(nextState.protaganist().pos));
@@ -133,7 +135,11 @@ export function astar(model: GameModel): Action[] {
     actions = nextActions.concat(actions);
   }
 
-  console.log("end position:", curModel.protaganist().pos);
+  console.log(`End Position: ${pointStr(curModel.protaganist().pos)}`);
+  console.log(`End Velocity: ${pointStr(curModel.protaganist().velocity)}`);
+  console.log(`state:   ${curModel.state()}`);
+  console.log(`fitness: ${curModel.protaganist().coinsCollected}`);
+  console.log("Search was succesful!");
 
   return actions;
 }
