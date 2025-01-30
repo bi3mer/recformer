@@ -1,3 +1,5 @@
+import { Point } from "../DataStructures/point";
+
 export class Action {
   moveRight: boolean;
   moveLeft: boolean;

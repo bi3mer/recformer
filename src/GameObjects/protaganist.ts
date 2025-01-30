@@ -26,7 +26,6 @@ import {
 } from "./gameObjectTypes";
 
 const MOVE = 6;
-const MAX_MOVE_MOD = 8;
 const MAX_JUMP_TIME = 0.4;
 
 export class Protaganist extends RectangleGameObject {
@@ -93,6 +92,8 @@ export class Protaganist extends RectangleGameObject {
       return;
     }
 
+    this.movingLeft = false;
+    this.movingRight = false;
     this.velocity.x = 0;
 
     // Handle agent input
@@ -100,7 +101,7 @@ export class Protaganist extends RectangleGameObject {
     if (this.agent.movingRight) {
       this.movingRight = true;
       this.velocity.x = MOVE;
-      this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
+      this.moveMod = 4;
     }
 
     if (this.agent.movingLeft) {
@@ -110,7 +111,7 @@ export class Protaganist extends RectangleGameObject {
       } else {
         this.movingLeft = true;
         this.velocity.x = -MOVE;
-        this.moveMod = Math.min(MAX_MOVE_MOD, this.moveMod + dt);
+        this.moveMod = 4;
       }
     }
 
@@ -151,7 +152,7 @@ export class Protaganist extends RectangleGameObject {
         // less than 55 and more than 40.
         const theta = Math.abs(Math.atan(d.y / d.x));
         const isCorner = theta < 0.96 && theta > 0.698; // radians, comment above is in degrees
-
+        // const isCorner = theta < 1.03 && theta > 0.6; // radians, comment above is in degrees
         if (
           !isCorner &&
           Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)
@@ -215,8 +216,6 @@ export class Protaganist extends RectangleGameObject {
       region.closePath();
 
       ctx.fill(region, "evenodd");
-
-      this.movingRight = false;
     } else if (this.movingLeft) {
       let region = new Path2D();
       region.moveTo(x, y);
@@ -226,7 +225,6 @@ export class Protaganist extends RectangleGameObject {
       region.closePath();
 
       ctx.fill(region, "evenodd");
-      this.movingLeft = false;
     } else {
       ctx.fillRect(x, y, W, H);
     }

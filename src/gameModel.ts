@@ -1,11 +1,5 @@
-import { AGENT_A_STAR, AGENT_EMPTY, typeToAgent } from "./Agents/agentType";
-import { DeterministicAgent } from "./Agents/deterministicAgent";
-import {
-  Point,
-  pointClone,
-  pointEquals,
-  pointStr,
-} from "./DataStructures/point";
+import { AGENT_EMPTY, typeToAgent } from "./Agents/agentType";
+import { Point, pointClone, pointEquals } from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
@@ -15,7 +9,6 @@ import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
 import { LaserBlock } from "./GameObjects/laserBlock";
 import { Protaganist } from "./GameObjects/protaganist";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
-import { astar } from "./aStar";
 import { Camera } from "./core/camera";
 import {
   GAME_STATE_LOST,
@@ -103,16 +96,10 @@ export class GameModel {
       this.dynamicEntities[i].game = this;
     }
 
-    // if the agent is an A* agent, it needs to solve the gameA
-    if (agentType === AGENT_A_STAR) {
-      // order of coins is relevant for A* agent
-      this.coins.sort((a, b) => {
-        return a.pos.x - b.pos.x;
-      });
-
-      const path = astar(this);
-      this.protaganist().agent = new DeterministicAgent(path);
-    }
+    // order of coins is relevant for A* agent
+    this.coins.sort((a, b) => {
+      return a.pos.x - b.pos.x;
+    });
   }
 
   // @NOTE: The static entities don't need to be updated, so they aren't cloned
@@ -155,18 +142,9 @@ export class GameModel {
   //        check if a whole state was the same, though, this would not work because the
   //        static entities could be different.
   // @NOTE: Not currently a hash, it's a string
-  hash(): string {
-    // let state = "";
-    // const size = this.dynamicEntities.length;
-    // for (let i = 0; i < size; ++i) {
-    //   state += pointStr(this.dynamicEntities[i].pos);
-    // }
-
-    return (
-      pointStr(this.dynamicEntities[0].pos) +
-      "," +
-      pointStr(this.dynamicEntities[0].velocity)
-    );
+  hash(): number {
+    const pos = this.dynamicEntities[0].pos;
+    return Math.round(pos.x * 100) + Math.round(pos.y * 100) * 1000000;
   }
 
   // @NOTE: This method is pretty bad in the sense that I am using an 0(n^2)

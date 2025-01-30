@@ -1,6 +1,7 @@
-import { AGENT_RANDOM, AGENT_A_STAR } from "../Agents/agentType";
+import { Action } from "../Agents/action";
+import { AGENT_RANDOM, AGENT_A_STAR, AGENT_EMPTY } from "../Agents/agentType";
 import { idToLevel } from "../LevelGeneration/levels";
-import { ASTAR_FRAME_TIME } from "../aStar";
+import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME, astar } from "../aStar";
 import {
   COLOR_BACKGROUND,
   COLOR_LIGHT_BLUE,
@@ -15,16 +16,21 @@ import {
 } from "../core/constants";
 import { InputManager, Key } from "../core/inputManager";
 import { Scene } from "../core/scene";
-import { randomKey } from "../core/util";
+import { randomInt, randomKey } from "../core/util";
 import { GameModel } from "../gameModel";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
+
+const DT = ASTAR_FRAME_TIME / ASTAR_UPDATES_PER_FRAME;
 
 export class MainMenuScene extends Scene {
   ctx: CanvasRenderingContext2D;
   transitionScene: TransitionScene;
   camera: Camera;
   game: GameModel;
+  actions: Action[] = [];
+  actionIndex: number;
+  frame: number;
 
   constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
     super();
@@ -37,8 +43,13 @@ export class MainMenuScene extends Scene {
   onEnter(): void {
     const temp = randomKey(idToLevel);
     console.log(idToLevel[temp]);
-    // this.game = new GameModel(idToLevel[temp], AGENT_A_STAR);
-    this.game = new GameModel(idToLevel[randomKey(idToLevel)], AGENT_RANDOM);
+    // this.game = new GameModel(idToLevel[temp], AGENT_RANDOM);
+    const easyLevelIDs = ["1-a", "1-b", "2-a", "3-b", "4-a", "4-b", "6-a"];
+    const levelID = easyLevelIDs[randomInt(0, easyLevelIDs.length - 1)];
+    this.game = new GameModel(idToLevel[levelID], AGENT_EMPTY);
+    this.actions = astar(this.game)!;
+    this.actionIndex = 0;
+    this.frame = 0;
   }
 
   update(dt: number): void {
@@ -50,8 +61,13 @@ export class MainMenuScene extends Scene {
       this.transitionScene.targetScene = KEY_GAME;
       this.changeScene = KEY_TRANSITION;
     }
-
-    this.game.update(dt);
+    if (this.frame >= ASTAR_UPDATES_PER_FRAME) {
+      this.frame = 0;
+      ++this.actionIndex;
+    }
+    ++this.frame;
+    this.game.protaganist().agent.set(this.actions[this.actionIndex]);
+    this.game.update(DT);
   }
 
   // Rendering only needs to be done once, so no need to use this function

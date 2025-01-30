@@ -70,7 +70,6 @@ window.addEventListener("load", () => {
 
       // run scene
       currentScene.update(clamp(dt, 0.01, 0.2));
-      ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
       currentScene.render();
 
       // check if the scene has to be changed
