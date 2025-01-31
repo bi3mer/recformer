@@ -11,11 +11,11 @@ import {
 } from "../core/constants";
 import { InputManager, Key } from "../core/inputManager";
 import { Scene } from "../core/scene";
-import { randomInt, randomKey, randomValue } from "../core/util";
+import { randomKey } from "../core/util";
 import { GameModel } from "../gameModel";
+import { replays } from "../replays";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
-import { replays } from "../replays";
 
 const DT = ASTAR_FRAME_TIME / ASTAR_UPDATES_PER_FRAME;
 
@@ -27,6 +27,8 @@ export class MainMenuScene extends Scene {
   actions: Action[] = [];
   actionIndex: number;
   frame: number;
+  time: number;
+  previousKey: string = "";
 
   constructor(ctx: CanvasRenderingContext2D, transitionScene: TransitionScene) {
     super();
@@ -37,15 +39,19 @@ export class MainMenuScene extends Scene {
   }
 
   onEnter(): void {
-    const temp = randomKey(idToLevel);
-    console.log(idToLevel[temp]);
-    // this.game = new GameModel(idToLevel[temp], AGENT_RANDOM);
-    const easyLevelIDs = ["1-a", "1-b", "2-a", "3-b", "4-a", "4-b", "6-a"];
-    const levelID = randomKey(replays);
+    // get level that wasn't just shown to the player
+    let levelID = randomKey(replays);
+    while (levelID == this.previousKey) {
+      levelID = randomKey(replays);
+    }
+    this.previousKey = levelID;
+
+    // set up replay
     this.actions = replays[levelID];
     this.game = new GameModel(idToLevel[levelID], AGENT_EMPTY);
     this.actionIndex = 0;
     this.frame = 0;
+    this.time = 0;
   }
 
   update(dt: number): void {
@@ -57,13 +63,19 @@ export class MainMenuScene extends Scene {
       this.transitionScene.targetScene = KEY_GAME;
       this.changeScene = KEY_TRANSITION;
     }
-    if (this.frame >= ASTAR_UPDATES_PER_FRAME) {
-      this.frame = 0;
-      ++this.actionIndex;
+
+    this.time += dt;
+    if (this.time >= 0.0166666) {
+      this.time = this.time - 0.016666;
+
+      if (this.frame >= ASTAR_UPDATES_PER_FRAME) {
+        this.frame = 0;
+        ++this.actionIndex;
+      }
+      ++this.frame;
+      this.game.protaganist().agent.set(this.actions[this.actionIndex]);
+      this.game.update(DT);
     }
-    ++this.frame;
-    this.game.protaganist().agent.set(this.actions[this.actionIndex]);
-    this.game.update(DT);
   }
 
   // Rendering only needs to be done once, so no need to use this function

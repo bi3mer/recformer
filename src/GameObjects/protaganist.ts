@@ -124,12 +124,12 @@ export class Protaganist extends RectangleGameObject {
 
       this.velocity.y = Math.max(-20, this.velocity.y);
 
-      this.squash = Math.min(1.03, this.squash + 0.01);
-      this.stretch = Math.max(0.97, this.stretch - 0.01);
+      this.squash = Math.min(1.03, this.squash + dt);
+      this.stretch = Math.max(0.97, this.stretch - dt);
       this.jumpTime += dt;
     } else if (this.squash != this.stretch) {
-      this.squash += 0.01;
-      this.stretch -= 0.01;
+      this.squash = Math.min(1.03, this.squash + dt);
+      this.stretch = Math.max(0.97, this.stretch - dt);
     }
 
     this.maxColumn = Math.max(this.pos.x, this.maxColumn);
