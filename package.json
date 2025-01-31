@@ -6,8 +6,7 @@
   "scripts": {
     "build": "bun build src/index.ts --outfile dist/index.js",
     "watch": "bun build src/index.ts --outfile dist/index.js --watch",
-    "prod": "bun build src/index.ts --outfile dist/index.js --minify",
-    "testScript": "bun build test.ts --outfile dist/index.js --watch"
+    "prod": "bun build src/index.ts --outfile dist/index.js --minify"
   },
   "author": "Colan F. Biemer",
   "devDependencies": {},

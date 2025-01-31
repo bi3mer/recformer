@@ -1,13 +1,8 @@
 import { Action } from "../Agents/action";
-import { AGENT_RANDOM, AGENT_A_STAR, AGENT_EMPTY } from "../Agents/agentType";
+import { AGENT_EMPTY } from "../Agents/agentType";
 import { idToLevel } from "../LevelGeneration/levels";
-import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME, astar } from "../aStar";
-import {
-  COLOR_BACKGROUND,
-  COLOR_LIGHT_BLUE,
-  COLOR_LIGHT_ORANGE,
-  COLOR_YELLOW,
-} from "../colorPalette";
+import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME } from "../aStar";
+import { COLOR_YELLOW } from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
   GAME_STATE_PLAYING,
@@ -16,10 +11,11 @@ import {
 } from "../core/constants";
 import { InputManager, Key } from "../core/inputManager";
 import { Scene } from "../core/scene";
-import { randomInt, randomKey } from "../core/util";
+import { randomInt, randomKey, randomValue } from "../core/util";
 import { GameModel } from "../gameModel";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
+import { replays } from "../replays";
 
 const DT = ASTAR_FRAME_TIME / ASTAR_UPDATES_PER_FRAME;
 
@@ -45,9 +41,9 @@ export class MainMenuScene extends Scene {
     console.log(idToLevel[temp]);
     // this.game = new GameModel(idToLevel[temp], AGENT_RANDOM);
     const easyLevelIDs = ["1-a", "1-b", "2-a", "3-b", "4-a", "4-b", "6-a"];
-    const levelID = easyLevelIDs[randomInt(0, easyLevelIDs.length - 1)];
+    const levelID = randomKey(replays);
+    this.actions = replays[levelID];
     this.game = new GameModel(idToLevel[levelID], AGENT_EMPTY);
-    this.actions = astar(this.game)!;
     this.actionIndex = 0;
     this.frame = 0;
   }

@@ -3,7 +3,7 @@ import { pointSquareDistance, pointStr } from "./DataStructures/point";
 import { PriorityQueue } from "./DataStructures/priorityQueue";
 import { GameModel } from "./gameModel";
 
-export const ASTAR_UPDATES_PER_FRAME = 2;
+export const ASTAR_UPDATES_PER_FRAME = 3;
 export const ASTAR_FRAME_TIME = 0.01666 * ASTAR_UPDATES_PER_FRAME;
 
 class Node {
@@ -51,17 +51,17 @@ function astarSearch(
       nextState.protaganist().agent.set(A);
       nextState.update(ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME);
 
+      // Skip if the player died
+      if (nextState.protaganist().dead) {
+        continue;
+      }
+
       // Check if we have reached the target
       if (nextState.coins[target].dead) {
         console.log("found coin!");
         endNode = new Node(newDepth, nextState, A, curNode);
         nodes.queue.length = 0;
         break;
-      }
-
-      // Skip if the player died
-      if (nextState.protaganist().dead) {
-        continue;
       }
 
       // Check if we have seen this state before

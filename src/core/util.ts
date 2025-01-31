@@ -79,3 +79,7 @@ export function randomKey(d: { [key: string]: any }): any {
   const keys = Object.keys(d);
   return keys[Math.floor(Math.random() * keys.length)];
 }
+
+export function randomValue(a: any[]): any {
+  return a[Math.floor(Math.random() * a.length)];
+}
