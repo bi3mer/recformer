@@ -1,5 +1,10 @@
 import { AGENT_EMPTY, typeToAgent } from "./Agents/agentType";
-import { Point, pointClone, pointEquals } from "./DataStructures/point";
+import {
+  Point,
+  pointClone,
+  pointEquals,
+  pointSquareDistance,
+} from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
 import { Turret } from "./GameObjects/Turret";
 import { Block } from "./GameObjects/block";
@@ -97,8 +102,12 @@ export class GameModel {
     }
 
     // order of coins is relevant for A* agent
+    const playerPosition = this.dynamicEntities[0].pos;
     this.coins.sort((a, b) => {
-      return a.pos.x - b.pos.x;
+      return (
+        pointSquareDistance(playerPosition, a.pos) -
+        pointSquareDistance(playerPosition, b.pos)
+      );
     });
   }
 
@@ -125,9 +134,16 @@ export class GameModel {
     }
 
     // order coins
+    const playerPosition = clone.dynamicEntities[0].pos;
     clone.coins.sort((a, b) => {
-      return a.pos.x - b.pos.x;
+      return (
+        pointSquareDistance(playerPosition, a.pos) -
+        pointSquareDistance(playerPosition, b.pos)
+      );
     });
+    // clone.coins.sort((a, b) => {
+    //   return a.pos.x - b.pos.x;
+    // });
 
     // static entities never change, so we don't need to clone them
     clone.staticEntities = this.staticEntities;
