@@ -1,7 +1,7 @@
 import { Action } from "../Agents/action";
 import { AGENT_EMPTY } from "../Agents/agentType";
 import { idToLevel } from "../LevelGeneration/levels";
-import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME } from "../aStar";
+import { REPLAY_FRAME_TIME, REPLAY_UPDATES_PER_FRAME } from "../replays";
 import { COLOR_YELLOW } from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
@@ -17,7 +17,7 @@ import { replays } from "../replays";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
 
-const DT = ASTAR_FRAME_TIME / ASTAR_UPDATES_PER_FRAME;
+const DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
 
 export class MainMenuScene extends Scene {
   ctx: CanvasRenderingContext2D;
@@ -68,7 +68,7 @@ export class MainMenuScene extends Scene {
     if (this.time >= 0.0166666) {
       this.time = this.time - 0.016666;
 
-      if (this.frame >= ASTAR_UPDATES_PER_FRAME) {
+      if (this.frame >= REPLAY_UPDATES_PER_FRAME) {
         this.frame = 0;
         ++this.actionIndex;
       }
