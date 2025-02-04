@@ -13,7 +13,6 @@ import {
   pointAddScalarInPlace,
   pointClone,
 } from "../DataStructures/point";
-import { GameModel } from "../gameModel";
 
 const OFF_SCREEN_POS_Y = 1000;
 const TIME_OFF_SCREEN = 2; // seconds
@@ -42,9 +41,8 @@ export class BlueBlock extends RectangleGameObject {
   }
 
   static defaultConstructor(pos: Point): BlueBlock {
-    const yMod = Math.random() * 0.5;
     pointAddScalarInPlace(pos, 0.25);
-    return new BlueBlock(pos, yMod, pos.y + 0.15, pos.y + 0.3, yMod, 0);
+    return new BlueBlock(pos, 0.25, pos.y + 0.15, pos.y + 0.3, 0.25, 0);
   }
 
   clone(): GameObject {
