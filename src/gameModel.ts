@@ -1,8 +1,10 @@
 import { AGENT_EMPTY, typeToAgent } from "./Agents/agentType";
 import {
   Point,
+  pointAdd,
   pointClone,
   pointEquals,
+  pointFloor,
   pointSquareDistance,
 } from "./DataStructures/point";
 import { CircleEnemy } from "./GameObjects/CircleEnemy";
@@ -14,17 +16,25 @@ import { HorizontalEnemy } from "./GameObjects/horizontalEnemy";
 import { LaserBlock } from "./GameObjects/laserBlock";
 import { Protaganist } from "./GameObjects/protaganist";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
+import { COLOR_WHITE } from "./colorPalette";
 import { Camera } from "./core/camera";
+import { CircleGameObject } from "./core/circleGameObject";
 import {
+  BLOCK_SCREEN_HEIGHT,
+  BLOCK_SCREEN_WIDTH,
+  BLOCK_SIZE,
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
   GAME_STATE_WON,
   NUM_ROWS,
 } from "./core/constants";
 import { GameObject } from "./core/gameObject";
+import { RectangleGameObject } from "./core/rectangleGameObject";
 
 export class GameModel {
-  staticEntities: GameObject[] = [];
+  // staticEntities: GameObject[] = [];
+  staticEntitiesRenderLocations: Point[] = [];
+  staticEntities: boolean[][];
   dynamicEntities: GameObject[] = [];
   coins: Coin[] = [];
 
@@ -48,7 +58,18 @@ export class GameModel {
     ); // player is always the first entity
 
     const columns = level[0].length;
-    for (let r = 0; r < rows; ++r) {
+
+    // initialize static entity grid
+    let r, c;
+    this.staticEntities = [];
+    for (r = 0; r < rows; ++r) {
+      const a = new Array(columns);
+      a.fill(false);
+      this.staticEntities.push(a);
+    }
+
+    // initialize all entities from level string
+    for (r = 0; r < rows; ++r) {
       const row = level[r];
       if (columns !== row.length) {
         console.error(
@@ -57,46 +78,42 @@ export class GameModel {
         return;
       }
 
-      for (let col = 0; col < columns; ++col) {
-        const tile = row[col];
+      for (c = 0; c < columns; ++c) {
+        const tile = row[c];
         if (tile === "X") {
-          this.staticEntities.push(new Block(new Point(col, r)));
+          this.staticEntities[r][c] = true;
+          this.staticEntitiesRenderLocations.push(new Point(c, r));
         } else if (tile === "^") {
-          this.dynamicEntities.push(new LaserBlock(new Point(col, r)));
+          this.dynamicEntities.push(new LaserBlock(new Point(c, r)));
         } else if (tile === "T") {
-          this.dynamicEntities.push(new Turret(new Point(col, r)));
+          this.dynamicEntities.push(new Turret(new Point(c, r)));
         } else if (tile === "o") {
-          const c = Coin.defaultConstructor(new Point(col, r));
-          this.dynamicEntities.push(c);
-          this.coins.push(c);
+          const coin = Coin.defaultConstructor(new Point(c, r));
+          this.dynamicEntities.push(coin);
+          this.coins.push(coin);
         } else if (tile == "b") {
           this.dynamicEntities.push(
-            BlueBlock.defaultConstructor(new Point(col, r)),
+            BlueBlock.defaultConstructor(new Point(c, r)),
           );
         } else if (tile === "H") {
           this.dynamicEntities.push(
-            HorizontalEnemy.defaultConstructor(new Point(col, r), columns),
+            HorizontalEnemy.defaultConstructor(new Point(c, r), columns),
           );
         } else if (tile === "V") {
           this.dynamicEntities.push(
-            VerticalEnemy.defaultConstructor(new Point(col, r)),
+            VerticalEnemy.defaultConstructor(new Point(c, r)),
           );
         } else if (tile === "C") {
           this.dynamicEntities.push(
-            CircleEnemy.defaultConstructor(new Point(col, r)),
+            CircleEnemy.defaultConstructor(new Point(c, r)),
           );
         } else if (tile !== "-") {
-          console.error(`Unhandled tile type: ${row[col]}`);
+          console.error(`Unhandled tile type: ${row[c]}`);
         }
       }
     }
 
     // assign game variable for all the objects we just made
-    let i = 0;
-    for (; i < this.staticEntities.length; ++i) {
-      this.staticEntities[i].game = this;
-    }
-
     for (let i = 0; i < this.dynamicEntities.length; ++i) {
       this.dynamicEntities[i].game = this;
     }
@@ -141,9 +158,6 @@ export class GameModel {
         pointSquareDistance(playerPosition, b.pos)
       );
     });
-    // clone.coins.sort((a, b) => {
-    //   return a.pos.x - b.pos.x;
-    // });
 
     // static entities never change, so we don't need to clone them
     clone.staticEntities = this.staticEntities;
@@ -199,9 +213,34 @@ export class GameModel {
           e.collision(this.dynamicEntities[jj]);
         }
 
-        for (jj = 0; jj < staticSize; ++jj) {
-          e.collision(this.staticEntities[jj]);
+        // check for collision with static entities
+        if (e instanceof RectangleGameObject) {
+          const positions = [
+            e.pos,
+            pointAdd(e.pos, new Point(BLOCK_SIZE.x, 0)),
+            pointAdd(e.pos, new Point(0, BLOCK_SIZE.y)),
+            pointAdd(e.pos, BLOCK_SIZE),
+          ];
+
+          for (jj = 0; jj < 4; ++jj) {
+            const point = pointFloor(positions[jj]);
+            if (
+              point.y >= 0 &&
+              point.y < this.staticEntities.length &&
+              point.x >= 0 &&
+              point.x <= this.staticEntities[0].length &&
+              this.staticEntities[point.y][point.x]
+            ) {
+              e.collision(new Block(point));
+            }
+          }
         }
+
+        // @NOTE: Circle objects currently do not interact with static entities
+        //        so we won't waste cycles.
+        // else if (e instanceof CircleGameObject) {
+        // ...
+        // }
       }
     }
   }
@@ -210,13 +249,22 @@ export class GameModel {
     // Update camera view based on the player before rendering
     camera.update(this.dynamicEntities[0].pos.x);
 
-    // render static and dynamic entitites
-    let size = this.staticEntities.length;
+    // render static blocks
+    let size = this.staticEntitiesRenderLocations.length;
     let i = 0;
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = COLOR_WHITE;
     for (; i < size; ++i) {
-      this.staticEntities[i].render(ctx, camera);
+      const pos = this.staticEntitiesRenderLocations[i];
+      ctx.strokeRect(
+        camera.columnToScreen(pos.x),
+        camera.rowToScreen(pos.y),
+        BLOCK_SCREEN_WIDTH,
+        BLOCK_SCREEN_HEIGHT,
+      );
     }
 
+    // render dynamic entities
     size = this.dynamicEntities.length;
     for (i = 0; i < size; ++i) {
       this.dynamicEntities[i].render(ctx, camera);
@@ -245,15 +293,10 @@ export class GameModel {
   raycastUp(start: Point): GameObject | null {
     const p = pointClone(start);
     p.y -= 1;
-    const size = this.staticEntities.length;
-    let i: number;
 
     while (p.y >= 0) {
-      for (i = 0; i < size; ++i) {
-        const e = this.staticEntities[i];
-        if (pointEquals(p, e.pos)) {
-          return e;
-        }
+      if (this.staticEntities[p.y][p.x]) {
+        return new Block(p);
       }
 
       p.y -= 1;

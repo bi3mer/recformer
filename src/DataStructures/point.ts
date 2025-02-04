@@ -93,3 +93,12 @@ export function pointAngle(p1: Point, p2: Point): number {
 export function pointStr(p: Point): string {
   return `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
 }
+
+export function pointFloor(p: Point): Point {
+  return new Point(Math.floor(p.x), Math.floor(p.y));
+}
+
+export function pointFloorInPlace(p: Point): void {
+  p.x = Math.floor(p.x);
+  p.y = Math.floor(p.y);
+}
