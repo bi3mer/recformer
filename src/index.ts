@@ -11,7 +11,7 @@ import { GameScene } from "./Scenes/gameScene";
 import * as K from "./Scenes/sceneKeys";
 
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./core/constants";
-import { AGENT_PLAYER, AGENT_RANDOM, AGENT_A_STAR } from "./Agents/agentType";
+import { AGENT_PLAYER } from "./Agents/agentType";
 import { clamp } from "./core/util";
 
 window.addEventListener("load", () => {

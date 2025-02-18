@@ -10,5 +10,7 @@
   },
   "author": "Colan F. Biemer",
   "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "firebase": "^11.3.1"
+  }
 }
