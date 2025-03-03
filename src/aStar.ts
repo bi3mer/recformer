@@ -105,7 +105,6 @@ function astarSearch(
 
 export function astar(model: GameModel): Action[] | undefined {
   let curModel = model.clone();
-  let temp = model.clone();
   let actions: Action[] = [];
 
   const numCoins = model.coins.length;
@@ -129,6 +128,25 @@ export function astar(model: GameModel): Action[] | undefined {
   return actions;
 }
 
-export function completability(model: GameModel): number {
-  return 0;
+export function astarCompletabilitySearch(model: GameModel): number {
+  let curModel = model.clone();
+
+  const numCoins = model.coins.length;
+  while (curModel.protaganist().coinsCollected < numCoins) {
+    // the next coin will always be at index 0 because it is removed when it
+    // dies ans the clone method for game model updates the coins array
+    // accordingly
+    const [endState, stateActions] = astarSearch(curModel);
+
+    if (stateActions === undefined) {
+      console.error(
+        `Pathing failed for coin at (${pointStr(curModel.coins[0].pos)})`,
+      );
+      return curModel.protaganist().coinsCollected / numCoins;
+    }
+
+    curModel = endState;
+  }
+
+  return 1.0;
 }

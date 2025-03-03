@@ -1,8 +1,9 @@
 import { CONFIG } from "./config";
 import { MDP, idToLevel } from "../src/LevelGeneration/levels";
-import { AGENT_RANDOM } from "../src/Agents/agentType";
+import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
-import { GAME_STATE_PLAYING } from "../src/core/constants";
+import { astarCompletabilitySearch } from "../src/aStar";
+
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
 
@@ -41,13 +42,9 @@ const server = Bun.listen({
         }
 
         // run game
-        const game = new GameModel(lvl, AGENT_RANDOM);
-        while (game.state() == GAME_STATE_PLAYING) {
-          game.update(0.05);
-        }
-
+        const game = new GameModel(lvl, AGENT_EMPTY);
         const result = {
-          completability: game.fitness(),
+          completability: astarCompletabilitySearch(game),
           linearity: Math.random(),
           leniency: Math.random(),
         };

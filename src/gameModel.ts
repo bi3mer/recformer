@@ -3,7 +3,6 @@ import {
   Point,
   pointAdd,
   pointClone,
-  pointEquals,
   pointFloor,
   pointSquareDistance,
 } from "./DataStructures/point";
@@ -18,7 +17,6 @@ import { Protaganist } from "./GameObjects/protaganist";
 import { VerticalEnemy } from "./GameObjects/verticalEnemy";
 import { COLOR_WHITE } from "./colorPalette";
 import { Camera } from "./core/camera";
-import { CircleGameObject } from "./core/circleGameObject";
 import {
   BLOCK_SCREEN_HEIGHT,
   BLOCK_SCREEN_WIDTH,
@@ -32,7 +30,6 @@ import { GameObject } from "./core/gameObject";
 import { RectangleGameObject } from "./core/rectangleGameObject";
 
 export class GameModel {
-  // staticEntities: GameObject[] = [];
   staticEntitiesRenderLocations: Point[] = [];
   staticEntities: boolean[][];
   dynamicEntities: GameObject[] = [];
@@ -60,7 +57,7 @@ export class GameModel {
     const columns = level[0].length;
 
     // initialize static entity grid
-    let r, c;
+    let r: number, c: number;
     this.staticEntities = [];
     for (r = 0; r < rows; ++r) {
       const a = new Array(columns);
@@ -73,7 +70,7 @@ export class GameModel {
       const row = level[r];
       if (columns !== row.length) {
         console.error(
-          `Every row in the level should have the same number of columns! (${columns} !== ${row.length}).`,
+          `Every row in the level should have the same number of columns! (${columns} != ${row.length}).`,
         );
         return;
       }
@@ -108,7 +105,7 @@ export class GameModel {
             CircleEnemy.defaultConstructor(new Point(c, r)),
           );
         } else if (tile !== "-") {
-          console.error(`Unhandled tile type: ${row[c]}`);
+          console.error(`Unhandled tile type: ${tile}`);
         }
       }
     }
@@ -177,52 +174,46 @@ export class GameModel {
     return Math.round(pos.x * 100) + Math.round(pos.y * 100) * 1000000;
   }
 
-  // @NOTE: This method is pretty bad in the sense that I am using an 0(n^2)
-  //        collision detection approach. It could be much better, but...
-  //        well, I am lazy and the frame rate is unaffected. If I have time,
-  //        I'll come back to this. I may have to for the A* agent.
   update(dt: number, divisor: number = 1): void {
     dt = dt / divisor;
-    for (let j = 0; j < divisor; ++j) {
-      // Update and check for collisions
-      let dynamicSize = this.dynamicEntities.length;
-      const staticSize = this.staticEntities.length;
-      let jj: number;
-      let i = 0;
 
-      for (; i < dynamicSize; ++i) {
+    for (let subframe = 0; subframe < divisor; ++subframe) {
+      /////// Update loop
+      let deSize = this.dynamicEntities.length;
+      for (let i = 0; i < deSize; ++i) {
         const e = this.dynamicEntities[i];
-
         e.update(dt);
+        e.physicsUpdate(dt);
+      }
 
-        // Check if entity died
-        if (e.dead) {
-          if (i == 0) {
-            // the player died, we're done
+      /////// Collision detection
+      const sortedIndices = Array.from(this.dynamicEntities.keys()).sort(
+        (a, b) => this.dynamicEntities[a].leftX - this.dynamicEntities[b].leftX,
+      );
+
+      for (let i = 0; i < sortedIndices.length; ++i) {
+        // Sweep & prune collision detection for dynamic entities
+        const obj1 = this.dynamicEntities[sortedIndices[i]];
+        for (let jj = i + 1; jj < sortedIndices.length; ++jj) {
+          const obj2 = this.dynamicEntities[sortedIndices[jj]];
+
+          if (obj2.leftX > obj1.rightX) {
             break;
           }
 
-          this.dynamicEntities.splice(i, 1);
-          --i;
-          --dynamicSize;
+          obj1.collision(obj2);
         }
 
-        e.physicsUpdate(dt);
-
-        for (jj = i + 1; jj < dynamicSize; ++jj) {
-          e.collision(this.dynamicEntities[jj]);
-        }
-
-        // check for collision with static entities
-        if (e instanceof RectangleGameObject) {
+        // Grid collision detection for static entitites
+        if (obj1 instanceof RectangleGameObject) {
           const positions = [
-            e.pos,
-            pointAdd(e.pos, new Point(BLOCK_SIZE.x, 0)),
-            pointAdd(e.pos, new Point(0, BLOCK_SIZE.y)),
-            pointAdd(e.pos, BLOCK_SIZE),
+            obj1.pos,
+            pointAdd(obj1.pos, new Point(BLOCK_SIZE.x, 0)),
+            pointAdd(obj1.pos, new Point(0, BLOCK_SIZE.y)),
+            pointAdd(obj1.pos, BLOCK_SIZE),
           ];
 
-          for (jj = 0; jj < 4; ++jj) {
+          for (let jj = 0; jj < 4; ++jj) {
             const point = pointFloor(positions[jj]);
             if (
               point.y >= 0 &&
@@ -231,16 +222,27 @@ export class GameModel {
               point.x <= this.staticEntities[0].length &&
               this.staticEntities[point.y][point.x]
             ) {
-              e.collision(new Block(point));
+              obj1.collision(new Block(point));
             }
           }
         }
-
         // @NOTE: Circle objects currently do not interact with static entities
         //        so we won't waste cycles.
         // else if (e instanceof CircleGameObject) {
         // ...
         // }
+      }
+
+      /////// Clear dead game objects
+      for (let i = 0; i < deSize; ++i) {
+        if (this.dynamicEntities[i].dead) {
+          if (i == 0) {
+            return; // game over
+          }
+
+          this.dynamicEntities.splice(i, 1);
+          --deSize;
+        }
       }
     }
   }

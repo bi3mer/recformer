@@ -16,6 +16,10 @@ export abstract class GameObject {
   velocity: Point = new Point(0, 0);
   gravity: Point = new Point(0, 100);
 
+  // these are used for sweep and prune when checking for collisions
+  leftX: number;
+  rightX: number;
+
   constructor(position: Point, type: number) {
     this.pos = position;
     this.type = type;
@@ -27,10 +31,13 @@ export abstract class GameObject {
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
   abstract handleCollision(other: GameObject): void;
   abstract collision(other: GameObject): void;
+  abstract updateLeftRight(): void;
 
   physicsUpdate(dt: number): void {
     pointAddInPlace(this.velocity, pointMultiplyScalar(this.gravity, dt));
     this.velocity.y = Math.min(this.velocity.y, 30); // any faster and the player can fall through the map
     pointAddInPlace(this.pos, pointMultiplyScalar(this.velocity, dt));
+
+    this.updateLeftRight();
   }
 }

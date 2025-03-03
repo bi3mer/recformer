@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "bun build src/index.ts --outfile dist/index.js",
-    "watch": "bun build src/index.ts --outfile dist/index.js --watch",
-    "prod": "bun build src/index.ts --outfile dist/index.js --minify"
+    "watch": "bun --watch build src/index.ts --outfile dist/index.js",
+    "prod": "bun build src/index.ts --outfile dist/index.js --minify",
+    "server": "bun run server_src/socketServer.ts --bun --minify",
+    "replays": "bun run scripts/replayBuilder.ts --bun --minify"
   },
   "author": "Colan F. Biemer",
   "devDependencies": {},

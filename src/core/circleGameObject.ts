@@ -1,7 +1,6 @@
 import { Point } from "../DataStructures/point";
 import { Camera } from "../core/camera";
 import { rectangleIntersectCircle } from "../core/util";
-import { GameModel } from "../gameModel";
 import { GameObject } from "./gameObject";
 import { RectangleGameObject } from "./rectangleGameObject";
 
@@ -11,11 +10,19 @@ export abstract class CircleGameObject extends GameObject {
   constructor(pos: Point, radius: number, type: number) {
     super(pos, type);
     this.r = radius;
+
+    this.leftX = this.pos.x - radius;
+    this.rightX = this.pos.x + radius;
   }
 
   abstract update(dt: number): void;
   abstract render(ctx: CanvasRenderingContext2D, camera: Camera): void;
   abstract handleCollision(other: GameObject): void;
+
+  updateLeftRight(): void {
+    this.leftX = this.pos.x - this.r;
+    this.rightX = this.pos.x + this.r;
+  }
 
   collision(other: GameObject): void {
     if (other instanceof RectangleGameObject) {
