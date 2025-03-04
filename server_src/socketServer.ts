@@ -3,6 +3,7 @@ import { MDP, idToLevel } from "../src/LevelGeneration/levels";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
 import { astarCompletabilitySearch } from "../src/aStar";
+import { rowsToColumns, columnsToRows } from "./util";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -29,20 +30,19 @@ const server = Bun.listen({
         }
 
         socket.write(encoder.encode(JSON.stringify(L) + "EOF"));
+        console.log("Sent levels");
       } else if (request.substring(0, 6) === "assess") {
         // get level
-        let lvl = JSON.parse(request.substring(6, request.length));
+        const lvl = JSON.parse(request.substring(6, request.length));
 
         // update level with padding
-        lvl[0] = `XX${lvl[0]}XX`;
-        lvl[1] = `o-${lvl[1]}--`;
-        for (let rowIndex = 2; rowIndex < 15; ++rowIndex) {
-          // there can only be 15
-          lvl[rowIndex] = `--${lvl[rowIndex]}--`;
-        }
+        lvl.splice(0, 0, "X--------------");
+        lvl.splice(1, 0, "X--------------");
+        lvl.push("X--------------");
+        lvl.push("Xo-------------");
 
         // run game
-        const game = new GameModel(lvl, AGENT_EMPTY);
+        const game = new GameModel(columnsToRows(lvl), AGENT_EMPTY);
         const result = {
           completability: astarCompletabilitySearch(game),
           linearity: Math.random(),

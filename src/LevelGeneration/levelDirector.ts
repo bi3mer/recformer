@@ -79,7 +79,9 @@ export class LevelDirector {
     // the structure of this smaller graph, so we use the depth of the node.
     if (!playerWon) {
       ++this.lossesInARow;
-      for (let i = 0; i < this.lossesInARow; ++i) {
+
+      // Only start removing edges lost at least 2 times in a row
+      for (let i = 0; i < this.lossesInARow - 1; ++i) {
         const neighbors = MDP.getNode(KEY_START).neighbors;
         const neighborsCount = neighbors.length;
 

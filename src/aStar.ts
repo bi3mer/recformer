@@ -58,7 +58,6 @@ function astarSearch(
 
       // Check if we have reached the target
       if (nextState.coins[target].dead) {
-        console.log("found coin!");
         endNode = new Node(newDepth, nextState, A, curNode);
         nodes.queue.length = 0;
         break;
@@ -142,6 +141,7 @@ export function astarCompletabilitySearch(model: GameModel): number {
       console.error(
         `Pathing failed for coin at (${pointStr(curModel.coins[0].pos)})`,
       );
+
       return curModel.protaganist().coinsCollected / numCoins;
     }
 
