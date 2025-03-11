@@ -17,7 +17,7 @@ export class MDPLevelDirector implements ILevelDirector {
   constructor() {}
 
   playerBeatGame(): boolean {
-    throw new Error("Method not implemented.");
+    return this.playerIsOnLastLevel;
   }
 
   public update(playerWon: boolean, playerColumn: number): void {
