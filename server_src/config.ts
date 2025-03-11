@@ -1,8 +1,9 @@
 export const CONFIG = {
   "death-reward": -1,
+  "end-reward": 1,
   n: 3,
   "levels-are-horizontal": true,
-  "start-population-size": 40,
+  "start-population-size": 50,
   iterations: 10,
   "elites-per-bin": 4,
   "start-strand-size": 10,

@@ -4,8 +4,9 @@ import { choice } from "./GDM-TS/src/rand";
 import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
 import { MDP, idToLevel } from "./levels";
+import { ILevelDirector } from "./iLevelDirector";
 
-export class LevelDirector {
+export class MDPLevelDirector implements ILevelDirector {
   public playerIsOnLastLevel: boolean = false;
 
   private keys: string[];
@@ -14,6 +15,10 @@ export class LevelDirector {
   private playerWonLastRound: boolean = false;
 
   constructor() {}
+
+  playerBeatGame(): boolean {
+    throw new Error("Method not implemented.");
+  }
 
   public update(playerWon: boolean, playerColumn: number): void {
     // Map out how far the player made it in the level

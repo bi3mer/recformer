@@ -1,6 +1,8 @@
 import { Scene } from "../core/scene";
 import { Camera } from "../core/camera";
-import { LevelDirector } from "../LevelGeneration/levelDirector";
+import { ILevelDirector } from "../LevelGeneration/iLevelDirector";
+import { SingleLevelDirector } from "../LevelGeneration/singleLevelDirector";
+import { MDPLevelDirector } from "../LevelGeneration/mdpLevelDirector";
 import { TransitionScene } from "./transitionScene";
 import { GameModel } from "../gameModel";
 import {
@@ -25,7 +27,7 @@ export class GameScene extends Scene {
   private agentType: number;
   private game: GameModel;
   private camera: Camera;
-  private levelDirector: LevelDirector;
+  private levelDirector: ILevelDirector;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -38,7 +40,8 @@ export class GameScene extends Scene {
     this.agentType = agentType;
     this.transitionScene = transitionScene;
     this.camera = new Camera();
-    this.levelDirector = new LevelDirector();
+    this.levelDirector = new SingleLevelDirector();
+    // this.levelDirector = new MDPLevelDirector();
   }
 
   onEnter(): void {
@@ -60,7 +63,7 @@ export class GameScene extends Scene {
         break;
       }
       case GAME_STATE_WON: {
-        if (this.levelDirector.playerIsOnLastLevel) {
+        if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
         } else {
           this.transitionScene.targetScene = KEY_PLAYER_WON;
