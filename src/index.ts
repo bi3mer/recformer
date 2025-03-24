@@ -13,10 +13,12 @@ import * as K from "./Scenes/sceneKeys";
 import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./core/constants";
 import { AGENT_PLAYER } from "./Agents/agentType";
 import { clamp } from "./core/util";
+import { Logger } from "./logger";
 
 window.addEventListener("load", () => {
   audioLoad(() => {
     InputManager.init();
+    Logger.init();
 
     //////////////// Create 2d canvas
     const canvas = document.createElement("canvas");
