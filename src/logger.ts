@@ -1,3 +1,5 @@
+import { Point } from "./DataStructures/point";
+
 export class Logger {
   static playerID: string;
   static version: string;
@@ -26,6 +28,13 @@ export class Logger {
     Logger.pathY = [];
     Logger.velX = [];
     Logger.velY = [];
+  }
+
+  static pushPlayerPositionAndVelocity(position: Point, velocity: Point): void {
+    this.pathX.push(position.x);
+    this.pathY.push(position.y);
+    this.velX.push(velocity.x);
+    this.velY.push(velocity.y);
   }
 
   static getLog(): { [key: string]: any } {

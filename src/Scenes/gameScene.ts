@@ -19,6 +19,8 @@ import {
   KEY_PLAYER_WON,
   KEY_TRANSITION,
 } from "./sceneKeys";
+import { RepeatingTimer } from "../core/repeatingTimer";
+import { Logger } from "../logger";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -28,6 +30,7 @@ export class GameScene extends Scene {
   private game: GameModel;
   private camera: Camera;
   private levelDirector: ILevelDirector;
+  private timer: RepeatingTimer;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -47,10 +50,15 @@ export class GameScene extends Scene {
   onEnter(): void {
     const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
     this.game = new GameModel(lvl, this.agentType);
+    this.timer = new RepeatingTimer(0.1 * 1000, () => {
+      const player = this.game.dynamicEntities[0];
+      Logger.pushPlayerPositionAndVelocity(player.pos, player.velocity);
+    });
   }
 
   update(dt: number): void {
     this.game.update(dt);
+    this.timer.update();
 
     // Change scenes if necessary
     const state = this.game.state();
