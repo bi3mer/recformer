@@ -71,6 +71,8 @@ export class GameScene extends Scene {
         break;
       }
       case GAME_STATE_WON: {
+        Logger.result = "won";
+
         if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
         } else {

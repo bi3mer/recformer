@@ -16,7 +16,13 @@ import {
 import { GameObject } from "../core/gameObject";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { boolToSign } from "../core/util";
-import { TYPE_BLOCK, TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { Logger } from "../logger";
+import {
+  TYPE_BLOCK,
+  TYPE_BULLET,
+  TYPE_ENEMY,
+  TYPE_PLAYER,
+} from "./gameObjectTypes";
 
 export class HorizontalEnemy extends RectangleGameObject {
   private maxColumns: number;
@@ -67,6 +73,8 @@ export class HorizontalEnemy extends RectangleGameObject {
       }
     } else if (other.type === TYPE_BULLET) {
       this.dead = true;
+    } else if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - horizontal enemy";
     }
   }
 

@@ -11,7 +11,8 @@ import {
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { RectangleGameObject } from "../core/rectangleGameObject";
-import { TYPE_ENEMY } from "./gameObjectTypes";
+import { Logger } from "../logger";
+import { TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
 
 export class Laser extends RectangleGameObject {
   private time: number;
@@ -40,7 +41,9 @@ export class Laser extends RectangleGameObject {
   }
 
   handleCollision(other: GameObject): void {
-    // nothing to do
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - laser";
+    }
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {

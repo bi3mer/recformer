@@ -16,6 +16,7 @@ import {
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
 import { RectangleGameObject } from "../core/rectangleGameObject";
+import { Logger } from "../logger";
 import {
   TYPE_BLOCK,
   TYPE_BULLET,
@@ -88,6 +89,7 @@ export class Protaganist extends RectangleGameObject {
   update(dt: number): void {
     // check if the player has died from falling through the map
     if (this.pos.y > DEATH_HEIGHT) {
+      Logger.result = "lost - fell";
       this.dead = true;
       return;
     }

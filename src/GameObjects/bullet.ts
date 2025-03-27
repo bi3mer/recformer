@@ -1,6 +1,6 @@
 import { Camera } from "../core/camera";
 import { GameObject } from "../core/gameObject";
-import { TYPE_BULLET } from "./gameObjectTypes";
+import { TYPE_BULLET, TYPE_PLAYER } from "./gameObjectTypes";
 import {
   Point,
   pointClone,
@@ -16,6 +16,7 @@ import {
 } from "../core/constants";
 import { RectangleGameObject } from "../core/rectangleGameObject";
 import { COLOR_ORANGE } from "../colorPalette";
+import { Logger } from "../logger";
 
 export class Bullet extends RectangleGameObject {
   constructor(pos: Point, velocity: Point) {
@@ -39,6 +40,9 @@ export class Bullet extends RectangleGameObject {
   update(dt: number): void {}
 
   handleCollision(other: GameObject): void {
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - bullet";
+    }
     this.dead = true;
   }
 

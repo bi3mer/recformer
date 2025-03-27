@@ -8,8 +8,9 @@ import {
   TWO_PI,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
-import { TYPE_BULLET, TYPE_ENEMY } from "./gameObjectTypes";
+import { TYPE_BULLET, TYPE_ENEMY, TYPE_PLAYER } from "./gameObjectTypes";
 import { Point, pointClone } from "../DataStructures/point";
+import { Logger } from "../logger";
 
 export class CircleEnemy extends CircleGameObject {
   angle: number;
@@ -43,7 +44,11 @@ export class CircleEnemy extends CircleGameObject {
   }
 
   handleCollision(other: GameObject): void {
-    this.dead = other.type === TYPE_BULLET;
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - circle enemy";
+    } else {
+      this.dead = other.type === TYPE_BULLET;
+    }
   }
 
   render(ctx: CanvasRenderingContext2D, camera: Camera): void {

@@ -34,16 +34,18 @@ export class Logger {
     console.log(Logger.playerID);
 
     Logger.version = "0.0.0";
-    Logger.condition = "CONDITION NOT ASSIGNED";
     Logger.result = "RESULT NOT ASSIGNED";
     Logger.coinsCollected = 0;
     Logger.timePlayed = 0;
-    Logger.levels = [];
     Logger.order = 0;
     Logger.pathX = [];
     Logger.pathY = [];
     Logger.velX = [];
     Logger.velY = [];
+
+    // @TODO: not used in upcoming study
+    // Logger.condition = "CONDITION NOT ASSIGNED";
+    // Logger.levels = [];
   }
 
   static pushPlayerPositionAndVelocity(position: Point, velocity: Point): void {
