@@ -5,13 +5,13 @@ export class RepeatingTimer {
     private runTime: number,
     private callback: () => void,
   ) {
-    this.startTime = performance.now();
+    this.startTime = 0;
   }
 
-  public update() {
-    const curTime = performance.now();
-    if (this.runTime <= curTime - this.startTime) {
-      this.startTime = curTime;
+  public update(dt: number) {
+    this.startTime += dt;
+    if (this.runTime <= this.startTime) {
+      this.startTime = 0;
       this.callback();
     }
   }

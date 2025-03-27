@@ -15,8 +15,24 @@ export class Logger {
   static velY: number[];
 
   static init() {
-    // Logger.playerID = crypto.randomUUID();
-    Logger.playerID = "dev";
+    // set player id
+    if (
+      location.hostname === "localhost" ||
+      location.hostname === "127.0.0.1" ||
+      location.hostname === ""
+    ) {
+      Logger.playerID = "local-dev";
+    } else {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("id")) {
+        Logger.playerID = crypto.randomUUID();
+      } else {
+        Logger.playerID = "browser-dev";
+      }
+    }
+
+    console.log(Logger.playerID);
+
     Logger.version = "0.0.0";
     Logger.condition = "CONDITION NOT ASSIGNED";
     Logger.result = "RESULT NOT ASSIGNED";

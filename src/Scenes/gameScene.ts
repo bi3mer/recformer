@@ -50,7 +50,7 @@ export class GameScene extends Scene {
   onEnter(): void {
     const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
     this.game = new GameModel(lvl, this.agentType);
-    this.timer = new RepeatingTimer(0.1 * 1000, () => {
+    this.timer = new RepeatingTimer(0.1, () => {
       const player = this.game.dynamicEntities[0];
       Logger.pushPlayerPositionAndVelocity(player.pos, player.velocity);
     });
@@ -58,7 +58,7 @@ export class GameScene extends Scene {
 
   update(dt: number): void {
     this.game.update(dt);
-    this.timer.update();
+    this.timer.update(dt);
 
     // Change scenes if necessary
     const state = this.game.state();
