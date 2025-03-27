@@ -21,6 +21,7 @@ import {
 } from "./sceneKeys";
 import { RepeatingTimer } from "../core/repeatingTimer";
 import { Logger } from "../logger";
+import { Protaganist } from "../GameObjects/protaganist";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -69,6 +70,9 @@ export class GameScene extends Scene {
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
+        ++Logger.order;
+
+        console.log(Logger.order);
 
         this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
@@ -78,6 +82,7 @@ export class GameScene extends Scene {
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
+        ++Logger.order;
 
         Logger.result = "won";
 
