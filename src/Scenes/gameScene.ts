@@ -32,6 +32,7 @@ export class GameScene extends Scene {
   private camera: Camera;
   private levelDirector: ILevelDirector;
   private timer: RepeatingTimer;
+  private timePlayed: number;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -55,6 +56,7 @@ export class GameScene extends Scene {
       const player = this.game.dynamicEntities[0];
       Logger.pushPlayerPositionAndVelocity(player.pos, player.velocity);
     });
+    this.timePlayed = 0;
 
     Logger.coinsInLevel = this.game.coins.length;
   }
@@ -62,6 +64,7 @@ export class GameScene extends Scene {
   update(dt: number): void {
     this.game.update(dt);
     this.timer.update(dt);
+    this.timePlayed += dt;
 
     // Change scenes if necessary
     const state = this.game.state();
@@ -69,24 +72,27 @@ export class GameScene extends Scene {
       case GAME_STATE_PLAYING:
         break;
       case GAME_STATE_LOST: {
+        Logger.timePlayed = this.timePlayed;
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
         ++Logger.order;
 
-        console.log(Logger.order);
+        console.log(Logger.timePlayed);
 
         this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
         break;
       }
       case GAME_STATE_WON: {
+        Logger.result = "won";
+        Logger.timePlayed = this.timePlayed;
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
         ++Logger.order;
 
-        Logger.result = "won";
+        console.log(Logger.timePlayed);
 
         if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
