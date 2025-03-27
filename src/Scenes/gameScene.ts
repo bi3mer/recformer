@@ -78,8 +78,6 @@ export class GameScene extends Scene {
         ).coinsCollected;
         ++Logger.order;
 
-        console.log(Logger.timePlayed);
-
         this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
         break;
@@ -91,8 +89,6 @@ export class GameScene extends Scene {
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
         ++Logger.order;
-
-        console.log(Logger.timePlayed);
 
         if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
