@@ -6,6 +6,7 @@ export class Logger {
   static condition: string;
   static result: string;
   static coinsCollected: number;
+  static coinsInLevel: number;
   static timePlayed: number;
   static levels: string[];
   static order: number;
@@ -37,7 +38,7 @@ export class Logger {
     Logger.result = "RESULT NOT ASSIGNED";
     Logger.coinsCollected = 0;
     Logger.timePlayed = 0;
-    Logger.order = 0;
+    Logger.order = -1;
     Logger.pathX = [];
     Logger.pathY = [];
     Logger.velX = [];
@@ -62,6 +63,7 @@ export class Logger {
       condition: Logger.condition,
       result: Logger.result,
       coinsCollected: Logger.coinsCollected,
+      coinsInLevel: Logger.coinsInLevel,
       timePlayed: Logger.timePlayed,
       levels: Logger.levels,
       order: Logger.order,

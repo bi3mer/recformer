@@ -55,6 +55,8 @@ export class GameScene extends Scene {
       const player = this.game.dynamicEntities[0];
       Logger.pushPlayerPositionAndVelocity(player.pos, player.velocity);
     });
+
+    Logger.coinsInLevel = this.game.coins.length;
   }
 
   update(dt: number): void {
