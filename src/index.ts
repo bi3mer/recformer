@@ -71,7 +71,7 @@ window.addEventListener("load", () => {
       previousTimeStamp = timeStamp;
 
       // run scene
-      currentScene.update(clamp(dt, 0.01, 0.2));
+      currentScene.update(dt);
       currentScene.render();
 
       // check if the scene has to be changed

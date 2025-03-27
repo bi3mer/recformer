@@ -153,8 +153,8 @@ export class Protaganist extends RectangleGameObject {
         // degrees between the two rectangles, that is a corner. I have it as
         // less than 55 and more than 40.
         const theta = Math.abs(Math.atan(d.y / d.x));
-        const isCorner = theta < 0.96 && theta > 0.698; // radians, comment above is in degrees
-        // const isCorner = theta < 1.03 && theta > 0.6; // radians, comment above is in degrees
+        // const isCorner = theta < 0.96 && theta > 0.698; // radians, comment above is in degrees
+        const isCorner = theta < 1.03 && theta > 0.6; // radians, comment above is in degrees
         if (
           !isCorner &&
           Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)
@@ -194,7 +194,9 @@ export class Protaganist extends RectangleGameObject {
         break;
       }
       default: {
-        console.warn(`Player unhandled collision type: ${other.type}.`);
+        console.warn(
+          `Protaganist has an unhandled collision type: ${other.type}.`,
+        );
         break;
       }
     }

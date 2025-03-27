@@ -62,7 +62,7 @@ export class GameScene extends Scene {
   }
 
   update(dt: number): void {
-    this.game.update(dt);
+    this.game.update(dt, 2);
     this.timer.update(dt);
     this.timePlayed += dt;
 
