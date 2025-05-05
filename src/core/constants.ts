@@ -1,6 +1,6 @@
 import { Point } from "../DataStructures/point";
 
-export const IS_STUDY = false;
+export const IS_STUDY = true;
 
 export const SCREEN_WIDTH = 720;
 export const SCREEN_HEIGHT = 480;

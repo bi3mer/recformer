@@ -14,6 +14,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT, IS_STUDY } from "./core/constants";
 import { AGENT_PLAYER } from "./Agents/agentType";
 import { Logger } from "./logger";
 import { Server } from "./server";
+import { SurveyScene } from "./Scenes/surveyScene";
 
 window.addEventListener("load", () => {
   audioLoad(() => {
@@ -22,7 +23,8 @@ window.addEventListener("load", () => {
       InputManager.init();
       Logger.init();
 
-      //////////////// Create 2d canvas
+      /////////////////////////////////////////////////////////////////////////
+      // Create 2d canvas
       const canvas = document.createElement("canvas");
       canvas.setAttribute("id", "canvas");
       canvas.width = SCREEN_WIDTH;
@@ -31,7 +33,8 @@ window.addEventListener("load", () => {
 
       document.getElementById("game")!.appendChild(canvas);
 
-      //////////////// Set up Scenes
+      /////////////////////////////////////////////////////////////////////////
+      // Set up Scenes
       const sceneManager = new SceneManager();
 
       const transitionScene = new TransitionScene(ctx);
@@ -62,16 +65,20 @@ window.addEventListener("load", () => {
         new PlayerLostLevelScene(ctx, transitionScene),
       );
 
-      //////////////// Set up time limit
-      let timeLeft = 60 * 5 - 45; // 5 minutes
+      /////////////////////////////////////////////////////////////////////////
+      // Set up time limit
+      let timeLeft = 60 * 5; // 5 minutes
+      timeLeft = 1;
       const timeField = document.getElementById("time")!;
 
       if (!IS_STUDY) {
         timeField.style.display = "none";
       }
 
-      //////////////// Set current scene and start the game
+      /////////////////////////////////////////////////////////////////////////
+      // Set current scene and start the game
       let currentScene = sceneManager.getScene(K.KEY_MAIN_MENU)!;
+      currentScene = sceneManager.getScene(K.KEY_PLAYER_BEAT_THE_GAME)!;
       currentScene.onEnter();
 
       let previousTimeStamp = 0;
@@ -92,6 +99,7 @@ window.addEventListener("load", () => {
             currentScene.onExit();
             currentScene = sceneManager.getScene(K.KEY_PLAYER_BEAT_THE_GAME)!;
             currentScene.onEnter();
+            return; // end game loop
           }
         }
 

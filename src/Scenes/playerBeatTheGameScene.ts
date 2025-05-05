@@ -1,27 +1,40 @@
 import { COLOR_WHITE } from "../colorPalette";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "../core/constants";
+import { IS_STUDY, SCREEN_HEIGHT, SCREEN_WIDTH } from "../core/constants";
 import { Scene } from "../core/scene";
+import { setUpSurvey } from "../survey";
+import { KEY_SURVEY } from "./sceneKeys";
 
 export class PlayerBeatTheGameScene extends Scene {
-  private ctx: CanvasRenderingContext2D;
+  private timer: number = 0;
 
-  constructor(ctx: CanvasRenderingContext2D) {
+  constructor(private ctx: CanvasRenderingContext2D) {
     super();
-    this.ctx = ctx;
   }
 
   onEnter(): void {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     this.ctx.font = "30px Arial";
     this.ctx.fillStyle = COLOR_WHITE;
-    this.ctx.fillText("You won! Congratulations!", 170, SCREEN_HEIGHT / 2);
 
     document.getElementById("time")!.style.display = "none";
-    document.getElementById("instructions")!.style.display = "none";
-    document.getElementById("studyOver")!.style.display = "inline";
+
+    if (IS_STUDY) {
+      this.ctx.fillText("Thank you for playing!", 240, SCREEN_HEIGHT / 2);
+      document.getElementById("instructions")!.innerHTML = `
+        <h3>
+  Please continue to to the survey. After you complete the survey, your code will be available:
+  <br/>
+  <br/>
+  <a style="color:yellow" href="https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e">https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e</a>
+  </h3>
+  `;
+    } else {
+      this.ctx.fillText("You won! Congratulations!", 170, SCREEN_HEIGHT / 2);
+    }
   }
 
   update(dt: number): void {}
+
   render(): void {}
   protected _onExit(): void {}
 }
