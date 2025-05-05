@@ -1,8 +1,7 @@
 import { COLOR_WHITE } from "../colorPalette";
 import { IS_STUDY, SCREEN_HEIGHT, SCREEN_WIDTH } from "../core/constants";
 import { Scene } from "../core/scene";
-import { setUpSurvey } from "../survey";
-import { KEY_SURVEY } from "./sceneKeys";
+import { Logger } from "../logger";
 
 export class PlayerBeatTheGameScene extends Scene {
   private timer: number = 0;
@@ -20,12 +19,13 @@ export class PlayerBeatTheGameScene extends Scene {
 
     if (IS_STUDY) {
       this.ctx.fillText("Thank you for playing!", 240, SCREEN_HEIGHT / 2);
+      const url = `https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e?userid=${Logger.playerID}`;
       document.getElementById("instructions")!.innerHTML = `
         <h3>
   Please continue to to the survey. After you complete the survey, your code will be available:
   <br/>
   <br/>
-  <a style="color:yellow" href="https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e">https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e</a>
+  <a style="color:yellow" href="${url}">${url}</a>
   </h3>
   `;
     } else {

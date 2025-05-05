@@ -1,1 +1,4126 @@
-class h{x;y;constructor(s,f){this.x=s,this.y=f}}function m(s){return new h(s.x,s.y)}function F(s,f){return new h(s.x+f.x,s.y+f.y)}function He(s,f){s.x+=f.x,s.y+=f.y}function A(s,f){return new h(s.x-f.x,s.y-f.y)}function ze(s,f){s.x+=f,s.y+=f}function J(s,f){return new h(s.x*f,s.y*f)}function vs(s,f){s.x*=f,s.y*=f}function $s(s){return s.x*s.x+s.y*s.y}function Ls(s){return Math.sqrt(s.x*s.x+s.y*s.y)}function Fs(s){let f=Ls(s);s.x/=f,s.y/=f}function S(s,f){let l=s.x-f.x,t=s.y-f.y;return l*l+t*t}function Ge(s,f){return Math.atan2(f.y-s.y,f.x-s.x)}function zs(s){return new h(Math.floor(s.x),Math.floor(s.y))}function le(s,f){let l=Math.pow(10,f);return Math.round(s*l)/l}function Js(s,f){return Math.floor(Math.random()*(f-s+1)+s)}function Qe(s){return s*2-1}function Je(){return Math.random()<0.5}function Qs(s,f,l){return Math.min(Math.max(s,f),l)}function Xe(s,f,l,t){return $s(A(l,new h(Qs(l.x,s.x,s.x+f.x),Qs(l.y,s.y,s.y+f.y))))<t*t}function Xs(s,f,l,t){let{x:a,y:r}=s,u=a+f.x,n=r+f.y,i=l.x,x=l.y,X=i+t.x,N=x+t.y;return a<X&&u>i&&r<N&&n>x}function Ie(s){let f=Object.keys(s);return f[Math.floor(Math.random()*f.length)]}var ce=typeof window!=="undefined",U=[];function Us(s){if(ce){U.push(new Audio("audio/coin_1.wav")),U.push(new Audio("audio/coin_2.wav")),U.push(new Audio("audio/coin_3.wav")),U.push(new Audio("audio/coin_4.wav")),U.push(new Audio("audio/coin_5.wav")),U.push(new Audio("audio/laser.wav"));let f=()=>{let l=!0;for(let t=0;t<U.length;++t)if(!U[t].readyState){l=!1;break}if(l)U[5].volume=0.4,s();else setTimeout(f,100)};f()}else s()}function qs(){if(ce){let s=Js(0,4);U[s].currentTime=0.15,U[s].play()}}function Vs(){if(ce)U[5].currentTime=0,U[5].play()}var T;((d)=>{d[d.LEFT=0]="LEFT";d[d.RIGHT=1]="RIGHT";d[d.DOWN=2]="DOWN";d[d.UP=3]="UP";d[d.A=4]="A";d[d.D=5]="D";d[d.E=6]="E";d[d.G=7]="G";d[d.H=8]="H";d[d.I=9]="I";d[d.Q=10]="Q";d[d.R=11]="R";d[d.S=12]="S";d[d.W=13]="W";d[d.SPACE=14]="SPACE";d[d.ESCAPE=15]="ESCAPE";d[d.ENTER=16]="ENTER";d[d.SHIFT=17]="SHIFT";d[d.INVALID=18]="INVALID"})(T||={});class y{static _keys=[];static init(){for(let s=0;s<Object.keys(T).length;++s)y._keys.push(!1);window.addEventListener("keydown",y.onKeyDown),window.addEventListener("keyup",y.onKeyUp)}static isKeyDown(...s){let f=s.length;for(let l=0;l<f;++l)if(y._keys[s[l]])return!0;return!1}static keyStrToKey(s){switch(s){case"Down":case"ArrowDown":return 2;case"Up":case"ArrowUp":return 3;case"Right":case"ArrowRight":return 1;case"Left":case"ArrowLeft":return 0;case" ":case"Space":return 14;case"Escape":return 15;case"a":case"A":return 4;case"e":case"E":return 6;case"s":case"S":return 12;case"d":case"D":return 5;case"w":case"W":return 13;case"r":case"R":return 11;case"q":case"Q":return 10;case"g":case"G":return 7;case"h":case"H":return 8;case"i":case"I":return 9;case"Shift":return 17;case"Enter":return 16;default:return console.warn(`Unhandled key: ${s}.`),18}}static onKeyDown(s){let f=y.keyStrToKey(s.key);if(y._keys[f]=!0,f==2||f==3||f==0||f==1)s.preventDefault();return!1}static onKeyUp(s){return y._keys[y.keyStrToKey(s.key)]=!1,!1}static clear(){for(let s=0;s<y._keys.length;++s)y._keys[s]=!1}}class Te{scenes={};registerScene(s,f){if(this.scenes[s]===void 0)this.scenes[s]=f;else console.error(`Key "${s}" for scene already exists! Scene not added to SceneManager.`)}getScene(s){return this.scenes[s]}}var z="#fe546f";var q="#ffd080",K="#fffdff",ks="#0bffe6";var Zs="#9696ff";var D=!1,V=720,k=480,v=32,R=15,Bs=R+2,Ns=3,Ps=2*Math.PI,g=0,Ue=1,qe=2,De=20,ge=30,ef=De/v,sf=ge/v,Ws=new h(ef,sf),Z=31,G=31,I=Z/v,ff=G/v,Y=new h(I,ff),_=16,E=16,lf=_/v,tf=E/v,Ve=new h(lf,tf),te=25,ae=15,js=te/v,As=ae/v,Rs=new h(js,As),Ys=new h(As,js),_e=10,Cs=_e/v,Ee=2.5,Le=I/8,Os=Z/8,ke=0.6,Ss=2,Ks=2.5,Ms=150,Hs=10,Gs=10,Is=10,Ze=_/v,af=E/v,cs=new h(Ze,af),P="start",re="end",p="death",Be="error-condition";class W{changeScene;onExit(){this.changeScene=void 0,this._onExit()}}class es extends W{ctx;constructor(s){super();this.ctx=s}onEnter(){this.ctx.clearRect(0,0,V,k),this.ctx.font="30px Arial",this.ctx.fillStyle=K,this.ctx.fillText("You won! Congratulations!",170,k/2),document.getElementById("time").style.display="none",document.getElementById("instructions").style.display="none",document.getElementById("studyOver").style.display="inline"}update(s){}render(){}_onExit(){}}var ue="main menu",M="game",ne="player won",j="transition",Ne="lost",we="won";class ss extends W{ctx;transitionScene;constructor(s,f){super();this.ctx=s,this.transitionScene=f}onEnter(){y.clear(),this.ctx.fillStyle=q,this.ctx.font="48px Arial",this.ctx.fillText("YOU WON",250,200),this.ctx.font="30px Arial",this.ctx.fillText("Press 'space' to keep going.",180,400)}update(s){if(y.isKeyDown(14))this.transitionScene.targetScene=M,this.changeScene=j}render(){}_onExit(){}}class fs extends W{ctx;transitionScene;constructor(s,f){super();this.ctx=s,this.transitionScene=f}onEnter(){y.clear(),this.ctx.fillStyle=z,this.ctx.font="48px Arial",this.ctx.fillText("YOU LOST",243,200),this.ctx.font="30px Arial",this.ctx.fillText("Press 'space' to try again.",195,400)}update(s){if(y.isKeyDown(14))this.transitionScene.targetScene=M,this.changeScene=j}render(){}_onExit(){}}class ls{changeScene;onExit(){this.changeScene=void 0,this._onExit()}}class ts extends ls{targetScene=ue;timer=0;ctx;constructor(s){super();this.ctx=s}onEnter(){}update(s){if(this.timer+=s,this.timer>0.5)this.changeScene=this.targetScene}render(){let s=this.timer/0.5;this.ctx.fillStyle=`rgba(0,0,0, ${s})`,this.ctx.fillRect(0,0,V,k)}_onExit(){this.timer=0}}class c{movingRight=!1;movingLeft=!1;jumping=!1;set(s){this.movingRight=s.moveRight,this.movingLeft=s.moveLeft,this.jumping=s.jump}}class as extends c{time=0;name(){return"random"}update(s){if(this.time+=s,this.time>0.2)this.time=0,this.movingRight=Je(),this.movingLeft=Je(),this.jumping=Je()}}class Pe extends c{name(){return"player"}update(s){this.movingRight=y.isKeyDown(5,1),this.movingLeft=y.isKeyDown(4,0),this.jumping=y.isKeyDown(14,3,13)}}class rs extends c{name(){return"empty"}update(s){}}var uf=0,us=1,ie=2;function Ts(s,f){switch(s){case uf:return new as;case us:return new Pe;case ie:return new rs;default:return console.error(`Unhandled agent type: ${s}. Defaulted to player agent.`),new Pe}}class ns{src;tgt;probability;constructor(s,f,l){this.src=s,this.tgt=f,this.probability=l}}class oe{name;reward;utility;isTerminal;neighbors;constructor(s,f,l,t,a){this.name=s,this.reward=f,this.utility=l,this.isTerminal=t,this.neighbors=a}}class We{nodes;edges;constructor(){this.nodes={},this.edges={}}getNode(s){return this.nodes[s]}hasNode(s){return s in this.nodes}addNode(s){this.nodes[s.name]=s}addDefaultNode(s,f=1,l=0,t=!1,a=null){if(a==null)a=[];this.nodes[s]=new oe(s,f,l,t,a)}removeNode(s){let f=[];for(let l of Object.values(this.edges)){if(l.src==s||l.tgt==s)f.push(l);let t=l.probability,a=-1;for(let i=0;i<t.length;i++){let[x,X]=t[i];if(x==s){a=i;break}}if(a==-1)continue;let r=t[a][1];t.splice(a,1);let u=t.length,n=r/u;l.probability=t.map(([i,x])=>[i,x+n])}for(let l of f)this.removeEdge(l.src,l.tgt);delete this.nodes[s]}getEdge(s,f){return this.edges[`${s},${f}`]}hasEdge(s,f){return`${s},${f}`in this.edges}addEdge(s){this.edges[`${s.src},${s.tgt}`]=s;let f=this.nodes[s.src].neighbors;if(!f.includes(s.tgt))f.push(s.tgt)}addDefaultEdge(s,f,l=null){if(l==null)l=[[f,1]];this.addEdge(new ns(s,f,l))}removeEdge(s,f){let l=this.nodes[s],t=l.neighbors.indexOf(f);l.neighbors.splice(t,1),delete this.edges[`${s},${f}`]}neighbors(s){return this.nodes[s].neighbors}setNodeUtilities(s){for(let[f,l]of Object.entries(s))this.nodes[f].utility=l}utility(s){return this.nodes[s].utility}reward(s){return this.nodes[s].reward}isTerminal(s){return this.nodes[s].isTerminal}mapNodes(s){for(let f of Object.values(this.nodes))s(f)}mapEdges(s){for(let f of Object.values(this.edges))s(f)}}function H(s){return s[Math.floor(Math.random()*s.length)]}function L(s,f,l,t){let a=s.getEdge(f,l).probability,r=a.length,u=0;for(let n=0;n<r;++n){let[i,x]=a[n];u+=x*(s.reward(i)+t*s.utility(i))}return u}function je(s,f,l){let t=s.getNode(f);if(t.isTerminal)return 0;let a=t.neighbors,r=a.length,u=-1/0;for(let n=0;n<r;++n)u=Math.max(u,L(s,f,a[n],l));return u}function ws(s){for(let f in s.nodes)s.nodes[f].utility=0}function is(s){let f={};for(let l in s.nodes)if(!s.getNode(l).isTerminal)f[l]=[...s.neighbors(l)];return f}function os(s,f){let l={};for(let t in s.nodes){if(s.getNode(t).isTerminal)continue;let a=-1/0,r=[];for(let u of s.neighbors(t)){let n=L(s,t,u,f);if(n===a)r.push(u);else if(n>a)a=n,r.length=0,r.push(u)}l[t]=r}return l}function nf(s,f,l,t){for(let a=0;a<t;++a)for(let r in s.nodes){let u=s.getNode(r);if(!u.isTerminal)u.utility=L(s,r,H(f[r]),l)}}function wf(s,f,l,t){for(let a=0;a<t;++a){let r={};for(let u in s.nodes)if(!s.getNode(u).isTerminal)r[u]=L(s,u,H(f[u]),l);s.setNodeUtilities(r)}}function of(s,f,l,t){for(let a=0;a<t;++a)for(let r in s.nodes)s.getNode(r).utility=je(s,r,l)}function hf(s,f,l,t){for(let a=0;a<t;++a){let r={};for(let u in s.nodes)r[u]=je(s,u,l);s.setNodeUtilities(r)}}function Ds(s,f,l){let t=!1;for(let a in s.nodes){if(s.getNode(a).isTerminal)continue;let r=null,u=-1/0;for(let n of s.neighbors(a)){let i=L(s,a,n,l);if(i===u);else if(i>u)r=n,u=i}if(H(f[a])!==r)f[a].length=0,f[a].push(r),t=!0}return t}function hs(s,f,l=!1,t=!1,a=10,r=!0){if(r)ws(s);let u=is(s),n;if(l&&t)n=nf;else if(l&&!t)n=wf;else if(!l&&t)n=of;else n=hf;let i=!0;while(i)n(s,u,f,a),i=Ds(s,u,f);return n(s,u,f,a),Ds(s,u,f),os(s,f)}class $ extends oe{visitedCount;sumPercentCompleted;depth;designerReward;playerReward;constructor(s,f,l,t,a,r){super(s,f,l,t,a);this.designerReward=f,this.playerReward=0,this.depth=r,this.visitedCount=1,this.sumPercentCompleted=1}updateReward(){this.reward=this.designerReward*this.visitedCount}}var o=new We;o.addNode(new $(P,0,0,!1,[],-1));o.addNode(new $(p,-1,0,!0,[],-1));o.addNode(new $(re,1,0,!0,[],-1));o.addNode(new $("1-a",-0.95,0,!1,[],1));o.addNode(new $("2-a",-0.925,0,!1,[],2));o.addNode(new $("2-b",-0.925,0,!1,[],2));o.addNode(new $("3-a",-0.9,0,!1,[],3));o.addNode(new $("3-b",-0.9,0,!1,[],3));o.addNode(new $("4-a",-0.825,0,!1,[],4));o.addNode(new $("4-b",-0.825,0,!1,[],4));o.addNode(new $("5-a",-0.8,0,!1,[],5));o.addNode(new $("5-b",-0.8,0,!1,[],5));o.addNode(new $("5-c",-0.8,0,!1,[],5));o.addNode(new $("6-a",-0.775,0,!1,[],6));o.addNode(new $("7-a",-0.75,0,!1,[],7));o.addNode(new $("6-b",-0.775,0,!1,[],6));o.addNode(new $("1-b",-0.95,0,!1,[],1));o.addDefaultEdge(P,"1-a",[["1-a",0.99],[p,0.01]]);o.addDefaultEdge("1-a","2-b",[["2-b",0.99],[p,0.01]]);o.addDefaultEdge("1-a","2-a",[["2-a",0.99],[p,0.01]]);o.addDefaultEdge("2-a","3-a",[["3-a",0.99],[p,0.01]]);o.addDefaultEdge("2-b","3-b",[["3-b",0.99],[p,0.01]]);o.addDefaultEdge("3-a","4-b",[["4-b",0.99],[p,0.01]]);o.addDefaultEdge("3-a","4-a",[["4-a",0.99],[p,0.01]]);o.addDefaultEdge("3-b","4-b",[["4-b",0.99],[p,0.01]]);o.addDefaultEdge("3-b","4-a",[["4-a",0.99],[p,0.01]]);o.addDefaultEdge("4-a","5-b",[["5-b",0.99],[p,0.01]]);o.addDefaultEdge("4-a","5-a",[["5-a",0.99],[p,0.01]]);o.addDefaultEdge("4-a","5-c",[["5-c",0.99],[p,0.01]]);o.addDefaultEdge("4-b","5-b",[["5-b",0.99],[p,0.01]]);o.addDefaultEdge("4-b","5-a",[["5-a",0.99],[p,0.01]]);o.addDefaultEdge("4-b","5-c",[["5-c",0.99],[p,0.01]]);o.addDefaultEdge("5-a","6-a",[["6-a",0.99],[p,0.01]]);o.addDefaultEdge("5-a","6-b",[["6-b",0.99],[p,0.01]]);o.addDefaultEdge("5-b","6-a",[["6-a",0.99],[p,0.01]]);o.addDefaultEdge("5-b","6-b",[["6-b",0.99],[p,0.01]]);o.addDefaultEdge("5-c","6-a",[["6-a",0.99],[p,0.01]]);o.addDefaultEdge("5-c","6-b",[["6-b",0.99],[p,0.01]]);o.addDefaultEdge("6-a","7-a",[["7-a",0.99],[p,0.01]]);o.addDefaultEdge("7-a","end",[["end",0.99],[p,0.01]]);o.addDefaultEdge("6-b","7-a",[["7-a",0.99],[p,0.01]]);o.addDefaultEdge(P,"1-b",[["1-b",0.99],[p,0.01]]);o.addDefaultEdge("1-b","2-b",[["2-b",0.99],[p,0.01]]);o.addDefaultEdge("1-b","2-a",[["2-a",0.99],[p,0.01]]);var Ae={"1-a":["------------XXX-","-------------T--","----------------","----------------","----------------","----------------","----------------","----------------","-----X-C-----X--","--------------b-","-----------o----","--------o-XX----","------o-XXXX----","------XXXXXX----","XXXXXXXXXXXX^XXX"],"2-a":["----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","-------XXXXXXXX-------","----------------------","-------V--o---V-----o-","----------------------","XXXXXXXXXXXXXXXXXXXXXX"],"2-b":["----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","-----------o----------","--------------------o-","-----X---H-----X------","XXXXXXXXXXXXXXXXXXXXXX"],"3-a":["----------------------","----------------------","----------------------","----------------------","-----------o----------","----------------------","---------XXXXX--------","-----------o----------","----------------------","-------X-H-----X------","---XX--XXXXXXXXX--XX--","----------------------","-------V---o---V----o-","----------------------","XXXXXXXXXXXXXXXXXXXXXX"],"3-b":["----------------------","----------------------","----------------------","----------------------","----------o-----------","----------------------","--------XXXXX---------","--------V---V---------","----------o-----------","----------------------","------XXXXXXXXX-------","----------------------","----------o---------o-","-----X---H-----X------","XXXXXXXXXXXXXXXXXXXXXX"],"4-a":["----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------XXX---","-----------------V----","-------X---XX-----V---","------XX------o-V---o-","-----XXX--------------","XXXXXXXX---XXXXXXXXXXX"],"4-b":["--------------------XX","--------------------XX","--------------------XX","--------------------XX","--------------------XX","-----------X-H---o--XX","-----------------o--XX","---------o----------XX","-----------XXXXXXX--XX","--------------------XX","-------X------------XX","------XXX-----------XX","-----XXXXX-----------o","----XXXXXXX-----------","XXXXXXXXXXXXXXXX--XXXX"],"5-a":["--------XXXXXXXXXXXXXX--------","-------------------ooX--------","---------------------X--------","---------------------X--------","------------------XXXX--------","------------------X-----------","-----------o--XXXXX-----------","------------------------------","---------XX-----------------o-","------------------------------","--------------XX---XXX----XXXX","------------------------------","----------XX------------------","------------------------------","XXXXXXXX----------------------"],"5-b":["------------------------------","-o----------------------------","------------------------------","XXX---------------------------","------------------------------","-----XXX----------------------","------------------------------","-----------XXX----------------","-o--------------------------o-","------XXX---------------------","XXX-----------------------XXXX","------------XXX-------XX------","------------------XX----------","------------------------------","XXXXXXXX---XXXXX--------------"],"5-c":["o-----------------------------","------------------------------","X---XX------------------------","------------------------------","------------------------------","XX----------------------------","--------XXXXX-----------------","--------Xoo-------------------","XXX-----Xoo----o------------o-","--------X---------------------","--------XXX---XX----XX----XXXX","XXXX--------------------------","------------------------------","------------------------------","XXXXXXXX----------------------"],"6-a":["----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","-------oo---XXXXXXXX----------","-o----------XXXXXXXX----------","------XXXX--XXXXXXXX----------","--------------o---------------","XXXX--------------------------","-------------XXXX-----------o-","---------------------XX-------","XXXXXXXX-----------------XXXXX"],"7-a":["-------------------V---------------","-----------------o---o-------------","------------X-H------------H--XXX--","-----V------XXXXXXXXXXXXXXXXXXXXX--","--------XX----o--------------------","-----------------------------------","-----------XXXXXX---Ho-------------","-----------------------------------","-------------V------XX--------H----","-----------------------------------","XX--------o------XXXXX----H--------","-----------------------------------","---X----H----H-X-----------------o-","---XXXXXXXXXXXXX-------------------","XXXX--------------------------XXXXX"],end:["----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----------------------","----oooooooooooooooooo","XXXXXXXXXXXXXXXXXXXXXX"],"6-b":["----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX----------","----------XXXXXXXXXX---o------","----------XXXXXXXXXX----------","-o--------XXXXXXXXXX----------","----------XXXXXXXXXX---X------","----------XXXXXXXXXX----------","XXX-------XXXXXXXXXXX---------","------XX-----oooo-----------o-","------------------------------","XXXX--------XXXXXX---XXX--XXXX"],"1-b":["---------XXX----","----------T-----","----------------","----------------","----------------","----------------","----------------","----X-----X-----","-------oo------C","----------------","-------XX-------","----o-XXXX-o----","-----XXXXXX-----","---XXXXXXXXXX---","XXXXXXXXXXXXXXXX"]};class e{moveRight;moveLeft;jump;constructor(s,f,l){this.moveRight=s,this.moveLeft=f,this.jump=l}}var df=[new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0)],Yl=df.length;var gs=0.049980000000000004,ds=3,Re={"1-a":[new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1)],"2-a":[new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1)],"2-b":[new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1)],"3-a":[new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1)],"3-b":[new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!0,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1)],"4-a":[new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1)],"4-b":[new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!0,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1)],"5-a":[new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!0,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1)],"5-b":[new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1)],"5-c":[new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!1,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1)],"6-a":[new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1)],"7-a":[new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!0,!0),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!1,!0,!1),new e(!1,!1,!0),new e(!1,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1)],end:[new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1)],"6-b":[new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!0,!1),new e(!1,!0,!0),new e(!1,!0,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!0),new e(!1,!0,!1),new e(!1,!0,!1),new e(!1,!0,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!1,!1,!0),new e(!0,!1,!1),new e(!1,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!1)],"1-b":[new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!0),new e(!0,!1,!0),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1),new e(!0,!1,!1)]};class he{startCol=0;offsetX=0;colsPerScreen=Math.ceil(V/v);update(s){let f=s-this.colsPerScreen/2;this.startCol=Math.max(0,Math.floor(f)),this.offsetX=-f*v+this.startCol*v}columnToScreen(s){return(s-this.startCol)*v+this.offsetX}rowToScreen(s){return s*v}}class de{game;pos;type;dead=!1;velocity=new h(0,0);gravity=new h(0,100);leftX;rightX;constructor(s,f){this.pos=s,this.type=f}physicsUpdate(s){He(this.velocity,J(this.gravity,s)),this.velocity.y=Math.min(this.velocity.y,30),He(this.pos,J(this.velocity,s)),this.updateLeftRight()}}class b extends de{size;constructor(s,f,l){super(s,l);this.size=f,this.leftX=this.pos.x,this.rightX=this.pos.x+f.x}updateLeftRight(){this.leftX=this.pos.x,this.rightX=this.pos.x+this.size.x}collision(s){if(s instanceof b){if(Xs(this.pos,this.size,s.pos,s.size))this.handleCollision(s),s.handleCollision(this)}else if(s instanceof xe){if(Xe(this.pos,this.size,s.pos,s.r))this.handleCollision(s),s.handleCollision(this)}}}class xe extends de{r;constructor(s,f,l){super(s,l);this.r=f,this.leftX=this.pos.x-f,this.rightX=this.pos.x+f}updateLeftRight(){this.leftX=this.pos.x-this.r,this.rightX=this.pos.x+this.r}collision(s){if(s instanceof b){if(Xe(s.pos,s.size,this.pos,this.r))this.handleCollision(s),s.handleCollision(this)}}}var Q=0,B=1,Ye=2,C=3,Ce=4,O=5;class w{static playerID;static version;static condition;static result;static coinsCollected;static coinsInLevel;static timePlayed;static levels;static order;static pathX;static pathY;static velX;static velY;static init(){if(location.hostname==="localhost"||location.hostname==="127.0.0.1"||location.hostname==="")w.playerID="local-dev";else if(new URLSearchParams(window.location.search).has("id"))w.playerID=crypto.randomUUID();else w.playerID="browser-dev";console.log(w.playerID),w.version="0.0.0",w.result="none",w.coinsCollected=0,w.timePlayed=0,w.order=0,w.pathX=[],w.pathY=[],w.velX=[],w.velY=[]}static pushPlayerPositionAndVelocity(s,f){this.pathX.push(le(s.x,4)),this.pathY.push(le(s.y,4)),this.velX.push(le(f.x,4)),this.velY.push(le(f.y,4))}static getLog(){return{id:w.playerID,version:w.version,condition:w.condition,result:w.result,coinsCollected:w.coinsCollected,coinsInLevel:w.coinsInLevel,timePlayed:w.timePlayed,order:w.order,pathX:w.pathX,pathY:w.pathY,velX:w.velX,velY:w.velY}}static resetLog(){++w.order,w.result="none",w.coinsCollected=0,w.coinsInLevel=0,w.timePlayed=0,w.pathX=[],w.pathY=[],w.velX=[],w.velY=[]}}class pe extends xe{angle;start;constructor(s,f,l,t){super(s,Cs,C);this.gravity.y=0,this.angle=f,this.start=l,this.velocity=t}static defaultConstructor(s){return new pe(s,0,m(s),new h(0,0))}clone(){return new pe(m(this.pos),this.angle,this.start,m(this.velocity))}update(s){this.angle+=s,this.velocity.x=2*Ee*Math.cos(this.angle),this.velocity.y=Ee*Math.sin(this.angle)}handleCollision(s){if(s.type===Q)w.result="lost - circle enemy";else this.dead=s.type===O}render(s,f){s.fillStyle=z,s.beginPath(),s.arc(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),_e,0,Ps),s.fill()}}class be extends b{constructor(s,f){super(s,cs,O);this.gravity.y=0,this.velocity=f}static defaultConstructor(s,f){let l=A(f,s);return Fs(l),vs(l,Hs),new be(s,l)}clone(){return new be(m(this.pos),m(this.velocity))}update(s){}handleCollision(s){if(s.type===Q)w.result="lost - bullet";this.dead=!0}render(s,f){s.fillStyle=z,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),Gs,Is)}}class Oe extends b{playerPos;color;time;state;constructor(s,f=0,l=0){super(s,Y,B);this.color=q,this.gravity.y=0,this.time=f,this.state=l}clone(){return new Oe(m(this.pos),this.time,this.state)}update(s){switch(this.state){case 0:{if(S(this.pos,this.game.protaganist().pos)<=Ms)this.color=z,this.state=1;break}case 1:{if(this.time+=s,this.time>=Ks)this.time=0,this.state=2;break}case 2:{this.state=0,this.color=q;let f=this.game.protaganist().pos,l=Ge(this.pos,f),t=Math.cos(l),a=Math.sin(l);this.game.dynamicEntities.push(be.defaultConstructor(new h(this.pos.x+(Ze+I)*t,this.pos.y+(Ze+I)*a),f));break}default:{console.error(`Should not be able to enter state ${this.state}`),this.state=0;break}}}handleCollision(s){}render(s,f){s.strokeStyle=this.color;let l=f.columnToScreen(this.pos.x),t=f.rowToScreen(this.pos.y),a=Z/2,r=2*a,u=new h(l+a,t);s.lineWidth=2,s.beginPath(),s.arc(u.x,u.y,a,0,Math.PI),s.stroke();let n=Ge(this.pos,this.game.protaganist().pos),i=Math.cos(n),x=Math.sin(n);s.lineWidth=4,s.beginPath(),s.moveTo(u.x+a*i,u.y+a*x),s.lineTo(u.x+r*i,u.y+r*x),s.stroke(),s.lineWidth=1}}class Se extends b{constructor(s){super(s,Y,B)}clone(){throw new Error("Block.clone should not have been called!")}update(s){}handleCollision(s){}render(s,f){s.lineWidth=1.3,s.strokeStyle=K,s.strokeRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),Z,G)}}var xf=1000,pf=2;class ye extends b{minY;maxY;yMod;timeGone;constructor(s,f,l,t,a,r){super(s,Ve,Ce);this.gravity.y=0,this.yMod=f,this.minY=l,this.maxY=t,this.velocity.y=a,this.timeGone=r}static defaultConstructor(s){return ze(s,0.25),new ye(s,0.25,s.y+0.15,s.y+0.3,0.25,0)}clone(){return new ye(m(this.pos),this.yMod,this.minY,this.maxY,this.velocity.y,this.timeGone)}update(s){if(this.pos.y>100){if(this.timeGone+=s,this.timeGone>=pf)this.pos.y=this.maxY,this.velocity.y=-this.yMod}else if(this.pos.y>=this.maxY)this.velocity.y=-this.yMod;else if(this.pos.y<=this.minY)this.velocity.y=this.yMod}handleCollision(s){if(s.type===Q)this.pos.y=xf,this.timeGone=0}render(s,f){s.fillStyle=ks,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),_,E)}}class ee extends b{minY;maxY;yMod;constructor(s,f,l,t,a,r=!1){super(s,Ve,Ye);this.gravity.y=0,this.yMod=f,this.maxY=l,this.minY=t,this.velocity.y=a,this.dead=r}static defaultConstructor(s){return s.x+=0.25,new ee(s,0.1,s.y+0.3,s.y+0.15,0.1)}clone(){return new ee(m(this.pos),this.yMod,this.maxY,this.minY,this.velocity.y,this.dead)}update(s){if(this.pos.y>=this.maxY)this.velocity.y=-this.yMod;else if(this.pos.y<=this.minY)this.velocity.y=this.yMod}handleCollision(s){if(s.type===Q)qs(),this.dead=!0}render(s,f){s.fillStyle=q,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),_,E)}}class me extends b{maxColumns;constructor(s,f,l){super(s,Rs,C);this.maxColumns=f,this.velocity.x=l,this.gravity.y=0}static defaultConstructor(s,f){return ze(s,0.25),new me(s,f,3)}clone(){return new me(m(this.pos),this.maxColumns,this.velocity.x)}update(s){this.velocity.x*=Qe(this.pos.x>=0&&this.pos.x<=this.maxColumns)}handleCollision(s){if(s.type===B){let f=A(F(this.pos,J(this.size,0.5)),F(s.pos,J(s.size,0.5))),l=F(this.size,s.size);if(J(l,0.5),Math.abs(f.x/this.size.x)>Math.abs(f.y/this.size.y))if(this.velocity.x*=-1,f.x<0)this.pos.x=s.pos.x-this.size.x;else this.pos.x=s.pos.x+s.size.x}else if(s.type===O)this.dead=!0;else if(s.type===Q)w.result="lost - horizontal enemy"}render(s,f){s.fillStyle=z,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),te,ae)}}class ve extends b{time;constructor(s,f,l){super(s,f,C);this.gravity.y=0,this.time=l}static defaultConstructor(s,f){return s.x+=(I-Le)/2,new ve(s,new h(Le,f),0)}clone(){return new ve(this.pos,this.size,this.time)}update(s){Vs(),this.time+=s,this.dead=this.time>=ke}handleCollision(s){if(s.type===Q)w.result="lost - laser"}render(s,f){s.fillStyle=z,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),Os,this.size.y*v)}}class Ke extends b{color;time=0;state=0;constructor(s,f=0,l=0){super(s,Y,B);this.color=q,this.gravity.y=0,this.state=f,this.time=l}clone(){return new Ke(m(this.pos),this.state,this.time)}update(s){if(S(this.pos,this.game.protaganist().pos)>150)this.state=0;switch(this.time+=s,this.state){case 0:{if(this.time>=ke)this.time=0,this.state=1,this.color=q;break}case 1:{if(this.time>=Ss){this.time=0,this.state=0,this.color=z;let f=this.game.raycastUp(this.pos),l=f===null?R:this.pos.y-f.pos.y-1;this.game.dynamicEntities.push(ve.defaultConstructor(new h(this.pos.x,this.pos.y-l),l))}break}default:{console.error(`Should not be able to enter state ${this.state}`),this.state=0;break}}}handleCollision(s){}render(s,f){s.strokeStyle=this.color;let l=f.columnToScreen(this.pos.x),t=f.rowToScreen(this.pos.y),a=t+G;s.beginPath(),s.moveTo(l,a),s.lineTo(l+Z/2,t),s.lineTo(l+Z,a),s.lineTo(l,a),s.stroke(),s.strokeStyle=K,s.beginPath(),s.moveTo(l,t),s.lineTo(l+Z,t),s.stroke()}}var _s=6,bf=0.4;class Me extends b{movingRight;movingLeft;moveMod;jumpTime;squash;stretch;coinsCollected;maxColumn;agent;constructor(s,f,l,t=!1,a=!1,r=0,u=0,n=1,i=1,x=0,X=0){super(s,Ws,Q);this.velocity=f,this.agent=l,this.movingRight=t,this.movingLeft=a,this.moveMod=r,this.jumpTime=u,this.squash=n,this.stretch=i,this.coinsCollected=x,this.maxColumn=X}clone(){return new Me(m(this.pos),m(this.velocity),this.agent,this.movingRight,this.movingLeft,this.moveMod,this.jumpTime,this.squash,this.stretch,this.coinsCollected,this.maxColumn)}update(s){if(this.pos.y>Bs){w.result="lost - fell",this.dead=!0;return}if(this.movingLeft=!1,this.movingRight=!1,this.velocity.x=0,this.agent.update(s),this.agent.movingRight)this.movingRight=!0,this.velocity.x=_s,this.moveMod=4;if(this.agent.movingLeft)if(this.movingRight)this.movingRight=!1,this.velocity.x=0;else this.movingLeft=!0,this.velocity.x=-_s,this.moveMod=4;if(this.jumpTime<bf&&this.agent.jumping){if(this.jumpTime===0)this.velocity.y=-15;else if(this.jumpTime<0.2)this.velocity.y-=2;this.velocity.y=Math.max(-20,this.velocity.y),this.squash=Math.min(1.03,this.squash+s),this.stretch=Math.max(0.97,this.stretch-s),this.jumpTime+=s}else if(this.squash!=this.stretch)this.squash=Math.min(1.03,this.squash+s),this.stretch=Math.max(0.97,this.stretch-s);this.maxColumn=Math.max(this.pos.x,this.maxColumn)}handleCollision(s){switch(s.type){case B:{let f=s,l=A(F(this.pos,J(this.size,0.5)),F(f.pos,J(f.size,0.5))),t=F(this.size,f.size);J(t,0.5);let a=Math.abs(Math.atan(l.y/l.x));if(!(a<1.03&&a>0.6)&&Math.abs(l.x/this.size.x)>Math.abs(l.y/this.size.y))if(l.x<0)this.pos.x=f.pos.x-this.size.x;else this.pos.x=f.pos.x+f.size.x;else if(l.y>0)this.pos.y=f.pos.y+f.size.y;else this.pos.y=f.pos.y-this.size.y,this.velocity.y=0,this.jumpTime=0,this.stretch=1.01,this.squash=0.99;break}case Ye:{++this.coinsCollected;break}case O:case C:{this.dead=!0;break}case Ce:{this.jumpTime=0,this.velocity.y=Math.min(this.velocity.y,0);break}default:{console.warn(`Protaganist has an unhandled collision type: ${s.type}.`);break}}}render(s,f){s.fillStyle=Zs;let l=f.columnToScreen(this.pos.x),t=f.rowToScreen(this.pos.y),a=ge*this.squash,r=De*this.stretch;if(this.movingRight){let u=new Path2D;u.moveTo(l,t),u.lineTo(l-this.moveMod,t+a),u.lineTo(l+r-this.moveMod,t+a),u.lineTo(l+r,t),u.closePath(),s.fill(u,"evenodd")}else if(this.movingLeft){let u=new Path2D;u.moveTo(l,t),u.lineTo(l+this.moveMod,t+a),u.lineTo(l+r+this.moveMod,t+a),u.lineTo(l+r,t),u.closePath(),s.fill(u,"evenodd")}else s.fillRect(l,t,r,a)}}class $e extends b{constructor(s,f){super(s,Ys,C);this.velocity.y=f,this.gravity.y=0}static defaultConstructor(s){return s.x+=0.25,s.y+=0.1,new $e(s,3)}clone(){return new $e(m(this.pos),this.velocity.y)}update(s){this.velocity.y*=Qe(this.pos.y>0&&this.pos.y<=R)}handleCollision(s){if(s.type===B){let f=A(F(this.pos,J(this.size,0.5)),F(s.pos,J(s.size,0.5))),l=F(this.size,s.size);if(J(l,0.5),Math.abs(f.x/this.size.x)<Math.abs(f.y/this.size.y))if(this.velocity.y*=-1,f.y>0)this.pos.y=s.pos.y+s.size.y;else this.pos.y=s.pos.y-this.size.y}else if(s.type===O)this.dead=!0;else if(s.type===Q)w.result="lost - vertical enemy"}render(s,f){s.fillStyle=z,s.fillRect(f.columnToScreen(this.pos.x),f.rowToScreen(this.pos.y),ae,te)}}class se{staticEntitiesRenderLocations=[];staticEntities;dynamicEntities=[];coins=[];constructor(s,f){if(s===null)return;let l=s.length;if(l!==R){console.error("Level should have 15 rows!");return}this.dynamicEntities.push(new Me(new h(2,12),new h(0,0),Ts(f,this)));let t=s[0].length,a,r;this.staticEntities=[];for(a=0;a<l;++a){let n=new Array(t);n.fill(!1),this.staticEntities.push(n)}for(a=0;a<l;++a){let n=s[a];if(t!==n.length){console.error(`Every row in the level should have the same number of columns! (${t} != ${n.length}).`);return}for(r=0;r<t;++r){let i=n[r];if(i==="X")this.staticEntities[a][r]=!0,this.staticEntitiesRenderLocations.push(new h(r,a));else if(i==="^")this.dynamicEntities.push(new Ke(new h(r,a)));else if(i==="T")this.dynamicEntities.push(new Oe(new h(r,a)));else if(i==="o"){let x=ee.defaultConstructor(new h(r,a));this.dynamicEntities.push(x),this.coins.push(x)}else if(i=="b")this.dynamicEntities.push(ye.defaultConstructor(new h(r,a)));else if(i==="H")this.dynamicEntities.push(me.defaultConstructor(new h(r,a),t));else if(i==="V")this.dynamicEntities.push($e.defaultConstructor(new h(r,a)));else if(i==="C")this.dynamicEntities.push(pe.defaultConstructor(new h(r,a)));else if(i!=="-")console.error(`Unhandled tile type: ${i}`)}}for(let n=0;n<this.dynamicEntities.length;++n)this.dynamicEntities[n].game=this;let u=this.dynamicEntities[0].pos;this.coins.sort((n,i)=>{return S(u,n.pos)-S(u,i.pos)})}clone(){let s=new se(null,ie),f=this.dynamicEntities.length,l=0;for(;l<f;++l){let a=this.dynamicEntities[l];if(a.dead)continue;let r=a.clone();if(r.game=s,s.dynamicEntities.push(r),r instanceof ee)s.coins.push(r)}let t=s.dynamicEntities[0].pos;return s.coins.sort((a,r)=>{return S(t,a.pos)-S(t,r.pos)}),s.staticEntities=this.staticEntities,s}hash(){let s=this.dynamicEntities[0].pos;return Math.round(s.x*100)+Math.round(s.y*100)*1e6}update(s,f=1){s=s/f;for(let l=0;l<f;++l){let t=this.dynamicEntities.length;for(let r=0;r<t;++r){let u=this.dynamicEntities[r];u.update(s),u.physicsUpdate(s)}let a=Array.from(this.dynamicEntities.keys()).sort((r,u)=>this.dynamicEntities[r].leftX-this.dynamicEntities[u].leftX);for(let r=0;r<a.length;++r){let u=this.dynamicEntities[a[r]];for(let n=r+1;n<a.length;++n){let i=this.dynamicEntities[a[n]];if(i.leftX>u.rightX)break;u.collision(i)}if(u instanceof b){let n=[u.pos,F(u.pos,new h(Y.x,0)),F(u.pos,new h(0,Y.y)),F(u.pos,Y)];for(let i=0;i<4;++i){let x=zs(n[i]);if(x.y>=0&&x.y<this.staticEntities.length&&x.x>=0&&x.x<=this.staticEntities[0].length&&this.staticEntities[x.y][x.x])u.collision(new Se(x))}}}for(let r=0;r<t;++r)if(this.dynamicEntities[r].dead){if(r==0)return;this.dynamicEntities.splice(r,1),--t}}}render(s,f){f.update(this.dynamicEntities[0].pos.x);let l=this.staticEntitiesRenderLocations.length,t=0;s.lineWidth=1.3,s.strokeStyle=K;for(;t<l;++t){let a=this.staticEntitiesRenderLocations[t];s.strokeRect(f.columnToScreen(a.x),f.rowToScreen(a.y),Z,G)}l=this.dynamicEntities.length;for(t=0;t<l;++t)this.dynamicEntities[t].render(s,f)}state(){let s=this.dynamicEntities[0];if(s.coinsCollected>=this.coins.length)return qe;if(s.dead)return Ue;return g}protaganist(){return this.dynamicEntities[0]}fitness(){return 1-this.dynamicEntities[0].coinsCollected/this.coins.length}raycastUp(s){let f=m(s);f.y-=1;while(f.y>=0){if(this.staticEntities[f.y][f.x])return new Se(f);f.y-=1}return null}}var yf=gs/ds;class xs extends W{ctx;transitionScene;camera;game;actions=[];actionIndex;frame;time;previousKey="";constructor(s,f){super();this.ctx=s,this.transitionScene=f,this.camera=new he}onEnter(){let s=Ie(Re);while(s==this.previousKey)s=Ie(Re);this.previousKey=s,this.actions=Re[s],this.game=new se(Ae[s],ie),this.actionIndex=0,this.frame=0,this.time=0}update(s){if(this.game.state()!==g)this.onEnter();if(y.isKeyDown(14))this.transitionScene.targetScene=M,this.changeScene=j;if(this.time+=s,this.time>=0.0166666){if(this.time=this.time-0.016666,this.frame>=ds)this.frame=0,++this.actionIndex;++this.frame,this.game.protaganist().agent.set(this.actions[this.actionIndex]),this.game.update(yf)}}render(){this.ctx.clearRect(0,0,V,k),this.game.render(this.ctx,this.camera),this.ctx.fillStyle="black",this.ctx.fillRect(240,60,240,47),this.ctx.fillRect(210,234,295,39),this.ctx.fillStyle=q,this.ctx.font="48px Arial",this.ctx.fillText("Recformer",247,100),this.ctx.font="30px Arial",this.ctx.fillText("Press 'space' to start",220,k*0.55)}_onExit(){}}class ps{playerIsOnLastLevel=!1;keys;columnsPerLevel;lossesInARow=0;playerWonLastRound=!1;constructor(){}playerBeatGame(){return this.playerIsOnLastLevel}update(s,f){let l=this.keys.length,t=[];if(s){for(let r=0;r<l;++r)t.push(1);this.lossesInARow=0}else{let r=f;for(let u=0;u<l;++u)if(r>this.columnsPerLevel[u])t[u]=1,r-=this.columnsPerLevel[u];else{t[u]=r/this.columnsPerLevel[u];break}}let a=t.length;for(let r=0;r<a;++r){let u=t[r],n=this.keys[r],i=o.getNode(n);if(u===1){if(!o.hasEdge(P,n))o.addDefaultEdge(P,n,[[n,1],[p,0]])}++i.visitedCount,i.sumPercentCompleted+=u,i.updateReward();let x=i.sumPercentCompleted/i.visitedCount,X=1-x;o.mapEdges((N)=>{if(N.tgt===n)N.probability[0][1]=x,N.probability[1][1]=X})}if(!s){++this.lossesInARow;for(let r=0;r<this.lossesInARow-1;++r){let u=o.getNode(P).neighbors,n=u.length;if(n===1)break;let i="",x=-1e4;for(let X=0;X<n;++X){let N=u[X],fe=o.getNode(N).depth;if(fe>x)i=N,x=fe}console.log("removing edge:",i,x),o.removeEdge(P,i)}}this.playerWonLastRound=s}get(s){let f=hs(o,0.95,!0,!0,20);if(this.columnsPerLevel=[],this.playerWonLastRound)this.keys=[H(f[P])];else this.keys=[P];for(let a=0;a<s;++a){let r=H(f[this.keys[a]]);if(this.keys.push(r),r===re)break}this.keys.splice(0,1),this.playerIsOnLastLevel=this.keys.includes(re);let l=Array(R).fill(""),t=this.keys.length;for(let a=0;a<t;++a){let r=Ae[this.keys[a]];this.columnsPerLevel.push(r[0].length);for(let u=0;u<R;++u)l[u]+=r[u]}return l}}class bs{runTime;callback;startTime;constructor(s,f){this.runTime=s;this.callback=f;this.startTime=0}update(s){if(this.startTime+=s,this.runTime<=this.startTime)this.startTime=0,this.callback()}}class Fe{static getCondition(s){if(!D){s(Be);return}fetch("/condition",{method:"POST"}).then((f)=>{if(f.status===200)f.text().then((l)=>{s(l)});else s(Be)}).catch(()=>{s(Be)})}static submitAttempt(){if(!D)return;fetch("/log",{method:"POST",body:JSON.stringify(w.getLog()),mode:"no-cors",headers:{"Content-Type":"application/json"}}).then((s)=>{console.log(s.status),console.log(s)})}}class ys extends W{ctx;transitionScene;agentType;game;camera;levelDirector;timer;timePlayed;constructor(s,f,l,t){super();this.ctx=s,this.agentType=t,this.transitionScene=f,this.camera=new he,this.levelDirector=new ps}onEnter(){let s=this.levelDirector.get(Ns);this.game=new se(s,this.agentType),this.timer=new bs(0.1,()=>{let f=this.game.dynamicEntities[0];w.pushPlayerPositionAndVelocity(f.pos,f.velocity)}),this.timePlayed=0,w.coinsInLevel=this.game.coins.length}update(s){this.game.update(s,2),this.timer.update(s),this.timePlayed+=s;let f=this.game.state();switch(f){case g:break;case Ue:{w.timePlayed=this.timePlayed,w.coinsCollected=this.game.dynamicEntities[0].coinsCollected,this.transitionScene.targetScene=Ne,this.changeScene=j;break}case qe:{if(w.result="won",w.timePlayed=this.timePlayed,w.coinsCollected=this.game.dynamicEntities[0].coinsCollected,this.levelDirector.playerBeatGame())this.transitionScene.targetScene=ne;else this.transitionScene.targetScene=we;this.changeScene=j;break}default:{console.error(`Unhandled game state type: ${f}`);break}}}render(){this.ctx.clearRect(0,0,V,k),this.game.render(this.ctx,this.camera)}_onExit(){if(console.log(w.result),w.result!=="none")Fe.submitAttempt();w.resetLog();let s=this.game.fitness();console.log(`Fitness: ${s}`),this.levelDirector.update(this.transitionScene.targetScene===we,s)}}window.addEventListener("load",()=>{Us(()=>{Fe.getCondition((s)=>{w.condition=s,y.init(),w.init();let f=document.createElement("canvas");f.setAttribute("id","canvas"),f.width=V,f.height=k;let l=f.getContext("2d");document.getElementById("game").appendChild(f);let t=new Te,a=new ts(l);t.registerScene(j,a),t.registerScene(ue,new xs(l,a)),t.registerScene(M,new ys(l,a,s,us)),t.registerScene(ne,new es(l)),t.registerScene(we,new ss(l,a)),t.registerScene(Ne,new fs(l,a));let r=300,u=document.getElementById("time");if(!D)u.style.display="none";let n=t.getScene(ue);n.onEnter();let i=0,x=(X)=>{let N=Math.min(0.05,(X-i)/1000);if(i=X,D)if(r>0){r-=N;let ms=Math.floor(r/60),Es=Math.round(r-ms*60);u.innerHTML=`${ms}:${Es}`}else n.onExit(),n=t.getScene(ne),n.onEnter();n.update(N),n.render();let fe=n.changeScene;if(fe!==void 0)n.onExit(),n=t.getScene(fe),n.onEnter();window.requestAnimationFrame(x)};window.requestAnimationFrame(x)})})});
+// src/DataStructures/point.ts
+class Point {
+  x;
+  y;
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+function pointClone(p) {
+  return new Point(p.x, p.y);
+}
+function pointAdd(p1, p2) {
+  return new Point(p1.x + p2.x, p1.y + p2.y);
+}
+function pointAddInPlace(p1, p2) {
+  p1.x += p2.x;
+  p1.y += p2.y;
+}
+function pointSubtract(p1, p2) {
+  return new Point(p1.x - p2.x, p1.y - p2.y);
+}
+function pointAddScalarInPlace(p, n) {
+  p.x += n;
+  p.y += n;
+}
+function pointMultiplyScalar(p, scalar) {
+  return new Point(p.x * scalar, p.y * scalar);
+}
+function pointMultiplyScalarInPlace(p, scalar) {
+  p.x *= scalar;
+  p.y *= scalar;
+}
+function pointSquareComponents(p) {
+  return p.x * p.x + p.y * p.y;
+}
+function pointMagnitude(p) {
+  return Math.sqrt(p.x * p.x + p.y * p.y);
+}
+function pointNormalizeInPlace(p) {
+  const M = pointMagnitude(p);
+  p.x /= M;
+  p.y /= M;
+}
+function pointSquareDistance(p1, p2) {
+  const x = p1.x - p2.x;
+  const y = p1.y - p2.y;
+  return x * x + y * y;
+}
+function pointAngle(p1, p2) {
+  return Math.atan2(p2.y - p1.y, p2.x - p1.x);
+}
+function pointFloor(p) {
+  return new Point(Math.floor(p.x), Math.floor(p.y));
+}
+
+// src/core/util.ts
+function roundDecimalPlaces(a, decimalPlaces) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(a * factor) / factor;
+}
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+function boolToSign(val) {
+  return val * 2 - 1;
+}
+function randomBool() {
+  return Math.random() < 0.5;
+}
+function clamp(num, min, max) {
+  return Math.min(Math.max(num, min), max);
+}
+function rectangleIntersectCircle(rec, dimensions, circle, radius) {
+  return pointSquareComponents(pointSubtract(circle, new Point(clamp(circle.x, rec.x, rec.x + dimensions.x), clamp(circle.y, rec.y, rec.y + dimensions.y)))) < radius * radius;
+}
+function rectangleIntersect(a, sizeA, b, sizeB) {
+  const ax1 = a.x;
+  const ay1 = a.y;
+  const ax2 = ax1 + sizeA.x;
+  const ay2 = ay1 + sizeA.y;
+  const bx1 = b.x;
+  const by1 = b.y;
+  const bx2 = bx1 + sizeB.x;
+  const by2 = by1 + sizeB.y;
+  return ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1;
+}
+function randomKey(d) {
+  const keys = Object.keys(d);
+  return keys[Math.floor(Math.random() * keys.length)];
+}
+
+// src/core/audio.ts
+var IS_BROWSER = typeof window !== "undefined";
+var sounds = [];
+function audioLoad(callback) {
+  if (IS_BROWSER) {
+    sounds.push(new Audio("audio/coin_1.wav"));
+    sounds.push(new Audio("audio/coin_2.wav"));
+    sounds.push(new Audio("audio/coin_3.wav"));
+    sounds.push(new Audio("audio/coin_4.wav"));
+    sounds.push(new Audio("audio/coin_5.wav"));
+    sounds.push(new Audio("audio/laser.wav"));
+    const waitForAudioToLoad = () => {
+      let audioLoaded = true;
+      for (let i = 0;i < sounds.length; ++i) {
+        if (!sounds[i].readyState) {
+          audioLoaded = false;
+          break;
+        }
+      }
+      if (audioLoaded) {
+        sounds[5].volume = 0.4;
+        callback();
+      } else {
+        setTimeout(waitForAudioToLoad, 100);
+      }
+    };
+    waitForAudioToLoad();
+  } else {
+    callback();
+  }
+}
+function audioCoin() {
+  if (IS_BROWSER) {
+    const coinIndex = randomInt(0, 4);
+    sounds[coinIndex].currentTime = 0.15;
+    sounds[coinIndex].play();
+  }
+}
+function audioLaser() {
+  if (IS_BROWSER) {
+    sounds[5].currentTime = 0;
+    sounds[5].play();
+  }
+}
+
+// src/core/inputManager.ts
+var Key;
+((Key2) => {
+  Key2[Key2["LEFT"] = 0] = "LEFT";
+  Key2[Key2["RIGHT"] = 1] = "RIGHT";
+  Key2[Key2["DOWN"] = 2] = "DOWN";
+  Key2[Key2["UP"] = 3] = "UP";
+  Key2[Key2["A"] = 4] = "A";
+  Key2[Key2["D"] = 5] = "D";
+  Key2[Key2["E"] = 6] = "E";
+  Key2[Key2["G"] = 7] = "G";
+  Key2[Key2["H"] = 8] = "H";
+  Key2[Key2["I"] = 9] = "I";
+  Key2[Key2["Q"] = 10] = "Q";
+  Key2[Key2["R"] = 11] = "R";
+  Key2[Key2["S"] = 12] = "S";
+  Key2[Key2["W"] = 13] = "W";
+  Key2[Key2["SPACE"] = 14] = "SPACE";
+  Key2[Key2["ESCAPE"] = 15] = "ESCAPE";
+  Key2[Key2["ENTER"] = 16] = "ENTER";
+  Key2[Key2["SHIFT"] = 17] = "SHIFT";
+  Key2[Key2["INVALID"] = 18] = "INVALID";
+})(Key ||= {});
+
+class InputManager {
+  static _keys = [];
+  static init() {
+    for (let i = 0;i < Object.keys(Key).length; ++i) {
+      InputManager._keys.push(false);
+    }
+    window.addEventListener("keydown", InputManager.onKeyDown);
+    window.addEventListener("keyup", InputManager.onKeyUp);
+  }
+  static isKeyDown(...keys) {
+    const size = keys.length;
+    for (let i = 0;i < size; ++i) {
+      if (InputManager._keys[keys[i]]) {
+        return true;
+      }
+    }
+    return false;
+  }
+  static keyStrToKey(key) {
+    switch (key) {
+      case "Down":
+      case "ArrowDown":
+        return 2 /* DOWN */;
+      case "Up":
+      case "ArrowUp":
+        return 3 /* UP */;
+      case "Right":
+      case "ArrowRight":
+        return 1 /* RIGHT */;
+      case "Left":
+      case "ArrowLeft":
+        return 0 /* LEFT */;
+      case " ":
+      case "Space":
+        return 14 /* SPACE */;
+      case "Escape":
+        return 15 /* ESCAPE */;
+      case "a":
+      case "A":
+        return 4 /* A */;
+      case "e":
+      case "E":
+        return 6 /* E */;
+      case "s":
+      case "S":
+        return 12 /* S */;
+      case "d":
+      case "D":
+        return 5 /* D */;
+      case "w":
+      case "W":
+        return 13 /* W */;
+      case "r":
+      case "R":
+        return 11 /* R */;
+      case "q":
+      case "Q":
+        return 10 /* Q */;
+      case "g":
+      case "G":
+        return 7 /* G */;
+      case "h":
+      case "H":
+        return 8 /* H */;
+      case "i":
+      case "I":
+        return 9 /* I */;
+      case "Shift":
+        return 17 /* SHIFT */;
+      case "Enter":
+        return 16 /* ENTER */;
+      default:
+        console.warn(`Unhandled key: ${key}.`);
+        return 18 /* INVALID */;
+    }
+  }
+  static onKeyDown(event) {
+    const k = InputManager.keyStrToKey(event.key);
+    InputManager._keys[k] = true;
+    if (k == 2 /* DOWN */ || k == 3 /* UP */ || k == 0 /* LEFT */ || k == 1 /* RIGHT */) {
+      event.preventDefault();
+    }
+    return false;
+  }
+  static onKeyUp(event) {
+    InputManager._keys[InputManager.keyStrToKey(event.key)] = false;
+    return false;
+  }
+  static clear() {
+    for (let i = 0;i < InputManager._keys.length; ++i) {
+      InputManager._keys[i] = false;
+    }
+  }
+}
+
+// src/core/sceneManager.ts
+class SceneManager {
+  scenes = {};
+  registerScene(name, scene) {
+    if (this.scenes[name] === undefined) {
+      this.scenes[name] = scene;
+    } else {
+      console.error(`Key "${name}" for scene already exists! Scene not added to SceneManager.`);
+    }
+  }
+  getScene(name) {
+    return this.scenes[name];
+  }
+}
+
+// src/colorPalette.ts
+var COLOR_ORANGE = "#fe546f";
+var COLOR_YELLOW = "#ffd080";
+var COLOR_WHITE = "#fffdff";
+var COLOR_LIGHT_BLUE = "#0bffe6";
+var COLOR_LIGHT_PURPLE = "#9696ff";
+
+// src/core/constants.ts
+var IS_STUDY = true;
+var SCREEN_WIDTH = 720;
+var SCREEN_HEIGHT = 480;
+var TILE_SIZE = 32;
+var NUM_ROWS = 15;
+var DEATH_HEIGHT = NUM_ROWS + 2;
+var LEVEL_SEGMENTS_PER_LEVEL = 3;
+var TWO_PI = 2 * Math.PI;
+var GAME_STATE_PLAYING = 0;
+var GAME_STATE_LOST = 1;
+var GAME_STATE_WON = 2;
+var PLAYER_SCREEN_WIDTH = 20;
+var PLAYER_SCREEN_HEIGHT = 30;
+var PLAYER_WIDTH = PLAYER_SCREEN_WIDTH / TILE_SIZE;
+var PLAYER_HEIGHT = PLAYER_SCREEN_HEIGHT / TILE_SIZE;
+var PLAYER_SIZE = new Point(PLAYER_WIDTH, PLAYER_HEIGHT);
+var BLOCK_SCREEN_WIDTH = 31;
+var BLOCK_SCREEN_HEIGHT = 31;
+var BLOCK_WIDTH = BLOCK_SCREEN_WIDTH / TILE_SIZE;
+var BLOCK_HEIGHT = BLOCK_SCREEN_HEIGHT / TILE_SIZE;
+var BLOCK_SIZE = new Point(BLOCK_WIDTH, BLOCK_HEIGHT);
+var COIN_SCREEN_WIDTH = 16;
+var COIN_SCREEN_HEIGHT = 16;
+var COIN_WIDTH = COIN_SCREEN_WIDTH / TILE_SIZE;
+var COIN_HEIGHT = COIN_SCREEN_HEIGHT / TILE_SIZE;
+var COIN_SIZE = new Point(COIN_WIDTH, COIN_HEIGHT);
+var ENEMY_SCREEN_WIDTH = 25;
+var ENEMY_SCREEN_HEIGHT = 15;
+var ENEMY_WIDTH = ENEMY_SCREEN_WIDTH / TILE_SIZE;
+var ENEMY_HEIGHT = ENEMY_SCREEN_HEIGHT / TILE_SIZE;
+var HORIZONTAL_ENEMY_SIZE = new Point(ENEMY_WIDTH, ENEMY_HEIGHT);
+var VERTICAL_ENEMY_SIZE = new Point(ENEMY_HEIGHT, ENEMY_WIDTH);
+var CIRCLE_SCREEN_RADIUS = 10;
+var CIRCLE_RADIUS = CIRCLE_SCREEN_RADIUS / TILE_SIZE;
+var CIRCLE_MOVE_RADIUS = 2.5;
+var LASER_WIDTH = BLOCK_WIDTH / 8;
+var LASER_SCREEN_WIDTH = BLOCK_SCREEN_WIDTH / 8;
+var LASER_LIFE_TIME = 0.6;
+var LASER_CHARGE_TIME = 2;
+var TURRET_LOAD_TIME = 2.5;
+var TURRET_SQUARED_RANGE = 150;
+var BULLET_SPEED = 10;
+var BULLET_SCREEN_WIDTH = 10;
+var BULLET_SCREEN_HEIGHT = 10;
+var BULLET_WIDTH = COIN_SCREEN_WIDTH / TILE_SIZE;
+var BULLET_HEIGHT = COIN_SCREEN_HEIGHT / TILE_SIZE;
+var BULLET_SIZE = new Point(BULLET_WIDTH, BULLET_HEIGHT);
+var KEY_START = "start";
+var KEY_END = "end";
+var KEY_DEATH = "death";
+var CONDITION_NOT_FOUND = "error-condition";
+
+// src/core/scene.ts
+class Scene {
+  changeScene;
+  onExit() {
+    this.changeScene = undefined;
+    this._onExit();
+  }
+}
+
+// src/logger.ts
+class Logger {
+  static playerID;
+  static version;
+  static condition;
+  static result;
+  static coinsCollected;
+  static coinsInLevel;
+  static timePlayed;
+  static levels;
+  static order;
+  static pathX;
+  static pathY;
+  static velX;
+  static velY;
+  static init() {
+    if (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "") {
+      Logger.playerID = "local-dev";
+    } else {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("id")) {
+        Logger.playerID = crypto.randomUUID();
+      } else {
+        Logger.playerID = "browser-dev";
+      }
+    }
+    console.log(Logger.playerID);
+    Logger.version = "0.0.0";
+    Logger.result = "none";
+    Logger.coinsCollected = 0;
+    Logger.timePlayed = 0;
+    Logger.order = 0;
+    Logger.pathX = [];
+    Logger.pathY = [];
+    Logger.velX = [];
+    Logger.velY = [];
+  }
+  static pushPlayerPositionAndVelocity(position, velocity) {
+    this.pathX.push(roundDecimalPlaces(position.x, 4));
+    this.pathY.push(roundDecimalPlaces(position.y, 4));
+    this.velX.push(roundDecimalPlaces(velocity.x, 4));
+    this.velY.push(roundDecimalPlaces(velocity.y, 4));
+  }
+  static getLog() {
+    return {
+      id: Logger.playerID,
+      version: Logger.version,
+      condition: Logger.condition,
+      result: Logger.result,
+      coinsCollected: Logger.coinsCollected,
+      coinsInLevel: Logger.coinsInLevel,
+      timePlayed: Logger.timePlayed,
+      order: Logger.order,
+      pathX: Logger.pathX,
+      pathY: Logger.pathY,
+      velX: Logger.velX,
+      velY: Logger.velY
+    };
+  }
+  static resetLog() {
+    ++Logger.order;
+    Logger.result = "none";
+    Logger.coinsCollected = 0;
+    Logger.coinsInLevel = 0;
+    Logger.timePlayed = 0;
+    Logger.pathX = [];
+    Logger.pathY = [];
+    Logger.velX = [];
+    Logger.velY = [];
+  }
+}
+
+// src/Scenes/playerBeatTheGameScene.ts
+class PlayerBeatTheGameScene extends Scene {
+  ctx;
+  timer = 0;
+  constructor(ctx) {
+    super();
+    this.ctx = ctx;
+  }
+  onEnter() {
+    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillStyle = COLOR_WHITE;
+    document.getElementById("time").style.display = "none";
+    if (IS_STUDY) {
+      this.ctx.fillText("Thank you for playing!", 240, SCREEN_HEIGHT / 2);
+      const url = `https://neu.co1.qualtrics.com/jfe/form/SV_3HO5uG0RlBrJB2e?userid=${Logger.playerID}`;
+      document.getElementById("instructions").innerHTML = `
+        <h3>
+  Please continue to to the survey. After you complete the survey, your code will be available:
+  <br/>
+  <br/>
+  <a style="color:yellow" href="${url}">${url}</a>
+  </h3>
+  `;
+    } else {
+      this.ctx.fillText("You won! Congratulations!", 170, SCREEN_HEIGHT / 2);
+    }
+  }
+  update(dt) {
+  }
+  render() {
+  }
+  _onExit() {
+  }
+}
+
+// src/Scenes/sceneKeys.ts
+var KEY_MAIN_MENU = "main menu";
+var KEY_GAME = "game";
+var KEY_PLAYER_BEAT_THE_GAME = "player won";
+var KEY_TRANSITION = "transition";
+var KEY_PLAYER_LOST = "lost";
+var KEY_PLAYER_WON = "won";
+
+// src/Scenes/playerBeatLevelScene.ts
+class PlayerBeatLevelScene extends Scene {
+  ctx;
+  transitionScene;
+  constructor(ctx, transitionScene) {
+    super();
+    this.ctx = ctx;
+    this.transitionScene = transitionScene;
+  }
+  onEnter() {
+    InputManager.clear();
+    this.ctx.fillStyle = COLOR_YELLOW;
+    this.ctx.font = "48px Arial";
+    this.ctx.fillText("YOU WON", 250, 200);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText("Press 'space' to keep going.", 180, 400);
+  }
+  update(dt) {
+    if (InputManager.isKeyDown(14 /* SPACE */)) {
+      this.transitionScene.targetScene = KEY_GAME;
+      this.changeScene = KEY_TRANSITION;
+    }
+  }
+  render() {
+  }
+  _onExit() {
+  }
+}
+
+// src/Scenes/playerLostLevelScene.ts
+class PlayerLostLevelScene extends Scene {
+  ctx;
+  transitionScene;
+  constructor(ctx, transitionScene) {
+    super();
+    this.ctx = ctx;
+    this.transitionScene = transitionScene;
+  }
+  onEnter() {
+    InputManager.clear();
+    this.ctx.fillStyle = COLOR_ORANGE;
+    this.ctx.font = "48px Arial";
+    this.ctx.fillText("YOU LOST", 243, 200);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText("Press 'space' to try again.", 195, 400);
+  }
+  update(dt) {
+    if (InputManager.isKeyDown(14 /* SPACE */)) {
+      this.transitionScene.targetScene = KEY_GAME;
+      this.changeScene = KEY_TRANSITION;
+    }
+  }
+  render() {
+  }
+  _onExit() {
+  }
+}
+
+// src/Scenes/transitionScene.ts
+class TransitionScene extends Scene {
+  targetScene = KEY_MAIN_MENU;
+  timer = 0;
+  ctx;
+  constructor(ctx) {
+    super();
+    this.ctx = ctx;
+  }
+  onEnter() {
+  }
+  update(dt) {
+    this.timer += dt;
+    if (this.timer > 0.5) {
+      this.changeScene = this.targetScene;
+    }
+  }
+  render() {
+    const t = this.timer / 0.5;
+    this.ctx.fillStyle = `rgba(0,0,0, ${t})`;
+    this.ctx.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+  }
+  _onExit() {
+    this.timer = 0;
+  }
+}
+
+// src/Agents/agent.ts
+class Agent {
+  movingRight = false;
+  movingLeft = false;
+  jumping = false;
+  set(a) {
+    this.movingRight = a.moveRight;
+    this.movingLeft = a.moveLeft;
+    this.jumping = a.jump;
+  }
+}
+
+// src/Agents/randomAgent.ts
+class RandomAgent extends Agent {
+  time = 0;
+  name() {
+    return "random";
+  }
+  update(dt) {
+    this.time += dt;
+    if (this.time > 0.2) {
+      this.time = 0;
+      this.movingRight = randomBool();
+      this.movingLeft = randomBool();
+      this.jumping = randomBool();
+    }
+  }
+}
+
+// src/Agents/player.ts
+class Player extends Agent {
+  name() {
+    return "player";
+  }
+  update(dt) {
+    this.movingRight = InputManager.isKeyDown(5 /* D */, 1 /* RIGHT */);
+    this.movingLeft = InputManager.isKeyDown(4 /* A */, 0 /* LEFT */);
+    this.jumping = InputManager.isKeyDown(14 /* SPACE */, 3 /* UP */, 13 /* W */);
+  }
+}
+
+// src/Agents/emptyAgent.ts
+class EmptyAgent extends Agent {
+  name() {
+    return "empty";
+  }
+  update(dt) {
+  }
+}
+
+// src/Agents/agentType.ts
+var AGENT_RANDOM = 0;
+var AGENT_PLAYER = 1;
+var AGENT_EMPTY = 2;
+function typeToAgent(type, model) {
+  switch (type) {
+    case AGENT_RANDOM:
+      return new RandomAgent;
+    case AGENT_PLAYER:
+      return new Player;
+    case AGENT_EMPTY:
+      return new EmptyAgent;
+    default:
+      console.error(`Unhandled agent type: ${type}. Defaulted to player agent.`);
+      return new Player;
+  }
+}
+
+// src/LevelGeneration/GDM-TS/src/Graph/edge.ts
+class Edge {
+  src;
+  tgt;
+  probability;
+  constructor(src, tgt, probability) {
+    this.src = src;
+    this.tgt = tgt;
+    this.probability = probability;
+  }
+}
+
+// src/LevelGeneration/GDM-TS/src/Graph/node.ts
+class Node {
+  name;
+  reward;
+  utility;
+  isTerminal;
+  neighbors;
+  constructor(name, reward, utility, is_terminal, neighbors) {
+    this.name = name;
+    this.reward = reward;
+    this.utility = utility;
+    this.isTerminal = is_terminal;
+    this.neighbors = neighbors;
+  }
+}
+
+// src/LevelGeneration/GDM-TS/src/Graph/graph.ts
+class Graph {
+  nodes;
+  edges;
+  constructor() {
+    this.nodes = {};
+    this.edges = {};
+  }
+  getNode(nodeName) {
+    return this.nodes[nodeName];
+  }
+  hasNode(nodeName) {
+    return nodeName in this.nodes;
+  }
+  addNode(node) {
+    this.nodes[node.name] = node;
+  }
+  addDefaultNode(nodeName, reward = 1, utility = 0, terminal = false, neighbors = null) {
+    if (neighbors == null) {
+      neighbors = [];
+    }
+    this.nodes[nodeName] = new Node(nodeName, reward, utility, terminal, neighbors);
+  }
+  removeNode(nodeName) {
+    const edgesToRemove = [];
+    for (const e of Object.values(this.edges)) {
+      if (e.src == nodeName || e.tgt == nodeName) {
+        edgesToRemove.push(e);
+      }
+      const probabilities = e.probability;
+      let index = -1;
+      for (let i = 0;i < probabilities.length; i++) {
+        const [name, _] = probabilities[i];
+        if (name == nodeName) {
+          index = i;
+          break;
+        }
+      }
+      if (index == -1) {
+        continue;
+      }
+      const pValue = probabilities[index][1];
+      probabilities.splice(index, 1);
+      const len = probabilities.length;
+      const pValueNew = pValue / len;
+      e.probability = probabilities.map(([name, p]) => [name, p + pValueNew]);
+    }
+    for (const e of edgesToRemove) {
+      this.removeEdge(e.src, e.tgt);
+    }
+    delete this.nodes[nodeName];
+  }
+  getEdge(srcName, tgtName) {
+    return this.edges[`${srcName},${tgtName}`];
+  }
+  hasEdge(srcName, tgtName) {
+    return `${srcName},${tgtName}` in this.edges;
+  }
+  addEdge(edge) {
+    this.edges[`${edge.src},${edge.tgt}`] = edge;
+    const neighbors = this.nodes[edge.src].neighbors;
+    if (!neighbors.includes(edge.tgt)) {
+      neighbors.push(edge.tgt);
+    }
+  }
+  addDefaultEdge(srcName, tgtName, p = null) {
+    if (p == null) {
+      p = [[tgtName, 1]];
+    }
+    this.addEdge(new Edge(srcName, tgtName, p));
+  }
+  removeEdge(srcNode, tgtNode) {
+    const src = this.nodes[srcNode];
+    const index = src.neighbors.indexOf(tgtNode);
+    src.neighbors.splice(index, 1);
+    delete this.edges[`${srcNode},${tgtNode}`];
+  }
+  neighbors(nodeName) {
+    return this.nodes[nodeName].neighbors;
+  }
+  setNodeUtilities(utilities) {
+    for (const [nodeName, utility] of Object.entries(utilities)) {
+      this.nodes[nodeName].utility = utility;
+    }
+  }
+  utility(nodeName) {
+    return this.nodes[nodeName].utility;
+  }
+  reward(nodeName) {
+    return this.nodes[nodeName].reward;
+  }
+  isTerminal(nodeName) {
+    return this.nodes[nodeName].isTerminal;
+  }
+  mapNodes(lambda) {
+    for (const n of Object.values(this.nodes)) {
+      lambda(n);
+    }
+  }
+  mapEdges(lambda) {
+    for (const e of Object.values(this.edges)) {
+      lambda(e);
+    }
+  }
+}
+// src/LevelGeneration/GDM-TS/src/rand.ts
+function choice(list) {
+  return list[Math.floor(Math.random() * list.length)];
+}
+
+// src/LevelGeneration/GDM-TS/src/util.ts
+function calculateUtility(G, src, tgt, gamma) {
+  const P = G.getEdge(src, tgt).probability;
+  const size = P.length;
+  let sum = 0;
+  for (let i = 0;i < size; ++i) {
+    const [nTgt, p] = P[i];
+    sum += p * (G.reward(nTgt) + gamma * G.utility(nTgt));
+  }
+  return sum;
+}
+function calculateMaxUtility(G, n, gamma) {
+  const node = G.getNode(n);
+  if (node.isTerminal) {
+    return 0;
+  }
+  const neighbors = node.neighbors;
+  const size = neighbors.length;
+  let max = -Infinity;
+  for (let i = 0;i < size; ++i) {
+    max = Math.max(max, calculateUtility(G, n, neighbors[i], gamma));
+  }
+  return max;
+}
+function resetUtility(G) {
+  for (const n in G.nodes) {
+    G.nodes[n].utility = 0;
+  }
+}
+function createRandomPolicy(G) {
+  const pi = {};
+  for (const n in G.nodes) {
+    if (!G.getNode(n).isTerminal) {
+      pi[n] = [...G.neighbors(n)];
+    }
+  }
+  return pi;
+}
+function createPolicy(G, gamma) {
+  const pi = {};
+  for (const n in G.nodes) {
+    if (G.getNode(n).isTerminal) {
+      continue;
+    }
+    let bestU = -Infinity;
+    let bestN = [];
+    for (const np of G.neighbors(n)) {
+      const u = calculateUtility(G, n, np, gamma);
+      if (u === bestU) {
+        bestN.push(np);
+      } else if (u > bestU) {
+        bestU = u;
+        bestN.length = 0;
+        bestN.push(np);
+      }
+    }
+    pi[n] = bestN;
+  }
+  return pi;
+}
+// src/LevelGeneration/GDM-TS/src/ADP/policyIteration.ts
+function modifiedInPlacePolicyEvaluation(G, pi, gamma, policyK) {
+  for (let i = 0;i < policyK; ++i) {
+    for (const n in G.nodes) {
+      const node = G.getNode(n);
+      if (!node.isTerminal) {
+        node.utility = calculateUtility(G, n, choice(pi[n]), gamma);
+      }
+    }
+  }
+}
+function modifiedPolicyEvaluation(G, pi, gamma, policyK) {
+  for (let i = 0;i < policyK; ++i) {
+    const uTemp = {};
+    for (const n in G.nodes) {
+      if (!G.getNode(n).isTerminal) {
+        uTemp[n] = calculateUtility(G, n, choice(pi[n]), gamma);
+      }
+    }
+    G.setNodeUtilities(uTemp);
+  }
+}
+function inPlacePolicyEvaluation(G, _, gamma, policyK) {
+  for (let i = 0;i < policyK; ++i) {
+    for (const n in G.nodes) {
+      G.getNode(n).utility = calculateMaxUtility(G, n, gamma);
+    }
+  }
+}
+function policyEvaluation(G, _, gamma, policyK) {
+  for (let i = 0;i < policyK; ++i) {
+    const uTemp = {};
+    for (const n in G.nodes) {
+      uTemp[n] = calculateMaxUtility(G, n, gamma);
+    }
+    G.setNodeUtilities(uTemp);
+  }
+}
+function policyImprovement(G, pi, gamma) {
+  let changed = false;
+  for (const n in G.nodes) {
+    if (G.getNode(n).isTerminal) {
+      continue;
+    }
+    let bestS = null;
+    let bestU = -Infinity;
+    for (const np of G.neighbors(n)) {
+      const up = calculateUtility(G, n, np, gamma);
+      if (up === bestU) {
+      } else if (up > bestU) {
+        bestS = np;
+        bestU = up;
+      }
+    }
+    if (choice(pi[n]) !== bestS) {
+      pi[n].length = 0;
+      pi[n].push(bestS);
+      changed = true;
+    }
+  }
+  return changed;
+}
+function policyIteration(G, gamma, modified = false, inPlace = false, policyK = 10, shouldResetUtility = true) {
+  if (shouldResetUtility) {
+    resetUtility(G);
+  }
+  const pi = createRandomPolicy(G);
+  let policyEval;
+  if (modified && inPlace) {
+    policyEval = modifiedInPlacePolicyEvaluation;
+  } else if (modified && !inPlace) {
+    policyEval = modifiedPolicyEvaluation;
+  } else if (!modified && inPlace) {
+    policyEval = inPlacePolicyEvaluation;
+  } else {
+    policyEval = policyEvaluation;
+  }
+  let loop = true;
+  while (loop) {
+    policyEval(G, pi, gamma, policyK);
+    loop = policyImprovement(G, pi, gamma);
+  }
+  policyEval(G, pi, gamma, policyK);
+  policyImprovement(G, pi, gamma);
+  return createPolicy(G, gamma);
+}
+// src/LevelGeneration/customNode.ts
+class CustomNode extends Node {
+  visitedCount;
+  sumPercentCompleted;
+  depth;
+  designerReward;
+  playerReward;
+  constructor(name, reward, utility, isTerminal, neighbors, depth) {
+    super(name, reward, utility, isTerminal, neighbors);
+    this.designerReward = reward;
+    this.playerReward = 0;
+    this.depth = depth;
+    this.visitedCount = 1;
+    this.sumPercentCompleted = 1;
+  }
+  updateReward() {
+    this.reward = this.designerReward * this.visitedCount;
+  }
+}
+
+// src/LevelGeneration/levels.ts
+var MDP = new Graph;
+MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));
+MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));
+MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [], -1));
+MDP.addNode(new CustomNode("1-a", -0.95, 0, false, [], 1));
+MDP.addNode(new CustomNode("2-a", -0.925, 0, false, [], 2));
+MDP.addNode(new CustomNode("2-b", -0.925, 0, false, [], 2));
+MDP.addNode(new CustomNode("3-a", -0.9, 0, false, [], 3));
+MDP.addNode(new CustomNode("3-b", -0.9, 0, false, [], 3));
+MDP.addNode(new CustomNode("4-a", -0.825, 0, false, [], 4));
+MDP.addNode(new CustomNode("4-b", -0.825, 0, false, [], 4));
+MDP.addNode(new CustomNode("5-a", -0.8, 0, false, [], 5));
+MDP.addNode(new CustomNode("5-b", -0.8, 0, false, [], 5));
+MDP.addNode(new CustomNode("5-c", -0.8, 0, false, [], 5));
+MDP.addNode(new CustomNode("6-a", -0.775, 0, false, [], 6));
+MDP.addNode(new CustomNode("7-a", -0.75, 0, false, [], 7));
+MDP.addNode(new CustomNode("6-b", -0.775, 0, false, [], 6));
+MDP.addNode(new CustomNode("1-b", -0.95, 0, false, [], 1));
+MDP.addDefaultEdge(KEY_START, "1-a", [
+  ["1-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("1-a", "2-b", [
+  ["2-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("1-a", "2-a", [
+  ["2-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("2-a", "3-a", [
+  ["3-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("2-b", "3-b", [
+  ["3-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("3-a", "4-b", [
+  ["4-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("3-a", "4-a", [
+  ["4-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("3-b", "4-b", [
+  ["4-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("3-b", "4-a", [
+  ["4-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-a", "5-b", [
+  ["5-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-a", "5-a", [
+  ["5-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-a", "5-c", [
+  ["5-c", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-b", "5-b", [
+  ["5-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-b", "5-a", [
+  ["5-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("4-b", "5-c", [
+  ["5-c", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-a", "6-a", [
+  ["6-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-a", "6-b", [
+  ["6-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-b", "6-a", [
+  ["6-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-b", "6-b", [
+  ["6-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-c", "6-a", [
+  ["6-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("5-c", "6-b", [
+  ["6-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("6-a", "7-a", [
+  ["7-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("7-a", "end", [
+  ["end", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("6-b", "7-a", [
+  ["7-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge(KEY_START, "1-b", [
+  ["1-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("1-b", "2-b", [
+  ["2-b", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+MDP.addDefaultEdge("1-b", "2-a", [
+  ["2-a", 0.99],
+  [KEY_DEATH, 0.01]
+]);
+var idToLevel = {
+  "1-a": [
+    "------------XXX-",
+    "-------------T--",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "-----X-C-----X--",
+    "--------------b-",
+    "-----------o----",
+    "--------o-XX----",
+    "------o-XXXX----",
+    "------XXXXXX----",
+    "XXXXXXXXXXXX^XXX"
+  ],
+  "2-a": [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "-------XXXXXXXX-------",
+    "----------------------",
+    "-------V--o---V-----o-",
+    "----------------------",
+    "XXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "2-b": [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "-----------o----------",
+    "--------------------o-",
+    "-----X---H-----X------",
+    "XXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "3-a": [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "-----------o----------",
+    "----------------------",
+    "---------XXXXX--------",
+    "-----------o----------",
+    "----------------------",
+    "-------X-H-----X------",
+    "---XX--XXXXXXXXX--XX--",
+    "----------------------",
+    "-------V---o---V----o-",
+    "----------------------",
+    "XXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "3-b": [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------o-----------",
+    "----------------------",
+    "--------XXXXX---------",
+    "--------V---V---------",
+    "----------o-----------",
+    "----------------------",
+    "------XXXXXXXXX-------",
+    "----------------------",
+    "----------o---------o-",
+    "-----X---H-----X------",
+    "XXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "4-a": [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------XXX---",
+    "-----------------V----",
+    "-------X---XX-----V---",
+    "------XX------o-V---o-",
+    "-----XXX--------------",
+    "XXXXXXXX---XXXXXXXXXXX"
+  ],
+  "4-b": [
+    "--------------------XX",
+    "--------------------XX",
+    "--------------------XX",
+    "--------------------XX",
+    "--------------------XX",
+    "-----------X-H---o--XX",
+    "-----------------o--XX",
+    "---------o----------XX",
+    "-----------XXXXXXX--XX",
+    "--------------------XX",
+    "-------X------------XX",
+    "------XXX-----------XX",
+    "-----XXXXX-----------o",
+    "----XXXXXXX-----------",
+    "XXXXXXXXXXXXXXXX--XXXX"
+  ],
+  "5-a": [
+    "--------XXXXXXXXXXXXXX--------",
+    "-------------------ooX--------",
+    "---------------------X--------",
+    "---------------------X--------",
+    "------------------XXXX--------",
+    "------------------X-----------",
+    "-----------o--XXXXX-----------",
+    "------------------------------",
+    "---------XX-----------------o-",
+    "------------------------------",
+    "--------------XX---XXX----XXXX",
+    "------------------------------",
+    "----------XX------------------",
+    "------------------------------",
+    "XXXXXXXX----------------------"
+  ],
+  "5-b": [
+    "------------------------------",
+    "-o----------------------------",
+    "------------------------------",
+    "XXX---------------------------",
+    "------------------------------",
+    "-----XXX----------------------",
+    "------------------------------",
+    "-----------XXX----------------",
+    "-o--------------------------o-",
+    "------XXX---------------------",
+    "XXX-----------------------XXXX",
+    "------------XXX-------XX------",
+    "------------------XX----------",
+    "------------------------------",
+    "XXXXXXXX---XXXXX--------------"
+  ],
+  "5-c": [
+    "o-----------------------------",
+    "------------------------------",
+    "X---XX------------------------",
+    "------------------------------",
+    "------------------------------",
+    "XX----------------------------",
+    "--------XXXXX-----------------",
+    "--------Xoo-------------------",
+    "XXX-----Xoo----o------------o-",
+    "--------X---------------------",
+    "--------XXX---XX----XX----XXXX",
+    "XXXX--------------------------",
+    "------------------------------",
+    "------------------------------",
+    "XXXXXXXX----------------------"
+  ],
+  "6-a": [
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "-------oo---XXXXXXXX----------",
+    "-o----------XXXXXXXX----------",
+    "------XXXX--XXXXXXXX----------",
+    "--------------o---------------",
+    "XXXX--------------------------",
+    "-------------XXXX-----------o-",
+    "---------------------XX-------",
+    "XXXXXXXX-----------------XXXXX"
+  ],
+  "7-a": [
+    "-------------------V---------------",
+    "-----------------o---o-------------",
+    "------------X-H------------H--XXX--",
+    "-----V------XXXXXXXXXXXXXXXXXXXXX--",
+    "--------XX----o--------------------",
+    "-----------------------------------",
+    "-----------XXXXXX---Ho-------------",
+    "-----------------------------------",
+    "-------------V------XX--------H----",
+    "-----------------------------------",
+    "XX--------o------XXXXX----H--------",
+    "-----------------------------------",
+    "---X----H----H-X-----------------o-",
+    "---XXXXXXXXXXXXX-------------------",
+    "XXXX--------------------------XXXXX"
+  ],
+  end: [
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----------------------",
+    "----oooooooooooooooooo",
+    "XXXXXXXXXXXXXXXXXXXXXX"
+  ],
+  "6-b": [
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX---o------",
+    "----------XXXXXXXXXX----------",
+    "-o--------XXXXXXXXXX----------",
+    "----------XXXXXXXXXX---X------",
+    "----------XXXXXXXXXX----------",
+    "XXX-------XXXXXXXXXXX---------",
+    "------XX-----oooo-----------o-",
+    "------------------------------",
+    "XXXX--------XXXXXX---XXX--XXXX"
+  ],
+  "1-b": [
+    "---------XXX----",
+    "----------T-----",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----------------",
+    "----X-----X-----",
+    "-------oo------C",
+    "----------------",
+    "-------XX-------",
+    "----o-XXXX-o----",
+    "-----XXXXXX-----",
+    "---XXXXXXXXXX---",
+    "XXXXXXXXXXXXXXXX"
+  ]
+};
+
+// src/Agents/action.ts
+class Action {
+  moveRight;
+  moveLeft;
+  jump;
+  constructor(moveRight, moveLeft, jump) {
+    this.moveRight = moveRight;
+    this.moveLeft = moveLeft;
+    this.jump = jump;
+  }
+}
+var ACTIONS = [
+  new Action(true, false, false),
+  new Action(false, true, false),
+  new Action(false, false, true),
+  new Action(true, false, true),
+  new Action(false, true, true)
+];
+var NUM_ACTIONS = ACTIONS.length;
+
+// src/replays.ts
+var REPLAY_FRAME_TIME = 0.049980000000000004;
+var REPLAY_UPDATES_PER_FRAME = 3;
+var replays = {
+  "1-a": [
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "2-a": [
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "2-b": [
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "3-a": [
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false)
+  ],
+  "3-b": [
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "4-a": [
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false)
+  ],
+  "4-b": [
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "5-a": [
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false)
+  ],
+  "5-b": [
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "5-c": [
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "6-a": [
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "7-a": [
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, true, true),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(false, true, false),
+    new Action(false, false, true),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  end: [
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ],
+  "6-b": [
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, true, false),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, true),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(false, true, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(true, false, false),
+    new Action(false, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, false)
+  ],
+  "1-b": [
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, true),
+    new Action(true, false, true),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false),
+    new Action(true, false, false)
+  ]
+};
+
+// src/core/camera.ts
+class Camera {
+  startCol = 0;
+  offsetX = 0;
+  colsPerScreen = Math.ceil(SCREEN_WIDTH / TILE_SIZE);
+  update(x) {
+    const halfX = x - this.colsPerScreen / 2;
+    this.startCol = Math.max(0, Math.floor(halfX));
+    this.offsetX = -halfX * TILE_SIZE + this.startCol * TILE_SIZE;
+  }
+  columnToScreen(col) {
+    return (col - this.startCol) * TILE_SIZE + this.offsetX;
+  }
+  rowToScreen(row) {
+    return row * TILE_SIZE;
+  }
+}
+
+// src/core/gameObject.ts
+class GameObject {
+  game;
+  pos;
+  type;
+  dead = false;
+  velocity = new Point(0, 0);
+  gravity = new Point(0, 100);
+  leftX;
+  rightX;
+  constructor(position, type) {
+    this.pos = position;
+    this.type = type;
+  }
+  physicsUpdate(dt) {
+    pointAddInPlace(this.velocity, pointMultiplyScalar(this.gravity, dt));
+    this.velocity.y = Math.min(this.velocity.y, 30);
+    pointAddInPlace(this.pos, pointMultiplyScalar(this.velocity, dt));
+    this.updateLeftRight();
+  }
+}
+
+// src/core/rectangleGameObject.ts
+class RectangleGameObject extends GameObject {
+  size;
+  constructor(pos, size, type) {
+    super(pos, type);
+    this.size = size;
+    this.leftX = this.pos.x;
+    this.rightX = this.pos.x + size.x;
+  }
+  updateLeftRight() {
+    this.leftX = this.pos.x;
+    this.rightX = this.pos.x + this.size.x;
+  }
+  collision(other) {
+    if (other instanceof RectangleGameObject) {
+      if (rectangleIntersect(this.pos, this.size, other.pos, other.size)) {
+        this.handleCollision(other);
+        other.handleCollision(this);
+      }
+    } else if (other instanceof CircleGameObject) {
+      if (rectangleIntersectCircle(this.pos, this.size, other.pos, other.r)) {
+        this.handleCollision(other);
+        other.handleCollision(this);
+      }
+    }
+  }
+}
+
+// src/core/circleGameObject.ts
+class CircleGameObject extends GameObject {
+  r;
+  constructor(pos, radius, type) {
+    super(pos, type);
+    this.r = radius;
+    this.leftX = this.pos.x - radius;
+    this.rightX = this.pos.x + radius;
+  }
+  updateLeftRight() {
+    this.leftX = this.pos.x - this.r;
+    this.rightX = this.pos.x + this.r;
+  }
+  collision(other) {
+    if (other instanceof RectangleGameObject) {
+      if (rectangleIntersectCircle(other.pos, other.size, this.pos, this.r)) {
+        this.handleCollision(other);
+        other.handleCollision(this);
+      }
+    }
+  }
+}
+
+// src/GameObjects/gameObjectTypes.ts
+var TYPE_PLAYER = 0;
+var TYPE_BLOCK = 1;
+var TYPE_COIN = 2;
+var TYPE_ENEMY = 3;
+var TYPE_JUMP_RESET = 4;
+var TYPE_BULLET = 5;
+
+// src/GameObjects/CircleEnemy.ts
+class CircleEnemy extends CircleGameObject {
+  angle;
+  start;
+  constructor(pos, angle, startPos, velocity) {
+    super(pos, CIRCLE_RADIUS, TYPE_ENEMY);
+    this.gravity.y = 0;
+    this.angle = angle;
+    this.start = startPos;
+    this.velocity = velocity;
+  }
+  static defaultConstructor(pos) {
+    return new CircleEnemy(pos, 0, pointClone(pos), new Point(0, 0));
+  }
+  clone() {
+    return new CircleEnemy(pointClone(this.pos), this.angle, this.start, pointClone(this.velocity));
+  }
+  update(dt) {
+    this.angle += dt;
+    this.velocity.x = 2 * CIRCLE_MOVE_RADIUS * Math.cos(this.angle);
+    this.velocity.y = CIRCLE_MOVE_RADIUS * Math.sin(this.angle);
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - circle enemy";
+    } else {
+      this.dead = other.type === TYPE_BULLET;
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_ORANGE;
+    ctx.beginPath();
+    ctx.arc(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), CIRCLE_SCREEN_RADIUS, 0, TWO_PI);
+    ctx.fill();
+  }
+}
+
+// src/GameObjects/bullet.ts
+class Bullet extends RectangleGameObject {
+  constructor(pos, velocity) {
+    super(pos, BULLET_SIZE, TYPE_BULLET);
+    this.gravity.y = 0;
+    this.velocity = velocity;
+  }
+  static defaultConstructor(pos, target) {
+    const velocity = pointSubtract(target, pos);
+    pointNormalizeInPlace(velocity);
+    pointMultiplyScalarInPlace(velocity, BULLET_SPEED);
+    return new Bullet(pos, velocity);
+  }
+  clone() {
+    return new Bullet(pointClone(this.pos), pointClone(this.velocity));
+  }
+  update(dt) {
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - bullet";
+    }
+    this.dead = true;
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_ORANGE;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), BULLET_SCREEN_WIDTH, BULLET_SCREEN_HEIGHT);
+  }
+}
+
+// src/GameObjects/Turret.ts
+class Turret extends RectangleGameObject {
+  playerPos;
+  color;
+  time;
+  state;
+  constructor(pos, time = 0, state = 0) {
+    super(pos, BLOCK_SIZE, TYPE_BLOCK);
+    this.color = COLOR_YELLOW;
+    this.gravity.y = 0;
+    this.time = time;
+    this.state = state;
+  }
+  clone() {
+    return new Turret(pointClone(this.pos), this.time, this.state);
+  }
+  update(dt) {
+    switch (this.state) {
+      case 0: {
+        if (pointSquareDistance(this.pos, this.game.protaganist().pos) <= TURRET_SQUARED_RANGE) {
+          this.color = COLOR_ORANGE;
+          this.state = 1;
+        }
+        break;
+      }
+      case 1: {
+        this.time += dt;
+        if (this.time >= TURRET_LOAD_TIME) {
+          this.time = 0;
+          this.state = 2;
+        }
+        break;
+      }
+      case 2: {
+        this.state = 0;
+        this.color = COLOR_YELLOW;
+        const playerPos = this.game.protaganist().pos;
+        const angle = pointAngle(this.pos, playerPos);
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        this.game.dynamicEntities.push(Bullet.defaultConstructor(new Point(this.pos.x + (BULLET_WIDTH + BLOCK_WIDTH) * cos, this.pos.y + (BULLET_WIDTH + BLOCK_WIDTH) * sin), playerPos));
+        break;
+      }
+      default: {
+        console.error(`Should not be able to enter state ${this.state}`);
+        this.state = 0;
+        break;
+      }
+    }
+  }
+  handleCollision(other) {
+  }
+  render(ctx, camera) {
+    ctx.strokeStyle = this.color;
+    const X = camera.columnToScreen(this.pos.x);
+    const Y = camera.rowToScreen(this.pos.y);
+    const R = BLOCK_SCREEN_WIDTH / 2;
+    const RR = 2 * R;
+    const T = new Point(X + R, Y);
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(T.x, T.y, R, 0, Math.PI);
+    ctx.stroke();
+    const angle = pointAngle(this.pos, this.game.protaganist().pos);
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(T.x + R * cos, T.y + R * sin);
+    ctx.lineTo(T.x + RR * cos, T.y + RR * sin);
+    ctx.stroke();
+    ctx.lineWidth = 1;
+  }
+}
+
+// src/GameObjects/block.ts
+class Block extends RectangleGameObject {
+  constructor(pos) {
+    super(pos, BLOCK_SIZE, TYPE_BLOCK);
+  }
+  clone() {
+    throw new Error("Block.clone should not have been called!");
+  }
+  update(dt) {
+  }
+  handleCollision(other) {
+  }
+  render(ctx, camera) {
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = COLOR_WHITE;
+    ctx.strokeRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), BLOCK_SCREEN_WIDTH, BLOCK_SCREEN_HEIGHT);
+  }
+}
+
+// src/GameObjects/blueBlock.ts
+var OFF_SCREEN_POS_Y = 1000;
+var TIME_OFF_SCREEN = 2;
+
+class BlueBlock extends RectangleGameObject {
+  minY;
+  maxY;
+  yMod;
+  timeGone;
+  constructor(pos, yMod, minY, maxY, velocityY, timeGone) {
+    super(pos, COIN_SIZE, TYPE_JUMP_RESET);
+    this.gravity.y = 0;
+    this.yMod = yMod;
+    this.minY = minY;
+    this.maxY = maxY;
+    this.velocity.y = velocityY;
+    this.timeGone = timeGone;
+  }
+  static defaultConstructor(pos) {
+    pointAddScalarInPlace(pos, 0.25);
+    return new BlueBlock(pos, 0.25, pos.y + 0.15, pos.y + 0.3, 0.25, 0);
+  }
+  clone() {
+    return new BlueBlock(pointClone(this.pos), this.yMod, this.minY, this.maxY, this.velocity.y, this.timeGone);
+  }
+  update(dt) {
+    if (this.pos.y > 100) {
+      this.timeGone += dt;
+      if (this.timeGone >= TIME_OFF_SCREEN) {
+        this.pos.y = this.maxY;
+        this.velocity.y = -this.yMod;
+      }
+    } else {
+      if (this.pos.y >= this.maxY) {
+        this.velocity.y = -this.yMod;
+      } else if (this.pos.y <= this.minY) {
+        this.velocity.y = this.yMod;
+      }
+    }
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_PLAYER) {
+      this.pos.y = OFF_SCREEN_POS_Y;
+      this.timeGone = 0;
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_LIGHT_BLUE;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), COIN_SCREEN_WIDTH, COIN_SCREEN_HEIGHT);
+  }
+}
+
+// src/GameObjects/coin.ts
+class Coin extends RectangleGameObject {
+  minY;
+  maxY;
+  yMod;
+  constructor(pos, yMod, maxY, minY, velocityY, dead = false) {
+    super(pos, COIN_SIZE, TYPE_COIN);
+    this.gravity.y = 0;
+    this.yMod = yMod;
+    this.maxY = maxY;
+    this.minY = minY;
+    this.velocity.y = velocityY;
+    this.dead = dead;
+  }
+  static defaultConstructor(pos) {
+    pos.x += 0.25;
+    return new Coin(pos, 0.1, pos.y + 0.3, pos.y + 0.15, 0.1);
+  }
+  clone() {
+    return new Coin(pointClone(this.pos), this.yMod, this.maxY, this.minY, this.velocity.y, this.dead);
+  }
+  update(dt) {
+    if (this.pos.y >= this.maxY) {
+      this.velocity.y = -this.yMod;
+    } else if (this.pos.y <= this.minY) {
+      this.velocity.y = this.yMod;
+    }
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_PLAYER) {
+      audioCoin();
+      this.dead = true;
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_YELLOW;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), COIN_SCREEN_WIDTH, COIN_SCREEN_HEIGHT);
+  }
+}
+
+// src/GameObjects/horizontalEnemy.ts
+class HorizontalEnemy extends RectangleGameObject {
+  maxColumns;
+  constructor(pos, maxColumns, velocityX) {
+    super(pos, HORIZONTAL_ENEMY_SIZE, TYPE_ENEMY);
+    this.maxColumns = maxColumns;
+    this.velocity.x = velocityX;
+    this.gravity.y = 0;
+  }
+  static defaultConstructor(pos, maxColumns) {
+    pointAddScalarInPlace(pos, 0.25);
+    return new HorizontalEnemy(pos, maxColumns, 3);
+  }
+  clone() {
+    return new HorizontalEnemy(pointClone(this.pos), this.maxColumns, this.velocity.x);
+  }
+  update(dt) {
+    this.velocity.x *= boolToSign(this.pos.x >= 0 && this.pos.x <= this.maxColumns);
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_BLOCK) {
+      const d = pointSubtract(pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)), pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)));
+      const averageSize = pointAdd(this.size, other.size);
+      pointMultiplyScalar(averageSize, 0.5);
+      if (Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+        this.velocity.x *= -1;
+        if (d.x < 0) {
+          this.pos.x = other.pos.x - this.size.x;
+        } else {
+          this.pos.x = other.pos.x + other.size.x;
+        }
+      }
+    } else if (other.type === TYPE_BULLET) {
+      this.dead = true;
+    } else if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - horizontal enemy";
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_ORANGE;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), ENEMY_SCREEN_WIDTH, ENEMY_SCREEN_HEIGHT);
+  }
+}
+
+// src/GameObjects/laser.ts
+class Laser extends RectangleGameObject {
+  time;
+  constructor(pos, size, time) {
+    super(pos, size, TYPE_ENEMY);
+    this.gravity.y = 0;
+    this.time = time;
+  }
+  static defaultConstructor(pos, height) {
+    pos.x += (BLOCK_WIDTH - LASER_WIDTH) / 2;
+    return new Laser(pos, new Point(LASER_WIDTH, height), 0);
+  }
+  clone() {
+    return new Laser(this.pos, this.size, this.time);
+  }
+  update(dt) {
+    audioLaser();
+    this.time += dt;
+    this.dead = this.time >= LASER_LIFE_TIME;
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - laser";
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_ORANGE;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), LASER_SCREEN_WIDTH, this.size.y * TILE_SIZE);
+  }
+}
+
+// src/GameObjects/laserBlock.ts
+class LaserBlock extends RectangleGameObject {
+  color;
+  time = 0;
+  state = 0;
+  constructor(pos, state = 0, time = 0) {
+    super(pos, BLOCK_SIZE, TYPE_BLOCK);
+    this.color = COLOR_YELLOW;
+    this.gravity.y = 0;
+    this.state = state;
+    this.time = time;
+  }
+  clone() {
+    return new LaserBlock(pointClone(this.pos), this.state, this.time);
+  }
+  update(dt) {
+    if (pointSquareDistance(this.pos, this.game.protaganist().pos) > 150) {
+      this.state = 0;
+    }
+    this.time += dt;
+    switch (this.state) {
+      case 0: {
+        if (this.time >= LASER_LIFE_TIME) {
+          this.time = 0;
+          this.state = 1;
+          this.color = COLOR_YELLOW;
+        }
+        break;
+      }
+      case 1: {
+        if (this.time >= LASER_CHARGE_TIME) {
+          this.time = 0;
+          this.state = 0;
+          this.color = COLOR_ORANGE;
+          const foundObject = this.game.raycastUp(this.pos);
+          const height = foundObject === null ? NUM_ROWS : this.pos.y - foundObject.pos.y - 1;
+          this.game.dynamicEntities.push(Laser.defaultConstructor(new Point(this.pos.x, this.pos.y - height), height));
+        }
+        break;
+      }
+      default: {
+        console.error(`Should not be able to enter state ${this.state}`);
+        this.state = 0;
+        break;
+      }
+    }
+  }
+  handleCollision(other) {
+  }
+  render(ctx, camera) {
+    ctx.strokeStyle = this.color;
+    const x = camera.columnToScreen(this.pos.x);
+    const topY = camera.rowToScreen(this.pos.y);
+    const botY = topY + BLOCK_SCREEN_HEIGHT;
+    ctx.beginPath();
+    ctx.moveTo(x, botY);
+    ctx.lineTo(x + BLOCK_SCREEN_WIDTH / 2, topY);
+    ctx.lineTo(x + BLOCK_SCREEN_WIDTH, botY);
+    ctx.lineTo(x, botY);
+    ctx.stroke();
+    ctx.strokeStyle = COLOR_WHITE;
+    ctx.beginPath();
+    ctx.moveTo(x, topY);
+    ctx.lineTo(x + BLOCK_SCREEN_WIDTH, topY);
+    ctx.stroke();
+  }
+}
+
+// src/GameObjects/protaganist.ts
+var MOVE = 6;
+var MAX_JUMP_TIME = 0.4;
+
+class Protaganist extends RectangleGameObject {
+  movingRight;
+  movingLeft;
+  moveMod;
+  jumpTime;
+  squash;
+  stretch;
+  coinsCollected;
+  maxColumn;
+  agent;
+  constructor(pos, velocity, agent, movingRight = false, movingLeft = false, moveMod = 0, jumpTime = 0, squash = 1, stretch = 1, coinsCollected = 0, maxColumn = 0) {
+    super(pos, PLAYER_SIZE, TYPE_PLAYER);
+    this.velocity = velocity;
+    this.agent = agent;
+    this.movingRight = movingRight;
+    this.movingLeft = movingLeft;
+    this.moveMod = moveMod;
+    this.jumpTime = jumpTime;
+    this.squash = squash;
+    this.stretch = stretch;
+    this.coinsCollected = coinsCollected;
+    this.maxColumn = maxColumn;
+  }
+  clone() {
+    return new Protaganist(pointClone(this.pos), pointClone(this.velocity), this.agent, this.movingRight, this.movingLeft, this.moveMod, this.jumpTime, this.squash, this.stretch, this.coinsCollected, this.maxColumn);
+  }
+  update(dt) {
+    if (this.pos.y > DEATH_HEIGHT) {
+      Logger.result = "lost - fell";
+      this.dead = true;
+      return;
+    }
+    this.movingLeft = false;
+    this.movingRight = false;
+    this.velocity.x = 0;
+    this.agent.update(dt);
+    if (this.agent.movingRight) {
+      this.movingRight = true;
+      this.velocity.x = MOVE;
+      this.moveMod = 4;
+    }
+    if (this.agent.movingLeft) {
+      if (this.movingRight) {
+        this.movingRight = false;
+        this.velocity.x = 0;
+      } else {
+        this.movingLeft = true;
+        this.velocity.x = -MOVE;
+        this.moveMod = 4;
+      }
+    }
+    if (this.jumpTime < MAX_JUMP_TIME && this.agent.jumping) {
+      if (this.jumpTime === 0) {
+        this.velocity.y = -15;
+      } else if (this.jumpTime < 0.2) {
+        this.velocity.y -= 2;
+      }
+      this.velocity.y = Math.max(-20, this.velocity.y);
+      this.squash = Math.min(1.03, this.squash + dt);
+      this.stretch = Math.max(0.97, this.stretch - dt);
+      this.jumpTime += dt;
+    } else if (this.squash != this.stretch) {
+      this.squash = Math.min(1.03, this.squash + dt);
+      this.stretch = Math.max(0.97, this.stretch - dt);
+    }
+    this.maxColumn = Math.max(this.pos.x, this.maxColumn);
+  }
+  handleCollision(other) {
+    switch (other.type) {
+      case TYPE_BLOCK: {
+        const block = other;
+        const d = pointSubtract(pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)), pointAdd(block.pos, pointMultiplyScalar(block.size, 0.5)));
+        const averageSize = pointAdd(this.size, block.size);
+        pointMultiplyScalar(averageSize, 0.5);
+        const theta = Math.abs(Math.atan(d.y / d.x));
+        const isCorner = theta < 1.03 && theta > 0.6;
+        if (!isCorner && Math.abs(d.x / this.size.x) > Math.abs(d.y / this.size.y)) {
+          if (d.x < 0) {
+            this.pos.x = block.pos.x - this.size.x;
+          } else {
+            this.pos.x = block.pos.x + block.size.x;
+          }
+        } else {
+          if (d.y > 0) {
+            this.pos.y = block.pos.y + block.size.y;
+          } else {
+            this.pos.y = block.pos.y - this.size.y;
+            this.velocity.y = 0;
+            this.jumpTime = 0;
+            this.stretch = 1.01;
+            this.squash = 0.99;
+          }
+        }
+        break;
+      }
+      case TYPE_COIN: {
+        ++this.coinsCollected;
+        break;
+      }
+      case TYPE_BULLET:
+      case TYPE_ENEMY: {
+        this.dead = true;
+        break;
+      }
+      case TYPE_JUMP_RESET: {
+        this.jumpTime = 0;
+        this.velocity.y = Math.min(this.velocity.y, 0);
+        break;
+      }
+      default: {
+        console.warn(`Protaganist has an unhandled collision type: ${other.type}.`);
+        break;
+      }
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_LIGHT_PURPLE;
+    const x = camera.columnToScreen(this.pos.x);
+    const y = camera.rowToScreen(this.pos.y);
+    const H = PLAYER_SCREEN_HEIGHT * this.squash;
+    const W = PLAYER_SCREEN_WIDTH * this.stretch;
+    if (this.movingRight) {
+      let region = new Path2D;
+      region.moveTo(x, y);
+      region.lineTo(x - this.moveMod, y + H);
+      region.lineTo(x + W - this.moveMod, y + H);
+      region.lineTo(x + W, y);
+      region.closePath();
+      ctx.fill(region, "evenodd");
+    } else if (this.movingLeft) {
+      let region = new Path2D;
+      region.moveTo(x, y);
+      region.lineTo(x + this.moveMod, y + H);
+      region.lineTo(x + W + this.moveMod, y + H);
+      region.lineTo(x + W, y);
+      region.closePath();
+      ctx.fill(region, "evenodd");
+    } else {
+      ctx.fillRect(x, y, W, H);
+    }
+  }
+}
+
+// src/GameObjects/verticalEnemy.ts
+class VerticalEnemy extends RectangleGameObject {
+  constructor(pos, velocityY) {
+    super(pos, VERTICAL_ENEMY_SIZE, TYPE_ENEMY);
+    this.velocity.y = velocityY;
+    this.gravity.y = 0;
+  }
+  static defaultConstructor(pos) {
+    pos.x += 0.25;
+    pos.y += 0.1;
+    return new VerticalEnemy(pos, 3);
+  }
+  clone() {
+    return new VerticalEnemy(pointClone(this.pos), this.velocity.y);
+  }
+  update(dt) {
+    this.velocity.y *= boolToSign(this.pos.y > 0 && this.pos.y <= NUM_ROWS);
+  }
+  handleCollision(other) {
+    if (other.type === TYPE_BLOCK) {
+      const d = pointSubtract(pointAdd(this.pos, pointMultiplyScalar(this.size, 0.5)), pointAdd(other.pos, pointMultiplyScalar(other.size, 0.5)));
+      const averageSize = pointAdd(this.size, other.size);
+      pointMultiplyScalar(averageSize, 0.5);
+      if (Math.abs(d.x / this.size.x) < Math.abs(d.y / this.size.y)) {
+        this.velocity.y *= -1;
+        if (d.y > 0) {
+          this.pos.y = other.pos.y + other.size.y;
+        } else {
+          this.pos.y = other.pos.y - this.size.y;
+        }
+      }
+    } else if (other.type === TYPE_BULLET) {
+      this.dead = true;
+    } else if (other.type === TYPE_PLAYER) {
+      Logger.result = "lost - vertical enemy";
+    }
+  }
+  render(ctx, camera) {
+    ctx.fillStyle = COLOR_ORANGE;
+    ctx.fillRect(camera.columnToScreen(this.pos.x), camera.rowToScreen(this.pos.y), ENEMY_SCREEN_HEIGHT, ENEMY_SCREEN_WIDTH);
+  }
+}
+
+// src/gameModel.ts
+class GameModel {
+  staticEntitiesRenderLocations = [];
+  staticEntities;
+  dynamicEntities = [];
+  coins = [];
+  constructor(level, agentType) {
+    if (level === null) {
+      return;
+    }
+    const rows = level.length;
+    if (rows !== NUM_ROWS) {
+      console.error("Level should have 15 rows!");
+      return;
+    }
+    this.dynamicEntities.push(new Protaganist(new Point(2, 12), new Point(0, 0), typeToAgent(agentType, this)));
+    const columns = level[0].length;
+    let r, c;
+    this.staticEntities = [];
+    for (r = 0;r < rows; ++r) {
+      const a = new Array(columns);
+      a.fill(false);
+      this.staticEntities.push(a);
+    }
+    for (r = 0;r < rows; ++r) {
+      const row = level[r];
+      if (columns !== row.length) {
+        console.error(`Every row in the level should have the same number of columns! (${columns} != ${row.length}).`);
+        return;
+      }
+      for (c = 0;c < columns; ++c) {
+        const tile = row[c];
+        if (tile === "X") {
+          this.staticEntities[r][c] = true;
+          this.staticEntitiesRenderLocations.push(new Point(c, r));
+        } else if (tile === "^") {
+          this.dynamicEntities.push(new LaserBlock(new Point(c, r)));
+        } else if (tile === "T") {
+          this.dynamicEntities.push(new Turret(new Point(c, r)));
+        } else if (tile === "o") {
+          const coin = Coin.defaultConstructor(new Point(c, r));
+          this.dynamicEntities.push(coin);
+          this.coins.push(coin);
+        } else if (tile == "b") {
+          this.dynamicEntities.push(BlueBlock.defaultConstructor(new Point(c, r)));
+        } else if (tile === "H") {
+          this.dynamicEntities.push(HorizontalEnemy.defaultConstructor(new Point(c, r), columns));
+        } else if (tile === "V") {
+          this.dynamicEntities.push(VerticalEnemy.defaultConstructor(new Point(c, r)));
+        } else if (tile === "C") {
+          this.dynamicEntities.push(CircleEnemy.defaultConstructor(new Point(c, r)));
+        } else if (tile !== "-") {
+          console.error(`Unhandled tile type: ${tile}`);
+        }
+      }
+    }
+    for (let i = 0;i < this.dynamicEntities.length; ++i) {
+      this.dynamicEntities[i].game = this;
+    }
+    const playerPosition = this.dynamicEntities[0].pos;
+    this.coins.sort((a, b) => {
+      return pointSquareDistance(playerPosition, a.pos) - pointSquareDistance(playerPosition, b.pos);
+    });
+  }
+  clone() {
+    const clone = new GameModel(null, AGENT_EMPTY);
+    const dLength = this.dynamicEntities.length;
+    let i = 0;
+    for (;i < dLength; ++i) {
+      const currentEntity = this.dynamicEntities[i];
+      if (currentEntity.dead) {
+        continue;
+      }
+      const de = currentEntity.clone();
+      de.game = clone;
+      clone.dynamicEntities.push(de);
+      if (de instanceof Coin) {
+        clone.coins.push(de);
+      }
+    }
+    const playerPosition = clone.dynamicEntities[0].pos;
+    clone.coins.sort((a, b) => {
+      return pointSquareDistance(playerPosition, a.pos) - pointSquareDistance(playerPosition, b.pos);
+    });
+    clone.staticEntities = this.staticEntities;
+    return clone;
+  }
+  hash() {
+    const pos = this.dynamicEntities[0].pos;
+    return Math.round(pos.x * 100) + Math.round(pos.y * 100) * 1e6;
+  }
+  update(dt, divisor = 1) {
+    dt = dt / divisor;
+    for (let subframe = 0;subframe < divisor; ++subframe) {
+      let deSize = this.dynamicEntities.length;
+      for (let i = 0;i < deSize; ++i) {
+        const e = this.dynamicEntities[i];
+        e.update(dt);
+        e.physicsUpdate(dt);
+      }
+      const sortedIndices = Array.from(this.dynamicEntities.keys()).sort((a, b) => this.dynamicEntities[a].leftX - this.dynamicEntities[b].leftX);
+      for (let i = 0;i < sortedIndices.length; ++i) {
+        const obj1 = this.dynamicEntities[sortedIndices[i]];
+        for (let jj = i + 1;jj < sortedIndices.length; ++jj) {
+          const obj2 = this.dynamicEntities[sortedIndices[jj]];
+          if (obj2.leftX > obj1.rightX) {
+            break;
+          }
+          obj1.collision(obj2);
+        }
+        if (obj1 instanceof RectangleGameObject) {
+          const positions = [
+            obj1.pos,
+            pointAdd(obj1.pos, new Point(BLOCK_SIZE.x, 0)),
+            pointAdd(obj1.pos, new Point(0, BLOCK_SIZE.y)),
+            pointAdd(obj1.pos, BLOCK_SIZE)
+          ];
+          for (let jj = 0;jj < 4; ++jj) {
+            const point = pointFloor(positions[jj]);
+            if (point.y >= 0 && point.y < this.staticEntities.length && point.x >= 0 && point.x <= this.staticEntities[0].length && this.staticEntities[point.y][point.x]) {
+              obj1.collision(new Block(point));
+            }
+          }
+        }
+      }
+      for (let i = 0;i < deSize; ++i) {
+        if (this.dynamicEntities[i].dead) {
+          if (i == 0) {
+            return;
+          }
+          this.dynamicEntities.splice(i, 1);
+          --deSize;
+        }
+      }
+    }
+  }
+  render(ctx, camera) {
+    camera.update(this.dynamicEntities[0].pos.x);
+    let size = this.staticEntitiesRenderLocations.length;
+    let i = 0;
+    ctx.lineWidth = 1.3;
+    ctx.strokeStyle = COLOR_WHITE;
+    for (;i < size; ++i) {
+      const pos = this.staticEntitiesRenderLocations[i];
+      ctx.strokeRect(camera.columnToScreen(pos.x), camera.rowToScreen(pos.y), BLOCK_SCREEN_WIDTH, BLOCK_SCREEN_HEIGHT);
+    }
+    size = this.dynamicEntities.length;
+    for (i = 0;i < size; ++i) {
+      this.dynamicEntities[i].render(ctx, camera);
+    }
+  }
+  state() {
+    const player = this.dynamicEntities[0];
+    if (player.coinsCollected >= this.coins.length)
+      return GAME_STATE_WON;
+    if (player.dead)
+      return GAME_STATE_LOST;
+    return GAME_STATE_PLAYING;
+  }
+  protaganist() {
+    return this.dynamicEntities[0];
+  }
+  fitness() {
+    const protaganist = this.dynamicEntities[0];
+    return 1 - protaganist.coinsCollected / this.coins.length;
+  }
+  raycastUp(start) {
+    const p = pointClone(start);
+    p.y -= 1;
+    while (p.y >= 0) {
+      if (this.staticEntities[p.y][p.x]) {
+        return new Block(p);
+      }
+      p.y -= 1;
+    }
+    return null;
+  }
+}
+
+// src/Scenes/mainMenuScene.ts
+var DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
+
+class MainMenuScene extends Scene {
+  ctx;
+  transitionScene;
+  camera;
+  game;
+  actions = [];
+  actionIndex;
+  frame;
+  time;
+  previousKey = "";
+  constructor(ctx, transitionScene) {
+    super();
+    this.ctx = ctx;
+    this.transitionScene = transitionScene;
+    this.camera = new Camera;
+  }
+  onEnter() {
+    let levelID = randomKey(replays);
+    while (levelID == this.previousKey) {
+      levelID = randomKey(replays);
+    }
+    this.previousKey = levelID;
+    this.actions = replays[levelID];
+    this.game = new GameModel(idToLevel[levelID], AGENT_EMPTY);
+    this.actionIndex = 0;
+    this.frame = 0;
+    this.time = 0;
+  }
+  update(dt) {
+    if (this.game.state() !== GAME_STATE_PLAYING) {
+      this.onEnter();
+    }
+    if (InputManager.isKeyDown(14 /* SPACE */)) {
+      this.transitionScene.targetScene = KEY_GAME;
+      this.changeScene = KEY_TRANSITION;
+    }
+    this.time += dt;
+    if (this.time >= 0.0166666) {
+      this.time = this.time - 0.016666;
+      if (this.frame >= REPLAY_UPDATES_PER_FRAME) {
+        this.frame = 0;
+        ++this.actionIndex;
+      }
+      ++this.frame;
+      this.game.protaganist().agent.set(this.actions[this.actionIndex]);
+      this.game.update(DT);
+    }
+  }
+  render() {
+    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.game.render(this.ctx, this.camera);
+    this.ctx.fillStyle = "black";
+    this.ctx.fillRect(240, 60, 240, 47);
+    this.ctx.fillRect(210, 234, 295, 39);
+    this.ctx.fillStyle = COLOR_YELLOW;
+    this.ctx.font = "48px Arial";
+    this.ctx.fillText("Recformer", 247, 100);
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText("Press 'space' to start", 220, SCREEN_HEIGHT * 0.55);
+  }
+  _onExit() {
+  }
+}
+
+// src/LevelGeneration/mdpLevelDirector.ts
+class MDPLevelDirector {
+  playerIsOnLastLevel = false;
+  keys;
+  columnsPerLevel;
+  lossesInARow = 0;
+  playerWonLastRound = false;
+  constructor() {
+  }
+  playerBeatGame() {
+    return this.playerIsOnLastLevel;
+  }
+  update(playerWon, playerColumn) {
+    const keysLength = this.keys.length;
+    const percentCompleted = [];
+    if (playerWon) {
+      for (let i = 0;i < keysLength; ++i) {
+        percentCompleted.push(1);
+      }
+      this.lossesInARow = 0;
+    } else {
+      let col = playerColumn;
+      for (let i = 0;i < keysLength; ++i) {
+        if (col > this.columnsPerLevel[i]) {
+          percentCompleted[i] = 1;
+          col -= this.columnsPerLevel[i];
+        } else {
+          percentCompleted[i] = col / this.columnsPerLevel[i];
+          break;
+        }
+      }
+    }
+    const pcLength = percentCompleted.length;
+    for (let i = 0;i < pcLength; ++i) {
+      const pc = percentCompleted[i];
+      const id = this.keys[i];
+      const node = MDP.getNode(id);
+      if (pc === 1) {
+        if (!MDP.hasEdge(KEY_START, id)) {
+          MDP.addDefaultEdge(KEY_START, id, [
+            [id, 1],
+            [KEY_DEATH, 0]
+          ]);
+        }
+      }
+      ++node.visitedCount;
+      node.sumPercentCompleted += pc;
+      node.updateReward();
+      const probLife = node.sumPercentCompleted / node.visitedCount;
+      const probDeath = 1 - probLife;
+      MDP.mapEdges((e) => {
+        if (e.tgt === id) {
+          e.probability[0][1] = probLife;
+          e.probability[1][1] = probDeath;
+        }
+      });
+    }
+    if (!playerWon) {
+      ++this.lossesInARow;
+      for (let i = 0;i < this.lossesInARow - 1; ++i) {
+        const neighbors = MDP.getNode(KEY_START).neighbors;
+        const neighborsCount = neighbors.length;
+        if (neighborsCount === 1) {
+          break;
+        }
+        let hardestNeighbor = "";
+        let maxReward = -1e4;
+        for (let jj = 0;jj < neighborsCount; ++jj) {
+          const nodeName = neighbors[jj];
+          const d = MDP.getNode(nodeName).depth;
+          if (d > maxReward) {
+            hardestNeighbor = nodeName;
+            maxReward = d;
+          }
+        }
+        console.log("removing edge:", hardestNeighbor, maxReward);
+        MDP.removeEdge(KEY_START, hardestNeighbor);
+      }
+    }
+    this.playerWonLastRound = playerWon;
+  }
+  get(levelSegments) {
+    const pi = policyIteration(MDP, 0.95, true, true, 20);
+    this.columnsPerLevel = [];
+    if (this.playerWonLastRound) {
+      this.keys = [choice(pi[KEY_START])];
+    } else {
+      this.keys = [KEY_START];
+    }
+    for (let i = 0;i < levelSegments; ++i) {
+      const k = choice(pi[this.keys[i]]);
+      this.keys.push(k);
+      if (k === KEY_END) {
+        break;
+      }
+    }
+    this.keys.splice(0, 1);
+    this.playerIsOnLastLevel = this.keys.includes(KEY_END);
+    const lvl = Array(NUM_ROWS).fill("");
+    const length = this.keys.length;
+    for (let i = 0;i < length; ++i) {
+      const stateLVL = idToLevel[this.keys[i]];
+      this.columnsPerLevel.push(stateLVL[0].length);
+      for (let r = 0;r < NUM_ROWS; ++r) {
+        lvl[r] += stateLVL[r];
+      }
+    }
+    return lvl;
+  }
+}
+
+// src/core/repeatingTimer.ts
+class RepeatingTimer {
+  runTime;
+  callback;
+  startTime;
+  constructor(runTime, callback) {
+    this.runTime = runTime;
+    this.callback = callback;
+    this.startTime = 0;
+  }
+  update(dt) {
+    this.startTime += dt;
+    if (this.runTime <= this.startTime) {
+      this.startTime = 0;
+      this.callback();
+    }
+  }
+}
+
+// src/server.ts
+class Server {
+  static getCondition(callback) {
+    if (!IS_STUDY) {
+      callback(CONDITION_NOT_FOUND);
+      return;
+    }
+    fetch("/condition", {
+      method: "POST"
+    }).then((response) => {
+      if (response.status === 200) {
+        response.text().then((body) => {
+          callback(body);
+        });
+      } else {
+        callback(CONDITION_NOT_FOUND);
+      }
+    }).catch(() => {
+      callback(CONDITION_NOT_FOUND);
+    });
+  }
+  static submitAttempt() {
+    if (!IS_STUDY)
+      return;
+    fetch("/log", {
+      method: "POST",
+      body: JSON.stringify(Logger.getLog()),
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" }
+    }).then((response) => {
+      console.log(response.status);
+      console.log(response);
+    });
+  }
+}
+
+// src/Scenes/gameScene.ts
+class GameScene extends Scene {
+  ctx;
+  transitionScene;
+  agentType;
+  game;
+  camera;
+  levelDirector;
+  timer;
+  timePlayed;
+  constructor(ctx, transitionScene, condition, agentType) {
+    super();
+    this.ctx = ctx;
+    this.agentType = agentType;
+    this.transitionScene = transitionScene;
+    this.camera = new Camera;
+    this.levelDirector = new MDPLevelDirector;
+  }
+  onEnter() {
+    const lvl = this.levelDirector.get(LEVEL_SEGMENTS_PER_LEVEL);
+    this.game = new GameModel(lvl, this.agentType);
+    this.timer = new RepeatingTimer(0.1, () => {
+      const player = this.game.dynamicEntities[0];
+      Logger.pushPlayerPositionAndVelocity(player.pos, player.velocity);
+    });
+    this.timePlayed = 0;
+    Logger.coinsInLevel = this.game.coins.length;
+  }
+  update(dt) {
+    this.game.update(dt, 2);
+    this.timer.update(dt);
+    this.timePlayed += dt;
+    const state = this.game.state();
+    switch (state) {
+      case GAME_STATE_PLAYING:
+        break;
+      case GAME_STATE_LOST: {
+        Logger.timePlayed = this.timePlayed;
+        Logger.coinsCollected = this.game.dynamicEntities[0].coinsCollected;
+        this.transitionScene.targetScene = KEY_PLAYER_LOST;
+        this.changeScene = KEY_TRANSITION;
+        break;
+      }
+      case GAME_STATE_WON: {
+        Logger.result = "won";
+        Logger.timePlayed = this.timePlayed;
+        Logger.coinsCollected = this.game.dynamicEntities[0].coinsCollected;
+        if (this.levelDirector.playerBeatGame()) {
+          this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
+        } else {
+          this.transitionScene.targetScene = KEY_PLAYER_WON;
+        }
+        this.changeScene = KEY_TRANSITION;
+        break;
+      }
+      default: {
+        console.error(`Unhandled game state type: ${state}`);
+        break;
+      }
+    }
+  }
+  render() {
+    this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+    this.game.render(this.ctx, this.camera);
+  }
+  _onExit() {
+    console.log(Logger.result);
+    if (Logger.result !== "none") {
+      Server.submitAttempt();
+    }
+    Logger.resetLog();
+    const fitness = this.game.fitness();
+    console.log(`Fitness: ${fitness}`);
+    this.levelDirector.update(this.transitionScene.targetScene === KEY_PLAYER_WON, fitness);
+  }
+}
+
+// src/index.ts
+window.addEventListener("load", () => {
+  audioLoad(() => {
+    Server.getCondition((condition) => {
+      Logger.condition = condition;
+      InputManager.init();
+      Logger.init();
+      const canvas = document.createElement("canvas");
+      canvas.setAttribute("id", "canvas");
+      canvas.width = SCREEN_WIDTH;
+      canvas.height = SCREEN_HEIGHT;
+      const ctx = canvas.getContext("2d");
+      document.getElementById("game").appendChild(canvas);
+      const sceneManager = new SceneManager;
+      const transitionScene = new TransitionScene(ctx);
+      sceneManager.registerScene(KEY_TRANSITION, transitionScene);
+      sceneManager.registerScene(KEY_MAIN_MENU, new MainMenuScene(ctx, transitionScene));
+      sceneManager.registerScene(KEY_GAME, new GameScene(ctx, transitionScene, condition, AGENT_PLAYER));
+      sceneManager.registerScene(KEY_PLAYER_BEAT_THE_GAME, new PlayerBeatTheGameScene(ctx));
+      sceneManager.registerScene(KEY_PLAYER_WON, new PlayerBeatLevelScene(ctx, transitionScene));
+      sceneManager.registerScene(KEY_PLAYER_LOST, new PlayerLostLevelScene(ctx, transitionScene));
+      let timeLeft = 60 * 5;
+      timeLeft = 1;
+      const timeField = document.getElementById("time");
+      if (!IS_STUDY) {
+        timeField.style.display = "none";
+      }
+      let currentScene = sceneManager.getScene(KEY_MAIN_MENU);
+      currentScene = sceneManager.getScene(KEY_PLAYER_BEAT_THE_GAME);
+      currentScene.onEnter();
+      let previousTimeStamp = 0;
+      const gameLoop = (timeStamp) => {
+        const dt = Math.min(0.05, (timeStamp - previousTimeStamp) / 1000);
+        previousTimeStamp = timeStamp;
+        if (IS_STUDY) {
+          if (timeLeft > 0) {
+            timeLeft -= dt;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = Math.round(timeLeft - minutes * 60);
+            timeField.innerHTML = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+          } else {
+            currentScene.onExit();
+            currentScene = sceneManager.getScene(KEY_PLAYER_BEAT_THE_GAME);
+            currentScene.onEnter();
+            return;
+          }
+        }
+        currentScene.update(dt);
+        currentScene.render();
+        const scene = currentScene.changeScene;
+        if (scene !== undefined) {
+          currentScene.onExit();
+          currentScene = sceneManager.getScene(scene);
+          currentScene.onEnter();
+        }
+        window.requestAnimationFrame(gameLoop);
+      };
+      window.requestAnimationFrame(gameLoop);
+    });
+  });
+});
