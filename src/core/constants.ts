@@ -1,5 +1,7 @@
 import { Point } from "../DataStructures/point";
 
+export const IS_STUDY = false;
+
 export const SCREEN_WIDTH = 720;
 export const SCREEN_HEIGHT = 480;
 export const TILE_SIZE = 32;

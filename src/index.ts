@@ -10,7 +10,7 @@ import { MainMenuScene } from "./Scenes/mainMenuScene";
 import { GameScene } from "./Scenes/gameScene";
 import * as K from "./Scenes/sceneKeys";
 
-import { SCREEN_WIDTH, SCREEN_HEIGHT } from "./core/constants";
+import { SCREEN_WIDTH, SCREEN_HEIGHT, IS_STUDY } from "./core/constants";
 import { AGENT_PLAYER } from "./Agents/agentType";
 import { Logger } from "./logger";
 import { Server } from "./server";
@@ -63,8 +63,12 @@ window.addEventListener("load", () => {
       );
 
       //////////////// Set up time limit
-      let timeLeft = 1 * 60 * 5; // 5 minutes
+      let timeLeft = 60 * 5; // 5 minutes
       const timeField = document.getElementById("time")!;
+
+      if (!IS_STUDY) {
+        timeField.style.display = "none";
+      }
 
       //////////////// Set current scene and start the game
       let currentScene = sceneManager.getScene(K.KEY_MAIN_MENU)!;
@@ -77,16 +81,18 @@ window.addEventListener("load", () => {
         previousTimeStamp = timeStamp;
 
         // update time
-        if (timeLeft > 0) {
-          timeLeft -= dt;
-          const minutes = Math.floor(timeLeft / 60);
-          const seconds = Math.round(timeLeft - minutes * 60);
-          timeField.innerHTML = `${minutes}:${seconds}`;
-        } else {
-          // time is over, change the scene
-          currentScene.onExit();
-          currentScene = sceneManager.getScene(K.KEY_PLAYER_BEAT_THE_GAME)!;
-          currentScene.onEnter();
+        if (IS_STUDY) {
+          if (timeLeft > 0) {
+            timeLeft -= dt;
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = Math.round(timeLeft - minutes * 60);
+            timeField.innerHTML = `${minutes}:${seconds}`;
+          } else {
+            // time is over, change the scene
+            currentScene.onExit();
+            currentScene = sceneManager.getScene(K.KEY_PLAYER_BEAT_THE_GAME)!;
+            currentScene.onEnter();
+          }
         }
 
         // run scene
