@@ -6,32 +6,73 @@ export function density(level: string[]): number {
   return 1 - solidCount / (size * 100);
 }
 
-function contains(level: string[], type: string): number {
+function countOccurrences(level: string[], typeChar: string): number {
   let i = 0;
+  let jj = 0;
+  let c = 0;
   const size = level.length;
+  const rowLength = level[0].length;
   for (; i < size; ++i) {
-    if (level[i].indexOf(type) > -1) return 1.0;
+    const row = level[i];
+
+    for (jj = 0; jj < rowLength; ++jj) {
+      // @ts-ignore
+      c += row[jj] === typeChar;
+    }
   }
 
-  return 0.0;
+  return c;
 }
 
-export function constainsHorizontalEnemy(level: string[]): number {
-  return contains(level, "H");
+export function horizontalEnemies(level: string[]): number {
+  return countOccurrences(level, "H");
 }
 
-export function constainsVerticalEnemy(level: string[]): number {
-  return contains(level, "V");
+export function verticalEnemies(level: string[]): number {
+  return countOccurrences(level, "V");
 }
 
-export function constainsCircleEnemy(level: string[]): number {
-  return contains(level, "C");
+export function cirleEnemies(level: string[]): number {
+  return countOccurrences(level, "C");
 }
 
-export function containsLaser(level: string[]): number {
-  return contains(level, "^");
+export function lasers(level: string[]): number {
+  return countOccurrences(level, "^");
 }
 
-export function constainsTurret(level: string[]): number {
-  return contains(level, "V");
+export function turrets(level: string[]): number {
+  return countOccurrences(level, "T");
+}
+
+export function coins(level: string[]): number {
+  return countOccurrences(level, "o");
+}
+
+export function gaps(level: string[]): number {
+  const lastRow = level[level.length - 1];
+  let c = 0;
+  for (let i = 0; i < lastRow.length; ++i) {
+    c += lastRow[i] === "-";
+  }
+
+  return c;
+}
+
+export function inverseDensity(level: string[]): number {
+  let i = 0;
+  let jj = 0;
+  let c = 0;
+  const size = level.length;
+  const rowLength = level[0].length;
+  for (; i < size; ++i) {
+    const row = level[i];
+
+    for (jj = 0; jj < rowLength; ++jj) {
+      const char = row[jj];
+      // @ts-ignore
+      c += char === "X" || char === "^";
+    }
+  }
+
+  return 1 - c / (size * rowLength);
 }

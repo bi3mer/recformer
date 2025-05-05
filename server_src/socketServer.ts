@@ -4,6 +4,16 @@ import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
 import { astarCompletabilitySearch } from "../src/aStar";
 import { rowsToColumns, columnsToRows } from "./util";
+import {
+  cirleEnemies as circleEnemies,
+  coins,
+  gaps,
+  horizontalEnemies,
+  inverseDensity,
+  lasers,
+  turrets,
+  verticalEnemies,
+} from "./computationalMetrics";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -42,11 +52,24 @@ const server = Bun.listen({
         lvl.push("Xo-------------");
 
         // run game
-        const game = new GameModel(columnsToRows(lvl), AGENT_EMPTY);
+        const rows = columnsToRows(lvl);
+        const game = new GameModel(rows, AGENT_EMPTY);
         const result = {
           completability: astarCompletabilitySearch(game),
-          linearity: Math.random(),
-          leniency: Math.random(),
+          verticalEnemies: verticalEnemies(lvl),
+          horizontalEnemies: horizontalEnemies(lvl),
+          circleEnemies: circleEnemies(lvl),
+          lasers: lasers(lvl),
+          turrets: turrets(lvl),
+          coins: coins(lvl) - 1, // there is always one coin in the level from above
+          gaps: gaps(rows),
+          inverseDensity: inverseDensity(rows),
+        };
+
+        socket.write(encoder.encode(JSON.stringify(result)));
+      } else if (request.substring(0, 6) === "reward") {
+        const result = {
+          reward: 0,
         };
 
         socket.write(encoder.encode(JSON.stringify(result)));
