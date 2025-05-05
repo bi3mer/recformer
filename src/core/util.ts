@@ -4,6 +4,11 @@ import {
   pointSubtract,
 } from "../DataStructures/point";
 
+export function roundDecimalPlaces(a: number, decimalPlaces: number) {
+  const factor = Math.pow(10, decimalPlaces);
+  return Math.round(a * factor) / factor;
+}
+
 export function lerp(a: number, b: number, percent: number) {
   return (1 - percent) * a + percent * b;
 }

@@ -9,6 +9,6 @@ export class Player extends Agent {
   update(dt: number) {
     this.movingRight = InputManager.isKeyDown(Key.D, Key.RIGHT);
     this.movingLeft = InputManager.isKeyDown(Key.A, Key.LEFT);
-    this.jumping = InputManager.isKeyDown(Key.SPACE, Key.UP);
+    this.jumping = InputManager.isKeyDown(Key.SPACE, Key.UP, Key.W);
   }
 }

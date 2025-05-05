@@ -22,6 +22,7 @@ import {
 import { RepeatingTimer } from "../core/repeatingTimer";
 import { Logger } from "../logger";
 import { Protaganist } from "../GameObjects/protaganist";
+import { Server } from "../server";
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -37,6 +38,7 @@ export class GameScene extends Scene {
   constructor(
     ctx: CanvasRenderingContext2D,
     transitionScene: TransitionScene,
+    condition: string,
     agentType: number,
   ) {
     super();
@@ -76,7 +78,6 @@ export class GameScene extends Scene {
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
-        ++Logger.order;
 
         this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
@@ -88,7 +89,6 @@ export class GameScene extends Scene {
         Logger.coinsCollected = (
           this.game.dynamicEntities[0] as Protaganist
         ).coinsCollected;
-        ++Logger.order;
 
         if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
@@ -112,6 +112,13 @@ export class GameScene extends Scene {
   }
 
   protected _onExit(): void {
+    console.log(Logger.result);
+    if (Logger.result !== "none") {
+      Server.submitAttempt();
+    }
+
+    Logger.resetLog();
+
     const fitness = this.game.fitness();
     console.log(`Fitness: ${fitness}`);
 

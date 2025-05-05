@@ -69,3 +69,6 @@ export const BULLET_SIZE = new Point(BULLET_WIDTH, BULLET_HEIGHT);
 export const KEY_START = "start";
 export const KEY_END = "end";
 export const KEY_DEATH = "death";
+
+// Server keys
+export const CONDITION_NOT_FOUND = "error-condition";

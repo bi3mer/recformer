@@ -17,13 +17,12 @@ export enum Key {
   ESCAPE,
   ENTER,
   SHIFT,
-  INVALID
+  INVALID,
 }
-
 
 // static class to handle input
 export class InputManager {
-  private static _keys: boolean[] = []
+  private static _keys: boolean[] = [];
 
   public static init(): void {
     for (let i = 0; i < Object.keys(Key).length; ++i) {
@@ -47,56 +46,56 @@ export class InputManager {
 
   private static keyStrToKey(key: string): Key {
     switch (key) {
-      case 'Down':
-      case 'ArrowDown':
+      case "Down":
+      case "ArrowDown":
         return Key.DOWN;
-      case 'Up':
-      case 'ArrowUp':
+      case "Up":
+      case "ArrowUp":
         return Key.UP;
-      case 'Right':
-      case 'ArrowRight':
+      case "Right":
+      case "ArrowRight":
         return Key.RIGHT;
-      case 'Left':
-      case 'ArrowLeft':
+      case "Left":
+      case "ArrowLeft":
         return Key.LEFT;
-      case ' ':
-      case 'Space':
+      case " ":
+      case "Space":
         return Key.SPACE;
-      case 'Escape':
+      case "Escape":
         return Key.ESCAPE;
-      case 'a':
-      case 'A':
+      case "a":
+      case "A":
         return Key.A;
-      case 'e':
-      case 'E':
+      case "e":
+      case "E":
         return Key.E;
-      case 's':
-      case 'S':
+      case "s":
+      case "S":
         return Key.S;
-      case 'd':
-      case 'D':
+      case "d":
+      case "D":
         return Key.D;
-      case 'w':
-      case 'W':
+      case "w":
+      case "W":
         return Key.W;
-      case 'r':
-      case 'R':
+      case "r":
+      case "R":
         return Key.R;
-      case 'q':
-      case 'Q':
+      case "q":
+      case "Q":
         return Key.Q;
-      case 'g':
-      case 'G':
+      case "g":
+      case "G":
         return Key.G;
-      case 'h':
-      case 'H':
+      case "h":
+      case "H":
         return Key.H;
-      case 'i':
-      case 'I':
+      case "i":
+      case "I":
         return Key.I;
-      case 'Shift':
+      case "Shift":
         return Key.SHIFT;
-      case 'Enter':
+      case "Enter":
         return Key.ENTER;
       default:
         console.warn(`Unhandled key: ${key}.`);

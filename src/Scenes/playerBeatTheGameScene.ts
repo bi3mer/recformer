@@ -15,6 +15,10 @@ export class PlayerBeatTheGameScene extends Scene {
     this.ctx.font = "30px Arial";
     this.ctx.fillStyle = COLOR_WHITE;
     this.ctx.fillText("You won! Congratulations!", 170, SCREEN_HEIGHT / 2);
+
+    document.getElementById("time")!.style.display = "none";
+    document.getElementById("instructions")!.style.display = "none";
+    document.getElementById("studyOver")!.style.display = "inline";
   }
 
   update(dt: number): void {}
