@@ -1,8 +1,13 @@
-import { CONDITION_NOT_FOUND } from "./core/constants";
+import { CONDITION_NOT_FOUND, IS_STUDY } from "./core/constants";
 import { Logger } from "./logger";
 
 export class Server {
   public static getCondition(callback: (condition: string) => void) {
+    if (!IS_STUDY) {
+      callback(CONDITION_NOT_FOUND);
+      return;
+    }
+
     fetch("/condition", {
       method: "POST",
     })
@@ -21,8 +26,8 @@ export class Server {
   }
 
   public static submitAttempt() {
-    // @NOTE: This is bad if and only if the character limit exceeds 120k. We would
-    //        crash and that would suck
+    if (!IS_STUDY) return;
+
     fetch("/log", {
       method: "POST",
       body: JSON.stringify(Logger.getLog()),

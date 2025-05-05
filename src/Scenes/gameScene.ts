@@ -47,8 +47,8 @@ export class GameScene extends Scene {
     this.agentType = agentType;
     this.transitionScene = transitionScene;
     this.camera = new Camera();
-    this.levelDirector = new SingleLevelDirector();
-    // this.levelDirector = new MDPLevelDirector();
+    // this.levelDirector = new SingleLevelDirector();
+    this.levelDirector = new MDPLevelDirector();
   }
 
   onEnter(): void {
