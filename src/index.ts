@@ -63,7 +63,7 @@ window.addEventListener("load", () => {
       );
 
       //////////////// Set up time limit
-      let timeLeft = 60 * 5; // 5 minutes
+      let timeLeft = 60 * 5 - 45; // 5 minutes
       const timeField = document.getElementById("time")!;
 
       if (!IS_STUDY) {
@@ -86,7 +86,7 @@ window.addEventListener("load", () => {
             timeLeft -= dt;
             const minutes = Math.floor(timeLeft / 60);
             const seconds = Math.round(timeLeft - minutes * 60);
-            timeField.innerHTML = `${minutes}:${seconds}`;
+            timeField.innerHTML = `${minutes}:${seconds.toString().padStart(2, "0")}`;
           } else {
             // time is over, change the scene
             currentScene.onExit();
