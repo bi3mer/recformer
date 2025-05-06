@@ -45,12 +45,6 @@ const server = Bun.listen({
         // get level
         const lvl = JSON.parse(request.substring(6, request.length));
 
-        // update level with padding
-        lvl.splice(0, 0, "X--------------");
-        lvl.splice(1, 0, "X--------------");
-        lvl.push("X--------------");
-        lvl.push("Xo-------------");
-
         // run game
         const rows = columnsToRows(lvl);
         const game = new GameModel(rows, AGENT_EMPTY);
@@ -62,7 +56,7 @@ const server = Bun.listen({
           circleEnemies: circleEnemies(lvl),
           lasers: lasers(lvl),
           turrets: turrets(lvl),
-          coins: coins(lvl) - 1, // there is always one coin in the level from above
+          coins: coins(lvl),
           gaps: gaps(rows),
           inverseDensity: inverseDensity(rows),
         };

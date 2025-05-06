@@ -46,13 +46,22 @@ export class GameModel {
       return;
     }
 
+    // add padding to either side
+    for (let i = 0; i < rows - 2; ++i) {
+      level[i] = `--${level[i]}--`;
+    }
+
+    level[rows - 2] = `--${level[rows - 2]}o-`;
+    level[rows - 1] = `XX${level[rows - 1]}XX`;
+
+    // player is always the first entity
     this.dynamicEntities.push(
       new Protaganist(
         new Point(2, 12),
         new Point(0, 0),
         typeToAgent(agentType, this),
       ),
-    ); // player is always the first entity
+    );
 
     const columns = level[0].length;
 
