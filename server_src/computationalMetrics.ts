@@ -69,10 +69,10 @@ export function inverseDensity(level: string[]): number {
 
     for (jj = 0; jj < rowLength; ++jj) {
       const char = row[jj];
-      // @ts-ignore
       c += char === "X" || char === "^";
     }
   }
 
-  return 1 - c / (size * rowLength);
+  const H = (size * rowLength) / 2;
+  return Math.pow(c - H, 2) / (H * H);
 }

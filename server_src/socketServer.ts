@@ -54,8 +54,9 @@ const server = Bun.listen({
         // run game
         const rows = columnsToRows(lvl);
         const game = new GameModel(rows, AGENT_EMPTY);
+        const completability = astarCompletabilitySearch(game);
         const result = {
-          completability: astarCompletabilitySearch(game),
+          completability,
           verticalEnemies: verticalEnemies(lvl),
           horizontalEnemies: horizontalEnemies(lvl),
           circleEnemies: circleEnemies(lvl),
@@ -65,6 +66,15 @@ const server = Bun.listen({
           gaps: gaps(rows),
           inverseDensity: inverseDensity(rows),
         };
+
+        if (true) {
+          console.log("=================================================");
+          for (let i = 0; i < rows.length; ++i) {
+            console.log(rows[i]);
+          }
+          console.log(`completability: ${completability}`);
+          console.log("=================================================");
+        }
 
         socket.write(encoder.encode(JSON.stringify(result)));
       } else if (request.substring(0, 6) === "reward") {
