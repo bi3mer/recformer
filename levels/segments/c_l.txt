@@ -12,7 +12,7 @@
 ------C-------
 --------------
 --------------
-XXXXXXXXXXXXXX
+XXX^XXXXXXX^XX
 &
 --------------
 --------------
@@ -28,4 +28,4 @@ XXXXXXXXXXXXXX
 --------------
 --------------
 ---XXXXXXXX---
-XXXXXXXXXXXXXX
+XX^XXXXXXXX^XX

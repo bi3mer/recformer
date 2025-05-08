@@ -20,6 +20,7 @@ async function testLevel(file: string): Promise<boolean> {
   let completable = true;
   for (let i = 0; i < rows.length; ++i) {
     if (rows[i] == "&") {
+      ++index;
       const gm = new GameModel(level, AGENT_EMPTY);
       const [_, c] = astar(gm);
 
@@ -53,6 +54,7 @@ if (Bun.argv.length === 3) {
 
   for (const file of glob.scanSync(dir)) {
     console.log(`Testing ${file}...`);
+    everyLevelWasCompletable &= await testLevel(file);
   }
 
   if (everyLevelWasCompletable) {

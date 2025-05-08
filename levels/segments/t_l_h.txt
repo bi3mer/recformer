@@ -11,7 +11,7 @@ XXXXXXXXXXXXXXXXXXXXX
 ---------------------
 ---------------------
 ---------------------
----------------------
+--X-----H--H----H-X--
 XXX^XXXXXXXXX^XXXXXXX
 &
 XXXXXXXXXXXXXXXXXXXXX
@@ -27,7 +27,7 @@ XXXXXXXXXXXXXXXXXXXXX
 ---------------------
 ---------------------
 ---------------------
----------------------
+---X--H--H---H----X--
 XXXXXXXXXX^XXXXX^XXXX
 &
 XXXXXXXXXXXXXXXXXXXXX
@@ -43,7 +43,7 @@ XXXXXXXXXXXXXXXXXXXXX
 ---------------------
 ---------------------
 ---------------------
----------------------
+---X---H---H--H--X---
 XXXXXXXXXX^XXXXX^XXXX
 &
 ---------XXX-XXX-----
@@ -59,7 +59,7 @@ XXXXXXXXXX^XXXXX^XXXX
 ---------------------
 ---------------------
 ---------------------
----------------------
+---X----H---H---H-X--
 XXXX^XXX^XXXXXXXXXXXX
 &
 ----XXX--------------
@@ -75,5 +75,5 @@ XXXX^XXX^XXXXXXXXXXXX
 ---------------------
 ---------------------
 ---------------------
----------------------
+----X--H-H-----H--X--
 XXXXXXXX^XXXXXXXX^XXX
