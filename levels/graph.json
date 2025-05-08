@@ -1,23 +1,23 @@
 {
-  "scale": 0.7099999999999997,
+  "scale": 1.0,
   "graph": {
     "start": {
-      "x": 179,
-      "y": 462,
+      "x": -699,
+      "y": 498,
       "reward": 0.0,
       "neighbors": [
         "1"
       ]
     },
     "end": {
-      "x": 1857,
-      "y": 468,
+      "x": 1554,
+      "y": 499,
       "reward": 0.0,
       "neighbors": []
     },
     "l_h_v": {
-      "x": 1004,
-      "y": 462,
+      "x": 126,
+      "y": 498,
       "reward": 0.0,
       "neighbors": [
         "p",
@@ -27,8 +27,8 @@
       ]
     },
     "l_h": {
-      "x": 898,
-      "y": 410,
+      "x": 20,
+      "y": 446,
       "reward": 0.0,
       "neighbors": [
         "l_v",
@@ -36,16 +36,16 @@
       ]
     },
     "jump": {
-      "x": 426,
-      "y": 469,
+      "x": -452,
+      "y": 505,
       "reward": 0.0,
       "neighbors": [
         "gap"
       ]
     },
     "h": {
-      "x": 582,
-      "y": 428,
+      "x": -296,
+      "y": 464,
       "reward": 0.0,
       "neighbors": [
         "v",
@@ -53,241 +53,243 @@
       ]
     },
     "l": {
-      "x": 774,
-      "y": 470,
+      "x": -104,
+      "y": 506,
       "reward": 0.0,
       "neighbors": [
-        "l_v",
-        "l_h"
+        "l_h",
+        "l_v"
       ]
     },
     "c": {
-      "x": 1106,
-      "y": 1140,
+      "x": 228,
+      "y": 1176,
       "reward": 0.0,
       "neighbors": [
-        "c_v",
         "c_l",
-        "c_h"
+        "c_h",
+        "c_v"
       ]
     },
     "t": {
-      "x": 1101,
-      "y": 748,
+      "x": 223,
+      "y": 784,
       "reward": 0.0,
       "neighbors": [
-        "t_l",
         "t_v",
+        "t_l",
         "t_h"
       ]
     },
     "bb": {
-      "x": 1085,
-      "y": -7,
+      "x": 207,
+      "y": 29,
       "reward": 0.0,
       "neighbors": [
         "bb_h",
-        "bb_l",
-        "bb_v"
+        "bb_v",
+        "bb_l"
       ]
     },
     "p_v": {
-      "x": 1200,
-      "y": 551,
+      "x": 322,
+      "y": 587,
       "reward": 0.0,
       "neighbors": [
         "p_h",
-        "p_l",
-        "p_v_h"
+        "p_v_h",
+        "p_l"
       ]
     },
     "2": {
-      "x": 345,
-      "y": 466,
+      "x": -533,
+      "y": 502,
       "reward": 0.0,
       "neighbors": [
         "jump"
       ]
     },
     "p_v_h": {
-      "x": 1310,
-      "y": 509,
+      "x": 432,
+      "y": 545,
       "reward": 0.0,
       "neighbors": [
-        "p_l_h",
-        "p_l_v_h"
+        "p_l_v_h",
+        "p_l_h"
       ]
     },
     "1": {
-      "x": 261,
-      "y": 465,
+      "x": -617,
+      "y": 501,
       "reward": 0.0,
       "neighbors": [
         "2"
       ]
     },
     "p": {
-      "x": 1098,
-      "y": 466,
+      "x": 220,
+      "y": 502,
       "reward": 0.0,
       "neighbors": [
         "p_v",
-        "p_l",
-        "p_h"
+        "p_h",
+        "p_l"
       ]
     },
     "hv": {
-      "x": 676,
-      "y": 470,
+      "x": -202,
+      "y": 506,
       "reward": 0.0,
       "neighbors": [
         "l"
       ]
     },
     "gap": {
-      "x": 504,
-      "y": 471,
+      "x": -374,
+      "y": 507,
       "reward": 0.0,
       "neighbors": [
-        "h",
-        "v"
+        "v",
+        "h"
       ]
     },
     "v": {
-      "x": 582,
-      "y": 523,
+      "x": -296,
+      "y": 559,
       "reward": 0.0,
       "neighbors": [
-        "h",
-        "hv"
+        "hv",
+        "h"
       ]
     },
     "l_v": {
-      "x": 891,
-      "y": 513,
+      "x": 13,
+      "y": 549,
       "reward": 0.0,
       "neighbors": [
-        "l_h_v",
-        "l_h"
+        "l_h",
+        "l_h_v"
       ]
     },
     "p_h": {
-      "x": 1202,
-      "y": 462,
+      "x": 324,
+      "y": 498,
       "reward": 0.0,
       "neighbors": [
-        "p_v",
         "p_l_h",
-        "p_l",
-        "p_v_h"
+        "p_v",
+        "p_v_h",
+        "p_l"
       ]
     },
     "p_l": {
-      "x": 1202,
-      "y": 372,
+      "x": 324,
+      "y": 408,
       "reward": 0.0,
       "neighbors": [
-        "p_v",
         "p_l_h",
+        "p_v",
         "p_h"
       ]
     },
     "p_l_h": {
-      "x": 1310,
-      "y": 403,
+      "x": 432,
+      "y": 439,
       "reward": 0.0,
       "neighbors": [
-        "p_v_h",
-        "p_l_v_h"
+        "p_l_v_h",
+        "p_v_h"
       ]
     },
     "p_l_v_h": {
-      "x": 1576,
-      "y": 464,
+      "x": 698,
+      "y": 500,
       "reward": 0.0,
       "neighbors": [
+        "c",
+        "bb",
         "c_l_h_v",
         "bb_l_h_v",
-        "bb",
-        "t",
+        "easy",
         "t_l_h_v",
-        "c"
+        "t"
       ]
     },
     "last_level": {
-      "x": 1716,
-      "y": 464,
+      "x": 1425,
+      "y": 498,
       "reward": 0.0,
       "neighbors": [
         "end"
       ]
     },
     "t_l": {
-      "x": 1202,
-      "y": 696,
+      "x": 324,
+      "y": 732,
       "reward": 0.0,
       "neighbors": [
-        "t_h_v",
-        "t_h",
         "t_v",
-        "t_l_h"
+        "t_l_h",
+        "t_h_v",
+        "t_h"
       ]
     },
     "t_h": {
-      "x": 1204,
-      "y": 879,
+      "x": 326,
+      "y": 915,
       "reward": 0.0,
       "neighbors": [
-        "t_h_v",
         "t_v",
-        "t_l_h"
+        "t_l_h",
+        "t_h_v"
       ]
     },
     "t_v": {
-      "x": 1202,
-      "y": 786,
+      "x": 324,
+      "y": 822,
       "reward": 0.0,
       "neighbors": [
-        "t_h_v",
-        "t_h",
         "t_l",
-        "t_l_h"
+        "t_l_h",
+        "t_h_v",
+        "t_h"
       ]
     },
     "t_l_h_v": {
-      "x": 1573,
-      "y": 758,
+      "x": 695,
+      "y": 794,
       "reward": 0.0,
       "neighbors": [
+        "c",
+        "bb",
+        "p_l_v_h",
         "c_l_h_v",
         "bb_l_h_v",
-        "bb",
         "p",
-        "p_l_v_h",
-        "c"
+        "easy"
       ]
     },
     "t_l_h": {
-      "x": 1321,
-      "y": 733,
+      "x": 443,
+      "y": 769,
       "reward": 0.0,
       "neighbors": [
-        "t_h_v",
-        "t_l_h_v"
+        "t_l_h_v",
+        "t_h_v"
       ]
     },
     "t_h_v": {
-      "x": 1328,
-      "y": 837,
+      "x": 450,
+      "y": 873,
       "reward": 0.0,
       "neighbors": [
-        "t_l_h",
-        "t_l_h_v"
+        "t_l_h_v",
+        "t_l_h"
       ]
     },
     "c_v": {
-      "x": 1240,
-      "y": 1243,
+      "x": 362,
+      "y": 1279,
       "reward": 0.0,
       "neighbors": [
         "c_l",
@@ -297,8 +299,8 @@
       ]
     },
     "c_h": {
-      "x": 1239,
-      "y": 1141,
+      "x": 361,
+      "y": 1177,
       "reward": 0.0,
       "neighbors": [
         "c_v",
@@ -308,28 +310,28 @@
       ]
     },
     "c_l": {
-      "x": 1239,
-      "y": 1044,
+      "x": 361,
+      "y": 1080,
       "reward": 0.0,
       "neighbors": [
         "c_v",
+        "c_h_v",
         "c_h",
-        "c_l_h",
-        "c_h_v"
+        "c_l_h"
       ]
     },
     "c_l_h": {
-      "x": 1371,
-      "y": 1097,
+      "x": 493,
+      "y": 1133,
       "reward": 0.0,
       "neighbors": [
-        "c_l_h_v",
-        "c_h_v"
+        "c_h_v",
+        "c_l_h_v"
       ]
     },
     "c_h_v": {
-      "x": 1369,
-      "y": 1206,
+      "x": 491,
+      "y": 1242,
       "reward": 0.0,
       "neighbors": [
         "c_l_h_v",
@@ -337,54 +339,55 @@
       ]
     },
     "c_l_h_v": {
-      "x": 1568,
-      "y": 1158,
+      "x": 690,
+      "y": 1194,
       "reward": 0.0,
       "neighbors": [
-        "bb_l_h_v",
         "bb",
-        "t",
-        "p",
         "p_l_v_h",
-        "t_l_h_v"
+        "bb_l_h_v",
+        "p",
+        "easy",
+        "t_l_h_v",
+        "t"
       ]
     },
     "bb_v": {
-      "x": 1207,
-      "y": -117,
+      "x": 329,
+      "y": -81,
       "reward": 0.0,
       "neighbors": [
-        "bb_h_v",
         "bb_h",
+        "bb_h_v",
         "bb_l_h",
         "bb_l"
       ]
     },
     "bb_l": {
-      "x": 1208,
-      "y": 3,
+      "x": 330,
+      "y": 39,
       "reward": 0.0,
       "neighbors": [
+        "bb_v",
         "bb_h_v",
-        "bb_h",
         "bb_l_h",
-        "bb_v"
+        "bb_h"
       ]
     },
     "bb_h": {
-      "x": 1208,
-      "y": 106,
+      "x": 330,
+      "y": 142,
       "reward": 0.0,
       "neighbors": [
-        "bb_h_v",
         "bb_v",
+        "bb_h_v",
         "bb_l_h",
         "bb_l"
       ]
     },
     "bb_l_h": {
-      "x": 1326,
-      "y": 61,
+      "x": 448,
+      "y": 97,
       "reward": 0.0,
       "neighbors": [
         "bb_h_v",
@@ -392,26 +395,33 @@
       ]
     },
     "bb_h_v": {
-      "x": 1322,
-      "y": -55,
+      "x": 444,
+      "y": -19,
       "reward": 0.0,
       "neighbors": [
-        "bb_l_h_v",
-        "bb_l_h"
+        "bb_l_h",
+        "bb_l_h_v"
       ]
     },
     "bb_l_h_v": {
-      "x": 1589,
-      "y": 11,
+      "x": 711,
+      "y": 47,
       "reward": 0.0,
       "neighbors": [
-        "c_l_h_v",
-        "t",
-        "p",
+        "c",
         "p_l_v_h",
+        "c_l_h_v",
+        "p",
+        "easy",
         "t_l_h_v",
-        "c"
+        "t"
       ]
+    },
+    "easy": {
+      "x": 827,
+      "y": 503,
+      "reward": 0.0,
+      "neighbors": []
     }
   }
 }
