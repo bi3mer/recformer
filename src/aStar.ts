@@ -102,7 +102,7 @@ function astarSearch(
   return [endState, actions];
 }
 
-export function astar(model: GameModel): Action[] | undefined {
+export function astar(model: GameModel): [Action[] | undefined, number] {
   let curModel = model.clone();
   let actions: Action[] = [];
 
@@ -117,36 +117,12 @@ export function astar(model: GameModel): Action[] | undefined {
       console.error(
         `Pathing failed for coin at (${pointStr(curModel.coins[0].pos)})`,
       );
-      return undefined;
+      return [undefined, curModel.protaganist().coinsCollected / numCoins];
     }
 
     curModel = endState;
     actions = actions.concat(stateActions);
   }
 
-  return actions;
-}
-
-export function astarCompletabilitySearch(model: GameModel): number {
-  let curModel = model.clone();
-
-  const numCoins = model.coins.length;
-  while (curModel.protaganist().coinsCollected < numCoins) {
-    // the next coin will always be at index 0 because it is removed when it
-    // dies ans the clone method for game model updates the coins array
-    // accordingly
-    const [endState, stateActions] = astarSearch(curModel);
-
-    if (stateActions === undefined) {
-      console.error(
-        `Pathing failed for coin at (${pointStr(curModel.coins[0].pos)})`,
-      );
-
-      return curModel.protaganist().coinsCollected / numCoins;
-    }
-
-    curModel = endState;
-  }
-
-  return 1.0;
+  return [actions, 1.0];
 }

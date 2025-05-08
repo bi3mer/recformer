@@ -2,7 +2,7 @@ import { CONFIG } from "./config";
 import { MDP, idToLevel } from "../src/LevelGeneration/levels";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
-import { astarCompletabilitySearch } from "../src/aStar";
+import { astar } from "../src/aStar";
 import { rowsToColumns, columnsToRows } from "./util";
 import {
   cirleEnemies as circleEnemies,
@@ -11,6 +11,7 @@ import {
   horizontalEnemies,
   inverseDensity,
   lasers,
+  pathLength,
   turrets,
   verticalEnemies,
 } from "./computationalMetrics";
@@ -48,7 +49,7 @@ const server = Bun.listen({
         // run game
         const rows = columnsToRows(lvl);
         const game = new GameModel(rows, AGENT_EMPTY);
-        const completability = astarCompletabilitySearch(game);
+        const [actions, completability] = astar(game);
         const result = {
           completability,
           verticalEnemies: verticalEnemies(lvl),
@@ -59,16 +60,16 @@ const server = Bun.listen({
           coins: coins(lvl),
           gaps: gaps(rows),
           inverseDensity: inverseDensity(rows),
+          pathLength: pathLength(rows),
         };
 
-        if (true) {
-          console.log("=================================================");
-          for (let i = 0; i < rows.length; ++i) {
-            console.log(rows[i]);
-          }
-          console.log(`completability: ${completability}`);
-          console.log("=================================================");
+        console.log("=================================================");
+        for (let i = 0; i < rows.length; ++i) {
+          console.log(rows[i]);
         }
+
+        console.log(`completability: ${completability}`);
+        console.log("=================================================");
 
         socket.write(encoder.encode(JSON.stringify(result)));
       } else if (request.substring(0, 6) === "reward") {

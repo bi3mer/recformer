@@ -76,3 +76,9 @@ export function inverseDensity(level: string[]): number {
   const H = (size * rowLength) / 2;
   return Math.pow(c - H, 2) / (H * H);
 }
+
+export function pathLength(level: string[]): number {
+  // Create a heuristic that's based on the length of the solution pass minus the length of the level
+  console.warn("pathLength Heueristic not implemented.");
+  return 0;
+}

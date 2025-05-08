@@ -54,6 +54,12 @@ export const CONFIG = {
       max: 1,
       resolution: 15,
     },
+    {
+      name: "pathLength",
+      min: 0,
+      max: 1,
+      resolution: 15,
+    },
   ],
   seed: 42,
 };
