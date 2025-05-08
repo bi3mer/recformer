@@ -3,20 +3,11 @@ import { idToLevel } from "../src/LevelGeneration/levels";
 import { astar } from "../src/aStar";
 import { GameModel } from "../src/gameModel";
 
-// const K = "5-a";
-// const gm = new GameModel(idToLevel[K], AGENT_EMPTY);
-// const actions = astar(gm);
-
-// console.log(actions);
 import { Glob } from "bun";
-
 const glob = new Glob("*");
-
-let everyLevelWasCompletable = true;
-
 const dir = "levels/segments/";
-for (const file of glob.scanSync(dir)) {
-  console.log(`Testing ${file}...`);
+
+async function testLevel(file: string): Promise<boolean> {
   const filePath = `${dir}${file}`;
   const f = Bun.file(filePath);
 
@@ -26,6 +17,7 @@ for (const file of glob.scanSync(dir)) {
   let level: string[] = [];
   let index = 0;
 
+  let completable = true;
   for (let i = 0; i < rows.length; ++i) {
     if (rows[i] == "&") {
       const gm = new GameModel(level, AGENT_EMPTY);
@@ -33,7 +25,7 @@ for (const file of glob.scanSync(dir)) {
 
       if (c !== 1.0) {
         console.log(`${file}_${index} was not completable: ${c}.`);
-        everyLevelWasCompletable = false;
+        completable = false;
       }
 
       level = [];
@@ -47,12 +39,25 @@ for (const file of glob.scanSync(dir)) {
 
   if (c !== 1.0) {
     console.log(`${file}_${index} was not completable: ${c}.`);
-    everyLevelWasCompletable = false;
+    completable = false;
   }
+
+  return completable;
 }
 
-if (everyLevelWasCompletable) {
-  console.log("Every level was completable!");
+if (Bun.argv.length === 3) {
+  const completable = await testLevel(Bun.argv[2]);
+  console.log(`${Bun.argv[2]} was completable: ${completable}`);
 } else {
-  console.log("Done.");
+  let everyLevelWasCompletable = true;
+
+  for (const file of glob.scanSync(dir)) {
+    console.log(`Testing ${file}...`);
+  }
+
+  if (everyLevelWasCompletable) {
+    console.log("Every level was completable!");
+  } else {
+    console.log("Done.");
+  }
 }
