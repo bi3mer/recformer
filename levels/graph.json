@@ -1,0 +1,176 @@
+{
+  "scale": 1.0,
+  "graph": {
+    "start": {
+      "x": -17,
+      "y": 436,
+      "reward": 0.0,
+      "neighbors": [
+        "1"
+      ]
+    },
+    "end": {
+      "x": 1429,
+      "y": 452,
+      "reward": 0.0,
+      "neighbors": []
+    },
+    "l_h_v": {
+      "x": 808,
+      "y": 436,
+      "reward": 0.0,
+      "neighbors": [
+        "p"
+      ]
+    },
+    "l_h": {
+      "x": 702,
+      "y": 384,
+      "reward": 0.0,
+      "neighbors": [
+        "l_h_v",
+        "l_v"
+      ]
+    },
+    "jump": {
+      "x": 230,
+      "y": 443,
+      "reward": 0.0,
+      "neighbors": [
+        "gap"
+      ]
+    },
+    "h": {
+      "x": 386,
+      "y": 402,
+      "reward": 0.0,
+      "neighbors": [
+        "v",
+        "hv"
+      ]
+    },
+    "l": {
+      "x": 578,
+      "y": 444,
+      "reward": 0.0,
+      "neighbors": [
+        "l_h",
+        "l_v"
+      ]
+    },
+    "c": {
+      "x": 1377,
+      "y": 109,
+      "reward": 0.0,
+      "neighbors": []
+    },
+    "t": {
+      "x": 1072,
+      "y": 132,
+      "reward": 0.0,
+      "neighbors": []
+    },
+    "bb": {
+      "x": 1232,
+      "y": 119,
+      "reward": 0.0,
+      "neighbors": []
+    },
+    "p_v": {
+      "x": 1004,
+      "y": 525,
+      "reward": 0.0,
+      "neighbors": [
+        "p_v_h",
+        "p_l",
+        "p_h"
+      ]
+    },
+    "2": {
+      "x": 149,
+      "y": 440,
+      "reward": 0.0,
+      "neighbors": [
+        "jump"
+      ]
+    },
+    "p_v_h": {
+      "x": 1114,
+      "y": 483,
+      "reward": 0.0,
+      "neighbors": []
+    },
+    "1": {
+      "x": 65,
+      "y": 439,
+      "reward": 0.0,
+      "neighbors": [
+        "2"
+      ]
+    },
+    "p": {
+      "x": 902,
+      "y": 440,
+      "reward": 0.0,
+      "neighbors": [
+        "p_v",
+        "p_l",
+        "p_h"
+      ]
+    },
+    "hv": {
+      "x": 480,
+      "y": 444,
+      "reward": 0.0,
+      "neighbors": [
+        "l"
+      ]
+    },
+    "gap": {
+      "x": 308,
+      "y": 445,
+      "reward": 0.0,
+      "neighbors": [
+        "v",
+        "h"
+      ]
+    },
+    "v": {
+      "x": 386,
+      "y": 497,
+      "reward": 0.0,
+      "neighbors": [
+        "h",
+        "hv"
+      ]
+    },
+    "l_v": {
+      "x": 695,
+      "y": 487,
+      "reward": 0.0,
+      "neighbors": [
+        "l_h",
+        "l_h_v"
+      ]
+    },
+    "p_h": {
+      "x": 1006,
+      "y": 436,
+      "reward": 0.0,
+      "neighbors": [
+        "p_v_h",
+        "p_v",
+        "p_l"
+      ]
+    },
+    "p_l": {
+      "x": 1006,
+      "y": 346,
+      "reward": 0.0,
+      "neighbors": [
+        "p_v",
+        "p_h"
+      ]
+    }
+  }
+}
