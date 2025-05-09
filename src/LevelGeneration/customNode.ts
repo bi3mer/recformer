@@ -7,8 +7,16 @@ export class CustomNode extends Node {
 
   private designerReward: number;
   private playerReward: number;
+  private levelIDS: string[];
 
-  constructor(name: string, reward: number, utility: number, isTerminal: boolean, neighbors: string[], depth: number) {
+  constructor(
+    name: string,
+    reward: number,
+    utility: number,
+    isTerminal: boolean,
+    neighbors: string[],
+    depth: number,
+  ) {
     super(name, reward, utility, isTerminal, neighbors);
 
     this.designerReward = reward;
@@ -20,7 +28,6 @@ export class CustomNode extends Node {
   }
 
   public updateReward(): void {
-    // TODO: why is this multiply
     this.reward = this.designerReward * this.visitedCount;
   }
 }

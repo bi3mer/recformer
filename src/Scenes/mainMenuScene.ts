@@ -11,7 +11,7 @@ import {
 } from "../core/constants";
 import { InputManager, Key } from "../core/inputManager";
 import { Scene } from "../core/scene";
-import { randomKey } from "../core/util";
+import { randomInt, randomKey } from "../core/util";
 import { GameModel } from "../gameModel";
 import { replays } from "../replays";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
@@ -46,9 +46,13 @@ export class MainMenuScene extends Scene {
     }
     this.previousKey = levelID;
 
+    // Get index for level and the actions
+    const size = idToLevel[levelID].length;
+    const index = randomInt(0, size - 1);
+
     // set up replay
-    this.actions = replays[levelID];
-    this.game = new GameModel(idToLevel[levelID], AGENT_EMPTY);
+    this.actions = replays[levelID][index];
+    this.game = new GameModel(idToLevel[levelID][index], AGENT_EMPTY);
     this.actionIndex = 0;
     this.frame = 0;
     this.time = 0;

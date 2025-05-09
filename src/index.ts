@@ -14,7 +14,6 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT, IS_STUDY } from "./core/constants";
 import { AGENT_PLAYER } from "./Agents/agentType";
 import { Logger } from "./logger";
 import { Server } from "./server";
-import { SurveyScene } from "./Scenes/surveyScene";
 
 window.addEventListener("load", () => {
   audioLoad(() => {
@@ -68,7 +67,6 @@ window.addEventListener("load", () => {
       /////////////////////////////////////////////////////////////////////////
       // Set up time limit
       let timeLeft = 60 * 5; // 5 minutes
-      timeLeft = 1;
       const timeField = document.getElementById("time")!;
 
       if (!IS_STUDY) {
@@ -78,7 +76,6 @@ window.addEventListener("load", () => {
       /////////////////////////////////////////////////////////////////////////
       // Set current scene and start the game
       let currentScene = sceneManager.getScene(K.KEY_MAIN_MENU)!;
-      currentScene = sceneManager.getScene(K.KEY_PLAYER_BEAT_THE_GAME)!;
       currentScene.onEnter();
 
       let previousTimeStamp = 0;

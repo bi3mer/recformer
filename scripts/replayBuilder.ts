@@ -1,3 +1,4 @@
+import { Action } from "../src/Agents/action";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { idToLevel } from "../src/LevelGeneration/levels";
 import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME, astar } from "../src/aStar";
@@ -19,17 +20,35 @@ const keys = Object.keys(idToLevel);
 
 for (let i = 0; i < keys.length; ++i) {
   const K = keys[i];
+  const levels = idToLevel[K];
+  const actions: Action[][] = [];
   console.log(`=================== K = ${K} ===================`);
-  const gm = new GameModel(idToLevel[K], AGENT_EMPTY);
-  const actions = astar(gm);
+  for (let jj = 0; jj < levels.length; ++jj) {
+    const gm = new GameModel(levels[jj], AGENT_EMPTY);
+    const [levelActions, _] = astar(gm);
 
-  if (actions === undefined) {
-    console.log(`A* failed for level ${K}`);
-  } else {
+    if (levelActions === undefined) {
+      console.log(`A* failed for level ${K}`);
+      process.exit(1);
+    } else {
+      actions.push(levelActions);
+    }
+
+    // write
     replaysFile += `  "${K}": [\n`;
     for (let jj = 0; jj < actions.length; ++jj) {
-      const a = actions[jj];
-      replaysFile += `    new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
+      const levelActions = actions[jj];
+      replaysFile += `    [\n`;
+      for (
+        let actionIndex = 0;
+        actionIndex < levelActions.length;
+        ++actionIndex
+      ) {
+        const a = levelActions[actionIndex];
+        replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
+      }
+
+      replaysFile += `    ],\n`;
     }
 
     replaysFile += "  ],\n";

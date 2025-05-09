@@ -103,10 +103,13 @@ export class LaserBlock extends RectangleGameObject {
     ctx.lineTo(x, botY);
     ctx.stroke();
 
+    ctx.lineWidth = 1.3;
     ctx.strokeStyle = COLOR_WHITE;
-    ctx.beginPath();
-    ctx.moveTo(x, topY);
-    ctx.lineTo(x + BLOCK_SCREEN_WIDTH, topY);
-    ctx.stroke();
+    ctx.strokeRect(
+      camera.columnToScreen(this.pos.x),
+      camera.rowToScreen(this.pos.y),
+      BLOCK_SCREEN_WIDTH,
+      BLOCK_SCREEN_HEIGHT,
+    );
   }
 }
