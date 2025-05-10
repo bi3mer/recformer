@@ -25,10 +25,10 @@ max_r = -1
 for id in G['graph']:
     max_r = max(max_r, G['graph'][id]["reward"])
 
-max_r = 1
+print(max_r)
 
 for id in G['graph']:
-    if id == "start" or id == "end":
+    if id == "start":
         continue
 
     with open(os.path.join("segments", f"{id}.txt")) as f:
@@ -49,13 +49,14 @@ for id in G['graph']:
     depth = 1 # TODO: set the depth
     # node = f'new CustomNode("{id}", {-(max_r-G["graph"][id]["reward"])/max_r}, 0, false, [], {depth})'
     N = G['graph'][id]
-    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, false, [], {depth})'
+    is_terminal = "true" if id == 'end' else "false"
+    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {depth})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
 for id in G['graph']:
-    if id[0] == "1":
-        typescript += f'MDP.addDefaultEdge(KEY_START, "{id}", [["{id}", 0.99], [KEY_DEATH, 0.01]])\n'
+    # if id[0] == "1":
+    #     typescript += f'MDP.addDefaultEdge(KEY_START, "{id}", [["{id}", 0.99], [KEY_DEATH, 0.01]])\n'
 
     for tgt in G['graph'][id]["neighbors"]:
         typescript += f'MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]]);\n'

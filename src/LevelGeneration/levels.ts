@@ -10,84 +10,82 @@ MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));
 MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));
 MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));
 
-MDP.addNode(new CustomNode("l_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("l_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("jump", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("l", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb", -1.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("l_h_v", -2.4, 0, false, [], 1));
+MDP.addNode(new CustomNode("l_h", -2.5, 0, false, [], 1));
+MDP.addNode(new CustomNode("jump", -3.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("h", -2.8, 0, false, [], 1));
+MDP.addNode(new CustomNode("l", -2.6, 0, false, [], 1));
+MDP.addNode(new CustomNode("c", -2.3, 0, false, [], 1));
+MDP.addNode(new CustomNode("t", -2.3, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb", -1.9, 0, false, [], 1));
 MDP.addNode(new CustomNode("p_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("2", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("p_v_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("1", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("p", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("hv", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("gap", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("l_v", -1.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("2", -3.1, 0, false, [], 1));
+MDP.addNode(new CustomNode("p_v_h", -1.7, 0, false, [], 1));
+MDP.addNode(new CustomNode("1", -3.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("p", -1.9, 0, false, [], 1));
+MDP.addNode(new CustomNode("hv", -2.7, 0, false, [], 1));
+MDP.addNode(new CustomNode("gap", -2.9, 0, false, [], 1));
+MDP.addNode(new CustomNode("v", -2.8, 0, false, [], 1));
+MDP.addNode(new CustomNode("l_v", -2.5, 0, false, [], 1));
 MDP.addNode(new CustomNode("p_h", -1.0, 0, false, [], 1));
 MDP.addNode(new CustomNode("p_l", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("p_l_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("p_l_v_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("last_level", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_l", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_l_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_l_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("t_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_l", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_l_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_l_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_l", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_l_h", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_l_h_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("easy", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_c_h_l_p_t", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_c_h_l_p_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_c_h_p_t_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_c_l_p_t_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("bb_h_l_p_t_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("c_h_l_p_t_v", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("easy_2", -1.0, 0, false, [], 1));
-MDP.addNode(new CustomNode("hard", -1.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("p_l_h", -1.7, 0, false, [], 1));
+MDP.addNode(new CustomNode("p_l_v_h", -1.6, 0, false, [], 1));
+MDP.addNode(new CustomNode("end", -0.0, 0, true, [], 1));
+MDP.addNode(new CustomNode("t_l", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("t_h", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("t_v", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("t_l_h_v", -2.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("t_l_h", -2.1, 0, false, [], 1));
+MDP.addNode(new CustomNode("t_h_v", -2.1, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_v", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_h", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_l", -2.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_l_h", -2.1, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_h_v", -2.1, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_l_h_v", -2.0, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_v", -1.8, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_l", -1.8, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_h", -1.8, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_l_h", -1.7, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_h_v", -1.7, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_l_h_v", -1.6, 0, false, [], 1));
+MDP.addNode(new CustomNode("easy", -1.5, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_c_h_l_p_t", -1.4, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_c_h_l_p_v", -1.4, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_c_h_p_t_v", -1.3, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_c_l_p_t_v", -1.3, 0, false, [], 1));
+MDP.addNode(new CustomNode("bb_h_l_p_t_v", -1.3, 0, false, [], 1));
+MDP.addNode(new CustomNode("c_h_l_p_t_v", -1.4, 0, false, [], 1));
+MDP.addNode(new CustomNode("easy_2", -1.2, 0, false, [], 1));
+MDP.addNode(new CustomNode("hard", -1.1, 0, false, [], 1));
 
 // ========= Edges =========
 MDP.addDefaultEdge("start", "1", [["1", 0.99], [KEY_DEATH, 0.01]]);
 
-
-MDP.addDefaultEdge("l_h_v", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_h_v", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_h_v", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l_h", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_h", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_h", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("jump", "gap", [["gap", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("h", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("h", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("bb", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
@@ -101,183 +99,150 @@ MDP.addDefaultEdge("2", "jump", [["jump", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge(KEY_START, "1", [["1", 0.99], [KEY_DEATH, 0.01]])
 MDP.addDefaultEdge("1", "2", [["2", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("hv", "l", [["l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("gap", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("gap", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("v", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("v", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("v", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l_v", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_v", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_v", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_h", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_h", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_l", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_l_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_l_v_h", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l_v_h", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l_v_h", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l_v_h", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l_v_h", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l_v_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_v_h", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l_v_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("last_level", "end", [["end", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_l", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("t_v", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_v", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_v", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_v", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("t_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l_h_v", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("t_l_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_v", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_v", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c_h", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c_l", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_l_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l_h_v", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_v", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_v", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_l_h_v", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_l_h_v", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("easy", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("easy", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("easy", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("easy", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("easy", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("easy", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("easy", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_p_t_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_l_p_t_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("easy_2", "hard", [["hard", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("hard", "last_level", [["last_level", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("hard", "end", [["end", 0.99], [KEY_DEATH, 0.01]]);
 
 
 // ========= Level Segments =========
@@ -551,11 +516,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "---------------XXX---",
       "----------------T----",
       "---------------------",
       "---------------------",
@@ -565,14 +526,14 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------------",
       "---------------------",
       "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "--------XXX----------",
       "---------T-----------",
       "---------------------",
       "---------------------",
@@ -582,15 +543,19 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------------",
       "---------------------",
       "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "----XXX--------------",
       "-----T---------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -894,12 +859,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-------XXXXXX--------",
       "-------XXXXXX--------",
       "-------XXXXXX--------",
-      "-------XXXXXX--------",
-      "-------XXXXXX--------",
-      "-------XXXXXX--------",
+      "---------------------",
+      "---------------------",
       "-------V----V--------",
       "---------oo----------",
       "-------XXXXXX--------",
+      "---------------------",
       "-------o----o--------",
       "-----X----H---X------",
       "XXXXXXXXXXXXXXXXXXXXX"
@@ -912,11 +877,11 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------------",
       "---------------------",
       "---------------------",
-      "---------------------",
       "------o------o-------",
       "---------------------",
       "------X---H--X-------",
       "XXX---XXXXXXXX-------",
+      "---------------------",
       "-------oV--Vo--------",
       "----X----------X-----",
       "XXXXXXXXXXXXXXXXXXXXX"
@@ -1242,7 +1207,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXX^X-------X^XXXXX"
     ]
   ],
-  "last_level": [
+  "end": [
     [
       "------------",
       "------------",
@@ -1259,16 +1224,33 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "------------",
       "oooooooooooo",
       "XXXXXXXXXXXX"
+    ],
+    [
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "------------",
+      "---ooooooooo",
+      "XXXXXXXXXXXX"
     ]
   ],
   "t_l": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1280,12 +1262,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXX^XXXXXXXXX^XXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "--------XXX------XXX-",
       "---------T--------T--",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1297,12 +1279,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXX^XXXXX^XXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "----XXX----XXX-------",
       "-----T------T--------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1350,12 +1332,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t_h": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1367,12 +1349,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "---------T--------T--",
+      "-------XXX-----XXX---",
+      "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1384,12 +1366,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "-----T------T--------",
+      "--------XXX------XXX-",
+      "---------T--------T--",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1437,12 +1419,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t_v": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "-----V---------V-----",
       "---------------------",
@@ -1454,12 +1436,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "---------T-----V--T--",
+      "--------XXX------XXX-",
+      "---------T--------T--",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------V-----",
       "---------------------",
       "------------V--------",
       "------V--------------",
@@ -1471,12 +1453,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "-----T----V-T--------",
+      "----XXX----XXX-------",
+      "-----T------T--------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "----------V----------",
       "---------------------",
       "--V-----V-------V----",
       "---------------------",
@@ -1524,12 +1506,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t_l_h_v": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "--V----------------V-",
       "-------V-------------",
       "------------V--------",
@@ -1541,16 +1523,16 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXX^XXXXXXXXXX^XXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "--------XXX------XXX-",
       "---------T--------T--",
-      "--V-----------V------",
-      "------------------V--",
       "---------------------",
-      "------V----V---------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "----V------------V---",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1558,17 +1540,17 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXX^XXXXXXXXXX^XXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "----XXX----XXX-------",
       "-----T------T--------",
       "---------------------",
-      "--------V---------V--",
       "---------------------",
-      "--------------V------",
-      "---V-----------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "------V-----------V--",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "------X----H----H-X--",
@@ -1577,13 +1559,13 @@ export const idToLevel:{ [key: string]: string[][] } = {
     [
       "---------XXX-XXX-----",
       "----------T---T------",
-      "------V--------------",
-      "---------------------",
-      "------------V--------",
       "---------------------",
       "---------------------",
-      "-----------------V---",
-      "---V----V------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---V-----------V-----",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1596,12 +1578,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-----T---------------",
       "-----------XXXV------",
       "------------T--------",
-      "---------V-----------",
-      "---------------V-----",
       "---------------------",
       "---------------------",
-      "------V--------------",
-      "------------------V--",
+      "--V---------V--------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1611,12 +1593,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t_l_h": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1628,12 +1610,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXX^XXXXXXXXX^XXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "--------XXX------XXX-",
       "---------T--------T--",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1645,12 +1627,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXX^XXXXX^XXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "----XXX----XXX-------",
       "-----T------T--------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1698,33 +1680,33 @@ export const idToLevel:{ [key: string]: string[][] } = {
   ],
   "t_h_v": [
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "-------XXX-----XXX---",
       "--------T-------T----",
-      "--V----------------V-",
-      "-------V-------------",
-      "------------V--------",
       "---------------------",
-      "---V-----------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "----V------------V---",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "----X---H-----H--X---",
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
+      "--------XXX------XXX-",
       "---------T--------T--",
-      "--V-----------V------",
-      "------------------V--",
       "---------------------",
-      "------V----V---------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "----V------------V---",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "---------------------",
       "---------------------",
       "---------------------",
@@ -1732,49 +1714,49 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "XXXXXXXXXXXXXXXXXXXXX",
-      "-----T------T--------",
-      "---------------------",
-      "--------V---------V--",
-      "---------------------",
-      "--------------V------",
-      "---V-----------------",
-      "---------------------",
-      "---------------------",
-      "------X----H----H-X--",
-      "XXXXXXXXXXXXXXXXXXXXX"
+      "----XXX----XXX-------------",
+      "-----T------T--------------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "------V-----------V--------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "---------------------------",
+      "------X----H----H-X--------",
+      "XXXXXXXXXXXXXXXXXXXXXXX--XX"
     ],
     [
-      "---------XXX-XXX-----",
-      "----------T---T------",
-      "------V--------------",
-      "---------------------",
-      "------------V--------",
-      "---------------------",
-      "---------------------",
-      "-----------------V---",
-      "---V----V------------",
-      "---------------------",
-      "---------------------",
-      "---------------------",
-      "---------------------",
-      "---X---H----H--X-----",
-      "XXXXXXXXXXXXXXXXXXXXX"
+      "---------XXX-XXX----------------",
+      "----------T---T------------V----",
+      "--------------------------V-----",
+      "-------------------------V------",
+      "------------------------V-------",
+      "-----------------------V--------",
+      "--------------------------------",
+      "--------------------------------",
+      "--------------------------------",
+      "--------------------------------",
+      "--------------------------------",
+      "--------------------------------",
+      "--------------------------------",
+      "---X---H----H--X----------------",
+      "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
     ],
     [
       "----XXX--------------",
       "-----T---------------",
       "-----------XXX---V---",
       "------------T--------",
-      "---------V-----------",
-      "---------------V-----",
-      "---V-----------------",
       "---------------------",
-      "------V--------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
+      "---------------------",
       "------------------V--",
       "---------------------",
       "---------------------",
@@ -1795,7 +1777,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "--------------",
       "--------------",
       "--------------",
-      "---X-----X----",
+      "--------------",
       "---V--C--V----",
       "--------------",
       "--------------",
@@ -1810,7 +1792,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "--------------",
       "--------------",
       "--------------",
-      "---X------X---",
+      "--------------",
       "---V------V---",
       "------C-------",
       "--------------",
@@ -1938,7 +1920,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "--------------",
       "--------------",
       "--------------",
-      "--X-------X---",
+      "--------------",
       "--V-------V---",
       "------C-------",
       "--------------",
@@ -1951,10 +1933,10 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------",
       "---------------",
       "---------------",
-      "---------------",
-      "---------------",
-      "---------------",
       "---X-------X---",
+      "---------------",
+      "---------------",
+      "---------------",
       "---V-------V---",
       "-------C-------",
       "---------------",
@@ -1974,7 +1956,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------",
       "---------------",
       "---------------",
-      "---X-------X---",
+      "---------------",
       "---V-------V---",
       "-------C-------",
       "---------------",
@@ -1990,7 +1972,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------",
       "---------------",
       "---------------",
-      "---X-------X---",
+      "---------------",
       "---V-------V---",
       "-------C-------",
       "---------------",
@@ -2276,7 +2258,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-----------------------------b---------",
       "--------C---o----C--o------------------",
       "---------XXXXXXXXXXXXX--C-------XX-----",
-      "------------T--------------------------",
+      "---------------------------------------",
       "--------------------b------------------",
       "--------------------------------XXXX---",
       "------------XXXX-------XXX-------------",
@@ -2519,12 +2501,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
   "c_h_l_p_t_v": [
     [
       "-----------XXX-------XXX---------------",
-      "------------T---------T----------------",
-      "------------------------------C--------",
+      "------------T----C----T----------------",
+      "--------C---------------------C--------",
       "---------------------------------------",
-      "--------C---o----C--o------------------",
-      "---------XXXXXXXXXXXXX---XXXXXXXXX-----",
-      "------------T--------------------------",
+      "------------o-------o------------------",
+      "XXX------XXXXXXXXXXXXX---XXXXXXXXX-----",
+      "-T-------------------------------------",
       "---------------------------------------",
       "--------------------------------XXXX---",
       "------------XXXX----XXXXXX-------------",
@@ -2535,8 +2517,8 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXXXXXX------------------X^--XXX^X--XXX"
     ],
     [
-      "-XXX---------------XXX-----------------",
-      "--T-----------------T------------------",
+      "-XXX--------------------------XXX------",
+      "--T----------------------------T-------",
       "---------o---o-------------------------",
       "---------X---XX------------------------",
       "----------------------------C----------",
@@ -2676,11 +2658,11 @@ export const idToLevel:{ [key: string]: string[][] } = {
   "hard": [
     [
       "----------------------------------------XXXXXXXXXXXXXX------",
-      "--V-------------------------------------X-T----T----T-------",
+      "--------------------------V-------------X-T----T----T-------",
       "--o---------------------o---------------X-----------------o-",
-      "-------------------C--------------------X-------------------",
-      "--X---------C-----------X-------------o-X-----------------X-",
-      "---o----C----------------------b---b----X-------------------",
+      "--------C-----C----C--------------------X-------------------",
+      "--X---------------------X-------------o-X-----------------X-",
+      "-------------------------------b---b----X-------------------",
       "----------------------------------------X---------------X---",
       "XXXXXXXXXXXXXXXXXXXXXXXXXXXXH---------X-X---------------X---",
       "-------V----------T---------------------X------------X--X---",

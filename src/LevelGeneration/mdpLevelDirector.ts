@@ -144,14 +144,20 @@ export class MDPLevelDirector implements ILevelDirector {
     // Populate the level
     const lvl: string[] = Array(NUM_ROWS).fill("");
     const length = this.keys.length;
+    console.log(this.keys);
 
     for (let i = 0; i < length; ++i) {
       // skip the start key
-      const stateLVL = idToLevel[this.keys[i]];
+      console.log(this.keys[i], idToLevel[this.keys[i]]);
+      const stateLVL = choice(idToLevel[this.keys[i]]);
       this.columnsPerLevel.push(stateLVL[0].length);
 
       for (let r = 0; r < NUM_ROWS; ++r) {
         lvl[r] += stateLVL[r];
+      }
+
+      if (this.keys[i] === KEY_END) {
+        break;
       }
     }
 
