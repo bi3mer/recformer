@@ -34,9 +34,11 @@ const server = Bun.listen({
 
         const L: string[][] = [];
         for (const l of Object.keys(MDP.nodes)) {
-          const level = idToLevel[l];
-          if (level !== undefined) {
-            L.push(level);
+          const levels = idToLevel[l];
+          if (levels !== undefined) {
+            for (let i = 0; i < levels.length; ++i) {
+              L.push(levels[i]);
+            }
           }
         }
 

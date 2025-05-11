@@ -1,6 +1,5 @@
 import { Action } from "../Agents/action";
 import { AGENT_EMPTY } from "../Agents/agentType";
-import { idToLevel } from "../LevelGeneration/levels";
 import { REPLAY_FRAME_TIME, REPLAY_UPDATES_PER_FRAME } from "../replays";
 import { COLOR_YELLOW } from "../colorPalette";
 import { Camera } from "../core/camera";
@@ -16,6 +15,9 @@ import { GameModel } from "../gameModel";
 import { replays } from "../replays";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
+import { MDP } from "../LevelGeneration/levels";
+import { choice } from "../LevelGeneration/GDM-TS/src/rand";
+import { CustomNode } from "../LevelGeneration/customNode";
 
 const DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
 
@@ -41,18 +43,22 @@ export class MainMenuScene extends Scene {
   onEnter(): void {
     // get level that wasn't just shown to the player
     let levelID = randomKey(replays);
-    while (levelID == this.previousKey) {
+    while (
+      levelID == this.previousKey ||
+      (MDP.nodes[levelID] as CustomNode).levels.length === 0
+    ) {
       levelID = randomKey(replays);
     }
     this.previousKey = levelID;
 
     // Get index for level and the actions
-    const size = idToLevel[levelID].length;
+    const N: CustomNode = MDP.nodes[levelID] as CustomNode;
+    const size = N.levels.length;
     const index = randomInt(0, size - 1);
 
     // set up replay
     this.actions = replays[levelID][index];
-    this.game = new GameModel(idToLevel[levelID][index], AGENT_EMPTY);
+    this.game = new GameModel(N.levels[index], AGENT_EMPTY);
     this.actionIndex = 0;
     this.frame = 0;
     this.time = 0;

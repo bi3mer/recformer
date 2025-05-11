@@ -1,5 +1,4 @@
 import { AGENT_EMPTY } from "../src/Agents/agentType";
-import { CircleEnemy } from "../src/GameObjects/CircleEnemy";
 import { SingleLevelDirector } from "../src/LevelGeneration/singleLevelDirector";
 import { GameModel } from "../src/gameModel";
 

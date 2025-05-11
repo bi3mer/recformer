@@ -16,8 +16,8 @@ typescript += 'import { KEY_DEATH, KEY_END, KEY_START } from "../core/constants"
 typescript += "\n// ========= Nodes =========\n"
 typescript += "export const MDP = new Graph();\n\n"
 
-typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));\n"
-typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));\n"
+typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], [], -1));\n"
+typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], [], -1));\n"
 # typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
 # Get max reward
@@ -43,14 +43,13 @@ for id in G['graph']:
                 lvl.append(l)
 
         levels.append(lvl)
-        id_to_lvl[id] = levels
 
     # depth = id.split("-")[0]
     depth = 1 # TODO: set the depth
     # node = f'new CustomNode("{id}", {-(max_r-G["graph"][id]["reward"])/max_r}, 0, false, [], {depth})'
     N = G['graph'][id]
     is_terminal = "true" if id == 'end' else "false"
-    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {N["depth"]})'
+    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {json.dumps(levels)},{N["depth"]})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
@@ -63,9 +62,9 @@ for id in G['graph']:
 
     typescript += "\n"
 
-typescript += "\n// ========= Level Segments =========\n"
-TYPE = "{ [key: string]: string[][] }"
-typescript += f"export const idToLevel:{TYPE} = {json.dumps(id_to_lvl, indent=2)};\n"
+# typescript += "\n// ========= Level Segments =========\n"
+# TYPE = "{ [key: string]: string[][] }"
+# typescript += f"export const idToLevel:{TYPE} = {json.dumps(id_to_lvl, indent=2)};\n"
 
 PATH = os.path.join("..", "src", "LevelGeneration", "levels.ts")
 with open(PATH, "w") as f:

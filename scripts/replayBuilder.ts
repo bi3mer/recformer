@@ -1,6 +1,7 @@
 import { Action } from "../src/Agents/action";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
-import { idToLevel } from "../src/LevelGeneration/levels";
+import { CustomNode } from "../src/LevelGeneration/customNode";
+import { MDP } from "../src/LevelGeneration/levels";
 import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME, astar } from "../src/aStar";
 import { GameModel } from "../src/gameModel";
 
@@ -16,43 +17,34 @@ replaysFile += `export const REPLAY_FRAME_TIME = ${ASTAR_FRAME_TIME};\n`;
 replaysFile += `export const REPLAY_UPDATES_PER_FRAME = ${ASTAR_UPDATES_PER_FRAME};\n\n`;
 replaysFile += `export const replays = {\n`;
 
-const keys = Object.keys(idToLevel);
+for (const K of Object.keys(MDP.nodes)) {
+  if (K === "start" || K === "death") {
+    continue;
+  }
 
-for (let i = 0; i < keys.length; ++i) {
-  const K = keys[i];
-  const levels = idToLevel[K];
-  const actions: Action[][] = [];
-  console.log(`=================== K = ${K} ===================`);
+  const levels = (MDP.nodes[K] as CustomNode).levels;
+  replaysFile += `  "${K}": [\n`;
   for (let jj = 0; jj < levels.length; ++jj) {
+    const start = performance.now();
+    replaysFile += "    [\n";
     const gm = new GameModel(levels[jj], AGENT_EMPTY);
     const [levelActions, _] = astar(gm);
+    const end = performance.now();
 
+    console.log(`${K}-${jj}: ${end - start} ms`);
     if (levelActions === undefined) {
       console.log(`A* failed for level ${K}`);
       process.exit(1);
-    } else {
-      actions.push(levelActions);
     }
 
     // write
-    replaysFile += `  "${K}": [\n`;
-    for (let jj = 0; jj < actions.length; ++jj) {
-      const levelActions = actions[jj];
-      replaysFile += `    [\n`;
-      for (
-        let actionIndex = 0;
-        actionIndex < levelActions.length;
-        ++actionIndex
-      ) {
-        const a = levelActions[actionIndex];
-        replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
-      }
-
-      replaysFile += `    ],\n`;
+    for (let jj = 0; jj < levelActions.length; ++jj) {
+      const a = levelActions[jj];
+      replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
     }
-
-    replaysFile += "  ],\n";
+    replaysFile += "    ],\n";
   }
+  replaysFile += "  ],\n";
 }
 
 replaysFile += "\n};";

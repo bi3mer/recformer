@@ -3,8 +3,8 @@ export const CONFIG = {
   "end-reward": 1,
   n: 3,
   "levels-are-horizontal": true,
-  "start-population-size": 100,
-  iterations: 15,
+  "start-population-size": 20,
+  iterations: 20,
   "elites-per-bin": 4,
   "start-strand-size": 10,
   "max-strand-size": 10,
@@ -18,7 +18,7 @@ export const CONFIG = {
   ],
   "structure-size": 0,
   "allow-empty-link": true,
-  "max-linker-length": 3,
+  "max-linker-length": 1,
   "computational-metrics": [
     {
       name: "verticalEnemies",
@@ -54,12 +54,12 @@ export const CONFIG = {
       max: 1,
       resolution: 15,
     },
-    {
-      name: "pathLength",
-      min: 0,
-      max: 1,
-      resolution: 15,
-    },
+    // {
+    //   name: "pathLength",
+    //   min: 0,
+    //   max: 1,
+    //   resolution: 15,
+    // },
   ],
   seed: 42,
 };
