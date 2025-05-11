@@ -2,8 +2,8 @@
   "scale": 0.7199999999999998,
   "graph": {
     "start": {
-      "x": -579,
-      "y": 661,
+      "x": 98,
+      "y": 624,
       "reward": 0.0,
       "neighbors": [
         "1"
@@ -11,8 +11,8 @@
       "depth": 0
     },
     "l_h_v": {
-      "x": 227,
-      "y": 672,
+      "x": 904,
+      "y": 635,
       "reward": -14.0,
       "neighbors": [
         "c",
@@ -21,8 +21,8 @@
       "depth": 9
     },
     "l_h": {
-      "x": 145,
-      "y": 628,
+      "x": 822,
+      "y": 591,
       "reward": -15.0,
       "neighbors": [
         "l_h_v",
@@ -31,8 +31,8 @@
       "depth": 8
     },
     "jump": {
-      "x": -318,
-      "y": 666,
+      "x": 359,
+      "y": 629,
       "reward": -20.0,
       "neighbors": [
         "gap"
@@ -40,73 +40,75 @@
       "depth": 3
     },
     "h": {
-      "x": -129,
-      "y": 625,
+      "x": 548,
+      "y": 588,
       "reward": -18.0,
       "neighbors": [
-        "hv",
-        "v"
+        "v",
+        "hv"
       ],
       "depth": 5
     },
     "l": {
-      "x": 56,
-      "y": 671,
+      "x": 733,
+      "y": 634,
       "reward": -16.0,
       "neighbors": [
-        "l_h",
-        "l_v"
+        "l_v",
+        "l_h"
       ],
       "depth": 7
     },
     "c": {
-      "x": 324,
-      "y": 801,
-      "reward": -13.0,
+      "x": 1001,
+      "y": 764,
+      "reward": -10.0,
       "neighbors": [
         "c_v",
-        "c_l",
-        "c_h"
+        "c_h",
+        "t",
+        "c_l"
       ],
       "depth": 10
     },
     "t": {
-      "x": 329,
-      "y": 487,
-      "reward": -13.0,
+      "x": 1006,
+      "y": 450,
+      "reward": -10.0,
       "neighbors": [
+        "c",
         "t_l",
-        "t_h",
-        "t_v"
+        "t_v",
+        "t_h"
       ],
       "depth": 10
     },
     "bb": {
-      "x": 715,
-      "y": 480,
-      "reward": -9.0,
+      "x": 1392,
+      "y": 443,
+      "reward": -6.0,
       "neighbors": [
         "bb_h",
-        "p",
         "bb_v",
-        "bb_l"
+        "bb_l",
+        "p"
       ],
       "depth": 14
     },
     "p_v": {
-      "x": 808,
-      "y": 891,
+      "x": 1485,
+      "y": 854,
       "reward": 0.0,
       "neighbors": [
-        "p_v_h",
         "p_l",
-        "p_h"
+        "p_h",
+        "p_v_h"
       ],
       "depth": 15
     },
     "2": {
-      "x": -407,
-      "y": 665,
+      "x": 270,
+      "y": 628,
       "reward": -21.0,
       "neighbors": [
         "jump"
@@ -114,18 +116,18 @@
       "depth": 2
     },
     "p_v_h": {
-      "x": 899,
-      "y": 834,
+      "x": 1576,
+      "y": 797,
       "reward": -7.0,
       "neighbors": [
-        "p_l_v_h",
-        "p_l_h"
+        "p_l_h",
+        "p_l_v_h"
       ],
-      "depth": 16
+      "depth": 17
     },
     "1": {
-      "x": -486,
-      "y": 662,
+      "x": 191,
+      "y": 625,
       "reward": -22.0,
       "neighbors": [
         "2"
@@ -133,20 +135,20 @@
       "depth": 1
     },
     "p": {
-      "x": 724,
-      "y": 793,
-      "reward": -9.0,
+      "x": 1401,
+      "y": 756,
+      "reward": -6.0,
       "neighbors": [
-        "p_v",
         "bb",
-        "p_l",
-        "p_h"
+        "p_h",
+        "p_v",
+        "p_l"
       ],
       "depth": 14
     },
     "hv": {
-      "x": -38,
-      "y": 671,
+      "x": 639,
+      "y": 634,
       "reward": -17.0,
       "neighbors": [
         "l"
@@ -154,18 +156,18 @@
       "depth": 6
     },
     "gap": {
-      "x": -222,
-      "y": 667,
+      "x": 455,
+      "y": 630,
       "reward": -19.0,
       "neighbors": [
-        "h",
-        "v"
+        "v",
+        "h"
       ],
       "depth": 4
     },
     "v": {
-      "x": -128,
-      "y": 720,
+      "x": 549,
+      "y": 683,
       "reward": -18.0,
       "neighbors": [
         "hv",
@@ -174,8 +176,8 @@
       "depth": 5
     },
     "l_v": {
-      "x": 145,
-      "y": 714,
+      "x": 822,
+      "y": 677,
       "reward": -15.0,
       "neighbors": [
         "l_h_v",
@@ -184,31 +186,31 @@
       "depth": 8
     },
     "p_h": {
-      "x": 808,
-      "y": 791,
+      "x": 1485,
+      "y": 754,
       "reward": 0.0,
       "neighbors": [
-        "p_v_h",
         "p_v",
-        "p_l",
-        "p_l_h"
+        "p_l_h",
+        "p_v_h",
+        "p_l"
       ],
       "depth": 15
     },
     "p_l": {
-      "x": 812,
-      "y": 691,
+      "x": 1489,
+      "y": 654,
       "reward": 0.0,
       "neighbors": [
         "p_l_h",
-        "p_v",
-        "p_h"
+        "p_h",
+        "p_v"
       ],
       "depth": 15
     },
     "p_l_h": {
-      "x": 899,
-      "y": 740,
+      "x": 1576,
+      "y": 703,
       "reward": -7.0,
       "neighbors": [
         "p_v_h",
@@ -217,170 +219,170 @@
       "depth": 16
     },
     "p_l_v_h": {
-      "x": 991,
-      "y": 794,
+      "x": 1668,
+      "y": 757,
       "reward": -6.0,
       "neighbors": [
-        "easy",
-        "bb_l_h_v"
+        "bb_l_h_v",
+        "easy"
       ],
       "depth": 18
     },
     "end": {
-      "x": 1630,
-      "y": 657,
+      "x": 2307,
+      "y": 620,
       "reward": 10.0,
       "neighbors": [],
       "depth": 23
     },
     "t_l": {
-      "x": 416,
-      "y": 390,
+      "x": 1093,
+      "y": 353,
       "reward": -12.0,
       "neighbors": [
-        "t_h",
         "t_l_h",
         "t_h_v",
-        "t_v"
+        "t_v",
+        "t_h"
       ],
       "depth": 11
     },
     "t_h": {
-      "x": 416,
-      "y": 597,
+      "x": 1093,
+      "y": 560,
       "reward": -12.0,
       "neighbors": [
-        "t_h_v",
         "t_l_h",
+        "t_h_v",
         "t_v"
       ],
       "depth": 11
     },
     "t_v": {
-      "x": 417,
-      "y": 490,
+      "x": 1094,
+      "y": 453,
       "reward": -12.0,
       "neighbors": [
-        "t_l",
-        "t_h",
+        "t_l_h",
         "t_h_v",
-        "t_l_h"
+        "t_l",
+        "t_h"
       ],
       "depth": 11
     },
     "t_l_h_v": {
-      "x": 610,
-      "y": 482,
+      "x": 1287,
+      "y": 445,
       "reward": -10.0,
       "neighbors": [
-        "c_l_h_v",
         "p",
-        "bb"
+        "bb",
+        "c_l_h_v"
       ],
       "depth": 13
     },
     "t_l_h": {
-      "x": 522,
-      "y": 455,
+      "x": 1199,
+      "y": 418,
       "reward": -11.0,
       "neighbors": [
-        "t_l_h_v",
-        "t_h_v"
+        "t_h_v",
+        "t_l_h_v"
       ],
       "depth": 12
     },
     "t_h_v": {
-      "x": 515,
-      "y": 544,
+      "x": 1192,
+      "y": 507,
       "reward": -11.0,
       "neighbors": [
-        "t_l_h_v",
-        "t_l_h"
+        "t_l_h",
+        "t_l_h_v"
       ],
       "depth": 12
     },
     "c_v": {
-      "x": 416,
-      "y": 890,
+      "x": 1093,
+      "y": 853,
       "reward": -12.0,
       "neighbors": [
-        "c_l",
         "c_l_h",
+        "c_h",
         "c_h_v",
-        "c_h"
+        "c_l"
       ],
       "depth": 11
     },
     "c_h": {
-      "x": 417,
-      "y": 801,
-      "reward": -12.0,
-      "neighbors": [
-        "c_v",
-        "c_l",
-        "c_l_h",
-        "c_h_v"
-      ],
-      "depth": 11
-    },
-    "c_l": {
-      "x": 414,
-      "y": 711,
+      "x": 1094,
+      "y": 764,
       "reward": -12.0,
       "neighbors": [
         "c_v",
         "c_l_h",
         "c_h_v",
-        "c_h"
+        "c_l"
+      ],
+      "depth": 11
+    },
+    "c_l": {
+      "x": 1091,
+      "y": 674,
+      "reward": -12.0,
+      "neighbors": [
+        "c_v",
+        "c_h",
+        "c_h_v",
+        "c_l_h"
       ],
       "depth": 11
     },
     "c_l_h": {
-      "x": 506,
-      "y": 742,
+      "x": 1183,
+      "y": 705,
       "reward": -11.0,
       "neighbors": [
-        "c_l_h_v",
-        "c_h_v"
+        "c_h_v",
+        "c_l_h_v"
       ],
       "depth": 12
     },
     "c_h_v": {
-      "x": 510,
-      "y": 844,
+      "x": 1187,
+      "y": 807,
       "reward": -11.0,
       "neighbors": [
-        "c_l_h_v",
-        "c_l_h"
+        "c_l_h",
+        "c_l_h_v"
       ],
       "depth": 12
     },
     "c_l_h_v": {
-      "x": 605,
-      "y": 797,
+      "x": 1282,
+      "y": 760,
       "reward": -10.0,
       "neighbors": [
-        "t_l_h_v",
         "p",
-        "bb"
+        "bb",
+        "t_l_h_v"
       ],
       "depth": 14
     },
     "bb_v": {
-      "x": 810,
-      "y": 368,
+      "x": 1487,
+      "y": 331,
       "reward": -8.0,
       "neighbors": [
         "bb_h",
-        "bb_h_v",
         "bb_l_h",
+        "bb_h_v",
         "bb_l"
       ],
       "depth": 15
     },
     "bb_l": {
-      "x": 807,
-      "y": 456,
+      "x": 1484,
+      "y": 419,
       "reward": -8.0,
       "neighbors": [
         "bb_h",
@@ -391,30 +393,30 @@
       "depth": 15
     },
     "bb_h": {
-      "x": 808,
-      "y": 548,
+      "x": 1485,
+      "y": 511,
       "reward": -8.0,
       "neighbors": [
+        "bb_l_h",
         "bb_h_v",
         "bb_v",
-        "bb_l_h",
         "bb_l"
       ],
       "depth": 15
     },
     "bb_l_h": {
-      "x": 887,
-      "y": 490,
+      "x": 1564,
+      "y": 453,
       "reward": -7.0,
       "neighbors": [
-        "bb_h_v",
-        "bb_l_h_v"
+        "bb_l_h_v",
+        "bb_h_v"
       ],
       "depth": 16
     },
     "bb_h_v": {
-      "x": 887,
-      "y": 413,
+      "x": 1564,
+      "y": 376,
       "reward": -7.0,
       "neighbors": [
         "bb_l_h",
@@ -423,8 +425,8 @@
       "depth": 16
     },
     "bb_l_h_v": {
-      "x": 985,
-      "y": 453,
+      "x": 1662,
+      "y": 416,
       "reward": -6.0,
       "neighbors": [
         "easy",
@@ -433,91 +435,91 @@
       "depth": 17
     },
     "easy": {
-      "x": 1106,
-      "y": 663,
+      "x": 1783,
+      "y": 626,
       "reward": -5.0,
       "neighbors": [
+        "bb_c_h_l_p_t",
         "c_h_l_p_t_v",
-        "bb_c_h_l_p_v",
-        "bb_c_h_l_p_t"
+        "bb_c_h_l_p_v"
       ],
       "depth": 18
     },
     "bb_c_h_l_p_t": {
-      "x": 1207,
-      "y": 661,
+      "x": 1884,
+      "y": 624,
       "reward": -4.0,
       "neighbors": [
-        "bb_c_h_p_t_v",
-        "bb_c_l_p_t_v",
-        "bb_c_h_l_p_v",
         "bb_h_l_p_t_v",
-        "c_h_l_p_t_v"
+        "bb_c_l_p_t_v",
+        "c_h_l_p_t_v",
+        "bb_c_h_l_p_v",
+        "bb_c_h_p_t_v"
       ],
       "depth": 19
     },
     "bb_c_h_l_p_v": {
-      "x": 1206,
-      "y": 770,
+      "x": 1883,
+      "y": 733,
       "reward": -4.0,
       "neighbors": [
-        "bb_c_h_p_t_v",
-        "bb_c_l_p_t_v",
-        "bb_c_h_l_p_t",
         "bb_h_l_p_t_v",
-        "c_h_l_p_t_v"
+        "bb_c_l_p_t_v",
+        "c_h_l_p_t_v",
+        "bb_c_h_l_p_t",
+        "bb_c_h_p_t_v"
       ],
       "depth": 19
     },
     "bb_c_h_p_t_v": {
-      "x": 1311,
-      "y": 561,
+      "x": 1988,
+      "y": 524,
       "reward": -3.0,
       "neighbors": [
-        "bb_c_l_p_t_v",
         "bb_h_l_p_t_v",
+        "bb_c_l_p_t_v",
         "easy_2"
       ],
       "depth": 20
     },
     "bb_c_l_p_t_v": {
-      "x": 1309,
-      "y": 656,
+      "x": 1986,
+      "y": 619,
       "reward": -3.0,
       "neighbors": [
         "bb_h_l_p_t_v",
-        "bb_c_h_p_t_v",
-        "easy_2"
+        "easy_2",
+        "bb_c_h_p_t_v"
       ],
       "depth": 20
     },
     "bb_h_l_p_t_v": {
-      "x": 1314,
-      "y": 769,
+      "x": 1991,
+      "y": 732,
       "reward": -3.0,
       "neighbors": [
         "bb_c_l_p_t_v",
-        "bb_c_h_p_t_v",
-        "easy_2"
+        "easy_2",
+        "bb_c_h_p_t_v"
       ],
       "depth": 20
     },
     "c_h_l_p_t_v": {
-      "x": 1210,
-      "y": 561,
+      "x": 1887,
+      "y": 524,
       "reward": -4.0,
       "neighbors": [
-        "bb_c_h_p_t_v",
+        "bb_h_l_p_t_v",
         "bb_c_l_p_t_v",
-        "bb_c_h_l_p_v",
         "bb_c_h_l_p_t",
-        "bb_h_l_p_t_v"
+        "bb_c_h_l_p_v",
+        "bb_c_h_p_t_v"
       ],
       "depth": 19
     },
     "easy_2": {
-      "x": 1427,
-      "y": 655,
+      "x": 2104,
+      "y": 618,
       "reward": -2.0,
       "neighbors": [
         "hard"
@@ -525,8 +527,8 @@
       "depth": 21
     },
     "hard": {
-      "x": 1526,
-      "y": 654,
+      "x": 2203,
+      "y": 617,
       "reward": -1.0,
       "neighbors": [
         "end"

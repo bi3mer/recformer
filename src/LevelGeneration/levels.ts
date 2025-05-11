@@ -13,14 +13,14 @@ MDP.addNode(new CustomNode("l_h", -2.5, 0, false, [], 8));
 MDP.addNode(new CustomNode("jump", -3.0, 0, false, [], 3));
 MDP.addNode(new CustomNode("h", -2.8, 0, false, [], 5));
 MDP.addNode(new CustomNode("l", -2.6, 0, false, [], 7));
-MDP.addNode(new CustomNode("c", -2.3, 0, false, [], 10));
-MDP.addNode(new CustomNode("t", -2.3, 0, false, [], 10));
-MDP.addNode(new CustomNode("bb", -1.9, 0, false, [], 14));
+MDP.addNode(new CustomNode("c", -2.0, 0, false, [], 10));
+MDP.addNode(new CustomNode("t", -2.0, 0, false, [], 10));
+MDP.addNode(new CustomNode("bb", -1.6, 0, false, [], 14));
 MDP.addNode(new CustomNode("p_v", -1.0, 0, false, [], 15));
 MDP.addNode(new CustomNode("2", -3.1, 0, false, [], 2));
-MDP.addNode(new CustomNode("p_v_h", -1.7, 0, false, [], 16));
+MDP.addNode(new CustomNode("p_v_h", -1.7, 0, false, [], 17));
 MDP.addNode(new CustomNode("1", -3.2, 0, false, [], 1));
-MDP.addNode(new CustomNode("p", -1.9, 0, false, [], 14));
+MDP.addNode(new CustomNode("p", -1.6, 0, false, [], 14));
 MDP.addNode(new CustomNode("hv", -2.7, 0, false, [], 6));
 MDP.addNode(new CustomNode("gap", -2.9, 0, false, [], 4));
 MDP.addNode(new CustomNode("v", -2.8, 0, false, [], 5));
@@ -69,45 +69,47 @@ MDP.addDefaultEdge("l_h", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("jump", "gap", [["gap", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("h", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("h", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("h", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("t", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_v", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_v", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("2", "jump", [["jump", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_v_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_v_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("1", "2", [["2", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("hv", "l", [["l", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("gap", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("gap", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("gap", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("v", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("v", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
@@ -115,74 +117,74 @@ MDP.addDefaultEdge("v", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_v", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_v", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_h", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_h", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_l", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_l", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_l_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_l_v_h", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_v_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l_v_h", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 
 
-MDP.addDefaultEdge("t_l", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_v", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_v", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_v", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_v", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_l_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_l_h", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l_h", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_v", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_v", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c_h", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c_l", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_l_h", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l_h", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_v", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_v", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_v", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_l", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
@@ -190,13 +192,13 @@ MDP.addDefaultEdge("bb_l", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("bb_h", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_h_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
@@ -204,39 +206,39 @@ MDP.addDefaultEdge("bb_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]
 MDP.addDefaultEdge("bb_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("easy", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("easy", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("easy", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("easy", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("easy_2", "hard", [["hard", 0.99], [KEY_DEATH, 0.01]]);
 
