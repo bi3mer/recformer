@@ -14,8 +14,8 @@
       "y": 457,
       "reward": -14.0,
       "neighbors": [
-        "t",
-        "c"
+        "c",
+        "t"
       ]
     },
     "l_h": {
@@ -23,8 +23,8 @@
       "y": 413,
       "reward": -15.0,
       "neighbors": [
-        "l_v",
-        "l_h_v"
+        "l_h_v",
+        "l_v"
       ]
     },
     "jump": {
@@ -58,9 +58,9 @@
       "y": 586,
       "reward": -13.0,
       "neighbors": [
-        "c_v",
+        "c_h",
         "c_l",
-        "c_h"
+        "c_v"
       ]
     },
     "t": {
@@ -68,8 +68,8 @@
       "y": 272,
       "reward": -13.0,
       "neighbors": [
-        "t_h",
         "t_v",
+        "t_h",
         "t_l"
       ]
     },
@@ -80,8 +80,8 @@
       "neighbors": [
         "p",
         "bb_h",
-        "bb_l",
-        "bb_v"
+        "bb_v",
+        "bb_l"
       ]
     },
     "p_v": {
@@ -90,8 +90,8 @@
       "reward": 0.0,
       "neighbors": [
         "p_v_h",
-        "p_l",
-        "p_h"
+        "p_h",
+        "p_l"
       ]
     },
     "2": {
@@ -107,8 +107,8 @@
       "y": 619,
       "reward": -7.0,
       "neighbors": [
-        "p_l_v_h",
-        "p_l_h"
+        "p_l_h",
+        "p_l_v_h"
       ]
     },
     "1": {
@@ -124,10 +124,10 @@
       "y": 578,
       "reward": -9.0,
       "neighbors": [
-        "bb",
+        "p_l",
         "p_h",
-        "p_v",
-        "p_l"
+        "bb",
+        "p_v"
       ]
     },
     "hv": {
@@ -143,8 +143,8 @@
       "y": 452,
       "reward": -19.0,
       "neighbors": [
-        "v",
-        "h"
+        "h",
+        "v"
       ]
     },
     "v": {
@@ -152,8 +152,8 @@
       "y": 505,
       "reward": -18.0,
       "neighbors": [
-        "hv",
-        "h"
+        "h",
+        "hv"
       ]
     },
     "l_v": {
@@ -161,8 +161,8 @@
       "y": 499,
       "reward": -15.0,
       "neighbors": [
-        "l_h",
-        "l_h_v"
+        "l_h_v",
+        "l_h"
       ]
     },
     "p_h": {
@@ -171,9 +171,9 @@
       "reward": 0.0,
       "neighbors": [
         "p_l_h",
-        "p_v_h",
+        "p_l",
         "p_v",
-        "p_l"
+        "p_v_h"
       ]
     },
     "p_l": {
@@ -191,8 +191,8 @@
       "y": 525,
       "reward": -7.0,
       "neighbors": [
-        "p_l_v_h",
-        "p_v_h"
+        "p_v_h",
+        "p_l_v_h"
       ]
     },
     "p_l_v_h": {
@@ -215,8 +215,8 @@
       "y": 175,
       "reward": -12.0,
       "neighbors": [
-        "t_h",
         "t_h_v",
+        "t_h",
         "t_l_h",
         "t_v"
       ]
@@ -226,8 +226,8 @@
       "y": 382,
       "reward": -12.0,
       "neighbors": [
-        "t_l_h",
         "t_h_v",
+        "t_l_h",
         "t_v"
       ]
     },
@@ -236,10 +236,10 @@
       "y": 275,
       "reward": -12.0,
       "neighbors": [
-        "t_h",
         "t_h_v",
-        "t_l_h",
-        "t_l"
+        "t_h",
+        "t_l",
+        "t_l_h"
       ]
     },
     "t_l_h_v": {
@@ -266,8 +266,8 @@
       "y": 329,
       "reward": -11.0,
       "neighbors": [
-        "t_l_h",
-        "t_l_h_v"
+        "t_l_h_v",
+        "t_l_h"
       ]
     },
     "c_v": {
@@ -275,10 +275,10 @@
       "y": 675,
       "reward": -12.0,
       "neighbors": [
-        "c_l_h",
+        "c_h_v",
         "c_h",
         "c_l",
-        "c_h_v"
+        "c_l_h"
       ]
     },
     "c_h": {
@@ -286,10 +286,10 @@
       "y": 586,
       "reward": -12.0,
       "neighbors": [
-        "c_v",
-        "c_l_h",
+        "c_h_v",
         "c_l",
-        "c_h_v"
+        "c_v",
+        "c_l_h"
       ]
     },
     "c_l": {
@@ -297,10 +297,10 @@
       "y": 496,
       "reward": -12.0,
       "neighbors": [
-        "c_v",
-        "c_l_h",
+        "c_h_v",
         "c_h",
-        "c_h_v"
+        "c_v",
+        "c_l_h"
       ]
     },
     "c_l_h": {
@@ -317,8 +317,8 @@
       "y": 629,
       "reward": -11.0,
       "neighbors": [
-        "c_l_h",
-        "c_l_h_v"
+        "c_l_h_v",
+        "c_l_h"
       ]
     },
     "c_l_h_v": {
@@ -326,8 +326,8 @@
       "y": 582,
       "reward": -10.0,
       "neighbors": [
-        "t_l_h_v",
         "p",
+        "t_l_h_v",
         "bb"
       ]
     },
@@ -336,10 +336,10 @@
       "y": 153,
       "reward": -8.0,
       "neighbors": [
-        "bb_h_v",
         "bb_h",
-        "bb_l",
-        "bb_l_h"
+        "bb_h_v",
+        "bb_l_h",
+        "bb_l"
       ]
     },
     "bb_l": {
@@ -347,8 +347,8 @@
       "y": 241,
       "reward": -8.0,
       "neighbors": [
-        "bb_h_v",
         "bb_h",
+        "bb_h_v",
         "bb_l_h",
         "bb_v"
       ]
@@ -359,9 +359,9 @@
       "reward": -8.0,
       "neighbors": [
         "bb_h_v",
-        "bb_l",
         "bb_l_h",
-        "bb_v"
+        "bb_v",
+        "bb_l"
       ]
     },
     "bb_l_h": {
@@ -387,8 +387,8 @@
       "y": 238,
       "reward": -6.0,
       "neighbors": [
-        "easy",
-        "p_l_v_h"
+        "p_l_v_h",
+        "easy"
       ]
     },
     "easy": {
@@ -406,10 +406,10 @@
       "y": 446,
       "reward": -4.0,
       "neighbors": [
-        "bb_c_l_p_t_v",
         "bb_c_h_l_p_v",
-        "bb_c_h_p_t_v",
+        "bb_c_l_p_t_v",
         "bb_h_l_p_t_v",
+        "bb_c_h_p_t_v",
         "c_h_l_p_t_v"
       ]
     },
@@ -419,9 +419,9 @@
       "reward": -4.0,
       "neighbors": [
         "bb_c_l_p_t_v",
-        "bb_c_h_p_t_v",
         "bb_h_l_p_t_v",
         "c_h_l_p_t_v",
+        "bb_c_h_p_t_v",
         "bb_c_h_l_p_t"
       ]
     },
@@ -431,8 +431,8 @@
       "reward": -3.0,
       "neighbors": [
         "bb_c_l_p_t_v",
-        "easy_2",
-        "bb_h_l_p_t_v"
+        "bb_h_l_p_t_v",
+        "easy_2"
       ]
     },
     "bb_c_l_p_t_v": {
@@ -440,9 +440,9 @@
       "y": 441,
       "reward": -3.0,
       "neighbors": [
-        "bb_c_h_p_t_v",
         "easy_2",
-        "bb_h_l_p_t_v"
+        "bb_h_l_p_t_v",
+        "bb_c_h_p_t_v"
       ]
     },
     "bb_h_l_p_t_v": {
@@ -451,8 +451,8 @@
       "reward": -3.0,
       "neighbors": [
         "bb_c_l_p_t_v",
-        "bb_c_h_p_t_v",
-        "easy_2"
+        "easy_2",
+        "bb_c_h_p_t_v"
       ]
     },
     "c_h_l_p_t_v": {
@@ -460,10 +460,10 @@
       "y": 346,
       "reward": -4.0,
       "neighbors": [
-        "bb_c_l_p_t_v",
         "bb_c_h_l_p_v",
-        "bb_c_h_p_t_v",
+        "bb_c_l_p_t_v",
         "bb_h_l_p_t_v",
+        "bb_c_h_p_t_v",
         "bb_c_h_l_p_t"
       ]
     },

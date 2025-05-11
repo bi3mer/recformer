@@ -63,11 +63,11 @@ MDP.addNode(new CustomNode("hard", -1.1, 0, false, [], 1));
 // ========= Edges =========
 MDP.addDefaultEdge("start", "1", [["1", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l_h_v", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_h_v", "c", [["c", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_h_v", "t", [["t", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l_h", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_h", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_h", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("jump", "gap", [["gap", 0.99], [KEY_DEATH, 0.01]]);
 
@@ -77,75 +77,75 @@ MDP.addDefaultEdge("h", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l", "l_v", [["l_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_v", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_v", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_v", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("2", "jump", [["jump", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_v_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_v_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_v_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("1", "2", [["2", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("hv", "l", [["l", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("gap", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("gap", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("gap", "v", [["v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("v", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("v", "h", [["h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("v", "hv", [["hv", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("l_v", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("l_v", "l_h_v", [["l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("l_v", "l_h", [["l_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_h", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("p_h", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_h", "p_l", [["p_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_l", "p_l_h", [["p_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l", "p_h", [["p_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l", "p_v", [["p_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("p_l_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_h", "p_v_h", [["p_v_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("p_l_h", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("p_l_v_h", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("p_l_v_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 
-MDP.addDefaultEdge("t_l", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_l", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h", "t_v", [["t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_v", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_v", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_v", "t_h", [["t_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_v", "t_l", [["t_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("t_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
@@ -154,48 +154,48 @@ MDP.addDefaultEdge("t_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h", "t_h_v", [["t_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_l_h", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("t_h_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("t_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("t_h_v", "t_l_h", [["t_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_v", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_v", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_v", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("c_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h", "c_l", [["c_l", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
+MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l", "c_v", [["c_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l", "c_h", [["c_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_l", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("c_l_h", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h", "c_h_v", [["c_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_h_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_v", "c_l_h_v", [["c_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_v", "c_l_h", [["c_l_h", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "p", [["p", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_l_h_v", "t_l_h_v", [["t_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_l_h_v", "bb", [["bb", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_v", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_v", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_v", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_v", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_h", [["bb_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h", "bb_v", [["bb_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h", "bb_l", [["bb_l", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_l_h", "bb_h_v", [["bb_h_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
@@ -203,41 +203,41 @@ MDP.addDefaultEdge("bb_l_h", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]
 MDP.addDefaultEdge("bb_h_v", "bb_l_h", [["bb_l_h", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_v", "bb_l_h_v", [["bb_l_h_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_l_h_v", "p_l_v_h", [["p_l_v_h", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_l_h_v", "easy", [["easy", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("easy", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("easy", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("easy", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_t", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_t", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "c_h_l_p_t_v", [["c_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_l_p_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_c_h_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_h_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_h_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_c_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("bb_h_l_p_t_v", "easy_2", [["easy_2", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("bb_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_v", [["bb_c_h_l_p_v", 0.99], [KEY_DEATH, 0.01]]);
-MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_l_p_t_v", [["bb_c_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_h_l_p_t_v", [["bb_h_l_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
+MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_p_t_v", [["bb_c_h_p_t_v", 0.99], [KEY_DEATH, 0.01]]);
 MDP.addDefaultEdge("c_h_l_p_t_v", "bb_c_h_l_p_t", [["bb_c_h_l_p_t", 0.99], [KEY_DEATH, 0.01]]);
 
 MDP.addDefaultEdge("easy_2", "hard", [["hard", 0.99], [KEY_DEATH, 0.01]]);
@@ -728,11 +728,11 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXX----XXXX----XXXXX---X-X--XXX"
     ],
     [
-      "----------XXXXX----------------",
+      "-------------------------------",
       "----------V---V----------------",
       "------------o------------------",
       "-------------------------------",
-      "----------XXXXX----------------",
+      "-----------XXXX----------------",
       "-------------------------------",
       "-------XX----------------------",
       "-------------------------------",
@@ -745,11 +745,11 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "XXX-------------------------XXX"
     ],
     [
-      "----------XXXXX---------------X",
+      "------------------------------X",
       "----------V---V---------------X",
       "------------o-----------------X",
       "------------------------------X",
-      "----------XXXXX--------------oX",
+      "-----------XXXX--------------oX",
       "-----------------X-------H----X",
       "-------XX--------X--H------H--X",
       "-----------------XXXXXXXXXXXXXX",
@@ -863,10 +863,10 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "---------------------",
       "-------V----V--------",
       "---------oo----------",
-      "-------XXXXXX--------",
+      "------XXXXXXXX-------",
       "---------------------",
       "-------o----o--------",
-      "-----X----H---X------",
+      "----X-----H----X-----",
       "XXXXXXXXXXXXXXXXXXXXX"
     ],
     [
@@ -1019,10 +1019,10 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-----------------",
       "-----------------",
       "-----------------",
-      "-----------------",
-      "-----------------",
       "---------oo------",
+      "-----------------",
       "-------^XXXX^----",
+      "------X------X---",
       "-------V----V----",
       "---------oo------",
       "-----------------",
@@ -1033,14 +1033,14 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "------------------",
       "------------------",
       "------------------",
-      "------------------",
-      "------------------",
       "------XX-----XX---",
+      "------------------",
+      "------------------",
       "-------V-----V----",
       "------V-------V---",
       "----------o-------",
-      "------------------",
       "-----XXXXXXXXXXX--",
+      "------------------",
       "---------ooo------",
       "------------------",
       "XXXXXXXX^XXX^XXXXX"
@@ -1052,12 +1052,12 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-------------------",
       "-------------------",
       "-------------------",
-      "-------------------",
-      "------------X------",
+      "-----------X-------",
+      "-----------VX------",
       "------------VX-----",
       "-------------VX----",
-      "--------------VX---",
-      "---X-X---------V---",
+      "--------------V----",
+      "---X-X-------------",
       "---X^X-------------",
       "--XXXX-------------",
       "XXXXXXXXXXXXXXXXXXX"
@@ -1203,7 +1203,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "-----------------XXX------X---",
       "------V----V--------------V---",
       "-------------X-X--------------",
-      "--X-H--H--H--X-X--------------",
+      "--X-H-----H--X-X--------------",
       "XXXXXXXXXXXXXX^X-------X^XXXXX"
     ]
   ],
