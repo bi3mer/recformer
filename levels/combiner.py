@@ -18,7 +18,7 @@ typescript += "export const MDP = new Graph();\n\n"
 
 typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], -1));\n"
 typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], -1));\n"
-typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
+# typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
 # Get max reward
 max_r = -1
@@ -50,7 +50,7 @@ for id in G['graph']:
     # node = f'new CustomNode("{id}", {-(max_r-G["graph"][id]["reward"])/max_r}, 0, false, [], {depth})'
     N = G['graph'][id]
     is_terminal = "true" if id == 'end' else "false"
-    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {depth})'
+    node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {N["depth"]})'
     typescript += f"MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
