@@ -53,7 +53,8 @@ export const CIRCLE_MOVE_RADIUS = 2.5;
 export const LASER_WIDTH = BLOCK_WIDTH / 8.0;
 export const LASER_SCREEN_WIDTH = BLOCK_SCREEN_WIDTH / 8.0;
 export const LASER_LIFE_TIME = 0.6;
-export const LASER_CHARGE_TIME = 2.0;
+export const LASER_CHARGE_TIME = 1.5;
+export const LASER_WARN_TIME = 0.5;
 
 // Turret config
 export const TURRET_LOAD_TIME = 2.5;

@@ -778,7 +778,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "----------------",
       "----------------",
       "----------------",
-      "XXXXXXXXXXXXXXXX"
+      "XXXXXXX^XXXXXXXX"
     ],
     [
       "----------------------",
@@ -795,7 +795,7 @@ export const idToLevel:{ [key: string]: string[][] } = {
       "----------------------",
       "----------------------",
       "----------------------",
-      "XXXXXXXXXXXXXXXXXXXXXX"
+      "XXXXXX^XXXXXXXXXXXXXXX"
     ]
   ],
   "p": [

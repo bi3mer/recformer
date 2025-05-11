@@ -3,7 +3,12 @@ import {
   pointClone,
   pointSquareDistance,
 } from "../DataStructures/point";
-import { COLOR_ORANGE, COLOR_WHITE, COLOR_YELLOW } from "../colorPalette";
+import {
+  COLOR_LIGHT_ORANGE,
+  COLOR_ORANGE,
+  COLOR_WHITE,
+  COLOR_YELLOW,
+} from "../colorPalette";
 import { Camera } from "../core/camera";
 import {
   BLOCK_SCREEN_HEIGHT,
@@ -11,6 +16,7 @@ import {
   BLOCK_SIZE,
   LASER_CHARGE_TIME,
   LASER_LIFE_TIME,
+  LASER_WARN_TIME,
   NUM_ROWS,
 } from "../core/constants";
 import { GameObject } from "../core/gameObject";
@@ -43,6 +49,7 @@ export class LaserBlock extends RectangleGameObject {
   update(dt: number): void {
     if (pointSquareDistance(this.pos, this.game.protaganist().pos) > 150) {
       this.state = 0;
+      this.time = 0;
     }
 
     this.time += dt;
@@ -57,8 +64,16 @@ export class LaserBlock extends RectangleGameObject {
         break;
       }
       case 1: {
-        // charge up the laser
         if (this.time >= LASER_CHARGE_TIME) {
+          this.time = 0;
+          this.state = 2;
+          this.color = COLOR_LIGHT_ORANGE;
+        }
+        break;
+      }
+      case 2: {
+        // charge up the laser
+        if (this.time >= LASER_WARN_TIME) {
           this.time = 0;
           this.state = 0;
           this.color = COLOR_ORANGE;
@@ -96,6 +111,7 @@ export class LaserBlock extends RectangleGameObject {
     const topY = camera.rowToScreen(this.pos.y);
     const botY = topY + BLOCK_SCREEN_HEIGHT;
 
+    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(x, botY);
     ctx.lineTo(x + BLOCK_SCREEN_WIDTH / 2, topY);
@@ -104,7 +120,7 @@ export class LaserBlock extends RectangleGameObject {
     ctx.stroke();
 
     ctx.lineWidth = 1.3;
-    ctx.strokeStyle = COLOR_WHITE;
+    // ctx.strokeStyle = COLOR_WHITE;
     ctx.strokeRect(
       camera.columnToScreen(this.pos.x),
       camera.rowToScreen(this.pos.y),
