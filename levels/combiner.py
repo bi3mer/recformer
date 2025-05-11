@@ -14,10 +14,10 @@ typescript += 'import {CustomNode } from "./customNode";\n'
 typescript += 'import { KEY_DEATH, KEY_END, KEY_START } from "../core/constants";\n'
 
 typescript += "\n// ========= Nodes =========\n"
-typescript += "export const MDP = new Graph();\n\n"
+typescript += "export const HAND_MDP = new Graph();\n\n"
 
-typescript += "MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], [], -1));\n"
-typescript += "MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], [], -1));\n"
+typescript += "HAND_MDP.addNode(new CustomNode(KEY_START, 0, 0, false, [], [], -1));\n"
+typescript += "HAND_MDP.addNode(new CustomNode(KEY_DEATH, -1, 0, true, [], [], -1));\n"
 # typescript += "MDP.addNode(new CustomNode(KEY_END, 1, 0, true, [],-1));\n\n"
 
 # Get max reward
@@ -50,7 +50,7 @@ for id in G['graph']:
     N = G['graph'][id]
     is_terminal = "true" if id == 'end' else "false"
     node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {json.dumps(levels)},{N["depth"]})'
-    typescript += f"MDP.addNode({node});\n"
+    typescript += f"HAND_MDP.addNode({node});\n"
 
 typescript += "\n// ========= Edges =========\n"
 for id in G['graph']:
@@ -58,7 +58,7 @@ for id in G['graph']:
     #     typescript += f'MDP.addDefaultEdge(KEY_START, "{id}", [["{id}", 0.99], [KEY_DEATH, 0.01]])\n'
 
     for tgt in G['graph'][id]["neighbors"]:
-        typescript += f'MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]]);\n'
+        typescript += f'HAND_MDP.addDefaultEdge("{id}", "{tgt}", [["{tgt}", 0.99], [KEY_DEATH, 0.01]]);\n'
 
     typescript += "\n"
 
@@ -66,7 +66,7 @@ for id in G['graph']:
 # TYPE = "{ [key: string]: string[][] }"
 # typescript += f"export const idToLevel:{TYPE} = {json.dumps(id_to_lvl, indent=2)};\n"
 
-PATH = os.path.join("..", "src", "LevelGeneration", "levels.ts")
+PATH = os.path.join("..", "src", "LevelGeneration", "handcraftedMDP.ts")
 with open(PATH, "w") as f:
     f.write(typescript)
 

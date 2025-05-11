@@ -15,8 +15,7 @@ import { GameModel } from "../gameModel";
 import { replays } from "../replays";
 import { KEY_GAME, KEY_TRANSITION } from "./sceneKeys";
 import { TransitionScene } from "./transitionScene";
-import { MDP } from "../LevelGeneration/levels";
-import { choice } from "../LevelGeneration/GDM-TS/src/rand";
+import { HAND_MDP } from "../LevelGeneration/handcraftedMDP";
 import { CustomNode } from "../LevelGeneration/customNode";
 
 const DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
@@ -45,14 +44,14 @@ export class MainMenuScene extends Scene {
     let levelID = randomKey(replays);
     while (
       levelID == this.previousKey ||
-      (MDP.nodes[levelID] as CustomNode).levels.length === 0
+      (HAND_MDP.nodes[levelID] as CustomNode).levels.length === 0
     ) {
       levelID = randomKey(replays);
     }
     this.previousKey = levelID;
 
     // Get index for level and the actions
-    const N: CustomNode = MDP.nodes[levelID] as CustomNode;
+    const N: CustomNode = HAND_MDP.nodes[levelID] as CustomNode;
     const size = N.levels.length;
     const index = randomInt(0, size - 1);
 

@@ -3,7 +3,7 @@ import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
 import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
-import { MDP } from "./levels";
+import { HAND_MDP } from "./handcraftedMDP";
 import { ILevelDirector } from "./iLevelDirector";
 
 export class MDPLevelDirector implements ILevelDirector {
@@ -147,7 +147,9 @@ export class MDPLevelDirector implements ILevelDirector {
     console.log(this.keys);
 
     for (let i = 0; i < length; ++i) {
-      const stateLVL = choice((MDP.getNode(this.keys[i]) as CustomNode).levels);
+      const stateLVL = choice(
+        (HAND_MDP.getNode(this.keys[i]) as CustomNode).levels,
+      );
       this.columnsPerLevel.push(stateLVL[0].length);
 
       for (let r = 0; r < NUM_ROWS; ++r) {
