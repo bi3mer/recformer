@@ -57,7 +57,7 @@ export class GameModel {
     // player is always the first entity
     this.dynamicEntities.push(
       new Protaganist(
-        new Point(2, 12),
+        new Point(1, 12),
         new Point(0, 0),
         typeToAgent(agentType, this),
       ),
