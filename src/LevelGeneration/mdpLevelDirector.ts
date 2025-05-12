@@ -1,9 +1,10 @@
-import { policyIteration, valueIteration } from "./GDM-TS";
+import { Graph, policyIteration, valueIteration } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
 import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
 import { HAND_MDP } from "./handcraftedMDP";
+import { AUTO_MDP } from "./autoMDP";
 import { ILevelDirector } from "./iLevelDirector";
 
 export class MDPLevelDirector implements ILevelDirector {
@@ -13,8 +14,12 @@ export class MDPLevelDirector implements ILevelDirector {
   private columnsPerLevel: number[];
   private lossesInARow: number = 0;
   private playerWonLastRound: boolean = false;
+  private mdp: Graph;
 
-  constructor() {}
+  constructor() {
+    this.mdp = HAND_MDP;
+    // this.mdp = AUTO_MDP;
+  }
 
   playerBeatGame(): boolean {
     return this.playerIsOnLastLevel;
@@ -48,12 +53,12 @@ export class MDPLevelDirector implements ILevelDirector {
     for (let i = 0; i < pcLength; ++i) {
       const pc = percentCompleted[i];
       const id = this.keys[i];
-      const node = MDP.getNode(id) as CustomNode;
+      const node = this.mdp.getNode(id) as CustomNode;
 
       // add edge if the segemnt was completed by the player
       if (pc === 1) {
-        if (!MDP.hasEdge(KEY_START, id)) {
-          MDP.addDefaultEdge(KEY_START, id, [
+        if (!this.mdp.hasEdge(KEY_START, id)) {
+          this.mdp.addDefaultEdge(KEY_START, id, [
             [id, 1],
             [KEY_DEATH, 0.0],
           ]);
@@ -68,7 +73,7 @@ export class MDPLevelDirector implements ILevelDirector {
       // update incoming edges life and death probability
       const probLife = node.sumPercentCompleted / node.visitedCount;
       const probDeath = 1 - probLife;
-      MDP.mapEdges((e: Edge) => {
+      this.mdp.mapEdges((e: Edge) => {
         if (e.tgt === id) {
           // There are always two entries. First is ideal target state and the
           // second is death.
@@ -87,7 +92,7 @@ export class MDPLevelDirector implements ILevelDirector {
 
       // Only start removing edges lost at least 2 times in a row
       for (let i = 0; i < this.lossesInARow - 1; ++i) {
-        const neighbors = MDP.getNode(KEY_START).neighbors;
+        const neighbors = this.mdp.getNode(KEY_START).neighbors;
         const neighborsCount = neighbors.length;
 
         if (neighborsCount === 1) {
@@ -98,7 +103,7 @@ export class MDPLevelDirector implements ILevelDirector {
         let maxReward = -10000;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
-          const d = (MDP.getNode(nodeName) as CustomNode).depth;
+          const d = (this.mdp.getNode(nodeName) as CustomNode).depth;
           if (d > maxReward) {
             hardestNeighbor = nodeName;
             maxReward = d;
@@ -106,7 +111,7 @@ export class MDPLevelDirector implements ILevelDirector {
         }
 
         console.log("removing edge:", hardestNeighbor, maxReward);
-        MDP.removeEdge(KEY_START, hardestNeighbor);
+        this.mdp.removeEdge(KEY_START, hardestNeighbor);
       }
     }
 
@@ -114,7 +119,7 @@ export class MDPLevelDirector implements ILevelDirector {
   }
 
   public get(levelSegments: number): string[] {
-    const pi = policyIteration(MDP, 0.95, true, true, 20);
+    const pi = policyIteration(this.mdp, 0.95, true, true, 20);
     this.columnsPerLevel = [];
 
     // If player won, don't start from a level that they have definitely
@@ -148,7 +153,7 @@ export class MDPLevelDirector implements ILevelDirector {
 
     for (let i = 0; i < length; ++i) {
       const stateLVL = choice(
-        (HAND_MDP.getNode(this.keys[i]) as CustomNode).levels,
+        (this.mdp.getNode(this.keys[i]) as CustomNode).levels,
       );
       this.columnsPerLevel.push(stateLVL[0].length);
 

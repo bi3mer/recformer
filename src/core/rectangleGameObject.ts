@@ -4,7 +4,7 @@ import { Point } from "../DataStructures/point";
 import { GameObject } from "./gameObject";
 import { CircleGameObject } from "./circleGameObject";
 import { GameModel } from "../gameModel";
-import { TYPE_BLOCK } from "../GameObjects/gameObjectTypes";
+import { TYPE_BLOCK, TYPE_COIN } from "../GameObjects/gameObjectTypes";
 
 export abstract class RectangleGameObject extends GameObject {
   public size: Point;

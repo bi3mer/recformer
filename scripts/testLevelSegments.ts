@@ -46,6 +46,7 @@ async function testLevel(file: string): Promise<boolean> {
   return completable;
 }
 
+const start = performance.now();
 if (Bun.argv.length === 3) {
   const completable = await testLevel(Bun.argv[2]);
   console.log(`${Bun.argv[2]} was completable: ${completable}`);
@@ -63,3 +64,7 @@ if (Bun.argv.length === 3) {
     console.log("Done.");
   }
 }
+
+const end = performance.now();
+
+console.log(`Time taken: ${end - start} ms`);

@@ -64,7 +64,10 @@ export class MainMenuScene extends Scene {
   }
 
   update(dt: number): void {
-    if (this.game.state() !== GAME_STATE_PLAYING) {
+    if (
+      this.game.state() !== GAME_STATE_PLAYING ||
+      this.actionIndex >= this.actions.length
+    ) {
       this.onEnter();
     }
 
@@ -81,9 +84,13 @@ export class MainMenuScene extends Scene {
         this.frame = 0;
         ++this.actionIndex;
       }
+
       ++this.frame;
-      this.game.protaganist().agent.set(this.actions[this.actionIndex]);
-      this.game.update(DT);
+
+      if (this.actionIndex < this.actions.length) {
+        this.game.protaganist().agent.set(this.actions[this.actionIndex]);
+        this.game.update(DT);
+      }
     }
   }
 

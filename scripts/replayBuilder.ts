@@ -1,7 +1,7 @@
 import { Action } from "../src/Agents/action";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { CustomNode } from "../src/LevelGeneration/customNode";
-import { MDP } from "../src/LevelGeneration/levels";
+import { HAND_MDP } from "../src/LevelGeneration/handcraftedMDP";
 import { ASTAR_FRAME_TIME, ASTAR_UPDATES_PER_FRAME, astar } from "../src/aStar";
 import { GameModel } from "../src/gameModel";
 
@@ -17,12 +17,12 @@ replaysFile += `export const REPLAY_FRAME_TIME = ${ASTAR_FRAME_TIME};\n`;
 replaysFile += `export const REPLAY_UPDATES_PER_FRAME = ${ASTAR_UPDATES_PER_FRAME};\n\n`;
 replaysFile += `export const replays = {\n`;
 
-for (const K of Object.keys(MDP.nodes)) {
+for (const K of Object.keys(HAND_MDP.nodes)) {
   if (K === "start" || K === "death") {
     continue;
   }
 
-  const levels = (MDP.nodes[K] as CustomNode).levels;
+  const levels = (HAND_MDP.nodes[K] as CustomNode).levels;
   replaysFile += `  "${K}": [\n`;
   for (let jj = 0; jj < levels.length; ++jj) {
     const start = performance.now();

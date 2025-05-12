@@ -75,9 +75,6 @@ export class GameScene extends Scene {
         break;
       case GAME_STATE_LOST: {
         Logger.timePlayed = this.timePlayed;
-        Logger.coinsCollected = (
-          this.game.dynamicEntities[0] as Protaganist
-        ).coinsCollected;
 
         this.transitionScene.targetScene = KEY_PLAYER_LOST;
         this.changeScene = KEY_TRANSITION;
@@ -86,9 +83,6 @@ export class GameScene extends Scene {
       case GAME_STATE_WON: {
         Logger.result = "won";
         Logger.timePlayed = this.timePlayed;
-        Logger.coinsCollected = (
-          this.game.dynamicEntities[0] as Protaganist
-        ).coinsCollected;
 
         if (this.levelDirector.playerBeatGame()) {
           this.transitionScene.targetScene = KEY_PLAYER_BEAT_THE_GAME;
