@@ -35,7 +35,7 @@ const server = Bun.listen({
 
         const L: string[][] = [];
         for (const N of Object.values(HAND_MDP.nodes)) {
-          if (N.levels !== undefined) {
+          if (N.level !== undefined) {
             for (let i = 0; i < N.levels.length; ++i) {
               L.push(N.levels[i]);
             }
@@ -70,11 +70,6 @@ const server = Bun.listen({
           inverseDensity: inverseDensity(rows),
           // pathLength: pathLength(rows),
         };
-
-        console.log("=================================================");
-        for (let i = 0; i < rows.length; ++i) {
-          console.log(rows[i]);
-        }
 
         console.log(`completability: ${completability}`);
         console.log("=================================================");
