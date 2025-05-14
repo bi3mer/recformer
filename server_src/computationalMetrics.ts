@@ -48,6 +48,10 @@ export function coins(level: string[]): number {
   return countOccurrences(level, "o");
 }
 
+export function blueBlocks(level: string[]): number {
+  return countOccurrences(level, "b");
+}
+
 export function gaps(level: string[]): number {
   const lastRow = level[level.length - 1];
   let c = 0;
@@ -73,8 +77,10 @@ export function inverseDensity(level: string[]): number {
     }
   }
 
-  const H = (size * rowLength) / 2;
-  return Math.pow(c - H, 2) / (H * H);
+  return 1 - c / (size * rowLength);
+
+  // const H = (size * rowLength) / 2;
+  // return Math.pow(c - H, 2) / (H * H);
 }
 
 export function pathLength(level: string[]): number {

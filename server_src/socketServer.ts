@@ -1,10 +1,11 @@
 import { CONFIG } from "./config";
-import { MDP, idToLevel } from "../src/LevelGeneration/levels";
+import { HAND_MDP } from "../src/LevelGeneration/handcraftedMDP";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
 import { astar } from "../src/aStar";
 import { rowsToColumns, columnsToRows } from "./util";
 import {
+  blueBlocks,
   cirleEnemies as circleEnemies,
   coins,
   gaps,
@@ -33,11 +34,10 @@ const server = Bun.listen({
         console.log("sending levels.");
 
         const L: string[][] = [];
-        for (const l of Object.keys(MDP.nodes)) {
-          const levels = idToLevel[l];
-          if (levels !== undefined) {
-            for (let i = 0; i < levels.length; ++i) {
-              L.push(levels[i]);
+        for (const N of Object.values(HAND_MDP.nodes)) {
+          if (N.levels !== undefined) {
+            for (let i = 0; i < N.levels.length; ++i) {
+              L.push(N.levels[i]);
             }
           }
         }
@@ -50,6 +50,11 @@ const server = Bun.listen({
 
         // run game
         const rows = columnsToRows(lvl);
+        console.log("=================================================");
+        for (let i = 0; i < rows.length; ++i) {
+          console.log(rows[i]);
+        }
+
         const game = new GameModel(rows, AGENT_EMPTY);
         const [actions, completability] = astar(game);
         const result = {
@@ -60,9 +65,10 @@ const server = Bun.listen({
           lasers: lasers(lvl),
           turrets: turrets(lvl),
           coins: coins(lvl),
-          gaps: gaps(rows),
+          blueBlocks: blueBlocks(lvl),
+          // gaps: gaps(rows),
           inverseDensity: inverseDensity(rows),
-          pathLength: pathLength(rows),
+          // pathLength: pathLength(rows),
         };
 
         console.log("=================================================");

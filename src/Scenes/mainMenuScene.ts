@@ -40,64 +40,62 @@ export class MainMenuScene extends Scene {
   }
 
   onEnter(): void {
-    // get level that wasn't just shown to the player
-    let levelID = randomKey(replays);
-    while (
-      levelID == this.previousKey ||
-      (HAND_MDP.nodes[levelID] as CustomNode).levels.length === 0
-    ) {
-      levelID = randomKey(replays);
-    }
-    this.previousKey = levelID;
-
-    // Get index for level and the actions
-    const N: CustomNode = HAND_MDP.nodes[levelID] as CustomNode;
-    const size = N.levels.length;
-    const index = randomInt(0, size - 1);
-
-    // set up replay
-    this.actions = replays[levelID][index];
-    this.game = new GameModel(N.levels[index], AGENT_EMPTY);
-    this.actionIndex = 0;
-    this.frame = 0;
-    this.time = 0;
+    // // get level that wasn't just shown to the player
+    // let levelID = randomKey(replays);
+    // while (
+    //   levelID == this.previousKey ||
+    //   (HAND_MDP.nodes[levelID] as CustomNode).levels.length === 0
+    // ) {
+    //   levelID = randomKey(replays);
+    // }
+    // this.previousKey = levelID;
+    // // Get index for level and the actions
+    // const N: CustomNode = HAND_MDP.nodes[levelID] as CustomNode;
+    // const size = N.levels.length;
+    // const index = randomInt(0, size - 1);
+    // // set up replay
+    // this.actions = replays[levelID][index];
+    // this.game = new GameModel(N.levels[index], AGENT_EMPTY);
+    // this.actionIndex = 0;
+    // this.frame = 0;
+    // this.time = 0;
   }
 
   update(dt: number): void {
-    if (
-      this.game.state() !== GAME_STATE_PLAYING ||
-      this.actionIndex >= this.actions.length
-    ) {
-      this.onEnter();
-    }
+    // if (
+    //   this.game.state() !== GAME_STATE_PLAYING ||
+    //   this.actionIndex >= this.actions.length
+    // ) {
+    //   this.onEnter();
+    // }
 
     if (InputManager.isKeyDown(Key.SPACE)) {
       this.transitionScene.targetScene = KEY_GAME;
       this.changeScene = KEY_TRANSITION;
     }
 
-    this.time += dt;
-    if (this.time >= 0.0166666) {
-      this.time = this.time - 0.016666;
+    // this.time += dt;
+    // if (this.time >= 0.0166666) {
+    //   this.time = this.time - 0.016666;
 
-      if (this.frame >= REPLAY_UPDATES_PER_FRAME) {
-        this.frame = 0;
-        ++this.actionIndex;
-      }
+    //   if (this.frame >= REPLAY_UPDATES_PER_FRAME) {
+    //     this.frame = 0;
+    //     ++this.actionIndex;
+    //   }
 
-      ++this.frame;
+    //   ++this.frame;
 
-      if (this.actionIndex < this.actions.length) {
-        this.game.protaganist().agent.set(this.actions[this.actionIndex]);
-        this.game.update(DT);
-      }
-    }
+    //   if (this.actionIndex < this.actions.length) {
+    //     this.game.protaganist().agent.set(this.actions[this.actionIndex]);
+    //     this.game.update(DT);
+    //   }
+    // }
   }
 
   // Rendering only needs to be done once, so no need to use this function
   render(): void {
     this.ctx.clearRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    this.game.render(this.ctx, this.camera);
+    // this.game.render(this.ctx, this.camera);
 
     this.ctx.fillStyle = "black";
     this.ctx.fillRect(240, 60, 240, 47);

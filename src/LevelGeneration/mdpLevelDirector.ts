@@ -17,8 +17,8 @@ export class MDPLevelDirector implements ILevelDirector {
   private mdp: Graph;
 
   constructor() {
-    this.mdp = HAND_MDP;
-    // this.mdp = AUTO_MDP;
+    // this.mdp = HAND_MDP;
+    this.mdp = AUTO_MDP;
   }
 
   playerBeatGame(): boolean {
@@ -100,17 +100,17 @@ export class MDPLevelDirector implements ILevelDirector {
         }
 
         let hardestNeighbor = "";
-        let maxReward = -10000;
+        let maxDepth = -10000;
         for (let jj = 0; jj < neighborsCount; ++jj) {
           const nodeName = neighbors[jj];
           const d = (this.mdp.getNode(nodeName) as CustomNode).depth;
-          if (d > maxReward) {
+          if (d > maxDepth) {
             hardestNeighbor = nodeName;
-            maxReward = d;
+            maxDepth = d;
           }
         }
 
-        console.log("removing edge:", hardestNeighbor, maxReward);
+        console.log("removing edge:", hardestNeighbor, maxDepth);
         this.mdp.removeEdge(KEY_START, hardestNeighbor);
       }
     }
@@ -152,9 +152,8 @@ export class MDPLevelDirector implements ILevelDirector {
     console.log(this.keys);
 
     for (let i = 0; i < length; ++i) {
-      const stateLVL = choice(
-        (this.mdp.getNode(this.keys[i]) as CustomNode).levels,
-      );
+      console.warn("I need ot handle the link here");
+      const stateLVL = (this.mdp.getNode(this.keys[i]) as CustomNode).level;
       this.columnsPerLevel.push(stateLVL[0].length);
 
       for (let r = 0; r < NUM_ROWS; ++r) {

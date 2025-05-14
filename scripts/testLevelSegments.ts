@@ -20,16 +20,19 @@ async function testLevel(file: string): Promise<boolean> {
   let completable = true;
   for (let i = 0; i < rows.length; ++i) {
     if (rows[i] == "&") {
-      ++index;
       const gm = new GameModel(level, AGENT_EMPTY);
       const [_, c] = astar(gm);
 
       if (c !== 1.0) {
         console.log(`${file}_${index} was not completable: ${c}.`);
         completable = false;
+        process.exit(1);
+      } else {
+        console.log(`Beat ${file}_${index}.`);
       }
 
       level = [];
+      ++index;
     } else {
       level.push(rows[i]);
     }

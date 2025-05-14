@@ -1,11 +1,11 @@
 export const CONFIG = {
   "death-reward": -1,
-  "end-reward": 1,
+  "end-reward": 10,
   n: 3,
   "levels-are-horizontal": true,
-  "start-population-size": 20,
-  iterations: 20,
-  "elites-per-bin": 4,
+  "start-population-size": 200,
+  iterations: 200,
+  "elites-per-bin": 5,
   "start-strand-size": 10,
   "max-strand-size": 10,
   "n-gram-operators": true,
@@ -45,14 +45,18 @@ export const CONFIG = {
       max: 30,
     },
     {
-      name: "gaps",
+      name: "blueBlocks",
       max: 30,
     },
+    // {
+    //   name: "gaps",
+    //   max: 30,
+    // },
     {
       name: "inverseDensity",
       min: 0,
       max: 1,
-      resolution: 15,
+      resolution: 10,
     },
     // {
     //   name: "pathLength",

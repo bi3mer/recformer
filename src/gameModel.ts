@@ -187,6 +187,7 @@ export class GameModel {
     dt = dt / divisor;
 
     for (let subframe = 0; subframe < divisor; ++subframe) {
+      /////// Update loop
       let deSize = this.dynamicEntities.length;
       for (let i = 0; i < deSize; ++i) {
         const e = this.dynamicEntities[i];
@@ -194,14 +195,14 @@ export class GameModel {
         e.physicsUpdate(dt);
       }
 
-      // Sweep & prune collision detection for dynamic entities
+      /////// Collision detection
       const sortedIndices = Array.from(this.dynamicEntities.keys()).sort(
         (a, b) => this.dynamicEntities[a].leftX - this.dynamicEntities[b].leftX,
       );
 
-      for (let i = 0; i < deSize; ++i) {
+      for (let i = 0; i < sortedIndices.length; ++i) {
+        // Sweep & prune collision detection for dynamic entities
         const obj1 = this.dynamicEntities[sortedIndices[i]];
-
         for (let jj = i + 1; jj < sortedIndices.length && !obj1.dead; ++jj) {
           const obj2 = this.dynamicEntities[sortedIndices[jj]];
 
@@ -213,34 +214,14 @@ export class GameModel {
             obj1.collision(obj2);
           }
         }
-      }
-      // @NOTE: Circle objects currently do not interact with static entities
-      //        so we won't waste cycles.
-      // else if (e instanceof CircleGameObject) {
-      // ...
-      // }
 
-      // Clear dead dynamic entities
-      for (let i = 0; i < deSize; ++i) {
-        if (this.dynamicEntities[i].dead) {
-          if (i == 0) {
-            return; // game over
-          }
-
-          this.dynamicEntities.splice(i, 1);
-          --deSize;
-        }
-      }
-
-      // Grid collision detection for static entitites
-      for (let i = 0; i < deSize; ++i) {
-        const obj = this.dynamicEntities[i];
-        if (obj instanceof RectangleGameObject) {
+        // Grid collision detection for static entitites
+        if (obj1 instanceof RectangleGameObject) {
           const positions = [
-            obj.pos,
-            pointAdd(obj.pos, new Point(BLOCK_SIZE.x, 0)),
-            pointAdd(obj.pos, new Point(0, BLOCK_SIZE.y)),
-            pointAdd(obj.pos, BLOCK_SIZE),
+            obj1.pos,
+            pointAdd(obj1.pos, new Point(BLOCK_SIZE.x, 0)),
+            pointAdd(obj1.pos, new Point(0, BLOCK_SIZE.y)),
+            pointAdd(obj1.pos, BLOCK_SIZE),
           ];
 
           for (let jj = 0; jj < 4; ++jj) {
@@ -252,9 +233,26 @@ export class GameModel {
               point.x <= this.staticEntities[0].length &&
               this.staticEntities[point.y][point.x]
             ) {
-              obj.collision(new Block(point));
+              obj1.collision(new Block(point));
             }
           }
+        }
+        // @NOTE: Circle objects currently do not interact with static entities
+        //        so we won't waste cycles.
+        // else if (e instanceof CircleGameObject) {
+        // ...
+        // }
+      }
+
+      /////// Clear dead game objects
+      for (let i = 0; i < deSize; ++i) {
+        if (this.dynamicEntities[i].dead) {
+          if (i == 0) {
+            return; // game over
+          }
+
+          this.dynamicEntities.splice(i, 1);
+          --deSize;
         }
       }
     }

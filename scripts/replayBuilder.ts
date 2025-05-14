@@ -31,13 +31,13 @@ for (const K of Object.keys(HAND_MDP.nodes)) {
     const [levelActions, _] = astar(gm);
     const end = performance.now();
 
-    console.log(`${K}-${jj}: ${end - start} ms`);
     if (levelActions === undefined) {
       console.log(`A* failed for level ${K}`);
       process.exit(1);
     }
 
     // write
+    console.log(`${K}-${jj}: ${end - start} ms`);
     for (let jj = 0; jj < levelActions.length; ++jj) {
       const a = levelActions[jj];
       replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;

@@ -66,7 +66,7 @@ window.addEventListener("load", () => {
 
       /////////////////////////////////////////////////////////////////////////
       // Set up time limit
-      let timeLeft = 60 * 5; // 5 minutes
+      let timeLeft = 60 * 10; // 5 minutes
       const timeField = document.getElementById("time")!;
 
       if (!IS_STUDY) {
