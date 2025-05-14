@@ -32,5 +32,5 @@ function bfs(mdp: Graph, start: string, end: string) {
   return [];
 }
 
-// console.log(bfs(HAND_MDP, "start", "end"));
-console.log(bfs(AUTO_MDP, "start", "end"));
+console.log("hand:", bfs(HAND_MDP, "start", "end-0").length);
+console.log("auto:", bfs(AUTO_MDP, "start", "end-0").length);

@@ -15,8 +15,14 @@ import {
   lasers,
   pathLength,
   turrets,
+  ucurveDensity,
   verticalEnemies,
 } from "./computationalMetrics";
+import { REPLAY_FRAME_TIME, REPLAY_UPDATES_PER_FRAME } from "../src/replays";
+import { pointEuclideanDistance } from "../src/DataStructures/point";
+import { TYPE_ENEMY } from "../src/GameObjects/gameObjectTypes";
+
+const DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();
@@ -76,8 +82,48 @@ const server = Bun.listen({
 
         socket.write(encoder.encode(JSON.stringify(result)));
       } else if (request.substring(0, 6) === "reward") {
+        // get level
+        const lvl = JSON.parse(request.substring(6, request.length));
+
+        // run game
+        const rows = columnsToRows(lvl);
+        console.log("=================================================");
+        for (let i = 0; i < rows.length; ++i) {
+          console.log(rows[i]);
+        }
+
+        const game = new GameModel(rows, AGENT_EMPTY);
+        const [actions, completability] = astar(game);
+        const numActions = actions!.length;
+
+        const replayGame = new GameModel(rows, AGENT_EMPTY);
+        let proximityToEnemy = 0;
+
+        for (let i = 0; i < numActions; ++i) {
+          replayGame.protaganist().agent.set(actions![i]);
+          replayGame.update(DT);
+
+          // proximityToEnemy
+          const de = replayGame.dynamicEntities;
+          const deSize = de.length;
+          const playerPos = de[0].pos;
+          for (let i = 1; i < deSize; ++i) {
+            const e = de[i];
+            if (e.type === TYPE_ENEMY) {
+              const dist = pointEuclideanDistance(e.pos, playerPos);
+              proximityToEnemy += 1 / dist;
+            }
+          }
+        }
+
+        console.log(`completability: ${completability}`);
+        console.log("=================================================");
+
+        const density = ucurveDensity(rows);
+
         const result = {
-          reward: 0,
+          // reward: proximityToEnemy / numActions,
+          reward: density,
         };
 
         socket.write(encoder.encode(JSON.stringify(result)));

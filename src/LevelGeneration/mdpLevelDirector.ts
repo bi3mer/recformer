@@ -136,7 +136,8 @@ export class MDPLevelDirector implements ILevelDirector {
       const k = choice(pi[this.keys[i]]);
       this.keys.push(k);
 
-      if (k === KEY_END) {
+      if (k.includes(KEY_END)) {
+        this.playerIsOnLastLevel = true;
         break;
       }
     }
@@ -144,9 +145,6 @@ export class MDPLevelDirector implements ILevelDirector {
     // remove START id from keys since we won't use it after this
     this.keys.splice(0, 1);
     console.log(this.keys);
-
-    // Update if the player is on the last level
-    this.playerIsOnLastLevel = this.keys.includes(KEY_END);
 
     // Populate the level
     const lvl: string[] = Array(NUM_ROWS).fill("");
@@ -172,7 +170,7 @@ export class MDPLevelDirector implements ILevelDirector {
         lvl[r] += stateLVL[r];
       }
 
-      if (this.keys[i] === KEY_END) {
+      if (this.keys[i].includes(KEY_END)) {
         break;
       }
     }

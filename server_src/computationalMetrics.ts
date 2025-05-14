@@ -62,6 +62,25 @@ export function gaps(level: string[]): number {
   return c;
 }
 
+export function ucurveDensity(level: string[]): number {
+  let i = 0;
+  let jj = 0;
+  let c = 0;
+  const size = level.length;
+  const rowLength = level[0].length;
+  for (; i < size; ++i) {
+    const row = level[i];
+
+    for (jj = 0; jj < rowLength; ++jj) {
+      const char = row[jj];
+      c += char === "X" || char === "^";
+    }
+  }
+
+  const H = (size * rowLength) / 2;
+  return Math.pow(c - H, 2) / (H * H);
+}
+
 export function inverseDensity(level: string[]): number {
   let i = 0;
   let jj = 0;
