@@ -117,7 +117,6 @@ const server = Bun.listen({
             }
           }
 
-          console.log(Math.min(1, frameProximityToEnemy));
           proximityToEnemy += Math.min(1, frameProximityToEnemy);
         }
 

@@ -120,6 +120,8 @@ export class MDPLevelDirector implements ILevelDirector {
   }
 
   public get(levelSegments: number): string[] {
+    this.playerIsOnLastLevel = false;
+
     const pi = policyIteration(this.mdp, 0.95, true, true, 20);
     this.columnsPerLevel = [];
 
