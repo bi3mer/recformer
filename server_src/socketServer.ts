@@ -21,6 +21,7 @@ import {
 import { REPLAY_FRAME_TIME, REPLAY_UPDATES_PER_FRAME } from "../src/replays";
 import { pointEuclideanDistance } from "../src/DataStructures/point";
 import { TYPE_ENEMY } from "../src/GameObjects/gameObjectTypes";
+import { LaserBlock } from "../src/GameObjects/laserBlock";
 
 const DT = REPLAY_FRAME_TIME / REPLAY_UPDATES_PER_FRAME;
 
@@ -109,21 +110,23 @@ const server = Bun.listen({
           const playerPos = de[0].pos;
           for (let i = 1; i < deSize; ++i) {
             const e = de[i];
-            if (e.type === TYPE_ENEMY) {
+            if (e.type === TYPE_ENEMY || e instanceof LaserBlock) {
               const dist = pointEuclideanDistance(e.pos, playerPos);
               proximityToEnemy += 1 / dist;
             }
           }
         }
 
-        console.log(`completability: ${completability}`);
+        const enjoyment = proximityToEnemy / numActions;
+        const density = ucurveDensity(rows);
+        const difficulty = (density + enjoyment) / 2.0;
+
+        const reward = (enjoyment + difficulty) / 2.0;
+        console.log(enjoyment, difficulty, reward);
         console.log("=================================================");
 
-        const density = ucurveDensity(rows);
-
         const result = {
-          // reward: proximityToEnemy / numActions,
-          reward: density,
+          reward: reward,
         };
 
         socket.write(encoder.encode(JSON.stringify(result)));
