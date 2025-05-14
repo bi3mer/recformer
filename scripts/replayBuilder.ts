@@ -22,27 +22,23 @@ for (const K of Object.keys(HAND_MDP.nodes)) {
     continue;
   }
 
-  const levels = (HAND_MDP.nodes[K] as CustomNode).levels;
   replaysFile += `  "${K}": [\n`;
-  for (let jj = 0; jj < levels.length; ++jj) {
-    const start = performance.now();
-    replaysFile += "    [\n";
-    const gm = new GameModel(levels[jj], AGENT_EMPTY);
-    const [levelActions, _] = astar(gm);
-    const end = performance.now();
 
-    if (levelActions === undefined) {
-      console.log(`A* failed for level ${K}`);
-      process.exit(1);
-    }
+  const level = (HAND_MDP.nodes[K] as CustomNode).level;
+  const start = performance.now();
+  const gm = new GameModel(level, AGENT_EMPTY);
+  const [levelActions, _] = astar(gm);
+  const end = performance.now();
 
-    // write
-    console.log(`${K}-${jj}: ${end - start} ms`);
-    for (let jj = 0; jj < levelActions.length; ++jj) {
-      const a = levelActions[jj];
-      replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
-    }
-    replaysFile += "    ],\n";
+  if (levelActions === undefined) {
+    console.log(`A* failed for level ${K}`);
+    process.exit(1);
+  }
+
+  console.log(`${K}: ${end - start} ms`);
+  for (let jj = 0; jj < levelActions!.length; ++jj) {
+    const a = levelActions![jj];
+    replaysFile += `        new Action(${a.moveRight},${a.moveLeft},${a.jump}),\n`;
   }
   replaysFile += "  ],\n";
 }
