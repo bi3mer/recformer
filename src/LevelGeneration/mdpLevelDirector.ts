@@ -6,6 +6,7 @@ import { CustomNode } from "./customNode";
 import { HAND_MDP } from "./handcraftedMDP";
 import { AUTO_MDP } from "./autoMDP";
 import { ILevelDirector } from "./iLevelDirector";
+import { CustomEdge } from "./customEdge";
 
 export class MDPLevelDirector implements ILevelDirector {
   public playerIsOnLastLevel: boolean = false;
@@ -142,6 +143,7 @@ export class MDPLevelDirector implements ILevelDirector {
 
     // remove START id from keys since we won't use it after this
     this.keys.splice(0, 1);
+    console.log(this.keys);
 
     // Update if the player is on the last level
     this.playerIsOnLastLevel = this.keys.includes(KEY_END);
@@ -149,10 +151,20 @@ export class MDPLevelDirector implements ILevelDirector {
     // Populate the level
     const lvl: string[] = Array(NUM_ROWS).fill("");
     const length = this.keys.length;
-    console.log(this.keys);
 
     for (let i = 0; i < length; ++i) {
-      console.warn("I need ot handle the link here");
+      if (i > 0) {
+        const edge = this.mdp.getEdge(this.keys[i - 1], this.keys[i]);
+        if (edge instanceof CustomEdge) {
+          const link = (edge as CustomEdge).link;
+          if (link.length > 0) {
+            for (let r = 0; r < NUM_ROWS; ++r) {
+              lvl[r] += link[r];
+            }
+          }
+        }
+      }
+
       const stateLVL = (this.mdp.getNode(this.keys[i]) as CustomNode).level;
       this.columnsPerLevel.push(stateLVL[0].length);
 
