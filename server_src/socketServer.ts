@@ -108,13 +108,17 @@ const server = Bun.listen({
           const de = replayGame.dynamicEntities;
           const deSize = de.length;
           const playerPos = de[0].pos;
+          let frameProximityToEnemy = 0;
           for (let i = 1; i < deSize; ++i) {
             const e = de[i];
             if (e.type === TYPE_ENEMY || e instanceof LaserBlock) {
               const dist = pointEuclideanDistance(e.pos, playerPos);
-              proximityToEnemy += 1 / dist;
+              frameProximityToEnemy += 1 / dist;
             }
           }
+
+          console.log(Math.min(1, frameProximityToEnemy));
+          proximityToEnemy += Math.min(1, frameProximityToEnemy);
         }
 
         const enjoyment = proximityToEnemy / numActions;
