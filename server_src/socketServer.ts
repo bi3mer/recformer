@@ -3,6 +3,7 @@ import { HAND_MDP } from "../src/LevelGeneration/handcraftedMDP";
 import { AGENT_EMPTY } from "../src/Agents/agentType";
 import { GameModel } from "../src/gameModel";
 import { astar } from "../src/aStar";
+import { CustomNode } from "../src/LevelGeneration/customNode";
 import { rowsToColumns, columnsToRows } from "./util";
 import {
   blueBlocks,
@@ -35,10 +36,9 @@ const server = Bun.listen({
 
         const L: string[][] = [];
         for (const N of Object.values(HAND_MDP.nodes)) {
-          if (N.level !== undefined) {
-            for (let i = 0; i < N.levels.length; ++i) {
-              L.push(N.levels[i]);
-            }
+          const level = (N as CustomNode).level;
+          if (level !== undefined && level.length > 0) {
+            L.push(level);
           }
         }
 
