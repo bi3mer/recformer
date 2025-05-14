@@ -44,9 +44,6 @@ for id in G['graph']:
 
         levels.append(lvl)
 
-    # depth = id.split("-")[0]
-    depth = 1 # TODO: set the depth
-    # node = f'new CustomNode("{id}", {-(max_r-G["graph"][id]["reward"])/max_r}, 0, false, [], {depth})'
     N = G['graph'][id]
     is_terminal = "true" if id == 'end' else "false"
     node = f'new CustomNode("{id}", {-(max_r-N["reward"])/max_r}, 0, {is_terminal}, [], {json.dumps(levels)},{N["depth"]})'

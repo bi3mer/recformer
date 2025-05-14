@@ -20,6 +20,7 @@ function bfs(mdp: Graph, start: string, end: string) {
 
       return path.reverse();
     }
+
     for (let nextState of mdp.neighbors(state)) {
       if (nextState in cameFrom) continue;
 
@@ -31,5 +32,5 @@ function bfs(mdp: Graph, start: string, end: string) {
   return [];
 }
 
-console.log(bfs(HAND_MDP, "start", "end"));
+// console.log(bfs(HAND_MDP, "start", "end"));
 console.log(bfs(AUTO_MDP, "start", "end"));
