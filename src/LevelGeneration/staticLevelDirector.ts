@@ -1,0 +1,111 @@
+import { Graph, policyIteration, valueIteration } from "./GDM-TS";
+import { Edge } from "./GDM-TS/src/Graph/edge";
+import { choice } from "./GDM-TS/src/rand";
+import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
+import { CustomNode } from "./customNode";
+import { HAND_MDP } from "./handcraftedMDP";
+import { AUTO_MDP } from "./autoMDP";
+import { ILevelDirector } from "./iLevelDirector";
+import { CustomEdge } from "./customEdge";
+
+function bfs(mdp: Graph, start: string, end: string) {
+  let queue: string[] = [start];
+  let cameFrom: { [key: string]: string } = {};
+
+  while (queue.length > 0) {
+    let state = queue.shift()!;
+
+    if (state === end) {
+      // reconstruct path and return
+      let path: string[] = [end];
+      let curState = end;
+      while (curState !== start) {
+        curState = cameFrom[curState];
+        path.push(curState);
+      }
+
+      return path.reverse();
+    }
+
+    for (let nextState of mdp.neighbors(state)) {
+      if (nextState in cameFrom) continue;
+
+      cameFrom[nextState] = state;
+      queue.push(nextState);
+    }
+  }
+
+  return [];
+}
+
+export class StaticLevelDirector implements ILevelDirector {
+  public playerIsOnLastLevel: boolean = false;
+
+  private keys: string[];
+  private mdp: Graph;
+  private index: number = 0;
+  private path: string[];
+
+  constructor(mdp: Graph) {
+    this.mdp = mdp;
+
+    this.path = bfs(mdp, "start", "end-0");
+    this.path.shift(); // remove "start" node
+  }
+
+  playerBeatGame(): boolean {
+    return this.playerIsOnLastLevel;
+  }
+
+  public update(playerWon: boolean, playerColumn: number): void {
+    if (playerWon) {
+      this.index += this.keys.length;
+    }
+  }
+
+  public get(levelSegments: number): string[] {
+    this.playerIsOnLastLevel = false;
+
+    this.keys = [];
+    for (let i = 0; i < levelSegments; ++i) {
+      this.keys.push(this.path[i + this.index]);
+
+      if (this.keys[i].includes(KEY_END)) {
+        this.playerIsOnLastLevel = true;
+        break;
+      }
+    }
+
+    console.log(this.keys);
+
+    // Populate the level
+    const lvl: string[] = Array(NUM_ROWS).fill("");
+    const length = this.keys.length;
+
+    for (let i = 0; i < length; ++i) {
+      if (i > 0) {
+        const edge = this.mdp.getEdge(this.keys[i - 1], this.keys[i]);
+        if (edge instanceof CustomEdge) {
+          const link = (edge as CustomEdge).link;
+          if (link.length > 0) {
+            for (let r = 0; r < NUM_ROWS; ++r) {
+              lvl[r] += link[r];
+            }
+          }
+        }
+      }
+
+      const stateLVL = (this.mdp.getNode(this.keys[i]) as CustomNode).level;
+
+      for (let r = 0; r < NUM_ROWS; ++r) {
+        lvl[r] += stateLVL[r];
+      }
+
+      if (this.keys[i].includes(KEY_END)) {
+        break;
+      }
+    }
+
+    return lvl;
+  }
+}

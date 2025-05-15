@@ -17,9 +17,8 @@ export class MDPLevelDirector implements ILevelDirector {
   private playerWonLastRound: boolean = false;
   private mdp: Graph;
 
-  constructor() {
-    // this.mdp = HAND_MDP;
-    this.mdp = AUTO_MDP;
+  constructor(mdp: Graph) {
+    this.mdp = mdp;
   }
 
   playerBeatGame(): boolean {

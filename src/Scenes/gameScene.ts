@@ -6,6 +6,7 @@ import { MDPLevelDirector } from "../LevelGeneration/mdpLevelDirector";
 import { TransitionScene } from "./transitionScene";
 import { GameModel } from "../gameModel";
 import {
+  CONDITION_NOT_FOUND,
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
   GAME_STATE_WON,
@@ -23,6 +24,37 @@ import { RepeatingTimer } from "../core/repeatingTimer";
 import { Logger } from "../logger";
 import { Protaganist } from "../GameObjects/protaganist";
 import { Server } from "../server";
+import { HAND_MDP } from "../LevelGeneration/handcraftedMDP";
+import { AUTO_MDP } from "../LevelGeneration/autoMDP";
+import { CustomNode } from "../LevelGeneration/customNode";
+import { choice } from "../LevelGeneration/GDM-TS/src/rand";
+import { StaticLevelDirector } from "../LevelGeneration/staticLevelDirector";
+
+function createLevelDirector(condition: string): ILevelDirector {
+  if (condition === CONDITION_NOT_FOUND) {
+    console.log("Condition: hand");
+    return new MDPLevelDirector(HAND_MDP);
+  } else if (condition === "auto-r") {
+    console.log("Condition: auto-r");
+    return new MDPLevelDirector(AUTO_MDP);
+  } else if (condition === "auto-d") {
+    console.log("Condition: auto-d");
+
+    const maxDepth = (AUTO_MDP.nodes["end-0"] as CustomNode).depth - 1;
+    for (const nodeName in AUTO_MDP.nodes) {
+      const N = AUTO_MDP.nodes[nodeName] as CustomNode;
+      N.reward = N.depth - maxDepth;
+    }
+
+    return new MDPLevelDirector(AUTO_MDP);
+  } else if (condition === "static") {
+    console.log("Condition: static");
+    return new StaticLevelDirector(AUTO_MDP);
+  }
+
+  // no valid condition found, going with a random one
+  return createLevelDirector(choice(["auto-r", "auto-d", "static", "hand"]));
+}
 
 export class GameScene extends Scene {
   private ctx: CanvasRenderingContext2D;
@@ -47,8 +79,8 @@ export class GameScene extends Scene {
     this.agentType = agentType;
     this.transitionScene = transitionScene;
     this.camera = new Camera();
-    // this.levelDirector = new SingleLevelDirector();
-    this.levelDirector = new MDPLevelDirector();
+
+    this.levelDirector = createLevelDirector(condition);
   }
 
   onEnter(): void {
