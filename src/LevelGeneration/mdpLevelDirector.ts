@@ -127,7 +127,7 @@ export class MDPLevelDirector implements ILevelDirector {
     // If player won, don't start from a level that they have definitely
     // already played
     if (this.playerWonLastRound) {
-      this.keys = [choice(pi[KEY_START])];
+      this.keys = [KEY_START, choice(pi[KEY_START])];
     } else {
       this.keys = [KEY_START];
     }
