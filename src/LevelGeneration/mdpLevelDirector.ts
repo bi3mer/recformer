@@ -1,13 +1,7 @@
 import { Graph, policyIteration, valueIteration } from "./GDM-TS";
 import { Edge } from "./GDM-TS/src/Graph/edge";
 import { choice } from "./GDM-TS/src/rand";
-import {
-  KEY_DEATH,
-  KEY_END,
-  KEY_START,
-  LEVEL_SEGMENTS_PER_LEVEL,
-  NUM_ROWS,
-} from "../core/constants";
+import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
 import { ILevelDirector } from "./iLevelDirector";
 import { CustomEdge } from "./customEdge";
@@ -126,7 +120,6 @@ export class MDPLevelDirector implements ILevelDirector {
     this.playerIsOnLastLevel = false;
 
     const pi = policyIteration(this.mdp, 0.95, true, true, 20);
-    console.log(pi);
     this.columnsPerLevel = [];
 
     // If player won, don't start from a level that they have definitely
@@ -138,7 +131,6 @@ export class MDPLevelDirector implements ILevelDirector {
     }
 
     // USE MDP to create a policy and generate a new level
-    console.log(levelSegments, LEVEL_SEGMENTS_PER_LEVEL);
     for (let i = 0; i < levelSegments; ++i) {
       const k = choice(pi[this.keys[i]]);
       this.keys.push(k);

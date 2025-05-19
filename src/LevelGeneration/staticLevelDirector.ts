@@ -1,10 +1,6 @@
-import { Graph, policyIteration, valueIteration } from "./GDM-TS";
-import { Edge } from "./GDM-TS/src/Graph/edge";
-import { choice } from "./GDM-TS/src/rand";
-import { KEY_DEATH, KEY_END, KEY_START, NUM_ROWS } from "../core/constants";
+import { Graph } from "./GDM-TS";
+import { KEY_END, NUM_ROWS } from "../core/constants";
 import { CustomNode } from "./customNode";
-import { HAND_MDP } from "./handcraftedMDP";
-import { AUTO_MDP } from "./autoMDP";
 import { ILevelDirector } from "./iLevelDirector";
 import { CustomEdge } from "./customEdge";
 
@@ -49,7 +45,7 @@ export class StaticLevelDirector implements ILevelDirector {
   constructor(mdp: Graph) {
     this.mdp = mdp;
 
-    this.path = bfs(mdp, "start", "end-0");
+    this.path = bfs(mdp, "start", "end");
     this.path.shift(); // remove "start" node
   }
 
