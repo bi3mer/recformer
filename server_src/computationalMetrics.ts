@@ -85,8 +85,10 @@ export function inverseDensity(level: string[]): number {
   let i = 0;
   let jj = 0;
   let c = 0;
+
   const size = level.length;
   const rowLength = level[0].length;
+
   for (; i < size; ++i) {
     const row = level[i];
 
@@ -96,14 +98,6 @@ export function inverseDensity(level: string[]): number {
     }
   }
 
-  return 1 - c / (size * rowLength);
-
-  // const H = (size * rowLength) / 2;
-  // return Math.pow(c - H, 2) / (H * H);
-}
-
-export function pathLength(level: string[]): number {
-  // Create a heuristic that's based on the length of the solution pass minus the length of the level
-  console.warn("pathLength Heueristic not implemented.");
-  return 0;
+  const area = size * rowLength;
+  return 1 - c / area;
 }
