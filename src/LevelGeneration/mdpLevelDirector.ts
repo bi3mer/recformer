@@ -158,19 +158,20 @@ export class MDPLevelDirector implements ILevelDirector {
     const length = this.keys.length;
 
     for (let i = 0; i < length; ++i) {
+      const stateLVL = (this.mdp.getNode(this.keys[i]) as CustomNode).level;
       if (i > 0) {
         const edge = this.mdp.getEdge(this.keys[i - 1], this.keys[i]);
         if (edge instanceof CustomEdge) {
-          const link = (edge as CustomEdge).link;
-          if (link.length > 0) {
+          const link = edge.link;
+          const linkLength = link.length;
+          if (linkLength > 0) {
             for (let r = 0; r < NUM_ROWS; ++r) {
-              lvl[r] += link[r];
+              stateLVL[r] = link[r] + stateLVL[r];
             }
           }
         }
       }
 
-      const stateLVL = (this.mdp.getNode(this.keys[i]) as CustomNode).level;
       this.columnsPerLevel.push(stateLVL[0].length);
 
       for (let r = 0; r < NUM_ROWS; ++r) {
