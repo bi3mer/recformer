@@ -28,6 +28,7 @@ import { AUTO_MDP } from "../LevelGeneration/autoMDP";
 import { CustomNode } from "../LevelGeneration/customNode";
 import { choice } from "../LevelGeneration/GDM-TS/src/rand";
 import { StaticLevelDirector } from "../LevelGeneration/staticLevelDirector";
+import { Protaganist } from "../GameObjects/protaganist";
 
 function createLevelDirector(condition: string): ILevelDirector {
   if (condition === CONDITION_NOT_FOUND) {
@@ -156,6 +157,10 @@ export class GameScene extends Scene {
   }
 
   protected _onExit(): void {
+    Logger.coinsCollected = (
+      this.game.dynamicEntities[0] as Protaganist
+    ).coinsCollected;
+
     console.log(Logger.result);
     if (Logger.result !== "none") {
       Server.submitAttempt();
