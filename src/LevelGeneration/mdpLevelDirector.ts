@@ -9,8 +9,6 @@ import {
   NUM_ROWS,
 } from "../core/constants";
 import { CustomNode } from "./customNode";
-import { HAND_MDP } from "./handcraftedMDP";
-import { AUTO_MDP } from "./autoMDP";
 import { ILevelDirector } from "./iLevelDirector";
 import { CustomEdge } from "./customEdge";
 
