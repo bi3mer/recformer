@@ -1,5 +1,4 @@
 import { HAND_MDP } from "../src/LevelGeneration/handcraftedMDP";
-import { AUTO_MDP } from "../src/LevelGeneration/autoMDP";
 import { Graph } from "../src/LevelGeneration/GDM-TS";
 
 function bfs(mdp: Graph, start: string, end: string) {
@@ -32,5 +31,5 @@ function bfs(mdp: Graph, start: string, end: string) {
   return [];
 }
 
-console.log("hand:", bfs(HAND_MDP, "start", "end-0").length);
-console.log("auto:", bfs(AUTO_MDP, "start", "end").length);
+console.log(`Number of nodes: ${Object.keys(HAND_MDP.nodes).length}`);
+console.log(`Number of edges: ${Object.keys(HAND_MDP.edges).length}`);
