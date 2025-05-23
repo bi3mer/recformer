@@ -5,6 +5,10 @@ export class SingleLevelDirector implements ILevelDirector {
 
   constructor() {}
 
+  getKeys(): string[] {
+    return ["NA"];
+  }
+
   playerBeatGame(): boolean {
     return true;
   }

@@ -44,10 +44,7 @@ export class Logger {
     Logger.pathY = [];
     Logger.velX = [];
     Logger.velY = [];
-
-    // @TODO: not used in upcoming study
-    // Logger.condition = "CONDITION NOT ASSIGNED";
-    // Logger.levels = [];
+    Logger.levels = [];
   }
 
   static pushPlayerPositionAndVelocity(position: Point, velocity: Point): void {
@@ -62,7 +59,7 @@ export class Logger {
       id: Logger.playerID,
       version: Logger.version,
       condition: Logger.condition,
-      // levels: Logger.levels,
+      levels: Logger.levels,
       result: Logger.result,
       coinsCollected: Logger.coinsCollected,
       coinsInLevel: Logger.coinsInLevel,
@@ -79,8 +76,7 @@ export class Logger {
   static resetLog(): void {
     ++Logger.order;
 
-    // Logger.levels = [];
-    // Logger.levels = [];
+    Logger.levels = [];
     Logger.result = "none";
     Logger.coinsCollected = 0;
     Logger.coinsInLevel = 0;

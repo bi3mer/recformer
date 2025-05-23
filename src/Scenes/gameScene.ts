@@ -49,6 +49,7 @@ function createLevelDirector(condition: string): ILevelDirector {
 
   console.log(condition);
 
+  Logger.condition = condition;
   if (condition === "auto-r") {
     console.log("Condition: auto-r");
     return new MDPLevelDirector(AUTO_MDP);
@@ -160,6 +161,7 @@ export class GameScene extends Scene {
     Logger.coinsCollected = (
       this.game.dynamicEntities[0] as Protaganist
     ).coinsCollected;
+    Logger.levels = this.levelDirector.getKeys();
 
     console.log(Logger.result);
     if (Logger.result !== "none") {

@@ -49,6 +49,10 @@ export class StaticLevelDirector implements ILevelDirector {
     this.path.shift(); // remove "start" node
   }
 
+  getKeys(): string[] {
+    return this.keys;
+  }
+
   playerBeatGame(): boolean {
     return this.playerIsOnLastLevel;
   }

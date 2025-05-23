@@ -18,7 +18,6 @@ import { Server } from "./server";
 window.addEventListener("load", () => {
   audioLoad(() => {
     Server.getCondition((condition) => {
-      Logger.condition = condition;
       InputManager.init();
       Logger.init();
 

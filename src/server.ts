@@ -26,6 +26,7 @@ export class Server {
   }
 
   public static submitAttempt() {
+    console.log(Logger.getLog());
     if (!IS_STUDY) return;
 
     fetch("/log", {

@@ -19,6 +19,10 @@ export class MDPLevelDirector implements ILevelDirector {
     this.mdp = mdp;
   }
 
+  getKeys(): string[] {
+    return this.keys;
+  }
+
   playerBeatGame(): boolean {
     return this.playerIsOnLastLevel;
   }
