@@ -47,7 +47,8 @@ function createLevelDirector(condition: string): ILevelDirector {
     }
   }
 
-  console.log(condition);
+  // @TODO: remove, temp hard code auto-d condition
+  condition = "auto-d";
 
   Logger.condition = condition;
   if (condition === "auto-r") {
@@ -58,8 +59,11 @@ function createLevelDirector(condition: string): ILevelDirector {
 
     const maxDepth = (AUTO_MDP.nodes["end"] as CustomNode).depth - 1;
     for (const nodeName in AUTO_MDP.nodes) {
-      const N = AUTO_MDP.nodes[nodeName] as CustomNode;
-      N.designerReward = N.depth / maxDepth - 1;
+      if (nodeName !== "end") {
+        const N = AUTO_MDP.nodes[nodeName] as CustomNode;
+        N.designerReward = N.depth / maxDepth - 1;
+        N.updateReward();
+      }
     }
 
     return new MDPLevelDirector(AUTO_MDP);
