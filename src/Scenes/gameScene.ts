@@ -66,6 +66,8 @@ function createLevelDirector(condition: string): ILevelDirector {
       }
     }
 
+    Logger.condition = "auto-d-2";
+
     return new MDPLevelDirector(AUTO_MDP);
   } else if (condition === "static") {
     console.log("Condition: static");
