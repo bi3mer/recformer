@@ -10,6 +10,7 @@ import {
   GAME_STATE_LOST,
   GAME_STATE_PLAYING,
   GAME_STATE_WON,
+  IS_STUDY,
   LEVEL_SEGMENTS_PER_LEVEL,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
@@ -42,13 +43,12 @@ function createLevelDirector(condition: string): ILevelDirector {
       } else {
         condition = choice(CONDITIONS);
       }
-    } else {
+    } else if (IS_STUDY) {
       condition = choice(CONDITIONS);
+    } else {
+      condition = "hand";
     }
   }
-
-  // @TODO: remove, temp hard code auto-d condition
-  condition = "auto-d";
 
   Logger.condition = condition;
   if (condition === "auto-r") {
