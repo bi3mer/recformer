@@ -15,6 +15,6 @@
   title = {Recformer},
   year = {2025},
   publisher = {GitHub},
-  url = {https://github.com/karpathy/nanochat}
+  url = {https://github.com/bi3mer/recformer}
 }
 ```
