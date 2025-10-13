@@ -7,7 +7,7 @@
 
 ## Citing
 
-  If you use *Recformer* in your work, please cite as:
+  If you use *Recformer* in your research, please cite as:
 
 ```
 @misc{recformer,
